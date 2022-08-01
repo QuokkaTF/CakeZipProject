@@ -1,5 +1,5 @@
 package com.example.cakezip.domain.member
 
-enum class UserType {
-    CUSTOMER, SELLER
+enum class Gender {
+    MALE, FEMALE
 }
