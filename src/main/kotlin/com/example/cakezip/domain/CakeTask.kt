@@ -1,6 +1,8 @@
 package com.example.cakezip.domain
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import javax.persistence.*
 
@@ -15,6 +17,18 @@ class CakeTask : BaseEntity() {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AI 한다는 뜻
     @Column(name = "cake_task_id")
     private val cakeTaskId: Long? = null
+
+    @OneToMany
+    @JoinColumn(name = "cake_id")
+    private val cake: Cake?= null
+
+    @OneToMany
+    @JoinColumn(name = "cake_option_list_id")
+    private val cakeOptionList: CakeOptionList?= null
+
+    @OneToMany
+    @JoinColumn(name = "customer_id")
+    private val customer: Customer?= null
 
     private val status: String?=null
 
