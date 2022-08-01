@@ -2,6 +2,7 @@ package com.example.cakezip.domain.member
 
 import com.example.cakezip.domain.BaseEntity
 import lombok.*
+import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
@@ -14,7 +15,8 @@ class User : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private val userId: Long? = null
+    @NotNull
+    private val userId: Long = 0
 
     @Column(name = "user_email")
     private val userEmail: String? = null
