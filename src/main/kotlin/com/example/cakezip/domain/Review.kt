@@ -1,6 +1,8 @@
 package com.example.cakezip.domain
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import javax.persistence.*
 
@@ -26,5 +28,10 @@ class Review : BaseEntity() {
     private val reviewScore: String? = null
 
     private val status: String?=null
+
+
+    @OneToOne
+    @JoinColumn(name = "cake_id")
+    private val cake: Cake?= null
 
 }
