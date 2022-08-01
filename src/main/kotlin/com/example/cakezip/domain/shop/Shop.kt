@@ -1,6 +1,7 @@
 package com.example.cakezip.domain.shop
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.member.Seller
 import lombok.*
 import org.jetbrains.annotations.NotNull
 import javax.persistence.Column
@@ -8,6 +9,8 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.OneToOne
 
 @Entity
 @Getter
@@ -21,6 +24,10 @@ class Shop : BaseEntity() {
     @Column(name = "shop_id")
     @NotNull
     private val shopId: Long = 0
+
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    private val seller : Seller? = null
 
     @Column(name = "shop_name")
     @NotNull
