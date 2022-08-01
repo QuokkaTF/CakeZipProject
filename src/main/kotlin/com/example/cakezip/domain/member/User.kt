@@ -31,5 +31,4 @@ class User : BaseEntity() {
 
     private val status: String?=null
 
-    private var profileImage: String? = null
 }
