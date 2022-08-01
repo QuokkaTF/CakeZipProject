@@ -1,6 +1,7 @@
 package com.example.cakezip.domain
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import javax.persistence.*
 
@@ -17,5 +18,13 @@ class OrderList : BaseEntity() {
     private val orderListId: Long? = null
 
     private val status: String?=null
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private val order: Order?= null
+
+    @OneToOne
+    @JoinColumn(name = "cake_id")
+    private val cake: Cake?= null
 
 }
