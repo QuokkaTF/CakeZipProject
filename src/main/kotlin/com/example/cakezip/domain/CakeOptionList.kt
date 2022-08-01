@@ -2,6 +2,7 @@ package com.example.cakezip.domain
 
 import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import javax.persistence.*
 
@@ -16,6 +17,10 @@ class CakeOptionList : BaseEntity() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cake_option_list_id")
     private val cakeOptionListId: Long? = null
+
+    @OneToMany
+    @JoinColumn(name = "shop_id")
+    private val shopId: Shop?= null
 
     @Column(name = "option_title")
     private val optionTitle: String? = null
