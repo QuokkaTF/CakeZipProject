@@ -1,6 +1,7 @@
 package com.example.cakezip.domain.shop
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.member.Seller
 import lombok.*
 import org.jetbrains.annotations.NotNull
 import javax.persistence.*
@@ -17,6 +18,17 @@ class ShopImg() : BaseEntity()  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_img_id")
     private val shop_img_id: Long? = null
+
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private val shop: Shop? = null
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private val seller: Seller? = null
+
+
+
 
     @NotNull
     @Column(name = "shop_img_url")
