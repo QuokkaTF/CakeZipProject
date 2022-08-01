@@ -1,6 +1,7 @@
 package com.example.cakezip.domain.member
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import org.jetbrains.annotations.NotNull
 import javax.persistence.*
@@ -22,7 +23,9 @@ class Seller : BaseEntity() {
     @JoinColumn(name = "user_id")
     private val user:User ?= null
 
-    // 가게 식별자
+    @OneToOne
+    @JoinColumn(name="shop_id")
+    private val shop: Shop?= null
 
     private val status: String?=null
 }
