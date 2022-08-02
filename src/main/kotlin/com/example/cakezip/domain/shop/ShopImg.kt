@@ -23,13 +23,6 @@ class ShopImg() : BaseEntity()  {
     @JoinColumn(name = "shop_id")
     private val shop: Shop? = null
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private val seller: Seller? = null
-
-
-
-
     @NotNull
     @Column(name = "shop_img_url")
     private val shop_img_url: String = ""
