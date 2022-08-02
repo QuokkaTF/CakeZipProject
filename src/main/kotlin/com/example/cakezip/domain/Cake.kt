@@ -27,11 +27,11 @@ class Cake : BaseEntity() {
 
     private val status: String?=null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "shop_id")
     private val shop: Shop?= null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private val customer: Customer?= null
 

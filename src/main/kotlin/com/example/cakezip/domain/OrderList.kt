@@ -19,11 +19,11 @@ class OrderList : BaseEntity() {
 
     private val status: String?=null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "order_id")
-    private val order: Order?= null
+    private val order: Orders?= null
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cake_id")
     private val cake: Cake?= null
 

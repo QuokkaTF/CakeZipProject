@@ -18,7 +18,7 @@ class CakeOptionList : BaseEntity() {
     @Column(name = "cake_option_list_id")
     private val cakeOptionListId: Long? = null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "shop_id")
     private val shopId: Shop?= null
 
