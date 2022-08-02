@@ -22,7 +22,7 @@ class Customer : BaseEntity(){
     @JoinColumn(name = "user_id")
     private val user:User ?= null
 
-    @Column(name = "genber")
+    @Column(name = "gender")
     @Enumerated(value = EnumType.STRING)
     private val gender: Gender? = null
 

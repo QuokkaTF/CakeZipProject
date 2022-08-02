@@ -26,10 +26,6 @@ class CakeTask : BaseEntity() {
     @JoinColumn(name = "cake_option_list_id")
     private val cakeOptionList: CakeOptionList?= null
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private val customer: Customer?= null
-
     private val status: String?=null
 
 }

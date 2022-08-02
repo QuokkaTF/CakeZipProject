@@ -1,6 +1,5 @@
 package com.example.cakezip.domain
 
-import com.example.cakezip.domain.BaseEntity
 import lombok.*
 import javax.persistence.*
 
