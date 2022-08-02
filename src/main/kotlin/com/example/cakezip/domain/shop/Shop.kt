@@ -29,6 +29,15 @@ class Shop : BaseEntity() {
     @JoinColumn(name = "seller_id")
     private val seller : Seller? = null
 
+    @Column(name = "shop_latitude")
+    private val shop_latitude : Float? = null
+
+    @Column(name = "shop_longitude")
+    private val shop_longitude : Float? = null
+
+    @Column(name = "shop_area")
+    private val shop_area : String? = null
+
     @Column(name = "shop_name")
     @NotNull
     private val shop_name: String = ""
