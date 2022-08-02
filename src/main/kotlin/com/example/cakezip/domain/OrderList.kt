@@ -23,7 +23,7 @@ class OrderList : BaseEntity() {
     @JoinColumn(name = "order_id")
     private val order: Orders?= null
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cake_id")
     private val cake: Cake?= null
 

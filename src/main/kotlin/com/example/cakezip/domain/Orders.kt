@@ -13,14 +13,14 @@ class Orders : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    @NonNull
-    private val orderId: Long = 0
+    private val orderId: Long? = null
 
     @Column(name = "merchant_uid")
-    private val merchantUid: Int? = null
+    private val merchantUid: Long? = null
 
     @Column(name = "merchant_price")
-    private val merchantPrice: Int? = null
+    private val merchantPrice: Long? = null
+
 
     private val status: String?=null
 

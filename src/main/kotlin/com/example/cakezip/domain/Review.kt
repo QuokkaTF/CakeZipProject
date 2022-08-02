@@ -25,10 +25,9 @@ class Review : BaseEntity() {
     private val reviewContent: String? = null
 
     @Column(name = "review_score")
-    private val reviewScore: String? = null
+    private val reviewScore: Float? = null
 
     private val status: String?=null
-
 
     @OneToOne
     @JoinColumn(name = "cake_id")
