@@ -18,15 +18,15 @@ class CakeTask : BaseEntity() {
     @Column(name = "cake_task_id")
     private val cakeTaskId: Long? = null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "cake_id")
     private val cake: Cake?= null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "cake_option_list_id")
     private val cakeOptionList: CakeOptionList?= null
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private val customer: Customer?= null
 
