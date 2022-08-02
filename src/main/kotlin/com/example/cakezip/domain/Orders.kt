@@ -21,6 +21,7 @@ class Orders : BaseEntity() {
     @Column(name = "merchant_price")
     private val merchantPrice: Long? = null
 
+
     private val status: String?=null
 
 }
