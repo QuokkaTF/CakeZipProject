@@ -1,6 +1,5 @@
 package com.example.cakezip.domain
 
-import com.example.cakezip.domain.BaseEntity
 import lombok.*
 import javax.persistence.*
 
@@ -10,11 +9,12 @@ import javax.persistence.*
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-class Order : BaseEntity() {
+class Orders : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private val cakeId: Int? = null
+    @NonNull
+    private val orderId: Long = 0
 
     @Column(name = "merchant_uid")
     private val merchantUid: Int? = null
