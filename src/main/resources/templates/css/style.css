@@ -36,7 +36,7 @@ a {
 }
 
 .site-logo {
-    font-size: 2.5rem;
+    font-size: 3rem;
     line-height: 1;
     font-family: 'Righteous', cursive;
 }
@@ -85,6 +85,10 @@ a {
 .nav-item .nav-link {
     padding-top: .2rem;
     padding-bottom: .3rem;
+}
+
+.bg-lightpurple {
+    background-color: #EDE7F6 !important;
 }
 
 .bg-purple {
@@ -377,4 +381,20 @@ table td img {
         border-top: 1px solid #c7c8c9;
     }
 
+}
+
+.btn-purple {
+  color: #AD81D5;
+  border-color: #AD81D5;
+
+}
+
+.btn-purple:hover {
+  color: #fff;
+  background-color: #AD81D5;
+  border-color: #AD81D5;
+}
+
+.page-title {
+    color: rgba(50, 50, 50, .85);
 }
