@@ -1,6 +1,5 @@
 body {
     background-color: #eaeaea;
-    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 a {
@@ -13,7 +12,6 @@ a {
     padding: 0;
     list-style: none;
     font-size: 13px;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .top-nav li {
@@ -22,6 +20,7 @@ a {
     border-right: 1px solid #fff;
 
 }
+
 
 .top-nav li:last-of-type {
     border-right: 0;
@@ -138,7 +137,7 @@ a.product-name:hover, a.product-name:focus {
 }
 
 .footer-logo {
-    font-size: 1.65rem;
+    font-size: 3rem;
     font-family: 'Righteous', cursive;
 }
 
@@ -146,15 +145,22 @@ a.product-name:hover, a.product-name:focus {
     margin: 0;
     padding: 0;
     list-style: none;
+
 }
 
 .footer-nav li {
     margin-top: 10px;
 }
 
-.footer-logo a, .footer-nav a{
+.footer-logo a{
     color: #e0e0e0;
     text-decoration: none;
+}
+
+.footer-nav a{
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .footer-logo img {
