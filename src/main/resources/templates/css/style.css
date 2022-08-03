@@ -398,3 +398,12 @@ table td img {
 .page-title {
     color: rgba(50, 50, 50, .85);
 }
+
+.text-purple {
+    color: #AD81D5;
+}
+
+.order-short {
+    font-size: 1.2rem;
+    color: #656565;
+}
