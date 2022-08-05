@@ -20,11 +20,9 @@ class CakeOptionList(
     val optionTitle: String,
 
     @Column(name = "option_detail")
-    val optionDetail: String,
+    var optionDetail: String,
 
     @Column(name = "option_price")
     val optionPrice: Long,
 
-    @Enumerated(value = EnumType.STRING)
-    var userType: UserType
     ) : BaseEntity() {}

@@ -15,7 +15,7 @@ class ShopImg(
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    private val shop: Shop,
+    val shop: Shop,
 
-    val shop_img_url: String,
+    var shop_img_url: String,
     ) : BaseEntity() {}

@@ -19,8 +19,6 @@ class CakeTask(
 
     @ManyToOne
     @JoinColumn(name = "cake_option_list_id")
-    val cakeOptionList: CakeOptionList,
+    var cakeOptionList: CakeOptionList,
 
-    @Enumerated(value = EnumType.STRING)
-    var userType: UserType
     ) : BaseEntity() {}
