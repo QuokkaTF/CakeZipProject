@@ -3,29 +3,29 @@ package com.example.cakezip.domain
 import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.domain.shop.Shop
 import lombok.*
+import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-class Cake : BaseEntity() {
+class Cake(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val cakeId:Long ?= null,
 
-    private val cakeId: Long? = null
+    var pickupDate: String,
+    
+    var cakeStatus: String,
 
-    private val pickupDate: String? = null
-
-    private val cakeStatus: String? = null
-
-    private val status: String?=null
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    private val shop: Shop?= null
+    val shop: Shop,
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private val customer: Customer?= null
+    val customer: Customer,
 
-}
+    ) : BaseEntity() {}

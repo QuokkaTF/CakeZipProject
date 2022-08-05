@@ -7,25 +7,15 @@ import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class ShopImg() : BaseEntity()  {
+class ShopImg(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shop_img_id")
-    private val shop_img_id: Long? = null
+    val shop_img_id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    private val shop: Shop? = null
+    val shop: Shop,
 
-    @NotNull
-    @Column(name = "shop_img_url")
-    private val shop_img_url: String = ""
-
-    private val status: String?=null
-}
+    var shop_img_url: String,
+    ) : BaseEntity() {}
