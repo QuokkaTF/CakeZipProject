@@ -22,30 +22,30 @@ class Shop(
     @JoinColumn(name = "seller_id")
     val seller : Seller,
 
-    val shopLatitude : Float,
+    var shopLatitude : Float,
 
-    val shopLongitude : Float,
+    var shopLongitude : Float,
 
-    val shopArea : String,
+    var shopArea : String, // 가게의 대략적인 지역 예) 서울시 구로구
 
     @NotNull
-    val shopName: String,
+    var shopName: String,
 
     @NotNull
     val businessNum: String,
 
     @NotNull
-    val shopPhoneNum: String,
+    var shopPhoneNum: String,
 
     @NotNull
-    val shopEmail: String,
+    var shopEmail: String,
 
     @NotNull
-    val shopAddress: String,
+    var shopAddress: String, // 가게 상세 지역 (번지수 까지 자세하게)
 
     @NotNull
-    val shopImgDescriptionUrl: String,
+    var shopImgDescriptionUrl: String,
 
     @NotNull
-    val shop_short_descriptor: String = "",
+    var shop_short_descriptor: String = "",
 ) : BaseEntity() {}

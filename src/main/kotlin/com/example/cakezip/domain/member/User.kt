@@ -9,7 +9,7 @@ import javax.persistence.*
 class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var userId: Long?=null,
+    val userId: Long?=null,
 
     var userEmail: String,
 
@@ -18,5 +18,5 @@ class User (
     var phoneNum: String,
 
     @Enumerated(value = EnumType.STRING)
-    var userType: UserType,
+    val userType: UserType,
     ) : BaseEntity() {}

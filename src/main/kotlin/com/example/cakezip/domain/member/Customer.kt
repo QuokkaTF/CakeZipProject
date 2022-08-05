@@ -16,5 +16,5 @@ class Customer(
     @Enumerated(value = EnumType.STRING)
     val gender: Gender,
 
-    val areas : String,
+    var areas : String,
 ) : BaseEntity(){}
