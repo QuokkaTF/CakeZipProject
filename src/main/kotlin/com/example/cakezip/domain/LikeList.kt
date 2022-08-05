@@ -2,32 +2,24 @@ package com.example.cakezip.domain
 
 import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.domain.shop.Shop
 import org.jetbrains.annotations.NotNull
 import lombok.*
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class LikeList : BaseEntity() {
+class LikeList(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AI 한다는 뜻
-    @Column(name = "like_list_id")
-    private val likeListId: Long ?= null
+    val likeListId: Long ?= null,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    private val shop:Shop ?= null
+    val shop:Shop,
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private val customer:Customer ?= null
+    val customer:Customer,
 
-    private val status: String? = null
-
-
-}
+    ) : BaseEntity() {}

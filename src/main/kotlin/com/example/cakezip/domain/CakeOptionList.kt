@@ -7,30 +7,24 @@ import lombok.*
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class CakeOptionList : BaseEntity() {
+class CakeOptionList(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cake_option_list_id")
-    private val cakeOptionListId: Long? = null
+    val cakeOptionListId: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    private val shopId: Shop?= null
+    val shopId: Shop,
 
     @Column(name = "option_title")
-    private val optionTitle: String? = null
+    val optionTitle: String,
 
     @Column(name = "option_detail")
-    private val optionDetail: String?= null
+    val optionDetail: String,
 
     @Column(name = "option_price")
-    private val optionPrice: Long?= null
+    val optionPrice: Long,
 
-    private val status: String?=null
-
-}
+    @Enumerated(value = EnumType.STRING)
+    var userType: UserType
+    ) : BaseEntity() {}
