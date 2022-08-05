@@ -13,59 +13,39 @@ import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Shop : BaseEntity() {
+class Shop(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shop_id")
-    @NotNull
-    private val shopId: Long = 0
+    val shopId: Long,
 
     @OneToOne
     @JoinColumn(name = "seller_id")
-    private val seller : Seller? = null
+    val seller : Seller,
 
-    @Column(name = "shop_latitude")
-    private val shop_latitude : Float? = null
+    val shopLatitude : Float,
 
-    @Column(name = "shop_longitude")
-    private val shop_longitude : Float? = null
+    val shopLongitude : Float,
 
-    @Column(name = "shop_area")
-    private val shop_area : String? = null
+    val shopArea : String,
 
-    @Column(name = "shop_name")
     @NotNull
-    private val shop_name: String = ""
+    val shopName: String,
 
-    @Column(name = "business_num")
     @NotNull
-    private val business_num: String = ""
+    val businessNum: String,
 
-    @Column(name = "shop_phone_num")
     @NotNull
-    private val shop_phone_num: String = ""
+    val shopPhoneNum: String,
 
-    @Column(name = "shop_email")
     @NotNull
-    private val shop_email: String = ""
+    val shopEmail: String,
 
-    @Column(name = "shop_address")
     @NotNull
-    private val shop_address: String = ""
+    val shopAddress: String,
 
-    @Column(name = "shop_img_description_url")
     @NotNull
-    private val shop_img_description_url: String = ""
+    val shopImgDescriptionUrl: String,
 
-    @Column(name = "shop_short_descriptor")
     @NotNull
-    private val shop_short_descriptor: String = ""
-
-    private val status: String?=null
-
-}
+    val shop_short_descriptor: String = "",
+) : BaseEntity() {}
