@@ -10,6 +10,6 @@ class Orders(
     val orderId: Long? = null,
 
     val merchantUid: Long,
-    val merchantPrice: Long,
+    val merchantPrice: Int,
 
     ) : BaseEntity() {}

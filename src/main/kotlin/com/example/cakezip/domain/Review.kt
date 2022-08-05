@@ -15,10 +15,9 @@ class Review(
     val reviewTitle: String,
     val reviewContent: String,
     val reviewScore: Float,
-    val status: String,
 
     @OneToOne
     @JoinColumn(name = "cake_id")
-    private val cake: Cake,
+    val cake: Cake,
 
     ) : BaseEntity() {}

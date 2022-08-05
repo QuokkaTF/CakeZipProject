@@ -15,8 +15,8 @@ class Cake(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val cakeId:Long ?= null,
 
-    val pickupDate: String,
-    val cakeStatus: String,
+    var pickupDate: String,
+    var cakeStatus: String,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
