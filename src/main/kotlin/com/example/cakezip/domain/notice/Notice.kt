@@ -8,32 +8,21 @@ import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Notice : BaseEntity(){
+class Notice(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "notice_id")
-    @NotNull
-    private val noticeId: Long = 0
+    val noticeId:Long,
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private val customer: Customer?= null
+    val customer: Customer,
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private val seller: Seller?= null
+    val seller: Seller,
 
-    @Column(name = "notice_message")
-    private val noticeMessage: String ?=null
+    val noticeMessage: String,
 
-    @Column(name = "notice_type")
     @Enumerated(value = EnumType.STRING)
-    private val noticeType: NoticeType? = null
-
-    private val status : String ?= null
-}
+    val noticeType: NoticeType,
+) : BaseEntity(){}

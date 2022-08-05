@@ -16,7 +16,9 @@ class Cake(
     val cakeId:Long ?= null,
 
     var pickupDate: String,
+    
     var cakeStatus: String,
+
 
     @ManyToOne
     @JoinColumn(name = "shop_id")

@@ -6,31 +6,17 @@ import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class User : BaseEntity() {
+class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    @NotNull
-    private val userId: Long = 0
+    val userId: Long?=null,
 
-    @Column(name = "user_email")
-    private val userEmail: String? = null
+    var userEmail: String,
 
-    @Column(name = "user_password")
-    private val password: String?= null
+    var password: String,
 
-    @Column(name = "user_phone")
-    private val phoneNum: String?= null
+    var phoneNum: String,
 
-    @Column(name = "user_type")
     @Enumerated(value = EnumType.STRING)
-    private val userType: UserType? = null
-
-    private val status: String?=null
-
-}
+    val userType: UserType,
+    ) : BaseEntity() {}

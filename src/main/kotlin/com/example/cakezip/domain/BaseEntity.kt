@@ -13,12 +13,16 @@ import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-@Getter
+@NoArgsConstructor
 open class BaseEntity {
+
+    var status: String?= null
+
     @CreatedDate
     @Column(updatable = false)
-    private val createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime?=null
 
     @LastModifiedDate
-    private val updatedAt: LocalDateTime? = null
+    @Column(updatable = false)
+    var updatedAt: LocalDateTime?=null
 }

@@ -1,33 +1,20 @@
 package com.example.cakezip.domain.member
 
 import com.example.cakezip.domain.BaseEntity
-import lombok.*
-import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Customer : BaseEntity(){
+class Customer(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    @NotNull
-    private val customerId: Long = 0
+    val customerId: Long,
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private val user:User ?= null
+    val user:User,
 
-    @Column(name = "gender")
     @Enumerated(value = EnumType.STRING)
-    private val gender: Gender? = null
+    val gender: Gender,
 
-    @Column(name="area")
-    private val ares : String?=null
-
-    private val status : String?=null
-}
+    var areas : String,
+) : BaseEntity(){}
