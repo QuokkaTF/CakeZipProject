@@ -7,30 +7,17 @@ import lombok.*
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Review : BaseEntity() {
+class Review(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private val reviewId: Long? = null
+    private val reviewId: Long? = null,
     
-    @Column(name = "review_title")
-    private val reviewTitle: String? = null
-
-    @Column(name = "review_content")
-    private val reviewContent: String? = null
-
-    @Column(name = "review_score")
-    private val reviewScore: Float? = null
-
-    private val status: String?=null
+    val reviewTitle: String,
+    val reviewContent: String,
+    val reviewScore: Float,
 
     @OneToOne
     @JoinColumn(name = "cake_id")
-    private val cake: Cake?= null
+    val cake: Cake,
 
-}
+    ) : BaseEntity() {}

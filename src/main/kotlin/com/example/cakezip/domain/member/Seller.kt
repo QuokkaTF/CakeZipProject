@@ -7,25 +7,16 @@ import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Seller : BaseEntity() {
+class Seller(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "seller_id")
-    @NotNull
-    private val sellerId: Long = 0
+    val sellerId: Long,
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private val user:User ?= null
+    val user:User,
 
     @OneToOne
     @JoinColumn(name="shop_id")
-    private val shop: Shop?= null
-
-    private val status: String?=null
-}
+    val shop: Shop,
+) : BaseEntity() {}

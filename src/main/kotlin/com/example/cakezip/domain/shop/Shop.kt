@@ -13,59 +13,39 @@ import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Shop : BaseEntity() {
+class Shop(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shop_id")
-    @NotNull
-    private val shopId: Long = 0
+    val shopId: Long,
 
     @OneToOne
     @JoinColumn(name = "seller_id")
-    private val seller : Seller? = null
+    val seller : Seller,
 
-    @Column(name = "shop_latitude")
-    private val shop_latitude : Float? = null
+    var shopLatitude : Float,
 
-    @Column(name = "shop_longitude")
-    private val shop_longitude : Float? = null
+    var shopLongitude : Float,
 
-    @Column(name = "shop_area")
-    private val shop_area : String? = null
+    var shopArea : String, // 가게의 대략적인 지역 예) 서울시 구로구
 
-    @Column(name = "shop_name")
     @NotNull
-    private val shop_name: String = ""
+    var shopName: String,
 
-    @Column(name = "business_num")
     @NotNull
-    private val business_num: String = ""
+    val businessNum: String,
 
-    @Column(name = "shop_phone_num")
     @NotNull
-    private val shop_phone_num: String = ""
+    var shopPhoneNum: String,
 
-    @Column(name = "shop_email")
     @NotNull
-    private val shop_email: String = ""
+    var shopEmail: String,
 
-    @Column(name = "shop_address")
     @NotNull
-    private val shop_address: String = ""
+    var shopAddress: String, // 가게 상세 지역 (번지수 까지 자세하게)
 
-    @Column(name = "shop_img_description_url")
     @NotNull
-    private val shop_img_description_url: String = ""
+    var shopImgDescriptionUrl: String,
 
-    @Column(name = "shop_short_descriptor")
     @NotNull
-    private val shop_short_descriptor: String = ""
-
-    private val status: String?=null
-
-}
+    var shop_short_descriptor: String = "",
+) : BaseEntity() {}
