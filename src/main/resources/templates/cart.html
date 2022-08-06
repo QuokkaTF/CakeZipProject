@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,6 +15,61 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$("#cbx_chkAll").click(function() {
+				if($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
+				else $("input[name=chk]").prop("checked", false);
+			});
+
+			$("input[name=chk]").click(function() {
+				var total = $("input[name=chk]").length;
+				var checked = $("input[name=chk]:checked").length;
+
+				if(total != checked) $("#cbx_chkAll").prop("checked", false);
+				else $("#cbx_chkAll").prop("checked", true);
+			});
+		});
+
+		//문서가 준비되면 제일 먼저 실행
+        $(document).ready(function(){
+            $("#iamportPayment").click(function(){
+                payment(); //버튼 클릭하면 호출
+            });
+            })
+
+
+        //버튼 클릭하면 실행
+        function payment(data) {
+            IMP.init('imp66507436');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+            IMP.request_pay({// param
+                pg: "kakaopay.TC0ONETIME", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+                pay_method: "card", //지불 방법
+                merchant_uid: "iamport_test_id1", //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+                name: "빤짝거리는케이크", //결제창에 노출될 상품명
+                amount: 13700, //금액
+                buyer_email : "testiamport@naver.com",
+                buyer_name : "홍길동",
+                buyer_tel : "01012341234"
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
+                } else {
+                    alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
+                }
+            });
+        }
+	</script>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -57,7 +113,7 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="index.html">Cake.zip</a>
+                                <a href="index.html" style="">Cake.zip</a>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
@@ -97,31 +153,7 @@
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
-                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
                                         </div>
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
                                 </ul>
                             </div>
                         </nav>
@@ -138,7 +170,7 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="col-12 mt-3 text-center text-uppercase">
+                <div class="col-12 pt-2 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
                     <h2>장바구니</h2>
                 </div>
             </div>
@@ -149,10 +181,11 @@
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
                             <form class="row">
                                 <div class="col-12">
+
                                     <table class="table table-sm">
                                         <thead>
                                         <tr>
-                                            <th><input type="checkbox"></th>
+                                            <th><input type="checkbox"  id="cbx_chkAll"></th>
                                             <th>상품</th>
                                             <th>픽업날짜</th>
                                             <th>상세옵션</th>
@@ -161,14 +194,14 @@
                                         </tr>
                                         </thead>
 
-                                        <tbody>
-                                        <tr>
-                                            <td rowspan="8"><input type="checkbox"></td>
-                                            <td  rowspan="8">
+                                        <tbody th:each="dto : ${cartList}">
+                                        <tr >
+                                            <td rowspan="8"><input type="checkbox" name="chk"></td>
+                                            <td rowspan="8">
                                                 <img src="images/cakeimg.png" class="img-fluid">
                                                 <p>오복케이크</p>
                                             </td>
-                                            <td rowspan="8">2022.08.02</td>
+                                            <td th:text = "${dto.pickupDate}"></td>
                                             <td>케이크디자인</td>
                                             <td>1번 핑크토끼케이크 [BEST]</td>
                                             <td rowspan="8"  style="text-align: right">21,500</td>
@@ -215,7 +248,7 @@
                                 </div>
                                 <div class="col-12 text-right">
                                     <button class="btn btn-outline-secondary me-3" type="submit">삭제하기</button>
-                                    <a href="#" class="btn btn-outline-success">주문하기</a>
+                                    <button id="iamportPayment" class="btn btn-outline-success" type="button">주문하기</button>
                                 </div>
                             </form>
                         </div>
