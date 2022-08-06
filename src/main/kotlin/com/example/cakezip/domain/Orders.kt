@@ -4,12 +4,19 @@ import lombok.*
 import javax.persistence.*
 
 @Entity
-class Orders(
+@Builder
+class Orders : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val orderId: Long? = null,
+    @Column(name = "order_id")
+    val orderId: Long? = null
 
-    val merchantUid: Long,
-    val merchantPrice: Int,
+    @Column(name = "merchant_uid")
+    val merchantUid: Long? = null
 
-    ) : BaseEntity() {}
+    @Column(name = "merchant_price")
+    var merchantPrice: Long? = null
+
+
+
+}
