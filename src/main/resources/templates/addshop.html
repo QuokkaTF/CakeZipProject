@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
 <div class="container-fluid">
 
     <div class="row min-vh-100">
@@ -146,7 +147,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
 
-                            <form role="form">
+                            <form th:action th:object="${form}" method="post">
                                 <h3 for="inputDescription" style="margin:30px; ">
                                     가게 기본 정보
                                 </h3>
@@ -154,25 +155,27 @@
                                     <h5 for="inputName">
                                         가게이름
                                     </h5>
-                                    <input type="name" class="form-control" id="inputName" />
+                                    <input type="name" class="form-control" id="inputName" th:field="*{storeName}"/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputNumber">
                                         사업자등록번호
                                     </h5>
-                                    <input type="text" class="form-control" id="inputNumber" />
+                                    <input type="text" th:field="*{bussinessNum}" class="form-control" id="inputNumber" />
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputPhone">
                                         가게 전화번호
                                     </h5>
-                                    <input type="text" class="form-control" id="inputPhone" />
+                                    <input type="text" th:field="*{storeNum}" class="form-control" id="inputPhone" />
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputAddress">
                                         가게 주소
                                     </h5>
-                                    <input type="text" class="form-control" id="inputAddress" />
+                                    <input id="member_post"  type="text" placeholder="Zip Code" readonly onclick="findAddr()">
+                                    <input id="member_addr" type="text" placeholder="Address" th:field="*{storeAddress}" readonly> <br>
+                                    <input type="text" th:field="*{storeDetailAddress}" placeholder="Detailed Address">
                                 </div>
 
                                 <div class="form-group" style="margin:30px">
@@ -186,7 +189,7 @@
                                     <h5 for="inputImg">
                                         상세페이지 이미지 첨부
                                     </h5>
-                                    <input type="file" class="form-control-file"  id="inputImg" />
+                                    <input type="file" th:field ="*{storeShortDescription}" class="form-control-file"  id="inputImg" />
                                 </div>
 
 
@@ -195,58 +198,97 @@
                                     케이크 옵션 영역 설정
                                 </h3>
 
+
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputOption1">
                                         1. 케이크 디자인
                                     </h5>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="추가할 옵션명을 입력하세요" required>
-                                        <button class="btn" style="color:white; background-color:black;">추가</button>
+                                        <input type="text" id = "inputCakeDesign" class="form-control" placeholder="추가할 옵션명을 입력하세요">
+                                        <button type="button" class="btn" id = "addCakeDesign" style="color:white; background-color:black;">추가</button>
                                     </div>
-                                    <table border="0">
-                                        <tr>
-                                            [HOT] 곰돌이핑크케이크<button class="btn"><img src="../static/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                        </tr>
-                                    </table>
+                                    <div>
+                                        <ul style="list-style: none; float: left" id = "cakeDesignList"></ul>
+                                    </div>
                                 </div>
 
-                                <div class="form-group" style="margin:30px">
+                                <div style="height: 1px"></div>
+
+                                <div class="form-group" style="margin:30px;">
                                     <h5 for="inputOption1">
-                                        2. 케이크 시트
+                                        2. 케이크 호수
                                     </h5>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="추가할 옵션명을 입력하세요" required>
-                                        <button class="btn" style="color:white; background-color:black;">추가</button>
+                                        <input type="text" id = "inputCakeSize" class="form-control" placeholder="추가할 옵션명을 입력하세요">
+                                        <button type="button" class="btn" id = "addCakeSize" style="color:white; background-color:black;">추가</button>
                                     </div>
-                                    <table border="0">
-
-                                        <tr>
-                                            바닐라<button class="btn"><img src="/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                            초코<button class="btn"><img src="/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                            쿠앤크<button class="btn"><img src="/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                        </tr>
-                                    </table>
-
+                                    <div>
+                                        <ul style="list-style: none; float: left" id = "cakeSizeList"></ul>
+                                    </div>
                                 </div>
 
-                                <div class="form-group" style="margin:30px">
+                                <div style="height: 1px"></div>
+
+                                <div class="form-group" style="margin:30px;">
                                     <h5 for="inputOption1">
-                                        휘정앙 여기 더 복사해서 추가해!!
+                                        3. 케이크 시트맛
                                     </h5>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="추가할 옵션명을 입력하세요" required>
-                                        <button class="btn" style="color:white; background-color:black;">추가</button>
+                                        <input type="text" id = "inputCakeSheet" class="form-control" placeholder="추가할 옵션명을 입력하세요">
+                                        <button type="button" class="btn" id = "addCakeSheet" style="color:white; background-color:black;">추가</button>
                                     </div>
-                                    <table border="0">
-
-                                        <tr>
-                                            바닐라<button class="btn"><img src="/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                            초코<button class="btn"><img src="/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                            쿠앤크<button class="btn"><img src="/images/removebtn.png" width="15px" height="15px" alt=""></button>
-                                        </tr>
-                                    </table>
-
+                                    <div>
+                                        <ul style="list-style: none; float: left" id = "cakeSheetList"></ul>
+                                    </div>
                                 </div>
+
+                                <div style="height: 1px"></div>
+
+                                <div class="form-group" style="margin:30px;">
+                                    <h5 for="inputOption1">
+                                        4. 케이크 크림맛
+                                    </h5>
+                                    <div class="input-group">
+                                        <input type="text" id = "inputCakeCream" class="form-control" placeholder="추가할 옵션명을 입력하세요">
+                                        <button type="button" class="btn" id = "addCakeCream" style="color:white; background-color:black;">추가</button>
+                                    </div>
+                                    <div>
+                                        <ul style="list-style: none; float: left" id = "cakeCreamList"></ul>
+                                    </div>
+                                </div>
+
+                                <div style="height: 1px"></div>
+
+                                <div class="form-group" style="margin:30px;">
+                                    <h5 for="inputOption1">
+                                        5. 케이크 크림색
+                                    </h5>
+                                    <div class="input-group">
+                                        <input type="text" id = "inputCakeCreamColor" class="form-control" placeholder="추가할 옵션명을 입력하세요">
+                                        <button type="button" class="btn" id = "addCakeCreamColor" style="color:white; background-color:black;">추가</button>
+                                    </div>
+                                    <div>
+                                        <ul style="list-style: none; float: left" id = "cakeCreamColorList"></ul>
+                                    </div>
+                                </div>
+
+                                <div style="height: 1px"></div>
+
+                                <div class="form-group" style="margin:30px;">
+                                    <h5 for="inputOption1">
+                                        6. 레터링 색
+                                    </h5>
+                                    <div class="input-group">
+                                        <input type="text" id = "inputCakeLetter" class="form-control" placeholder="추가할 옵션명을 입력하세요">
+                                        <button type="button" class="btn" id = "addCakeLetter" style="color:white; background-color:black;">추가</button>
+                                    </div>
+                                    <div>
+                                        <ul style="list-style: none; float: left" id = "cakeLetterList"></ul>
+                                    </div>
+                                </div>
+
+                                <div style="height: 1px"></div>
+
                                 <div align="center">
                                     <button class="btn bg-purple me-3" style="color:white;margin:30px;width:95%;height:40px" type="submit">작성완료</button>
                                 </div>
@@ -374,9 +416,272 @@
     </div>
 
 </div>
+<script>
+    /**
+     * 케이크 디자인
+     * */
+    let countDesign = 1;
+    let inputCakeDesign = document.getElementById('inputCakeDesign');  // 할 일 입력창
+    let addCakeDesign = document.getElementById('addCakeDesign');      // 버튼
+    let cakeDesignList = document.getElementById('cakeDesignList');    // 할 일 리스트창
 
+    addCakeDesign.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeDesign.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countDesign);
+
+            list.innerHTML = inputCakeDesign.value; // <li>입력된 할 일</li>
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove1("+countDesign+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeDesignList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeDesign.value= ""; // 할 일 입력창 초기화
+
+            countDesign++
+        }
+    })
+
+    function remove1(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeDesignList.removeChild(li);
+    }
+
+    /**
+     * 케이크 호수
+     * */
+    let countSize = 1;
+    let inputCakeSize = document.getElementById('inputCakeSize');  // 할 일 입력창
+    let addCakeSize = document.getElementById('addCakeSize');      // 버튼
+    let cakeSizeList = document.getElementById('cakeSizeList');    // 할 일 리스트창
+
+    addCakeSize.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeSize.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countSize);
+
+            list.innerHTML = inputCakeSize.value; // <li>입력된 할 일</li>
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove2("+countSize+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeSizeList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeSize.value= ""; // 할 일 입력창 초기화
+
+            countSize++
+        }
+    })
+
+    function remove2(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeSizeList.removeChild(li);
+    }
+
+    /**
+     * 케이크 시트
+     * */
+    let countSheet = 1;
+    let inputCakeSheet = document.getElementById('inputCakeSheet');  // 할 일 입력창
+    let addCakeSheet = document.getElementById('addCakeSheet');      // 버튼
+    let cakeSheetList = document.getElementById('cakeSheetList');    // 할 일 리스트창
+
+    addCakeSheet.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        var l = list.parentNode
+        console.log(l)
+        if (!inputCakeSheet.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countSheet);
+
+            list.innerHTML = inputCakeSheet.value; // <li>입력된 할 일</li>
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove3("+countSheet+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeSheetList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeSheet.value= ""; // 할 일 입력창 초기화
+
+            countSheet++
+        }
+    })
+
+    function remove3(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeSheetList.removeChild(li);
+    }
+
+    /**
+     * 케이크 크림
+     * */
+    let countCream = 1;
+    let inputCakeCream = document.getElementById('inputCakeCream');  // 할 일 입력창
+    let addCakeCream = document.getElementById('addCakeCream');      // 버튼
+    let cakeCreamList = document.getElementById('cakeCreamList');    // 할 일 리스트창
+
+    addCakeCream.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        var l = list.parentNode
+        console.log(l)
+        if (!inputCakeCream.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countCream);
+
+            list.innerHTML = inputCakeCream.value; // <li>입력된 할 일</li>
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove4("+countCream+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeCreamList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeCream.value= ""; // 할 일 입력창 초기화
+
+            countCream++
+        }
+    })
+
+    function remove4(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeCreamList.removeChild(li);
+    }
+
+    /**
+     * 케이크 크림 색
+     * */
+    let countCreamColor = 1;
+    let inputCakeCreamColor = document.getElementById('inputCakeCreamColor');  // 할 일 입력창
+    let addCakeCreamColor = document.getElementById('addCakeCreamColor');      // 버튼
+    let cakeCreamColorList = document.getElementById('cakeCreamColorList');    // 할 일 리스트창
+
+    addCakeCreamColor.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        var l = list.parentNode
+        console.log(l)
+        if (!inputCakeCreamColor.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countCreamColor);
+
+            list.innerHTML = inputCakeCreamColor.value; // <li>입력된 할 일</li>
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove5("+countCreamColor+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeCreamColorList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeCreamColor.value= ""; // 할 일 입력창 초기화
+
+            countCreamColor++
+        }
+    })
+
+    function remove5(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeCreamColorList.removeChild(li);
+    }
+
+    /**
+     * 케이크 레터링색
+     * */
+    let countLetter = 1;
+    let inputCakeLetter = document.getElementById('inputCakeLetter');  // 할 일 입력창
+    let addCakeLetter = document.getElementById('addCakeLetter');      // 버튼
+    let cakeLetterList = document.getElementById('cakeLetterList');    // 할 일 리스트창
+
+    addCakeLetter.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        var l = list.parentNode
+        console.log(l)
+        if (!inputCakeLetter.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countLetter);
+
+            list.innerHTML = inputCakeLetter.value; // <li>입력된 할 일</li>
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove6("+countLetter+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeLetterList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeLetter.value= ""; // 할 일 입력창 초기화
+
+            countLetter++
+        }
+    })
+
+    function remove6(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeLetterList.removeChild(li);
+    }
+
+
+
+    function findAddr(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                console.log(data);
+
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var jibunAddr = data.jibunAddress; // 지번 주소 변수
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('member_post').value = data.zonecode;
+                if(roadAddr !== ''){
+                    document.getElementById("member_addr").value = roadAddr;
+                }
+                else if(jibunAddr !== ''){
+                    document.getElementById("member_addr").value = jibunAddr;
+                }
+            }
+        }).open();
+    }
+</script>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=CLIENT_KEY&submodules=geocoder"></script>
 </body>
 </html>
