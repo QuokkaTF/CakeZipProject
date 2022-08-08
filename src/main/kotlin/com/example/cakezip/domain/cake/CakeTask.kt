@@ -1,10 +1,6 @@
-package com.example.cakezip.domain
+package com.example.cakezip.domain.cake
 
 import com.example.cakezip.domain.BaseEntity
-import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.member.UserType
-import com.example.cakezip.domain.shop.Shop
-import lombok.*
 import javax.persistence.*
 
 @Entity
