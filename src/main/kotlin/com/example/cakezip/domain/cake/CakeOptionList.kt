@@ -1,4 +1,4 @@
-package com.example.cakezip.domain
+package com.example.cakezip.domain.cake
 
 import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.member.UserType
@@ -16,13 +16,11 @@ class CakeOptionList(
     @JoinColumn(name = "shop_id")
     val shopId: Shop,
 
-    @Column(name = "option_title")
-    val optionTitle: String,
+    @Enumerated(value = EnumType.STRING)
+    val optionTitle: OptionTitleType,
 
-    @Column(name = "option_detail")
     var optionDetail: String,
 
-    @Column(name = "option_price")
     val optionPrice: Long,
 
     ) : BaseEntity() {}
