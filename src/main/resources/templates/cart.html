@@ -194,37 +194,39 @@
                                         </tr>
                                         </thead>
 
-                                        <tbody th:each="dto : ${cartList}">
+                                        <tbody th:each="dto : ${cakeOption}">
+
                                         <tr >
+
                                             <td rowspan="8"><input type="checkbox" name="chk"></td>
                                             <td rowspan="8">
-                                                <img src="images/cakeimg.png" class="img-fluid">
-                                                <p>오복케이크</p>
+                                                <img src="/images/cakeimg.png" class="img-fluid" >
+                                                <p  th:text = "${dto.shop.shopName}"></p>
                                             </td>
-                                            <td th:text = "${dto.pickupDate}"></td>
+                                            <td rowspan="8" th:text = "${dto.pickupDate}"></td>
                                             <td>케이크디자인</td>
-                                            <td>1번 핑크토끼케이크 [BEST]</td>
+                                            <td th:text = "${dto.cakeOptionDESIGN}">1번 핑크토끼케이크 [BEST]</td>
                                             <td rowspan="8"  style="text-align: right">21,500</td>
                                         </tr>
                                         <tr>
                                             <td>케이크 호수</td>
-                                            <td>1호</td>
+                                            <td th:text = "${dto.cakeOptionSIZE}">1호</td>
                                         </tr>
                                         <tr>
                                             <td>시트맛</td>
-                                            <td>오레오</td>
+                                            <td  th:text = "${dto.cakeOptionSFLAVOR}">오레오</td>
                                         </tr>
                                         <tr>
                                             <td>크림맛</td>
-                                            <td>생크림</td>
+                                            <td  th:text = "${dto.cakeOptionCFLAVOR}">생크림</td>
                                         </tr>
                                         <tr>
                                             <td>케이크 바탕색</td>
-                                            <td>흰색</td>
+                                            <td th:text = "${dto.cakeOptionCCOLOR}">흰색</td>
                                         </tr>
                                         <tr>
                                             <td>레터링 색</td>
-                                            <td>주황색</td>
+                                            <td th:text = "${dto.cakeOptionLCOLOR}">주황색</td>
                                         </tr>
                                         <tr>
                                             <td>레터링 문구</td>
@@ -234,6 +236,7 @@
                                             <td>기타 요청사항</td>
                                             <td>둘러싼 크림을 파란색으로 해주세요!</td>
                                         </tr>
+
                                         </tbody>
 
 
