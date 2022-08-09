@@ -92,7 +92,7 @@
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="electronics"
@@ -126,18 +126,16 @@
 
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
-                    <div class="row py-3">
-
-
-
-                        <div th:each="dto : ${orderList}" class="card col-6 mx-auto py-3">
+                    <div th:each="dto : ${orderList}" class="row py-3">
+                        <div class="card col-6 mx-auto py-3">
                             <div class="card-body">
-                                <h4 class="card-title text-purple">주문 1</h4>
-                                <p><span class="order-short">주문 번호 : </span><span th:text="${dto.orderListId}"></span></p>
-                                <p><span class="order-short">수령인 : </span>김가영</p>
-                                <p><span class="order-short">가격 : </span>31,000 원</p>
+                                <h4 class="card-title text-purple"><span>주문 번호 </span><span th:text="${dto.orderListId}"></span></h4>
+                                <p><span class="order-short">수령인 : </span><span th:text="${dto.cake.customer.name}"></span></p>
+                                <p><span class="order-short">결제 금액 : </span>31,000 원</p>
+                                <p><span class="order-short">가게 이름 : </span><span th:text="${dto.cake.shop.shopName}"></span></p>
                                 <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
+                                <a th:onclick="|location.href='@{/orders/orderdetail/{orderListId}
+                        (orderListId=${dto.orderListId})}'|" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
                     </div>
@@ -155,7 +153,6 @@
                         </div>
                     </div>
                     <div class="row py-3">
-
                         <div class="card col-6 mx-auto py-3">
                             <div class="card-body">
                                 <h4 class="card-title text-purple">주문 3</h4>

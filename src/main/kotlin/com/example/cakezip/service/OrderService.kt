@@ -1,11 +1,8 @@
 package com.example.cakezip.service
 
 import com.example.cakezip.domain.OrderList
-import com.example.cakezip.domain.Orders
 import com.example.cakezip.repository.OrderRepository
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
-import java.util.*
 
 @Service
 class OrderService(
@@ -17,4 +14,10 @@ class OrderService(
         return orderRepository.findAll()
     }
 
+//    fun findAllById(orderListId : Long): List<OrderList>? {
+//        return orderRepository.findAllById()
+//    }
+    fun getOrderListById(orderListId: Long): OrderList? {
+        return orderRepository.findAllByOrderListId(orderListId)
+    }
 }

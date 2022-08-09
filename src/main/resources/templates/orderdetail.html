@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -92,7 +92,7 @@
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="electronics"
@@ -128,9 +128,9 @@
                 <div class="col-12 bg-white py-3">
                     <div class="row">
                         <div class="col-9 mx-auto card py-3">
-                            <div class="card-body">
+                            <div th:each="dto : ${orderDetail}" class="card-body">
                                 <h4 class="card-title">주문 1</h4>
-                                <p class="card-text">주문 번호 : C112312311</p>
+                                <p class="card-text"><span>주문 번호 : </span><span th:text="${dto.orderListId}"></span></p>
                                 <div class="row">
                                         <form class="row">
                                             <div class="col-12">
@@ -149,9 +149,9 @@
                                                     <tr>
                                                         <td  rowspan="8">
                                                             <img src="/images/cakeimg.png" class="img-fluid">
-                                                            <p>오복케이크</p>
+                                                            <p th:text="${dto.cake.shop.shopName}"></p>
                                                         </td>
-                                                        <td rowspan="8">2022.08.02</td>
+                                                        <td rowspan="8"><span th:text="${dto.cake.pickupDate}"></span></td>
                                                         <td>케이크디자인</td>
                                                         <td>1번 핑크토끼케이크 [BEST]</td>
                                                         <td rowspan="8"  style="text-align: right">21,500원</td>
@@ -205,7 +205,7 @@
                                         </form>
                                     </div>
 
-                                <a href="orderdetail.html" class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;">주문 취소</a>
+                                <a th:onclick="|location.href='@{/orders/delete(orderId=${dto.order.orderId})}'|" class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;">주문 취소</a>
                                 <a href=# class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰 작성</a>
 
                             </div>
