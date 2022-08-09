@@ -16,7 +16,7 @@ class Seller(
     @JoinColumn(name = "user_id")
     val user:User,
 
-    @OneToOne
-    @JoinColumn(name="shop_id")
-    val shop: Shop,
+//    @OneToOne
+//    @JoinColumn(name="shop_id")
+//    val shop: Shop,
 ) : BaseEntity() {}

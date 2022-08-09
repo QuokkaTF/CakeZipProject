@@ -8,69 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>E-Commerce Template</title>
 
-    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
-
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript">
-		$(document).ready(function() {
-			$("#cbx_chkAll").click(function() {
-				if($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
-				else $("input[name=chk]").prop("checked", false);
-			});
-
-			$("input[name=chk]").click(function() {
-				var total = $("input[name=chk]").length;
-				var checked = $("input[name=chk]:checked").length;
-
-				if(total != checked) $("#cbx_chkAll").prop("checked", false);
-				else $("#cbx_chkAll").prop("checked", true);
-			});
-		});
-
-		//문서가 준비되면 제일 먼저 실행
-        $(document).ready(function(){
-            $("#iamportPayment").click(function(){
-                payment(); //버튼 클릭하면 호출
-            });
-            })
-
-
-        //버튼 클릭하면 실행
-        function payment(data) {
-            IMP.init('imp66507436');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
-            IMP.request_pay({// param
-                pg: "kakaopay.TC0ONETIME", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
-                pay_method: "card", //지불 방법
-                merchant_uid: "iamport_test_id1", //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-                name: "빤짝거리는케이크", //결제창에 노출될 상품명
-                amount: 13700, //금액
-                buyer_email : "testiamport@naver.com",
-                buyer_name : "홍길동",
-                buyer_tel : "01012341234"
-            }, function (rsp) { // callback
-                if (rsp.success) {
-                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
-                } else {
-                    alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
-                }
-            });
-        }
-	</script>
-
 </head>
+
 <body>
 <div class="container-fluid">
 
@@ -120,7 +66,8 @@
                             <form action="#">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요" required>
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
+                                               required>
                                         <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
@@ -140,7 +87,8 @@
                     <!-- Nav -->
                     <div class="row">
                         <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="mainNav">
@@ -149,7 +97,9 @@
                                         <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별 보기</a>
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
+                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
+                                            보기</a>
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
@@ -171,88 +121,46 @@
 
             <div class="row">
                 <div class="col-12 pt-2 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>장바구니</h2>
+                    <h2>리뷰작성</h2>
                 </div>
             </div>
 
             <main class="row">
-                <div class="col-12 bg-white py-3 mb-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
-                            <form class="row">
-                                <div class="col-12">
+                <div class="col-12 bg-white mb-3">
 
-                                    <table class="table table-sm">
-                                        <thead>
-                                        <tr>
-                                            <th><input type="checkbox"  id="cbx_chkAll"></th>
-                                            <th>상품</th>
-                                            <th>픽업날짜</th>
-                                            <th>상세옵션</th>
-                                            <th></th>
-                                            <th style="text-align: right">총 금액</th>
-                                        </tr>
-                                        </thead>
+                    <div class="row  py-3">
+                            <div class="col-8 mx-auto">
+                                <div class="rating-block card py-3">
+                                    <h4 class="text-purple">케이크에 만족하셨나요?</h4>
 
-                                        <tbody th:each="dto : ${cartList}">
-                                        <tr >
-                                            <td rowspan="8"><input type="checkbox" name="chk"></td>
-                                            <td rowspan="8">
-                                                <img src="images/cakeimg.png" class="img-fluid">
-                                                <p>오복케이크</p>
-                                            </td>
-                                            <td th:text = "${dto.pickupDate}"></td>
-                                            <td>케이크디자인</td>
-                                            <td>1번 핑크토끼케이크 [BEST]</td>
-                                            <td rowspan="8"  style="text-align: right">21,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>케이크 호수</td>
-                                            <td>1호</td>
-                                        </tr>
-                                        <tr>
-                                            <td>시트맛</td>
-                                            <td>오레오</td>
-                                        </tr>
-                                        <tr>
-                                            <td>크림맛</td>
-                                            <td>생크림</td>
-                                        </tr>
-                                        <tr>
-                                            <td>케이크 바탕색</td>
-                                            <td>흰색</td>
-                                        </tr>
-                                        <tr>
-                                            <td>레터링 색</td>
-                                            <td>주황색</td>
-                                        </tr>
-                                        <tr>
-                                            <td>레터링 문구</td>
-                                            <td>HBD</td>
-                                        </tr>
-                                        <tr>
-                                            <td>기타 요청사항</td>
-                                            <td>둘러싼 크림을 파란색으로 해주세요!</td>
-                                        </tr>
-                                        </tbody>
+                                    <div class="star-rating space-x-4">
+                                        <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+                                        <label for="5-stars" class="star pr-4">★</label>
+                                        <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+                                        <label for="4-stars" class="star">★</label>
+                                        <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+                                        <label for="3-stars" class="star">★</label>
+                                        <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+                                        <label for="2-stars" class="star">★</label>
+                                        <input type="radio" id="1-star" name="rating" value="1" v-model="ratings"/>
+                                        <label for="1-star" class="star">★</label>
+                                    </div>
 
-
-                                        <tfoot>
-                                        <tr>
-                                            <th colspan="5" class="text-right">Total</th>
-                                            <th style="text-align: right">4,000</th>
-                                            <th></th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
                                 </div>
-                                <div class="col-12 text-right">
-                                    <button class="btn btn-outline-secondary me-3" type="submit">삭제하기</button>
-                                    <button id="iamportPayment" class="btn btn-outline-success" type="button">주문하기</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="row py-1">
+                            <div class="col-8 mx-auto">
+                                <div class="rating-block card py-3">
+                                    <h4 class="text-purple">케이크에 대한 리뷰를 남겨주세요!</h4>
+                                    <input type="text" class="form-control" placeholder="제목" required>
+                                    <input type="text" class="form-control" text-align="top"  style="height:200px;r" placeholder="내용" required>
+                                </div>
+                            </div>
+                        </div>
+
+
                 </div>
 
             </main>
@@ -308,5 +216,8 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
