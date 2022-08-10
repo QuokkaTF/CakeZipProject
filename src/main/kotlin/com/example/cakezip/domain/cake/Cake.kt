@@ -1,4 +1,4 @@
-package com.example.cakezip.domain
+package com.example.cakezip.domain.cake
 
 import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.member.Customer

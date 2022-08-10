@@ -6,18 +6,22 @@ import lombok.*
 import javax.persistence.*
 
 @Entity
-class OrderList(
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+class OrderList : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val orderListId: Long? = null,
+    @Column(name = "order_list_id")
+    val orderListId: Long? = null
+
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    val order: Orders,
+    val order: Orders?= null
 
     @ManyToOne
     @JoinColumn(name = "cake_id")
-    val cake: Cake,
+    val cake: Cake?= null
 
-    ) : BaseEntity() {}
-
+}

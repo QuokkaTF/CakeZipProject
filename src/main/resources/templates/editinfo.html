@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -15,64 +16,9 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
-
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript">
-		$(document).ready(function() {
-			$("#cbx_chkAll").click(function() {
-				if($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
-				else $("input[name=chk]").prop("checked", false);
-			});
-
-			$("input[name=chk]").click(function() {
-				var total = $("input[name=chk]").length;
-				var checked = $("input[name=chk]:checked").length;
-
-				if(total != checked) $("#cbx_chkAll").prop("checked", false);
-				else $("#cbx_chkAll").prop("checked", true);
-			});
-		});
-
-		//문서가 준비되면 제일 먼저 실행
-        $(document).ready(function(){
-            $("#iamportPayment").click(function(){
-                payment(); //버튼 클릭하면 호출
-            });
-            })
-
-
-        //버튼 클릭하면 실행
-        function payment(data) {
-            IMP.init('imp66507436');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
-            IMP.request_pay({// param
-                pg: "kakaopay.TC0ONETIME", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
-                pay_method: "card", //지불 방법
-                merchant_uid: "iamport_test_id1", //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-                name: "빤짝거리는케이크", //결제창에 노출될 상품명
-                amount: 13700, //금액
-                buyer_email : "testiamport@naver.com",
-                buyer_name : "홍길동",
-                buyer_tel : "01012341234"
-            }, function (rsp) { // callback
-                if (rsp.success) {
-                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
-                } else {
-                    alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
-                }
-            });
-        }
-	</script>
-
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid nanum">
 
     <div class="row min-vh-100">
         <div class="col-12">
@@ -94,13 +40,13 @@
                         <div class="col-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="customers.html"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
                                 </li>
                                 <li>
-                                    <a href="register.html"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="login.html"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
                                 </li>
                             </ul>
                         </div>
@@ -113,14 +59,15 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="index.html" style="">Cake.zip</a>
+                                <a href="/index">Cake.zip</a>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
                             <form action="#">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요" required>
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
+                                               required>
                                         <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
@@ -130,7 +77,7 @@
                             <a href="#" class="header-item">
                                 <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
                             </a>
-                            <a href="cart.html" class="header-item">
+                            <a href="/cart" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
                                 <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
                             </a>
@@ -140,7 +87,8 @@
                     <!-- Nav -->
                     <div class="row">
                         <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="mainNav">
@@ -149,11 +97,14 @@
                                         <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별 보기</a>
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
+                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
+                                            보기</a>
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
                                         </div>
+
                                 </ul>
                             </div>
                         </nav>
@@ -170,8 +121,8 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="col-12 pt-2 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>장바구니</h2>
+                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
+                    <h2>내 정보 확인 및 수정</h2>
                 </div>
             </div>
 
@@ -179,85 +130,82 @@
                 <div class="col-12 bg-white py-3 mb-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
-                            <form class="row">
-                                <div class="col-12">
-
-                                    <table class="table table-sm">
-                                        <thead>
-                                        <tr>
-                                            <th><input type="checkbox"  id="cbx_chkAll"></th>
-                                            <th>상품</th>
-                                            <th>픽업날짜</th>
-                                            <th>상세옵션</th>
-                                            <th></th>
-                                            <th style="text-align: right">총 금액</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody th:each="dto : ${cartList}">
-                                        <tr >
-                                            <td rowspan="8"><input type="checkbox" name="chk"></td>
-                                            <td rowspan="8">
-                                                <img src="images/cakeimg.png" class="img-fluid">
-                                                <p>오복케이크</p>
-                                            </td>
-                                            <td th:text = "${dto.pickupDate}"></td>
-                                            <td>케이크디자인</td>
-                                            <td>1번 핑크토끼케이크 [BEST]</td>
-                                            <td rowspan="8"  style="text-align: right">21,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>케이크 호수</td>
-                                            <td>1호</td>
-                                        </tr>
-                                        <tr>
-                                            <td>시트맛</td>
-                                            <td>오레오</td>
-                                        </tr>
-                                        <tr>
-                                            <td>크림맛</td>
-                                            <td>생크림</td>
-                                        </tr>
-                                        <tr>
-                                            <td>케이크 바탕색</td>
-                                            <td>흰색</td>
-                                        </tr>
-                                        <tr>
-                                            <td>레터링 색</td>
-                                            <td>주황색</td>
-                                        </tr>
-                                        <tr>
-                                            <td>레터링 문구</td>
-                                            <td>HBD</td>
-                                        </tr>
-                                        <tr>
-                                            <td>기타 요청사항</td>
-                                            <td>둘러싼 크림을 파란색으로 해주세요!</td>
-                                        </tr>
-                                        </tbody>
 
 
-                                        <tfoot>
-                                        <tr>
-                                            <th colspan="5" class="text-right">Total</th>
-                                            <th style="text-align: right">4,000</th>
-                                            <th></th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
+
+                            <!--                                <input class="form-control" readonly placeholder="ID">-->
+                            <!--                                <input class="form-control" readonly placeholder="Password">-->
+
+                            <div class="mb-3">
+                                <label field="username">이메일</label>
+                                <input readonly type="email" class="form-control" placeholder="kykim097@gmail.com">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">비밀번호</label>
+                                <input type="email" class="form-control" placeholder="비밀번호 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">비밀번호 확인</label>
+                                <input type="email" class="form-control" placeholder="비밀번호 재입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">전화번호</label>
+                                <input type="phone" class="form-control" placeholder="010-1234-1234">
+                            </div>
+
+                            <div class="mb-3" id="birth" onchange="checkAgeModify()">
+
+                                <div class="birth dropdown">
+                                    <label class="mb-3 form-label" for="birth">생년월일 </label>
+
+                                    <input type="date">
                                 </div>
-                                <div class="col-12 text-right">
-                                    <button class="btn btn-outline-secondary me-3" type="submit">삭제하기</button>
-                                    <button id="iamportPayment" class="btn btn-outline-success" type="button">주문하기</button>
-                                </div>
+
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="mb-3 form-label">성별 </label>
+
+                                <select name="성별">
+                                    <option value="">성별 선택</option>
+                                    <option value="남">남</option>
+                                    <option value="여">여</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="mb-3 form-label">선호 지역 </label>
+
+                                <select name="선호 지역">
+                                    <option value="">지역 선택</option>
+                                    <option value="남">서울</option>
+                                    <option value="여">부산</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="w-100 btn btn-lg btn-purple" type="submit"
+                                        onclick="">수정
+                                </button>
+                            </div>
+
+                            <div class="mb-3">
+                                <a type="button" class="w-100 btn btn-lg btn-outline-secondary"
+                                   onclick="">취소</a>
+                            </div>
                             </form>
                         </div>
                     </div>
                 </div>
 
+
             </main>
             <!-- Main Content -->
         </div>
+
 
         <div class="col-12 align-self-end">
             <!-- Footer -->

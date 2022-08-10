@@ -4,6 +4,8 @@ body {
 
 a {
     transition: color .2s linear 0s;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 링크의 색상 제거 */
 }
 
 
@@ -407,3 +409,90 @@ table td img {
     font-size: 1.2rem;
     color: #656565;
 }
+
+
+
+
+
+
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  cursor: pointer;
+}
+
+.star-rating :checked ~ label {
+  -webkit-text-fill-color: gold;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  -webkit-text-fill-color: #fff58c;
+}
+
+
+
+.review-padding {
+   padding-top: 70px;
+ }
+
+ .btn-grey{
+     background-color:#D8D8D8;
+ 	color:#FFF;
+ }
+ .rating-block{
+ 	background-color:#FAFAFA;
+ 	border:1px solid #EFEFEF;
+ 	padding:15px 15px 20px 15px;
+ 	border-radius:3px;
+ }
+ .bold{
+ 	font-weight:700;
+ }
+ .padding-bottom-7{
+ 	padding-bottom:7px;
+ }
+
+ .review-block{
+ 	background-color:#FAFAFA;
+ 	border:1px solid #EFEFEF;
+ 	padding:15px;
+ 	border-radius:3px;
+ 	margin-bottom:15px;
+ }
+ .review-block-name{
+ 	font-size:12px;
+ 	margin:10px 0;
+ }
+ .review-block-date{
+ 	font-size:12px;
+ }
+ .review-block-rate{
+ 	font-size:13px;
+ 	margin-bottom:15px;
+ }
+ .review-block-title{
+ 	font-size:15px;
+ 	font-weight:700;
+ 	margin-bottom:10px;
+ }
+ .review-block-description{
+ 	font-size:13px;
+ }

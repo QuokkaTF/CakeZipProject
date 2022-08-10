@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,12 +11,12 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid nanum">
 
     <div class="row min-vh-100">
         <div class="col-12">
@@ -38,13 +38,13 @@
                         <div class="col-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="mypage.html"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
                                 </li>
                                 <li>
-                                    <a href="register.html"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="login.html"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
                                 </li>
                             </ul>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="index.html">Cake.zip</a>
+                                <a href="/index">Cake.zip</a>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
@@ -119,23 +119,25 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase font-monospace text-purple">
+                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase nanum text-purple">
                     <h2>내 주문 전체보기</h2>
                 </div>
             </div>
 
-            <main class="row">
+            <main class="row nanum">
                 <div class="col-12 bg-white py-3">
                     <div class="row py-3">
 
-                        <div class="card col-6 mx-auto py-3">
+
+
+                        <div th:each="dto : ${orderList}" class="card col-6 mx-auto py-3">
                             <div class="card-body">
                                 <h4 class="card-title text-purple">주문 1</h4>
-                                <p><span class="order-short">주문 번호 : </span>C32948765</p>
+                                <p><span class="order-short">주문 번호 : </span><span th:text="${dto.orderListId}"></span></p>
                                 <p><span class="order-short">수령인 : </span>김가영</p>
                                 <p><span class="order-short">가격 : </span>31,000 원</p>
                                 <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a href="orderdetail.html" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
+                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
                     </div>
@@ -148,7 +150,7 @@
                                 <p><span class="order-short">수령인 : </span>김가영</p>
                                 <p><span class="order-short">가격 : </span>31,000 원</p>
                                 <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a href="orderdetail.html" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
+                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
                     </div>
@@ -161,7 +163,7 @@
                                 <p><span class="order-short">수령인 : </span>김가영</p>
                                 <p><span class="order-short">가격 : </span>31,000 원</p>
                                 <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a href="orderdetail.html" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
+                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
                     </div>
