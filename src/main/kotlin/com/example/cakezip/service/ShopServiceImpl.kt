@@ -1,6 +1,6 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.CakeOptionList
+import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.repository.ShopRepository
@@ -16,7 +16,7 @@ class ShopServiceImpl(private val shopRepository: ShopRepository) : ShopService 
 
         var optionDesignList : List<String> = newShopReqDto.designList.trim().split("  ")
         for(design in optionDesignList) {
-            val cakeOptionList : CakeOptionList = CakeOptionList(newShop,"케이크디자인", design,1000);
+            //val cakeOptionList : CakeOptionList = CakeOptionList(newShop,"케이크디자인", design,1000);
         }
         var optionSizeList : List<String> = newShopReqDto.sizeList.trim().split("  ")
         var optionSheetList : List<String> = newShopReqDto.sheetList.trim().split("  ")
