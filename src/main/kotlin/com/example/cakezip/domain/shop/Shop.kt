@@ -14,20 +14,6 @@ import javax.persistence.OneToOne
 
 @Entity
 class Shop(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val shopId: Long,
-
-    @OneToOne
-    @JoinColumn(name = "seller_id")
-    val seller : Seller,
-
-    var shopLatitude : Float,
-
-    var shopLongitude : Float,
-
-    var shopArea : String, // 가게의 대략적인 지역 예) 서울시 구로구
-
     @NotNull
     var shopName: String,
 
@@ -38,14 +24,26 @@ class Shop(
     var shopPhoneNum: String,
 
     @NotNull
-    var shopEmail: String,
-
-    @NotNull
     var shopAddress: String, // 가게 상세 지역 (번지수 까지 자세하게)
 
-    @NotNull
-    var shopImgDescriptionUrl: String,
+    var shopArea : String, // 가게의 대략적인 지역 예) 서울시 구로구
 
     @NotNull
-    var shop_short_descriptor: String = "",
-) : BaseEntity() {}
+    var shopShortDescriptor: String = "",
+) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val shopId: Long?=null
+
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    var seller : Seller? = null
+
+    @NotNull
+    var shopImgDescriptionUrl: String ?= null
+//    constructor(shopName: String, businessNum: String, shopPhoneNum: String, shopArea: String, shopAddress: String, shopShortDescriptor: String) : this() {
+//        this.shopName = shopName
+//        this.businessNum = businessNum
+//        this.shopArea =
+//    }
+}
