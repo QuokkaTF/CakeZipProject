@@ -1,4 +1,4 @@
-package com.example.cakezip.cake
+package com.example.cakezip.domain.cake
 
 import com.example.cakezip.domain.BaseEntity
 import javax.persistence.*
