@@ -10,5 +10,10 @@ data class NewShopReqDto (
     val storeDetailAddress : String = "",
     val storeShortDescription : String = "",
     // 가게 이미지
-    // 가게 옵션
+    val designList : String = "",
+    val sizeList : String = "",
+    val sheetList : String = "",
+    val creamList : String = "",
+    val creamColorList : String = "",
+    val letterList : String = "",
 ) {}

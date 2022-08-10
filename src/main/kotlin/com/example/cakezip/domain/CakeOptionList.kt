@@ -8,9 +8,6 @@ import javax.persistence.*
 
 @Entity
 class CakeOptionList(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val cakeOptionListId: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
@@ -25,4 +22,8 @@ class CakeOptionList(
     @Column(name = "option_price")
     val optionPrice: Long,
 
-    ) : BaseEntity() {}
+    ) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val cakeOptionListId: Long? = null
+    }
