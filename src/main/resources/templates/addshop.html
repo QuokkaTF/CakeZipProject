@@ -155,7 +155,7 @@
                                     <h5 for="inputName">
                                         가게이름
                                     </h5>
-                                    <input type="text" class="form-control" id="inputName" th:field="*{storeName}"/>
+                                    <input type="text" class="form-control" id="inputName" th:field="*{storeName}" required/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputImg">
@@ -167,28 +167,28 @@
                                     <h5 for="inputNumber">
                                         사업자등록번호
                                     </h5>
-                                    <input type="text" th:field="*{bussinessNum}" class="form-control" id="inputNumber" />
+                                    <input type="text" th:field="*{bussinessNum}" class="form-control" id="inputNumber" required/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputPhone">
                                         가게 전화번호
                                     </h5>
-                                    <input type="text" th:field="*{storeNum}" class="form-control" id="inputPhone" />
+                                    <input type="text" th:field="*{storeNum}" class="form-control" id="inputPhone" required/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputAddress">
                                         가게 주소
                                     </h5>
-                                    <input id="member_post"  type="text" placeholder="Zip Code" readonly onclick="findAddr()">
+                                    <input id="member_post"  type="text" placeholder="Zip Code" readonly onclick="findAddr()" required>
                                     <input id="member_addr" type="text" placeholder="Address" th:field="*{storeAddress}" readonly> <br>
-                                    <input type="text" th:field="*{storeDetailAddress}" placeholder="Detailed Address">
+                                    <input type="text" th:field="*{storeDetailAddress}" placeholder="Detailed Address" required>
                                 </div>
 
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputDescription">
                                         한줄소개
                                     </h5>
-                                    <input type="text" th:field ="*{storeShortDescription}" class="form-control" id="inputDescription" />
+                                    <input type="text" th:field ="*{storeShortDescription}" class="form-control" id="inputDescription" required/>
                                 </div>
 
                                 <div class="form-group" style="margin:30px">
@@ -472,11 +472,24 @@
 
     addCakeDesign.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
         var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeDesign.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+        if (!inputCakeDesign.value || !inputDesignPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
             alert('내용을 입력해 주세요!');
         else
         {
             list.setAttribute("id","li"+countDesign);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeDesign.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeDesign.value = ""
+                return
+            }
+
+            if(isNaN(inputDesignPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputDesignPrice.value = ""
+                return;
+            }
 
             list.innerHTML = inputCakeDesign.value; // <li>입력된 디테일</li>
             list.innerHTML += " ";
@@ -492,6 +505,7 @@
             cakeDesignList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
             console.log(cakeDesignList.textContent)
             inputCakeDesign.value= ""; // 할 일 입력창 초기화
+            inputDesignPrice.value= ""; // 할 일 입력창 초기화
 
             countDesign++
         }
@@ -514,11 +528,37 @@
 
     addCakeSize.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
         var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeSize.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+        if (!inputCakeSize.value || !inputCakeSizePrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
             alert('내용을 입력해 주세요!');
         else
         {
             list.setAttribute("id","li"+countSize);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeSize.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeSize.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeSizePrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeSizePrice.value = ""
+                return;
+            }
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeSheet.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeSheet.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeSheetPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeSheetPrice.value = ""
+                return;
+            }
 
             list.innerHTML = inputCakeSize.value; // <li>입력된 할 일</li>
             list.innerText += " "
@@ -533,7 +573,7 @@
             cakeSizeList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
 
             inputCakeSize.value= ""; // 할 일 입력창 초기화
-
+            inputCakeSizePrice.value="";
             countSize++
         }
     })
@@ -555,11 +595,24 @@
 
     addCakeSheet.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
         var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeSheet.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+        if (!inputCakeSheet.value || !inputCakeSheetPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
             alert('내용을 입력해 주세요!');
         else
         {
             list.setAttribute("id","li"+countSheet);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeSheet.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeSheet.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeSheetPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeSheetPrice.value = ""
+                return;
+            }
 
             list.innerHTML = inputCakeSheet.value; // <li>입력된 할 일</li>
             list.innerText += " "
@@ -574,7 +627,7 @@
             cakeSheetList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
 
             inputCakeSheet.value= ""; // 할 일 입력창 초기화
-
+            inputCakeSheetPrice.value = "";
             countSheet++
         }
     })
@@ -596,11 +649,24 @@
 
     addCakeCream.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
         var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeCream.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+        if (!inputCakeCream.value || !inputCakeCreamPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
             alert('내용을 입력해 주세요!');
         else
         {
             list.setAttribute("id","li"+countCream);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeCream.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeCream.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeCreamPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeCreamPrice.value = ""
+                return;
+            }
 
             list.innerHTML = inputCakeCream.value; // <li>입력된 할 일</li>
             list.innerText += " "
@@ -615,7 +681,7 @@
             cakeCreamList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
 
             inputCakeCream.value= ""; // 할 일 입력창 초기화
-
+            inputCakeCreamPrice.value="";
             countCream++
         }
     })
@@ -637,11 +703,25 @@
 
     addCakeCreamColor.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
         var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeCreamColor.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+        if (!inputCakeCreamColor.value || !inputCakeCreamColorPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
             alert('내용을 입력해 주세요!');
         else
         {
             list.setAttribute("id","li"+countCreamColor);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeCreamColor.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeCreamColor.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeCreamColorPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeCreamColorPrice.value = ""
+                return;
+            }
+
 
             list.innerHTML = inputCakeCreamColor.value; // <li>입력된 할 일</li>
             list.innerText += " "
@@ -656,6 +736,7 @@
             cakeCreamColorList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
 
             inputCakeCreamColor.value= ""; // 할 일 입력창 초기화
+            inputCakeCreamPrice.value=""
 
             countCreamColor++
         }
@@ -678,11 +759,24 @@
 
     addCakeLetter.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
         var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeLetter.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+        if (!inputCakeLetter.value || !inputCakeLetterPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
             alert('내용을 입력해 주세요!');
         else
         {
             list.setAttribute("id","li"+countLetter);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeLetter.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeLetter.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeLetterPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeLetterPrice.value = ""
+                return;
+            }
 
             list.innerHTML = inputCakeLetter.value; // <li>입력된 할 일</li>
             list.innerText += " "
@@ -697,7 +791,7 @@
             cakeLetterList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
 
             inputCakeLetter.value= ""; // 할 일 입력창 초기화
-
+            inputCakeLetterPrice.value = ""
             countLetter++
         }
     })
