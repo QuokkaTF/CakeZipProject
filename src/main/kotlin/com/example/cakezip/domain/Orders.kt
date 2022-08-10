@@ -1,5 +1,7 @@
 package com.example.cakezip.domain
 
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.Seller
 import lombok.*
 import javax.persistence.*
 
@@ -17,6 +19,9 @@ class Orders : BaseEntity() {
     @Column(name = "merchant_price")
     var merchantPrice: Long? = null
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    var customer : Customer? = null
 
 
 }

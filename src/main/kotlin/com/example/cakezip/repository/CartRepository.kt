@@ -1,6 +1,6 @@
 package com.example.cakezip.repository
 
-import com.example.cakezip.domain.Cake
+import com.example.cakezip.domain.cake.Cake
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

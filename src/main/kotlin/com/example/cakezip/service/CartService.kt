@@ -1,6 +1,6 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.Cake
+import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.repository.CartRepository
 import org.springframework.stereotype.Service
 import java.util.*
