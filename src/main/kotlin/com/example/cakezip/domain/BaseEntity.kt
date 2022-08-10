@@ -16,13 +16,13 @@ import javax.persistence.MappedSuperclass
 @NoArgsConstructor
 open class BaseEntity {
 
-    var status: String?= null
+    var status: String = "active"
 
     @CreatedDate
     @Column(updatable = false)
-    var createdAt: LocalDateTime?=null
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
     @Column(updatable = false)
-    var updatedAt: LocalDateTime?=null
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 }

@@ -1,7 +1,6 @@
 package com.example.cakezip.domain
 
-import com.example.cakezip.domain.BaseEntity
-import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.domain.cake.Cake
 import lombok.*
 import javax.persistence.*
 
@@ -9,11 +8,11 @@ import javax.persistence.*
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-class OrderList : BaseEntity() {
+class OrderDetail : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_list_id")
-    val orderListId: Long? = null
+    @Column(name = "order_detail_id")
+    val orderDetailId: Long? = null
 
 
     @ManyToOne
