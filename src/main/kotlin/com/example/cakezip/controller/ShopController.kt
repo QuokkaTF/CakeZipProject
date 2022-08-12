@@ -33,7 +33,7 @@ class ShopController (private val shopService: ShopService, private val uploadSt
         return storeUrlList
     }
 
-    @RequestMapping(value = arrayOf("/add/shop"), method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = arrayOf("/shop"), method = arrayOf(RequestMethod.POST))
     fun postShop(newShopReqDto: NewShopReqDto) : String{
         println(newShopReqDto)
         shopService.addNewShop(newShopReqDto)
