@@ -8,14 +8,13 @@ import javax.persistence.*
 
 @Entity
 class ShopImg(
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val shop_img_id: Long? = null,
-
     @ManyToOne
     @JoinColumn(name = "shop_id")
     val shop: Shop,
 
     var shop_img_url: String,
-    ) : BaseEntity() {}
+    ) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val shop_img_id: Long? = null
+    }

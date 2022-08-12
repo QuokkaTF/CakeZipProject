@@ -3,18 +3,25 @@ package com.example.cakezip.service
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.OptionTitleType
 import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.repository.CakeOptionListRepository
+import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.repository.ShopRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ShopServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository) : ShopService {
+class ShopServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository, private val shopImgRepository: ShopImgRepository) : ShopService {
 
     override fun addNewShop(newShopReqDto: NewShopReqDto) {
-        val shop : Shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress,newShopReqDto.storeAddress,newShopReqDto.storeShortDescription)
+        val shop : Shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress +" "+newShopReqDto.storeDetailAddress,newShopReqDto.storeDetailImg,newShopReqDto.storeShortDescription)
 
         var newShop : Shop = shopRepository.save(shop)
+
+        for (imageUrl in newShopReqDto.storeImgList) {
+            val shopImg = ShopImg(newShop,imageUrl)
+            shopImgRepository.save(shopImg)
+        }
 
         var optionDesignList : List<String> = newShopReqDto.designList.trim().split("  ")
         for(design in optionDesignList) {

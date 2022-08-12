@@ -26,10 +26,11 @@ class Shop(
     @NotNull
     var shopAddress: String, // 가게 상세 지역 (번지수 까지 자세하게)
 
-    var shopArea : String, // 가게의 대략적인 지역 예) 서울시 구로구
+    @NotNull
+    var shopImgDescriptionUrl: String,
 
     @NotNull
-    var shopShortDescriptor: String = "",
+    var shopShortDescriptor: String,
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +40,8 @@ class Shop(
     @JoinColumn(name = "seller_id")
     var seller : Seller? = null
 
-    @NotNull
-    var shopImgDescriptionUrl: String ?= null
+    var shopArea : String = this.shopAddress.split(" ")[0] + " " + this.shopAddress.split(" ")[1] // 가게의 대략적인 지역 예) 서울시 구로구
+
 //    constructor(shopName: String, businessNum: String, shopPhoneNum: String, shopArea: String, shopAddress: String, shopShortDescriptor: String) : this() {
 //        this.shopName = shopName
 //        this.businessNum = businessNum
