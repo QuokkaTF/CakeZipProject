@@ -37,6 +37,6 @@ class ShopController (private val shopService: ShopService, private val uploadSt
     fun postShop(newShopReqDto: NewShopReqDto) : String{
         println(newShopReqDto)
         shopService.addNewShop(newShopReqDto)
-        return "index"
+        return "redirect:/add/shop" // FIXME : 경로 결정되면 체크하기
     }
 }
