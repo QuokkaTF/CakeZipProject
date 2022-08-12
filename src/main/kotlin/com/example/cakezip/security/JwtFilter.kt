@@ -21,6 +21,7 @@ class JwtFilter(private val jwtUtils: JwtUtils) : OncePerRequestFilter() {
         val authorizationHeader: String? = request.getHeader("Authorization") ?: return filterChain.doFilter(request, response)
         // Bearer타입 토큰이 있을 때 가져온다.
         val token = authorizationHeader?.substring("Bearer ".length) ?: return filterChain.doFilter(request, response)
+        println("test")
 
         // 토큰 검증
         if (jwtUtils.validation(token)) {

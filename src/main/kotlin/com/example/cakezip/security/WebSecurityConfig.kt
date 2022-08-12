@@ -23,7 +23,10 @@ class WebSecurityConfig(
         http.csrf().disable()
 
         http.authorizeRequests()
+            //.antMatchers("/users/**").permitAll()
+            .antMatchers("/**").permitAll()
             .antMatchers("/users/**").permitAll()
+            .antMatchers("/users").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
