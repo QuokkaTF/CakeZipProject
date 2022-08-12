@@ -1,27 +1,27 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.cake.Cake
+import com.example.cakezip.domain.cake.Cake
+import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.repository.CakeRepository
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 
 @Service
 class CakeService(
     private val cakeRepository: CakeRepository,
     ) {
+    fun findByCustomerAndCakeStatus(customer:Customer, cakeStatus:String): List<Cake> = cakeRepository.findByCustomerAndCakeStatus(customer, cakeStatus)
 
-    fun findAll(): List<Cake> = cakeRepository.findAll()
-
-    fun findId(): List<Long> = cakeRepository.findId()
-
-    fun findPickupDate(id:Long): String? = cakeRepository.findPickupDate(id)
-
-    fun findShop(id:Long): Shop = cakeRepository.findShop(id)
+    @Transactional
+    fun deleteAllByCakeId(id:Long) = cakeRepository.deleteAllByCakeId(id)
 
 
-
+    @Transactional
+    fun deleteAllByCustomerAndCakeStatus(customer:Customer, cakeStatus:String) = cakeRepository.deleteAllByCustomerAndCakeStatus(customer,cakeStatus)
 
 }
