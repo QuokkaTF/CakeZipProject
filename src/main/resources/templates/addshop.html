@@ -161,7 +161,8 @@
                                     <h5 for="inputImg">
                                         가게 대표 사진 4장
                                     </h5>
-                                    <input type="file" class="form-control-file"  id="inputShopImg" />
+                                    <input type="file" class="form-control-file" id="inputShopImg" multiple="multiple" onchange="uploadStoreImgList(this)" accept=".png, .jpg, .jpeg"/>
+                                    <input type="text" id = 'storeImgList' style="display: none" th:field = "*{storeImgList}"/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputNumber">
@@ -195,7 +196,8 @@
                                     <h5 for="inputImg">
                                         상세페이지 이미지 첨부
                                     </h5>
-                                    <input type="file" class="form-control-file"  id="inputImgDetail" />
+                                    <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
+                                    <input type="text" id = 'storeDetailImg' style="display: none" th:field = "*{storeDetailImg}"/>
                                 </div>
 
 
@@ -736,7 +738,7 @@
             cakeCreamColorList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
 
             inputCakeCreamColor.value= ""; // 할 일 입력창 초기화
-            inputCakeCreamPrice.value=""
+            inputCakeCreamColorPrice.value= ""
 
             countCreamColor++
         }
@@ -821,7 +823,66 @@
         let letter = document.getElementById('letter')
         letter.value = cakeLetterList.textContent
     }
+    let imgList = ""
+    function uploadStoreImgList(data) {
+        imgList = document.getElementById('storeImgList')
+        uploadImg(data)
+    }
 
+    function uploadStoreDetailImg(data) {
+        imgList = document.getElementById('storeDetailImg')
+        uploadImg(data)
+    }
+
+
+    function uploadImg(objectFile) {
+
+        var files = objectFile.files
+        var filesArr =Array.prototype.slice.call(files);
+        // var inputValue = document.getElementById("inputShopImg")
+        // console.log(inputValue)
+        console.log(filesArr)
+
+        // 업로드 된 파일 유효성 체크
+        if (filesArr.length > 4) {
+            alert("이미지는 최대 4개까지 업로드 가능합니다.");
+            return;
+        }
+        // var inputFileList = new Array();
+
+        // filesArr.forEach(function(f) {
+        //     inputFileList.push(f);    // 이미지 파일을 배열에 담는다.
+        // });
+
+        // console.log("inputFileList: " + inputFileList);
+
+
+        var formData = new FormData()
+        for (let i = 0; i < filesArr.length; i++) {
+            formData.append("images", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
+        }
+        console.log(formData)
+
+
+        $.ajax({
+            url : "/image",
+            type : "POST",
+            enctype:"multipart/form-data",
+            processData: false,
+            contentType: false,
+            data : formData,
+            async : false,
+            success: function(d) {
+                console.log(d)
+                imgList.value = d
+                alert("성공")
+                return;
+            },
+            err: function () {
+                alert("실패")
+            }
+        })
+    }
 
 
 </script>
