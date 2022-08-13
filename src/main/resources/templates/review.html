@@ -2,6 +2,16 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
+    <script>
+        function getScore(event) {
+          document.getElementById('result').value =
+            event.target.value;
+        }
+
+
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -128,37 +138,129 @@
             <main class="row">
                 <div class="col-12 bg-white mb-3">
 
-                    <div class="row  py-3">
-                            <div class="col-8 mx-auto">
-                                <div class="rating-block card py-3">
-                                    <h4 class="text-purple">케이크에 만족하셨나요?</h4>
+                    <div class="col-8 mx-auto" th:each="dto : ${cake}" style="padding: 30px 0px 30px 0px;">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>가게명</th>
+                                <th>픽업날짜</th>
+                                <th>상세옵션</th>
+                                <th></th>
+                                <th style="text-align: right">금액</th>
+                            </tr>
+                            </thead>
 
-                                    <div class="star-rating space-x-4">
-                                        <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-                                        <label for="5-stars" class="star pr-4">★</label>
-                                        <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-                                        <label for="4-stars" class="star">★</label>
-                                        <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-                                        <label for="3-stars" class="star">★</label>
-                                        <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-                                        <label for="2-stars" class="star">★</label>
-                                        <input type="radio" id="1-star" name="rating" value="1" v-model="ratings"/>
-                                        <label for="1-star" class="star">★</label>
-                                    </div>
+                            <tbody>
 
-                                </div>
+                            <tr>
+                                <td rowspan="8">
+                                    <img src="/images/cakeimg.png" class="img-fluid">
+                                    <p th:text="${dto.get('shop')}"></p>
+                                </td>
+                                <td rowspan="8" th:text="${dto.get('pickupdate')}"></td>
+                                <td>케이크디자인</td>
+                                <td th:text="${dto.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
+                                <td style="text-align: right" th:text="${dto.get('DESIGNprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>케이크 호수</td>
+                                <td th:text="${dto.get('SIZE')}">1호</td>
+                                <td style="text-align: right" th:text="${dto.get('SIZEprice')}">21,500</td>
+                            </tr>
+                            <tr>
+                                <td>시트맛</td>
+                                <td th:text="${dto.get('SFLAVOR')}">오레오</td>
+                                <td style="text-align: right" th:text="${dto.get('SFLAVORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>크림맛</td>
+                                <td th:text="${dto.get('CFLAVOR')}">생크림</td>
+                                <td style="text-align: right" th:text="${dto.get('CFLAVORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>케이크 바탕색</td>
+                                <td th:text="${dto.get('CCOLOR')}">흰색</td>
+                                <td style="text-align: right" th:text="${dto.get('CCOLORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>레터링 색</td>
+                                <td th:text="${dto.get('LCOLOR')}">주황색</td>
+                                <td style="text-align: right" th:text="${dto.get('LCOLORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>레터링 문구</td>
+                                <td th:text="${dto.get('letterText')}">HBD</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                            <tr>
+                                <td>기타 요청사항</td>
+                                <td th:text="${dto.get('etc')}">둘러싼 크림을 파란색으로 해주세요!</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" class="text-right">Total</th>
+                                <th style="text-align: right" th:text="${dto.get('price')}">4,000</th>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="col-8 mx-auto" style="padding: 0px 0px 30px 0px;">
+                        <div class="rating-block card py-3">
+
+                            <h5 class="text-purple">케이크에 만족하셨나요?</h5>
+
+                            <div class="star-rating space-x-4">
+                                <input type="radio" id="5-stars" name="rating"
+                                       value="5" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="5-stars" class="star pr-4">★</label>
+
+                                <input type="radio" id="4-stars" name="rating"
+                                       value="4" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="4-stars" class="star">★</label>
+
+                                <input type="radio" id="3-stars" name="rating"
+                                       value="3" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="3-stars" class="star">★</label>
+
+                                <input type="radio" id="2-stars" name="rating"
+                                       value="2" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="2-stars" class="star">★</label>
+
+                                <input type="radio" id="1-star" name="rating"
+                                       value="1" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="1-star" class="star">★</label>
                             </div>
-                        </div>
 
+                        </div>
+                    </div>
+
+                    <form th:action="@{${cakeId}}" method="POST">
                         <div class="row py-1">
-                            <div class="col-8 mx-auto">
+                            <div class="col-8 mx-auto" style="padding: 0px 0px 30px 0px;">
                                 <div class="rating-block card py-3">
-                                    <h4 class="text-purple">케이크에 대한 리뷰를 남겨주세요!</h4>
-                                    <input type="text" class="form-control" placeholder="제목" required>
-                                    <input type="text" class="form-control" text-align="top"  style="height:200px;r" placeholder="내용" required>
+                                    <h5 class="text-purple">케이크에 대한 리뷰를 남겨주세요!</h5>
+                                    <input type="text" class="form-control" id='result' name="reviewScore"
+                                           style="display: none;">
+                                    <input type="text" name="reviewTitle" class="form-control" placeholder="제목"
+                                           required>
+                                    <input type="text" name="reviewContent" class="form-control" text-align="top"
+                                           style="height:200px;r" placeholder="내용" required>
                                 </div>
+                                <input type="submit" class="btn btn-outline-success" value="작성완료"
+                                       style="float:right; margin: 30px 0px 50px 0px;">
                             </div>
+
                         </div>
+
+
+                    </form>
 
 
                 </div>
