@@ -2,6 +2,7 @@ package com.example.cakezip.service
 
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.OptionTitleType
+import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.NewShopReqDto
@@ -96,5 +97,10 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
         }
 
         println("저장완료~")
+    }
+
+    override fun getMyShop(seller: Seller): Shop? {
+        val shop = shopRepository.findBySeller(seller)
+        return shop.get()
     }
 }
