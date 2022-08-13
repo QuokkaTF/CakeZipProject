@@ -101,6 +101,9 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
 
     override fun getMyShop(seller: Seller): Shop? {
         val shop = shopRepository.findBySeller(seller)
-        return shop.get()
+        if (shop.isPresent) {
+            return shop.get()
+        }
+        return null
     }
 }
