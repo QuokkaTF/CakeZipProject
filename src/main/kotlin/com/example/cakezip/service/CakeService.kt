@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional
 class CakeService(
     private val cakeRepository: CakeRepository,
     ) {
+
+    fun findByCakeId(id:Long):Cake = cakeRepository.findByCakeId(id)
+
     fun findByCustomerAndCakeStatus(customer:Customer, cakeStatus:String): List<Cake> = cakeRepository.findByCustomerAndCakeStatus(customer, cakeStatus)
 
     @Transactional
