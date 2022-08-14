@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-Commerce Template</title>
+
+    <link href="/fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <div class="row min-vh-100">
+        <div class="col-12">
+            <header class="row">
+                <!-- Top Nav -->
+
+                <div class="col-12 bg-purple py-2 d-md-block d-none">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                </li>
+                                <li>
+                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="register.html"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="login.html"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Nav -->
+
+                <!-- Header -->
+                <div class="col-12 bg-white pt-4">
+                    <div class="row">
+                        <div class="col-lg-auto">
+                            <div class="site-logo text-center text-lg-left">
+                                <a href="index.html" style="">Cake.zip</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요" required>
+                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
+                            <a href="#" class="header-item">
+                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            </a>
+                            <a href="cart.html" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
+                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Nav -->
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="mainNav">
+                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별 보기</a>
+                                        <div class="dropdown-menu" aria-labelledby="electronics">
+                                            <a class="dropdown-item" href="category.html">서울</a>
+                                            <a class="dropdown-item" href="category.html">부산</a>
+                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
+                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
+                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
+                                        </div>
+                                        <!--                                    </li>-->
+                                        <!--                                    <li class="nav-item dropdown">-->
+                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
+                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
+                                        <!--                                        </div>-->
+                                        <!--                                    </li>-->
+                                        <!--                                    <li class="nav-item dropdown">-->
+                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
+                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
+                                        <!--                                        </div>-->
+                                        <!--                                    </li>-->
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- Nav -->
+
+                </div>
+                <!-- Header -->
+
+            </header>
+        </div>
+
+        <div class="col-12">
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
+                    <h2>케이크 가게 등록</h2>
+                    <p>등록을 완료하게 되면 이제 손님들이 사장님의 가게를 확인할 수 있어요.</p>
+                </div>
+            </div>
+
+            <main class="row">
+                <div class="col-12 bg-white py-3 mb-3">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
+
+                            <form th:action ="@{/shops/{id} (id = ${shop.getShopId()})}" method="post">
+                                <input type="hidden" name="_method" value="put"/>
+                                <h3 for="inputDescription" style="margin:30px; ">
+                                    가게 기본 정보
+                                </h3>
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputName">
+                                        가게이름
+                                    </h5>
+                                    <input type="text" class="form-control" id="inputName" th:value = "${shop.getShopName()}"  required/>
+                                </div>
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputImg">
+                                        가게 대표 사진 4장
+                                    </h5>
+<!--                                    <input type="file" class="form-control-file" id="inputShopImg" multiple="multiple" onchange="uploadStoreImgList(this)" accept=".png, .jpg, .jpeg"/>-->
+<!--                                    <input type="text" id = 'storeImgList' style="display: none" th:value = "*{}"/>-->
+                                </div>
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputNumber">
+                                        사업자등록번호
+                                    </h5>
+                                    <input type="text" th:value ="${shop.getBusinessNum()}" class="form-control" id="inputNumber" required/>
+                                </div>
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputPhone">
+                                        가게 전화번호
+                                    </h5>
+                                    <input type="text" th:value="${shop.getShopPhoneNum()}" class="form-control" id="inputPhone" required/>
+                                </div>
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputAddress">
+                                        가게 주소
+                                    </h5>
+                                    <input id="member_post"  type="text" placeholder="Zip Code" readonly onclick="findAddr()" required>
+                                    <input id="member_addr" type="text" placeholder="Address" th:value="${shop.getShopAddress()}" readonly> <br>
+                                    <input type="text" th:value="${shop.getShopAddress()}" placeholder="Detailed Address" required>
+                                </div>
+
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputDescription">
+                                        한줄소개
+                                    </h5>
+                                    <input type="text" th:value ="${shop.getShopShortDescriptor()}" class="form-control" id="inputDescription" required/>
+                                </div>
+
+                                <div class="form-group" style="margin:30px">
+                                    <h5 for="inputImg">
+                                        상세페이지 이미지 첨부
+                                    </h5>
+                                    <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
+                                    <input type="text" id = 'storeDetailImg' style="display: none" th:value = "${shop.getShopImgDescriptionUrl()}"/>
+                                </div>
+
+
+
+                                <h3 for="inputDescription" style="margin:30px; margin-top:80px; ">
+                                    케이크 옵션 영역 설정
+                                </h3>
+
+
+<!--                                <div class="form-group" style="margin:30px">-->
+<!--                                    <h5 for="inputOption1">-->
+<!--                                        1. 케이크 디자인-->
+<!--                                    </h5>-->
+<!--                                    <div class="input-group">-->
+<!--                                        <input type="text" id = "inputCakeDesign" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <input type="text" id = "inputCakeDesignPrice" class="form-control" placeholder="가격을 입력하세요">-->
+<!--                                        <button type="button" class="btn" id = "addCakeDesign" style="color:white; background-color:black;">추가</button>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <ul style="list-style: none; float: left" id = "cakeDesignList"></ul>-->
+<!--                                        <input type="text" id = 'design' style="display: none" th:field = "*{designList}"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="height: 1px"></div>-->
+
+<!--                                <div class="form-group" style="margin:30px;">-->
+<!--                                    <h5 for="inputOption1">-->
+<!--                                        2. 케이크 호수-->
+<!--                                    </h5>-->
+<!--                                    <div class="input-group">-->
+<!--                                        <input type="text" id = "inputCakeSize" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <input type="text" id = "inputCakeSizePrice" class="form-control" placeholder="가격을 입력하세요">-->
+<!--                                        <button type="button" class="btn" id = "addCakeSize" style="color:white; background-color:black;">추가</button>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <ul style="list-style: none; float: left" id = "cakeSizeList"></ul>-->
+<!--                                        <input type="text" id = 'size' style="display: none" th:field = "*{sizeList}"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="height: 1px"></div>-->
+
+<!--                                <div class="form-group" style="margin:30px;">-->
+<!--                                    <h5 for="inputOption1">-->
+<!--                                        3. 케이크 시트맛-->
+<!--                                    </h5>-->
+<!--                                    <div class="input-group">-->
+<!--                                        <input type="text" id = "inputCakeSheet" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <input type="text" id = "inputCakeSheetPrice" class="form-control" placeholder="가격을 입력하세요">-->
+<!--                                        <button type="button" class="btn" id = "addCakeSheet" style="color:white; background-color:black;">추가</button>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <ul style="list-style: none; float: left" id = "cakeSheetList"></ul>-->
+<!--                                        <input type="text" id = 'sheet' style="display: none" th:field = "*{sheetList}"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="height: 1px"></div>-->
+
+<!--                                <div class="form-group" style="margin:30px;">-->
+<!--                                    <h5 for="inputOption1">-->
+<!--                                        4. 케이크 크림맛-->
+<!--                                    </h5>-->
+<!--                                    <div class="input-group">-->
+<!--                                        <input type="text" id = "inputCakeCream" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <input type="text" id = "inputCakeCreamPrice" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <button type="button" class="btn" id = "addCakeCream" style="color:white; background-color:black;">추가</button>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <ul style="list-style: none; float: left" id = "cakeCreamList"></ul>-->
+<!--                                        <input type="text" id = 'cream' style="display: none" th:field = "*{creamList}"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="height: 1px"></div>-->
+
+<!--                                <div class="form-group" style="margin:30px;">-->
+<!--                                    <h5 for="inputOption1">-->
+<!--                                        5. 케이크 크림색-->
+<!--                                    </h5>-->
+<!--                                    <div class="input-group">-->
+<!--                                        <input type="text" id = "inputCakeCreamColor" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <input type="text" id = "inputCakeCreamColorPrice" class="form-control" placeholder="가격을 입력하세요">-->
+<!--                                        <button type="button" class="btn" id = "addCakeCreamColor" style="color:white; background-color:black;">추가</button>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <ul style="list-style: none; float: left" id = "cakeCreamColorList"></ul>-->
+<!--                                        <input type="text" id = 'creamColor' style="display: none" th:field = "*{creamColorList}"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div style="height: 1px"></div>-->
+
+<!--                                <div class="form-group" style="margin:30px;">-->
+<!--                                    <h5 for="inputOption1">-->
+<!--                                        6. 레터링 색-->
+<!--                                    </h5>-->
+<!--                                    <div class="input-group">-->
+<!--                                        <input type="text" id = "inputCakeLetter" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
+<!--                                        <input type="text" id = "inputCakeLetterPrice" class="form-control" placeholder="가격을 입력하세요">-->
+<!--                                        <button type="button" class="btn" id = "addCakeLetter" style="color:white; background-color:black;">추가</button>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <ul style="list-style: none; float: left" id = "cakeLetterList"></ul>-->
+<!--                                        <input type="text" id = 'letter' style="display: none" th:field = "*{letterList}"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                                <div style="height: 1px"></div>
+
+                                <div align="center">
+                                    <button class="btn bg-purple me-3" style="color:white;margin:30px;width:95%;height:40px" type="submit">작성완료</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+            <!-- Main Content -->
+        </div>
+
+        <div class="col-12 align-self-end">
+            <!-- Footer -->
+            <footer class="row">
+                <div class="col-12 bg-dark text-white pb-3 pt-5">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-4 text-center text-sm-left mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="footer-logo">
+                                        <a href="index.html">E-Commerce</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <address>
+                                        221B Baker Street<br>
+                                        London, England
+                                    </address>
+                                </div>
+                                <div class="col-12">
+                                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+                                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-8 text-center text-sm-left mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12 text-uppercase">
+                                    <h4>Who are we?</h4>
+                                </div>
+                                <div class="col-12 text-justify">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam imperdiet vel ligula vel sodales. Aenean vel ullamcorper purus, ac pharetra arcu. Nam enim velit, ultricies eu orci nec, aliquam efficitur sem. Quisque in sapien a sem vestibulum volutpat at eu nibh. Suspendisse eget est metus. Maecenas mollis quis nisl ac malesuada. Donec gravida tortor massa, vitae semper leo sagittis a. Donec augue turpis, rutrum vitae augue ut, venenatis auctor nulla. Sed posuere at erat in consequat. Nunc congue justo ut ante sodales, bibendum blandit augue finibus.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-3 col-5 ms-lg-auto ms-sm-0 ms-auto mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12 text-uppercase">
+                                    <h4>Quick Links</h4>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="footer-nav">
+                                        <li>
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Contact Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">About Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Privacy Policy</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Terms & Conditions</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-sm-2 col-4 me-auto mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12 text-uppercase text-underline">
+                                    <h4>Help</h4>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="footer-nav">
+                                        <li>
+                                            <a href="#">FAQs</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Shipping</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Returns</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Track Order</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Report Fraud</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 text-center text-sm-left">
+                            <div class="row">
+                                <div class="col-12 text-uppercase">
+                                    <h4>Newsletter</h4>
+                                </div>
+                                <div class="col-12">
+                                    <form action="#">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" placeholder="Enter your email..." required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button class="btn btn-outline-light text-uppercase">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer -->
+        </div>
+    </div>
+
+</div>
+<script>
+    /**
+     * 주소 찾기
+     * */
+    function findAddr(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                console.log(data);
+
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var jibunAddr = data.jibunAddress; // 지번 주소 변수
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('member_post').value = data.zonecode;
+                if(roadAddr !== ''){
+                    document.getElementById("member_addr").value = roadAddr;
+                }
+                else if(jibunAddr !== ''){
+                    document.getElementById("member_addr").value = jibunAddr;
+                }
+            }
+        }).open();
+    }
+
+    /**
+     * 케이크 디자인
+     * */
+    let countDesign = 1;
+    let inputCakeDesign = document.getElementById('inputCakeDesign');  // 할 일 입력창
+    let inputDesignPrice = document.getElementById('inputCakeDesignPrice');
+    let addCakeDesign = document.getElementById('addCakeDesign');      // 버튼
+    let cakeDesignList = document.getElementById('cakeDesignList');    // 할 일 리스트창
+
+    addCakeDesign.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeDesign.value || !inputDesignPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countDesign);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeDesign.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeDesign.value = ""
+                return
+            }
+
+            if(isNaN(inputDesignPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputDesignPrice.value = ""
+                return;
+            }
+
+            list.innerHTML = inputCakeDesign.value; // <li>입력된 디테일</li>
+            list.innerHTML += " ";
+            list.innerHTML += inputDesignPrice.value; // <li>입력된 가격</li>
+            list.innerHTML += "원"
+            //list.innerText += ""
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove1("+countDesign+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeDesignList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            console.log(cakeDesignList.textContent)
+            inputCakeDesign.value= ""; // 할 일 입력창 초기화
+            inputDesignPrice.value= ""; // 할 일 입력창 초기화
+
+            countDesign++
+        }
+    })
+
+    function remove1(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeDesignList.removeChild(li);
+    }
+
+    /**
+     * 케이크 호수
+     * */
+    let countSize = 1;
+    let inputCakeSize = document.getElementById('inputCakeSize');  // 할 일 입력창
+    let inputCakeSizePrice = document.getElementById('inputCakeSizePrice');  // 할 일 입력창
+    let addCakeSize = document.getElementById('addCakeSize');      // 버튼
+    let cakeSizeList = document.getElementById('cakeSizeList');    // 할 일 리스트창
+
+    addCakeSize.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeSize.value || !inputCakeSizePrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countSize);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeSize.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeSize.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeSizePrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeSizePrice.value = ""
+                return;
+            }
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeSheet.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeSheet.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeSheetPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeSheetPrice.value = ""
+                return;
+            }
+
+            list.innerHTML = inputCakeSize.value; // <li>입력된 할 일</li>
+            list.innerText += " "
+            list.innerHTML += inputCakeSizePrice.value;
+            list.innerHTML += "원"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove2("+countSize+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeSizeList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeSize.value= ""; // 할 일 입력창 초기화
+            inputCakeSizePrice.value="";
+            countSize++
+        }
+    })
+
+    function remove2(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeSizeList.removeChild(li);
+    }
+
+    /**
+     * 케이크 시트
+     * */
+    let countSheet = 1;
+    let inputCakeSheet = document.getElementById('inputCakeSheet');  // 할 일 입력창
+    let inputCakeSheetPrice = document.getElementById('inputCakeSheetPrice');  // 할 일 입력창
+    let addCakeSheet = document.getElementById('addCakeSheet');      // 버튼
+    let cakeSheetList = document.getElementById('cakeSheetList');    // 할 일 리스트창
+
+    addCakeSheet.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeSheet.value || !inputCakeSheetPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countSheet);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeSheet.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeSheet.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeSheetPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeSheetPrice.value = ""
+                return;
+            }
+
+            list.innerHTML = inputCakeSheet.value; // <li>입력된 할 일</li>
+            list.innerText += " "
+            list.innerHTML += inputCakeSheetPrice.value;
+            list.innerHTML += "원"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove3("+countSheet+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeSheetList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeSheet.value= ""; // 할 일 입력창 초기화
+            inputCakeSheetPrice.value = "";
+            countSheet++
+        }
+    })
+
+    function remove3(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeSheetList.removeChild(li);
+    }
+
+    /**
+     * 케이크 크림
+     * */
+    let countCream = 1;
+    let inputCakeCream = document.getElementById('inputCakeCream');  // 할 일 입력창
+    let inputCakeCreamPrice = document.getElementById('inputCakeCreamPrice');  // 할 일 입력창
+    let addCakeCream = document.getElementById('addCakeCream');      // 버튼
+    let cakeCreamList = document.getElementById('cakeCreamList');    // 할 일 리스트창
+
+    addCakeCream.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeCream.value || !inputCakeCreamPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countCream);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeCream.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeCream.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeCreamPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeCreamPrice.value = ""
+                return;
+            }
+
+            list.innerHTML = inputCakeCream.value; // <li>입력된 할 일</li>
+            list.innerText += " "
+            list.innerHTML += inputCakeCreamPrice.value;
+            list.innerHTML += "원"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove4("+countCream+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeCreamList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeCream.value= ""; // 할 일 입력창 초기화
+            inputCakeCreamPrice.value="";
+            countCream++
+        }
+    })
+
+    function remove4(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeCreamList.removeChild(li);
+    }
+
+    /**
+     * 케이크 크림 색
+     * */
+    let countCreamColor = 1;
+    let inputCakeCreamColor = document.getElementById('inputCakeCreamColor');  // 할 일 입력창
+    let inputCakeCreamColorPrice = document.getElementById('inputCakeCreamColorPrice');  // 할 일 입력창
+    let addCakeCreamColor = document.getElementById('addCakeCreamColor');      // 버튼
+    let cakeCreamColorList = document.getElementById('cakeCreamColorList');    // 할 일 리스트창
+
+    addCakeCreamColor.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeCreamColor.value || !inputCakeCreamColorPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countCreamColor);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeCreamColor.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeCreamColor.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeCreamColorPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeCreamColorPrice.value = ""
+                return;
+            }
+
+
+            list.innerHTML = inputCakeCreamColor.value; // <li>입력된 할 일</li>
+            list.innerText += " "
+            list.innerHTML += inputCakeCreamColorPrice.value;
+            list.innerHTML += "원"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove5("+countCreamColor+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeCreamColorList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeCreamColor.value= ""; // 할 일 입력창 초기화
+            inputCakeCreamColorPrice.value= ""
+
+            countCreamColor++
+        }
+    })
+
+    function remove5(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeCreamColorList.removeChild(li);
+    }
+
+    /**
+     * 케이크 레터링색
+     * */
+    let countLetter = 1;
+    let inputCakeLetter = document.getElementById('inputCakeLetter');  // 할 일 입력창
+    let inputCakeLetterPrice = document.getElementById('inputCakeLetterPrice');  // 할 일 입력창
+    let addCakeLetter = document.getElementById('addCakeLetter');      // 버튼
+    let cakeLetterList = document.getElementById('cakeLetterList');    // 할 일 리스트창
+
+    addCakeLetter.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
+        var list = document.createElement('li');     // html 'li' 태그 만들기
+        if (!inputCakeLetter.value || !inputCakeLetterPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+            alert('내용을 입력해 주세요!');
+        else
+        {
+            list.setAttribute("id","li"+countLetter);
+
+            var blank_pattern = /[\s]/g;
+            if(blank_pattern.test(inputCakeLetter.value) == true){
+                alert('공백 없이 입력해주세요.(공백시 _, - 등으로 연결)');
+                inputCakeLetter.value = ""
+                return
+            }
+
+            if(isNaN(inputCakeLetterPrice.value)) {
+                alert('가격은 숫자여야합니다.')
+                inputCakeLetterPrice.value = ""
+                return;
+            }
+
+            list.innerHTML = inputCakeLetter.value; // <li>입력된 할 일</li>
+            list.innerText += " "
+            list.innerHTML += inputCakeLetterPrice.value;
+            list.innerHTML += "원"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove6("+countLetter+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "  ";
+
+            list.style.float = "left";
+            list.style.marginLeft = "15px";
+
+            cakeLetterList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+
+            inputCakeLetter.value= ""; // 할 일 입력창 초기화
+            inputCakeLetterPrice.value = ""
+            countLetter++
+        }
+    })
+
+    function remove6(cnt) {
+        //window.alert(cnt);
+        var li = document.getElementById('li'+cnt);
+        cakeLetterList.removeChild(li);
+    }
+
+    function submitData() {
+        let design = document.getElementById('design')
+        design.value = cakeDesignList.textContent
+
+        let size = document.getElementById('size')
+        size.value = cakeSizeList.textContent
+
+        let sheet = document.getElementById('sheet')
+        sheet.value = cakeSheetList.textContent
+
+        let cream = document.getElementById('cream')
+        cream.value = cakeCreamList.textContent
+
+        let creamColor = document.getElementById('creamColor')
+        creamColor.value = cakeCreamColorList.textContent
+
+        let letter = document.getElementById('letter')
+        letter.value = cakeLetterList.textContent
+    }
+    let imgList = ""
+    function uploadStoreImgList(data) {
+        imgList = document.getElementById('storeImgList')
+        uploadImg(data)
+    }
+
+    function uploadStoreDetailImg(data) {
+        imgList = document.getElementById('storeDetailImg')
+        uploadImg(data)
+    }
+
+
+    function uploadImg(objectFile) {
+
+        var files = objectFile.files
+        var filesArr =Array.prototype.slice.call(files);
+        // var inputValue = document.getElementById("inputShopImg")
+        // console.log(inputValue)
+        console.log(filesArr)
+
+        // 업로드 된 파일 유효성 체크
+        if (filesArr.length > 4) {
+            alert("이미지는 최대 4개까지 업로드 가능합니다.");
+            return;
+        }
+        // var inputFileList = new Array();
+
+        // filesArr.forEach(function(f) {
+        //     inputFileList.push(f);    // 이미지 파일을 배열에 담는다.
+        // });
+
+        // console.log("inputFileList: " + inputFileList);
+
+
+        var formData = new FormData()
+        for (let i = 0; i < filesArr.length; i++) {
+            formData.append("images", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
+        }
+        console.log(formData)
+
+
+        $.ajax({
+            url : "/image",
+            type : "POST",
+            enctype:"multipart/form-data",
+            processData: false,
+            contentType: false,
+            data : formData,
+            async : false,
+            success: function(d) {
+                console.log(d)
+                imgList.value = d
+                alert("성공")
+                return;
+            },
+            err: function () {
+                alert("실패")
+            }
+        })
+    }
+
+
+</script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=CLIENT_KEY&submodules=geocoder"></script>
+</body>
+</html>

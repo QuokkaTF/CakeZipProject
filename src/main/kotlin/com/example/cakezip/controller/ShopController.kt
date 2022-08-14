@@ -1,5 +1,6 @@
 package com.example.cakezip.controller
 
+import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.service.ShopService
 import com.example.cakezip.service.UploadStoreImgService
@@ -38,5 +39,21 @@ class ShopController (private val shopService: ShopService, private val uploadSt
         println(newShopReqDto)
         shopService.addNewShop(newShopReqDto)
         return "redirect:/add/shop" // FIXME : 경로 결정되면 체크하기
+    }
+
+    @GetMapping("/shops/{shopId}")
+    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
+        model.addAttribute("shop", shopService.getByShopId(shopId))
+        model.addAttribute("form", NewShopReqDto())
+        return "editshop"
+    }
+
+    @PutMapping("/shops/{shopId}")
+    fun modifyShop(shop: Shop) :String{
+        println("oiasdhfiEURHGFIulA")
+        println(shop.shopId)
+        println(shop.shopName)
+        print(shop.shopShortDescriptor)
+        return "index"
     }
 }
