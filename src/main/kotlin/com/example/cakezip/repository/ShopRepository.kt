@@ -10,4 +10,6 @@ import java.util.Optional
 interface ShopRepository : JpaRepository<Shop, Long> {
     fun findBySeller (seller : Seller) : Optional<Shop>
 
+    fun findByShopId (shopId : Long) : Shop
+
 }

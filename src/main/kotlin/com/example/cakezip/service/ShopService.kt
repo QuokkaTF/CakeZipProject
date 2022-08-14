@@ -7,4 +7,6 @@ import com.example.cakezip.dto.NewShopReqDto
 interface ShopService {
     fun addNewShop(newShopReqDto: NewShopReqDto)
     fun getMyShop(seller: Seller) : Shop?
+
+    fun getByShopId(shopId:Long) : Shop
 }

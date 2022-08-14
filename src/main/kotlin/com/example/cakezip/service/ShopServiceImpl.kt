@@ -106,4 +106,8 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
         }
         return null
     }
+
+    override fun getByShopId(shopId: Long): Shop {
+        return shopRepository.findByShopId(shopId)
+    }
 }
