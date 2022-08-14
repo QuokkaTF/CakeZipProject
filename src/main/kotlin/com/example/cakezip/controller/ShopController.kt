@@ -1,7 +1,9 @@
 package com.example.cakezip.controller
 
+import com.example.cakezip.config.BaseResponse
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.NewShopReqDto
+import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.service.ShopService
 import com.example.cakezip.service.UploadStoreImgService
 
@@ -55,5 +57,12 @@ class ShopController (private val shopService: ShopService, private val uploadSt
         println(shop.shopName)
         print(shop.shopShortDescriptor)
         return "index"
+    }
+
+    @GetMapping("/shops")
+    @ResponseBody
+    fun shopList() : BaseResponse<List<ShopSimpleInfoDto>> {
+        // TODO : html과 연결해야함
+        return BaseResponse(shopService.getAllShopSimpleList())
     }
 }

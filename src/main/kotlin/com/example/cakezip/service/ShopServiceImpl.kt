@@ -6,6 +6,7 @@ import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.NewShopReqDto
+import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.repository.CakeOptionListRepository
 import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.repository.ShopRepository
@@ -109,5 +110,23 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
 
     override fun getByShopId(shopId: Long): Shop {
         return shopRepository.findByShopId(shopId)
+    }
+
+    override fun getAllShopSimpleList(): List<ShopSimpleInfoDto> {
+        var shopSimpleInfoList : ArrayList<ShopSimpleInfoDto> = ArrayList()
+        val shopList : List<Shop> = shopRepository.findAll()
+
+        for (shop in shopList) {
+            val shopImgList : ArrayList<String> = ArrayList()
+
+            val getShopImg : List<ShopImg> = shopImgRepository.findByShop(shop)
+            for (img in getShopImg) {
+                shopImgList.add(img.shopImgUrl)
+            }
+
+            var shopSimpleDto = ShopSimpleInfoDto(shop.shopName, shop.shopShortDescriptor, shop.shopArea, shop.shopPhoneNum,shopImgList)
+            shopSimpleInfoList.add(shopSimpleDto)
+        }
+        return shopSimpleInfoList;
     }
 }
