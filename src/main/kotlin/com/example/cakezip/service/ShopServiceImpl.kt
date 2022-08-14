@@ -6,6 +6,7 @@ import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.NewShopReqDto
+import com.example.cakezip.dto.ShopDetailInfoDto
 import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.repository.CakeOptionListRepository
 import com.example.cakezip.repository.ShopImgRepository
@@ -129,5 +130,34 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
         }
         println(shopSimpleInfoList.toString())
         return shopSimpleInfoList;
+    }
+
+    override fun getShopDetail(shopID: Long): ShopDetailInfoDto {
+        val shop : Shop = shopRepository.findByShopId(shopID)
+        val shopImg : List<ShopImg> = shopImgRepository.findByShop(shop)
+        val shopImgUrl : ArrayList<String> = ArrayList()
+        for (img in shopImg) {
+            shopImgUrl.add(img.shopImgUrl)
+        }
+
+        var cakeOptionList : List<CakeOptionList> = cakeOptionListRepository.findByShopId(shop)
+        val designOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val sizeOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val sheetOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val creamOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val creamColorOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val letterOptionList : ArrayList<CakeOptionList> = ArrayList()
+
+        for (option in cakeOptionList) {
+            when(option.optionTitle) {
+                OptionTitleType.DESIGN -> designOptionList.add(option)
+                OptionTitleType.SIZE -> sizeOptionList.add(option)
+                OptionTitleType.SFLAVOR -> sheetOptionList.add(option)
+                OptionTitleType.CFLAVOR -> creamOptionList.add(option)
+                OptionTitleType.CCOLOR -> creamColorOptionList.add(option)
+                OptionTitleType.LCOLOR -> letterOptionList.add(option)
+            }
+        }
+        return ShopDetailInfoDto(shopID, shop.shopName, shop.shopAddress, shop.shopArea, shop.shopShortDescriptor, shop.shopPhoneNum, shop.seller, shop.shopImgDescriptionUrl, shopImgUrl, designOptionList, sizeOptionList, sheetOptionList, creamOptionList, creamColorOptionList, letterOptionList)
     }
 }

@@ -3,6 +3,7 @@ package com.example.cakezip.service
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.NewShopReqDto
+import com.example.cakezip.dto.ShopDetailInfoDto
 import com.example.cakezip.dto.ShopSimpleInfoDto
 
 interface ShopService {
@@ -12,4 +13,6 @@ interface ShopService {
     fun getByShopId(shopId:Long) : Shop
 
     fun getAllShopSimpleList() : List<ShopSimpleInfoDto>
+
+    fun getShopDetail(shopID:Long) : ShopDetailInfoDto
 }

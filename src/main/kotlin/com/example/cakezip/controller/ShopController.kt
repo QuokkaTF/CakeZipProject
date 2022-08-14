@@ -3,6 +3,7 @@ package com.example.cakezip.controller
 import com.example.cakezip.config.BaseResponse
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.NewShopReqDto
+import com.example.cakezip.dto.ShopDetailInfoDto
 import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.service.ShopService
 import com.example.cakezip.service.UploadStoreImgService
@@ -42,13 +43,13 @@ class ShopController (private val shopService: ShopService, private val uploadSt
         shopService.addNewShop(newShopReqDto)
         return "redirect:/add/shop" // FIXME : 경로 결정되면 체크하기
     }
-
-    @GetMapping("/shops/{shopId}")
-    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
-        model.addAttribute("shop", shopService.getByShopId(shopId))
-        model.addAttribute("form", NewShopReqDto())
-        return "editshop"
-    }
+//
+//    @GetMapping("/myshops/{shopId}")
+//    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
+//        model.addAttribute("shop", shopService.getByShopId(shopId))
+//        model.addAttribute("form", NewShopReqDto())
+//        return "editshop"
+//    }
 
     @PutMapping("/shops/{shopId}")
     fun modifyShop(shop: Shop) :String{
@@ -64,5 +65,13 @@ class ShopController (private val shopService: ShopService, private val uploadSt
     fun shopList() : BaseResponse<List<ShopSimpleInfoDto>> {
         // TODO : html과 연결해야함
         return BaseResponse(shopService.getAllShopSimpleList())
+    }
+
+    @GetMapping("/shops/{shopId}")
+    @ResponseBody
+    fun shopDetail(@PathVariable("shopId") shopId:Long) : BaseResponse<ShopDetailInfoDto> {
+        // TODO : html과 연결해야함
+        val shopDetail = shopService.getShopDetail(shopId)
+        return BaseResponse(shopDetail)
     }
 }
