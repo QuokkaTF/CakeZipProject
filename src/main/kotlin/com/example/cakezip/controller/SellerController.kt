@@ -36,6 +36,12 @@ class SellerController (private val sellerService: SellerService, private val sh
         return "sellermain"
     }
 
+    @GetMapping("/sellers/myinfo/{sellerId}")
+    fun sellerMyInfo(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
+        var seller: Seller = sellerService.findBySellerBySellerId(sellerId)
+        model.addAttribute("user", seller.user)
+        return "sellermain"
+    }
 
 
 }
