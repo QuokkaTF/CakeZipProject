@@ -124,9 +124,10 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
                 shopImgList.add(img.shopImgUrl)
             }
 
-            var shopSimpleDto = ShopSimpleInfoDto(shop.shopName, shop.shopShortDescriptor, shop.shopArea, shop.shopPhoneNum,shopImgList)
+            var shopSimpleDto = ShopSimpleInfoDto(shop.shopId, shop.shopName, shop.shopShortDescriptor, shop.shopArea, shop.shopPhoneNum,shopImgList)
             shopSimpleInfoList.add(shopSimpleDto)
         }
+        println(shopSimpleInfoList.toString())
         return shopSimpleInfoList;
     }
 }
