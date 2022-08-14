@@ -161,10 +161,13 @@
                                 <div class="col-md-12">
                                     <ul class="nav">
                                         <li class="nav-item">
-                                            <a class="nav-link active" th:href="@{/seller/myshop/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게</a>
+                                            <a class="nav-link active" th:href="@{/sellers/myshop/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/seller/myorders/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게 주문 조회</a>
+                                            <a class="nav-link" th:href="@{/sellers/myorders/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게 주문 조회</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/sellers/myinfo/{id} (id = ${shop.getSeller().getSellerId()})}">내 정보 조회</a>
                                         </li>
                                     </ul>
                                     <div style="height: 30px">
@@ -172,12 +175,18 @@
                                     </div>
                                     <div class="jumbotron" style="padding:10px; background-color: #eceeef" >
                                         <h2 th:text = "${shop.getShopName()}"></h2>
+                                        <table>
+                                            <tr th:each = "img : ${shopImgs}">
+                                                <td><img id="imgId" th:src="${img.shopImgUrl}" alt="첨부이미지" /></td>
+                                            </tr>
+                                        </table>
                                         <p th:text = "|가게 한줄 소개 : ${shop.getShopShortDescriptor()}|"></p>
                                         <P th:text = "|가게 주소 : ${shop.getShopAddress()}|"></P>
+                                        <P th:text = "|가게 전화번호 : ${shop.getShopPhoneNum()}|"></P>
                                         <P th:text = "|사업자 등록 번호 : ${shop.getBusinessNum()}|"></P>
+                                        <P>가게 상세 설명 이미지</P>
+                                        <img id="shopDetailimgId" th:src="${shop.getShopImgDescriptionUrl()}" alt="첨부이미지" />
                                         <P th:text = "|가게 등록일 : ${#temporals.format(shop.createdAt, 'yyyy-MM-dd')}|"></P>
-
-
                                         <p>
                                             <a class="btn btn-primary btn-large" href="#">가게 정보 수정</a>
                                         </p>

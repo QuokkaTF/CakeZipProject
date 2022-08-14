@@ -12,9 +12,9 @@ class ShopImg(
     @JoinColumn(name = "shop_id")
     val shop: Shop,
 
-    var shop_img_url: String,
+    var shopImgUrl: String,
     ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val shop_img_id: Long? = null
+    val shopImgId: Long? = null
     }
