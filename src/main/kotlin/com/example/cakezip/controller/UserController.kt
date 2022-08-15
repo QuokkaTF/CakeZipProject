@@ -56,20 +56,22 @@ class UserController(
      * @return
      * 로그인 성공시 세션 저장
      * 이외에는 에러 메시지 전달
+     * 0 -> password 틀림
+     * -1 -> 이메일 존재 X
+     * else -> token 반환
      */
 
     @PostMapping("/login")
     fun login(@RequestParam userEmail: String, @RequestParam password: String, session: HttpSession) : BaseResponse<String>{
         val res: String = userService.userLogin(userEmail,password)
 
-        if(res != "not_match_password"&& res != "user_not_found") {
+        if(res != "0"&& res != "-1") {
             val user: User? = userService.findUser(userEmail)
-
             if (user != null) {
                 session.setAttribute("userId",user.userId)
             }
         }
-        return BaseResponse(userService.userLogin(userEmail,password))
+        return BaseResponse(res)
     }
 
     /**

@@ -102,13 +102,13 @@ class UserService(
         val user: User? = findUser(userEmail)
         if (user != null) {
             if(!passwordEncoder.matches(password,user.password)) {
-                return "not_match_password"
+                return "0"
             }
             else {
                 return jwtUtils.createToken(userEmail)
             }
         } else {
-            return "user_not_found"
+            return "-1"
         }
 
         /* 기존 코드
