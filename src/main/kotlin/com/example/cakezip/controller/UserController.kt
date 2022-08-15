@@ -5,6 +5,7 @@ import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserDto
 import com.example.cakezip.service.UserService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,6 +21,20 @@ class UserController(
 
 
     /**
+     * User logout
+     *
+     * @param session
+     *
+     * 세션 전체 지워서 로그아웃
+     *
+     */
+
+    @DeleteMapping("")
+    fun userLogout(session: HttpSession): BaseResponse<String> {
+        session.invalidate()
+        return BaseResponse("true")
+    }
+    /**
      * 비밀번호 재설정
      *
      * @param userName
@@ -33,9 +48,9 @@ class UserController(
         val user: User ?= userService.validateUserEmailAndName(userName, userEmail)
         return if(user != null) {
             userService.setUserPassword(user,userPassword)
-            BaseResponse("success")
+            BaseResponse("true")
         } else {
-            BaseResponse("fail")
+            BaseResponse("false")
         }
 
     }
