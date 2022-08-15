@@ -5,10 +5,6 @@ import javax.persistence.*
 
 @Entity
 class Customer(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val customerId: Long,
-
     @OneToOne
     @JoinColumn(name = "user_id")
     val user:User,
@@ -17,4 +13,8 @@ class Customer(
     val gender: Gender,
 
     var areas : String,
-) : BaseEntity(){}
+) : BaseEntity(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val customerId: Long?=null
+}

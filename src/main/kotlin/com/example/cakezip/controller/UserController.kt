@@ -1,6 +1,8 @@
 package com.example.cakezip.controller
 
 import com.example.cakezip.config.BaseResponse
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.CustomerDto
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserDto
 import com.example.cakezip.service.UserService
@@ -18,6 +20,19 @@ import javax.servlet.http.HttpSession
 @RestController
 class UserController(
     private val userService : UserService) {
+
+    /**
+     * Secession user
+     * 탈퇴하기
+     *
+     * @param session
+     * 탈퇴 후 세션 제거
+     */
+    @PostMapping("")
+    fun secessionUser(session: HttpSession) {
+        userService.secessionUser(session.getAttribute("user") as User)
+        session.invalidate()
+    }
 
     /**
      * Find user email
@@ -70,13 +85,19 @@ class UserController(
         }
 
     }
+
+
     /**
      * Sign in 회원가입
      *
      * @param userDto
+     * @param customerDto
+     *
      */
     @PostMapping("")
-    fun signIn(userDto: UserDto ) = BaseResponse(userService.createUser(userDto))
+    fun signIn(userDto: UserDto, customerDto: CustomerDto): BaseResponse<Unit> {
+        return BaseResponse(userService.createUser(userDto,customerDto))
+    }
 
     /**
      * Login
@@ -99,7 +120,8 @@ class UserController(
         if(res != "0"&& res != "-1") {
             val user: User? = userService.findUser(userEmail)
             if (user != null) {
-                session.setAttribute("userId",user.userId)
+                //session.setAttribute("userId",user.userId)
+                session.setAttribute("user",user)
             }
         }
         return BaseResponse(res)
@@ -111,6 +133,6 @@ class UserController(
      * @param userEmail
      */
     @PostMapping("/idcheck")
-    fun idCheck(@RequestParam userEmail: String) = BaseResponse(userService.idCheck(userEmail))
+    fun idCheck(@RequestParam userEmail: String) = BaseResponse(userService.existsUser(userEmail))
 
 }

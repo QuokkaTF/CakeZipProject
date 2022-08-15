@@ -1,12 +1,12 @@
 package com.example.cakezip.service
 
+import com.example.cakezip.domain.member.CustomerDto
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserDto
+import com.example.cakezip.repository.CustomerRepository
 import com.example.cakezip.repository.UserRepository
 import com.example.cakezip.security.JwtUtils
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.BadCredentialsException
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class UserService(
     private val userRepository : UserRepository,
+    private val customerRepository: CustomerRepository,
     private val passwordEncoder : PasswordEncoder,
     private val authenticationManager : AuthenticationManager,
     private val jwtUtils : JwtUtils
@@ -58,6 +59,20 @@ class UserService(
     }
 
     /**
+     * Secession user
+     *
+     * @param user
+     * user status를 secession으로 설정
+     * 2년뒤 삭제 예정
+     * 중복 불가
+     *
+     */
+    fun secessionUser(user: User) {
+        user.status = "secession"
+        userRepository.save(user)
+    }
+
+    /**
      * 유저 이메일과 이름 일치하는지 확인
      *
      * @param userName
@@ -68,10 +83,7 @@ class UserService(
      */
 
     fun validateUserEmailAndName(userName: String, userEmail: String): User? {
-        val user: User? = userRepository.findByUserEmail(userEmail)
-        return user
-
-
+        return userRepository.findByUserEmail(userEmail)
     }
 
     /**
@@ -83,16 +95,21 @@ class UserService(
     fun existsUser(userEmail: String): Boolean {
         return userRepository.existsByUserEmail(userEmail)
     }
+
+    /**
+     * Create user
+     * 회원가입
+거    *
+     * @param userDto
+     * @param customerDto
+     *
+     * user랑 customer dto 받아서 데이터베이스 저장
+     */
     @Transactional
-    fun createUser(userDto: UserDto) {
+    fun createUser(userDto: UserDto, customerDto: CustomerDto) {
         userDto.password = passwordEncoder.encode(userDto.password)
-        userRepository.save(userDto.toEntity())
+        customerRepository.save(customerDto.toEntity(userRepository.save(userDto.toEntity())))
 
-    }
-
-    fun idCheck(userEmail : String) : Boolean {
-        println(userEmail)
-        return userRepository.existsByUserEmail(userEmail)
     }
 
 
