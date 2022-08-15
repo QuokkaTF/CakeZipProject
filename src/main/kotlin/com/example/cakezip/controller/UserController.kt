@@ -19,9 +19,24 @@ class UserController(
     private val userService : UserService) {
 
 
+    /**
+     * 비밀번호 재설정
+     *
+     * @param userName
+     * @param userEmail
+     * @return
+     * 해당 유저 이메일을 가지는 계정의 이름과 일치하면 비밀번호 리턴
+     */
 
     @PostMapping("")
-    fun findPasswd(user:String) {
+    fun resetPassword(@RequestParam userName:String, @RequestParam userEmail: String, @RequestParam userPassword: String): BaseResponse<String> {
+        val user: User ?= userService.validateUserEmailAndName(userName, userEmail)
+        return if(user != null) {
+            userService.setUserPassword(user,userPassword)
+            BaseResponse("success")
+        } else {
+            BaseResponse("fail")
+        }
 
     }
     /**

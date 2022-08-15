@@ -31,6 +31,38 @@ class UserService(
     }
 
     /**
+     * 유저 비밀번호 재설정
+     *
+     * @param user
+     * @param userPassword
+     * @return void
+     *
+     * 암호화해서 설정 및 데이터베이스 저장
+     */
+
+    fun setUserPassword(user: User, userPassword: String) {
+        user.password = passwordEncoder.encode(userPassword)
+        userRepository.save(user)
+    }
+
+    /**
+     * 유저 이메일과 이름 일치하는지 확인
+     *
+     * @param userName
+     * @param userEmail
+     * @return
+     * userEmail의 계정의 이름과 일치한다면 User 리턴
+     * 그 외에 false
+     */
+
+    fun validateUserEmailAndName(userName: String, userEmail: String): User? {
+        val user: User? = userRepository.findByUserEmail(userEmail)
+        return user
+
+
+    }
+
+    /**
      * Exists user
      *
      * @param userEmail
@@ -43,6 +75,7 @@ class UserService(
     fun createUser(userDto: UserDto) {
         userDto.password = passwordEncoder.encode(userDto.password)
         userRepository.save(userDto.toEntity())
+
     }
 
     fun idCheck(userEmail : String) : Boolean {
@@ -61,6 +94,8 @@ class UserService(
      * user_not_found 인 경우 이메일이 존재하지 않음
      * 그 이외의 경우 토큰 리턴
      */
+
+
 
     @Transactional
     fun userLogin(userEmail: String, password: String): String {
