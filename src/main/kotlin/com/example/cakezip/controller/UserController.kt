@@ -19,6 +19,22 @@ import javax.servlet.http.HttpSession
 class UserController(
     private val userService : UserService) {
 
+    /**
+     * Find user email
+     *
+     * @param userName
+     * @param userPhoneNum
+     * @return
+     * 성공시
+     * userEmail
+     * 실패시
+     * null
+     */
+    @PostMapping("")
+    fun findUserEmail(@RequestParam userName: String, @RequestParam userPhoneNum: String): BaseResponse<String?> {
+        return BaseResponse(userService.findUserEmail(userName,userPhoneNum));
+    }
+
 
     /**
      * User logout

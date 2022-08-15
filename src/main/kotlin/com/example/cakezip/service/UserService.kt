@@ -19,6 +19,18 @@ class UserService(
     private val jwtUtils : JwtUtils
 ) {
 
+    /**
+     * Find user email
+     *
+     * @param userName
+     * @param userPhoneNum
+     * @return 해당하는 user 존재할시 email
+     *
+     */
+    fun findUserEmail(userName: String, userPhoneNum: String) : String? {
+        return userRepository.findByUserNameAndPhoneNum(userName,userPhoneNum)?.userEmail
+    }
+
 
     /**
      * Find user
