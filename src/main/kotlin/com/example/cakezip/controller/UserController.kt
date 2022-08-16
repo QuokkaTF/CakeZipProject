@@ -1,80 +1,50 @@
 package com.example.cakezip.controller
 
 import com.example.cakezip.config.BaseResponse
-import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.CustomerDto
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserDto
 import com.example.cakezip.service.UserService
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpSession
 
 @RequestMapping("/users")
-@RestController
+@Controller
 class UserController(
     private val userService : UserService) {
 
-    /**
-     * Secession user
-     * 탈퇴하기
-     *
-     * @param session
-     * 탈퇴 후 세션 제거
-     */
-    @PostMapping("")
-    fun secessionUser(session: HttpSession) {
+    @GetMapping("/register")
+    fun getUserRegisterView() = "user-register"
+
+    @GetMapping("/customers/register")
+    fun getCustomerRegisterView() = "customer-register"
+
+    @GetMapping("/sellers/register")
+    fun getSellerRegisterView() = "seller-register"
+
+    @GetMapping("/editInfo")
+    fun getUserEditView() = "editInfo"
+
+    @DeleteMapping("/deactivate") // 탈퇴
+    fun deactivateUser(session: HttpSession): String {
         userService.secessionUser(session.getAttribute("user") as User)
         session.invalidate()
+        return "redirect:/home"
     }
 
-    /**
-     * Find user email
-     *
-     * @param userName
-     * @param userPhoneNum
-     * @return
-     * 성공시
-     * userEmail
-     * 실패시
-     * null
-     */
-    @PostMapping("")
+    @PostMapping("/email")
     fun findUserEmail(@RequestParam userName: String, @RequestParam userPhoneNum: String): BaseResponse<String?> {
         return BaseResponse(userService.findUserEmail(userName,userPhoneNum));
     }
 
-
-    /**
-     * User logout
-     *
-     * @param session
-     *
-     * 세션 전체 지워서 로그아웃
-     *
-     */
-
-    @DeleteMapping("")
-    fun userLogout(session: HttpSession): BaseResponse<String> {
+    @GetMapping("/logout")
+    fun userLogout(session: HttpSession): String {
         session.invalidate()
-        return BaseResponse("true")
+        return "redirect:/home"
     }
-    /**
-     * 비밀번호 재설정
-     *
-     * @param userName
-     * @param userEmail
-     * @return
-     * 해당 유저 이메일을 가지는 계정의 이름과 일치하면 비밀번호 리턴
-     */
 
-    @PostMapping("")
+    @PostMapping("/password")
     fun resetPassword(@RequestParam userName:String, @RequestParam userEmail: String, @RequestParam userPassword: String): BaseResponse<String> {
         val user: User ?= userService.validateUserEmailAndName(userName, userEmail)
         return if(user != null) {
@@ -86,35 +56,23 @@ class UserController(
 
     }
 
-
-    /**
-     * Sign in 회원가입
-     *
-     * @param userDto
-     * @param customerDto
-     *
-     */
-    @PostMapping("")
-    fun signIn(userDto: UserDto, customerDto: CustomerDto): BaseResponse<Unit> {
-        return BaseResponse(userService.createUser(userDto,customerDto))
+    @PostMapping("/customers")
+    fun customersRegister(userDto: UserDto, customerDto: CustomerDto): String {
+        userService.createCustomer(userDto,customerDto)
+        return "redirect:/home"
     }
 
-    /**
-     * Login
-     *
-     * @param userEmail
-     * @param password
-     * @param session
-     * @return
-     * 로그인 성공시 세션 저장
-     * 이외에는 에러 메시지 전달
-     * 0 -> password 틀림
-     * -1 -> 이메일 존재 X
-     * else -> token 반환
-     */
+    @PostMapping("/sellers")
+    fun sellersRegister(userDto: UserDto): String {
+        userService.createSeller(userDto)
+
+        // TODO 가게 등록 페이지로 리다이렉트하도록 수정해야함
+
+        return "redirect:/home"
+    }
 
     @PostMapping("/login")
-    fun login(@RequestParam userEmail: String, @RequestParam password: String, session: HttpSession) : BaseResponse<String>{
+    fun login(@RequestParam userEmail: String, @RequestParam password: String, session: HttpSession) : String{
         val res: String = userService.userLogin(userEmail,password)
 
         if(res != "0"&& res != "-1") {
@@ -124,15 +82,15 @@ class UserController(
                 session.setAttribute("user",user)
             }
         }
-        return BaseResponse(res)
+        return "redirect:/home"
     }
 
-    /**
-     * Id check 이메일 중복 체크
-     *
-     * @param userEmail
-     */
-    @PostMapping("/idcheck")
+    @PostMapping("/idCheck")
     fun idCheck(@RequestParam userEmail: String) = BaseResponse(userService.existsUser(userEmail))
 
+    @GetMapping("/mypage")
+    fun getMyPage(): String {
+        println("mypage")
+        return "mypage"
+    }
 }

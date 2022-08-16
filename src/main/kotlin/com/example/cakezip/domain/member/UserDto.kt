@@ -5,12 +5,11 @@ data class UserDto (
     var password : String,
     var phoneNum : String,
     var userName : String,
-    var userType: UserType,
         ){
 
 
 
-    fun toEntity() : User {
+    fun toEntity(userType: UserType) : User {
         return User(userEmail,password,phoneNum,userName,userType)
     }
 }

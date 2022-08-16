@@ -1,6 +1,6 @@
 package com.example.cakezip.domain.member
 
-class CustomerDto(
+data class CustomerDto(
     var gender: Gender,
     var areas: String,
 ) {

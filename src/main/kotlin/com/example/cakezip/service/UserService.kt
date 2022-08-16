@@ -1,9 +1,8 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.member.CustomerDto
-import com.example.cakezip.domain.member.User
-import com.example.cakezip.domain.member.UserDto
+import com.example.cakezip.domain.member.*
 import com.example.cakezip.repository.CustomerRepository
+import com.example.cakezip.repository.SellerRepository
 import com.example.cakezip.repository.UserRepository
 import com.example.cakezip.security.JwtUtils
 import org.springframework.security.authentication.AuthenticationManager
@@ -15,116 +14,52 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(
     private val userRepository : UserRepository,
     private val customerRepository: CustomerRepository,
+    private val sellerRepository: SellerRepository,
     private val passwordEncoder : PasswordEncoder,
     private val authenticationManager : AuthenticationManager,
     private val jwtUtils : JwtUtils
 ) {
 
-    /**
-     * Find user email
-     *
-     * @param userName
-     * @param userPhoneNum
-     * @return 해당하는 user 존재할시 email
-     *
-     */
     fun findUserEmail(userName: String, userPhoneNum: String) : String? {
         return userRepository.findByUserNameAndPhoneNum(userName,userPhoneNum)?.userEmail
     }
 
-
-    /**
-     * Find user
-     *
-     * @param userEmail
-     * @return user object or null
-     */
     fun findUser(userEmail: String): User? {
         return userRepository.findByUserEmail(userEmail)
     }
-
-    /**
-     * 유저 비밀번호 재설정
-     *
-     * @param user
-     * @param userPassword
-     * @return void
-     *
-     * 암호화해서 설정 및 데이터베이스 저장
-     */
 
     fun setUserPassword(user: User, userPassword: String) {
         user.password = passwordEncoder.encode(userPassword)
         userRepository.save(user)
     }
 
-    /**
-     * Secession user
-     *
-     * @param user
-     * user status를 secession으로 설정
-     * 2년뒤 삭제 예정
-     * 중복 불가
-     *
-     */
     fun secessionUser(user: User) {
         user.status = "secession"
         userRepository.save(user)
     }
 
-    /**
-     * 유저 이메일과 이름 일치하는지 확인
-     *
-     * @param userName
-     * @param userEmail
-     * @return
-     * userEmail의 계정의 이름과 일치한다면 User 리턴
-     * 그 외에 false
-     */
-
     fun validateUserEmailAndName(userName: String, userEmail: String): User? {
         return userRepository.findByUserEmail(userEmail)
     }
 
-    /**
-     * Exists user
-     *
-     * @param userEmail
-     * @return Exists User true or false
-     */
     fun existsUser(userEmail: String): Boolean {
         return userRepository.existsByUserEmail(userEmail)
     }
 
-    /**
-     * Create user
-     * 회원가입
-거    *
-     * @param userDto
-     * @param customerDto
-     *
-     * user랑 customer dto 받아서 데이터베이스 저장
-     */
     @Transactional
-    fun createUser(userDto: UserDto, customerDto: CustomerDto) {
+    fun createCustomer(userDto: UserDto, customerDto: CustomerDto) {
         userDto.password = passwordEncoder.encode(userDto.password)
-        customerRepository.save(customerDto.toEntity(userRepository.save(userDto.toEntity())))
+        val user: User = userDto.toEntity(UserType.CUSTOMER)
+        customerRepository.save(customerDto.toEntity(userRepository.save(user)))
 
     }
 
-
-    /**
-     * User login
-     *
-     * @param userEmail
-     * @param password
-     * @return
-     * not_match_password 인 경우 비밀번호 틀림
-     * user_not_found 인 경우 이메일이 존재하지 않음
-     * 그 이외의 경우 토큰 리턴
-     */
-
-
+    fun createSeller(userDto: UserDto) {
+        userDto.password = passwordEncoder.encode(userDto.password)
+        val user: User = userDto.toEntity(UserType.SELLER)
+        val seller: Seller = Seller(userRepository.save(user))
+        sellerRepository.save(seller)
+    }
 
     @Transactional
     fun userLogin(userEmail: String, password: String): String {
