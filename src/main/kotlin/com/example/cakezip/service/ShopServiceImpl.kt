@@ -1,6 +1,7 @@
 package com.example.cakezip.service
 
 import com.example.cakezip.domain.cake.CakeOptionList
+import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.repository.ShopRepository
@@ -8,6 +9,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class ShopServiceImpl(private val shopRepository: ShopRepository) : ShopService {
+
+    override fun findBySeller(seller:Seller) : Shop {
+        var shop = shopRepository.findBySeller(seller)
+        return shop
+    }
 
     override fun addNewShop(newShopReqDto: NewShopReqDto) {
         val shop : Shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress,newShopReqDto.storeAddress,newShopReqDto.storeShortDescription)
