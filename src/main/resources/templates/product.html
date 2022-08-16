@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-Commerce Template</title>
+
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container-fluid bg-lightpurple">
+
+    <div class="row min-vh-100">
+        <div class="col-12">
+            <header class="row">
+                <!-- Top Nav -->
+
+                <div class="col-12 bg-purple py-2 d-md-block d-none">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                </li>
+                                <li>
+                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="customers.html"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li>
+                                    <a href="register.html"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="login.html"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Nav -->
+
+                <!-- Header -->
+                <div class="col-12 bg-white pt-4">
+                    <div class="row">
+                        <div class="col-lg-auto">
+                            <div class="site-logo text-center text-lg-left">
+                                <a href="index.html" style="">Cake.zip</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
+                                               required>
+                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
+                            <a href="#" class="header-item">
+                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            </a>
+                            <a href="cart.html" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
+                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Nav -->
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="mainNav">
+                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
+                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
+                                            보기</a>
+                                        <div class="dropdown-menu" aria-labelledby="electronics">
+                                            <a class="dropdown-item" href="category.html">서울</a>
+                                            <a class="dropdown-item" href="category.html">부산</a>
+                                        </div>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- Nav -->
+
+                </div>
+                <!-- Header -->
+
+            </header>
+        </div>
+
+        <div class="col-9 mx-auto bg-lightpurple">
+            <!-- Main Content -->
+            <main class="row bg-lightpurple">
+                <div class="bg-white py-3 my-3">
+                    <div class="row">
+
+                        <!-- Product Images -->
+                        <div class="col-lg-5 col-md-12 mb-3">
+                            <div class="col-12 mb-3">
+                                <div class="img-large border" style="background-image: url('images/image-1.jpg')"></div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-sm-2 col-3">
+                                        <div class="img-small border"
+                                             style="background-image: url('images/image-1.jpg')"
+                                             data-src="images/image-1.jpg"></div>
+                                    </div>
+                                    <div class="col-sm-2 col-3">
+                                        <div class="img-small border"
+                                             style="background-image: url('images/image-2.jpg')"
+                                             data-src="images/image-2.jpg"></div>
+                                    </div>
+                                    <div class="col-sm-2 col-3">
+                                        <div class="img-small border"
+                                             style="background-image: url('images/image-3.jpg')"
+                                             data-src="images/image-3.jpg"></div>
+                                    </div>
+                                    <div class="col-sm-2 col-3">
+                                        <div class="img-small border"
+                                             style="background-image: url('images/image-4.jpg')"
+                                             data-src="images/image-4.jpg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product Images -->
+
+                        <!-- Product Info -->
+                        <div class="col-lg-7 col-md-12 mb-3">
+                            <div class="col-12 product-name large">
+                                오복케이크
+                                <small>서울 마포구 만리재로 3</small>
+                                <small>02-123-1234</small>
+                            </div>
+                            <div class="col-12 px-0">
+                                <hr>
+                            </div>
+                            <div class="col-12">
+                                <div>
+                                    <label>디자인번호</label>
+                                    <select size="1" required autofocus>
+                                        <option value="크롬">크롬</option>
+                                        <option value="사파리" selected>사파리</option>
+                                        <option value="파이어폭스" disabled>파이어폭스</option>
+                                        <option value="오페라">오페라</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>케이크호수</label>
+                                    <select size="1" required autofocus>
+                                        <option value="크롬">크롬</option>
+                                        <option value="사파리" selected>사파리</option>
+                                        <option value="파이어폭스" disabled>파이어폭스</option>
+                                        <option value="오페라">오페라</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>시트맛</label>
+                                    <select size="1" required autofocus>
+                                        <option value="크롬">크롬</option>
+                                        <option value="사파리" selected>사파리</option>
+                                        <option value="파이어폭스" disabled>파이어폭스</option>
+                                        <option value="오페라">오페라</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>크림맛</label>
+                                    <select size="1" required autofocus>
+                                        <option value="크롬">크롬</option>
+                                        <option value="사파리" selected>사파리</option>
+                                        <option value="파이어폭스" disabled>파이어폭스</option>
+                                        <option value="오페라">오페라</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>케이크바탕색</label>
+                                    <select size="1" required autofocus>
+                                        <option value="크롬">크롬</option>
+                                        <option value="사파리" selected>사파리</option>
+                                        <option value="파이어폭스" disabled>파이어폭스</option>
+                                        <option value="오페라">오페라</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>레터링색</label>
+                                    <select size="1" required autofocus>
+                                        <option value="크롬">크롬</option>
+                                        <option value="사파리" selected>사파리</option>
+                                        <option value="파이어폭스" disabled>파이어폭스</option>
+                                        <option value="오페라">오페라</option>
+                                    </select>
+                                </div>
+                                <h5>12,000원</h5>
+                                <br>
+                                <button class="btn btn-outline-dark" type="button"><i
+                                        class="fas fa-cart-plus me-2"></i>장바구니 담기
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 bg-white text-justify">
+
+                    <!-- Details -->
+                    <div class="col-12 text-uppercase">
+                        <h2>상세정보</h2>
+                    </div>
+                    <img src="/images/productsample.jpg" class="img-fluid">
+                    <!-- Details -->
+                </div>
+
+                <div class="col-12 bg-white text-justify">
+                    <!-- Ratings & Reviews -->
+                    <!-- Rating -->
+                    <div class="row">
+                        <div class="col-12 mt-md-0 mt-3 text-uppercase">
+                            <h2>리뷰 및 별점</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-4 text-center">
+                                    <div class="row">
+                                        <div class="col-12 average-rating">
+                                            4.1
+                                        </div>
+                                        <div class="col-12">
+                                            of 100 reviews
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-8">
+                                    <ul class="rating-list mt-3">
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-dark" role="progressbar"
+                                                     style="width: 45%;" aria-valuenow="45"
+                                                     aria-valuemin="0" aria-valuemax="100">45%
+                                                </div>
+                                            </div>
+                                            <div class="rating-progress-label">
+                                                5<i class="fas fa-star ms-1"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-dark" role="progressbar"
+                                                     style="width: 30%;" aria-valuenow="30"
+                                                     aria-valuemin="0" aria-valuemax="100">30%
+                                                </div>
+                                            </div>
+                                            <div class="rating-progress-label">
+                                                4<i class="fas fa-star ms-1"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-dark" role="progressbar"
+                                                     style="width: 15%;" aria-valuenow="15"
+                                                     aria-valuemin="0" aria-valuemax="100">15%
+                                                </div>
+                                            </div>
+                                            <div class="rating-progress-label">
+                                                3<i class="fas fa-star ms-1"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-dark" role="progressbar"
+                                                     style="width: 7%;" aria-valuenow="7" aria-valuemin="0"
+                                                     aria-valuemax="100">7%
+                                                </div>
+                                            </div>
+                                            <div class="rating-progress-label">
+                                                2<i class="fas fa-star ms-1"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-dark" role="progressbar"
+                                                     style="width: 3%;" aria-valuenow="3" aria-valuemin="3"
+                                                     aria-valuemax="100">3%
+                                                </div>
+                                            </div>
+                                            <div class="rating-progress-label">
+                                                1<i class="fas fa-star ms-1"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Rating -->
+
+                            <div class="row">
+                                <div class="col-12 px-md-3 px-0">
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <!-- Review -->
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <!-- Comments -->
+                                    <div class="col-12 text-justify py-2 px-3 mb-3 bg-lightpurple">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <strong class="me-2">Steve Rogers</strong>
+                                                <small>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </small>
+                                            </div>
+                                            <div class="col-12">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut
+                                                ullamcorper quam, non congue odio.
+                                                <br>
+                                                Fusce ligula augue, faucibus sed neque non, auctor rhoncus enim. Sed
+                                                nec molestie turpis. Nullam accumsan porttitor rutrum. Curabitur
+                                                eleifend venenatis volutpat.
+                                                <br>
+                                                Aenean faucibus posuere vehicula.
+                                            </div>
+                                            <div class="col-12">
+                                                <small>
+                                                    <i class="fas fa-clock me-2"></i>5 hours ago
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Comments -->
+
+                                </div>
+                            </div>
+                            <!-- Review -->
+
+                        </div>
+                    </div>
+                    <!-- Ratings & Reviews -->
+                </div>
+
+            </main>
+            <!-- Main Content -->
+        </div>
+
+        <div class="col-12 align-self-end">
+            <!-- Footer -->
+            <footer class="row">
+                <div class="col-12 bg-purple text-white pb-5 pt-5">
+                    <div class="row">
+                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="footer-logo">
+                                        <a href="index.html">Cake.zip</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <address>
+                                        Quokka TF<br>
+                                        Seoul, Korea
+                                    </address>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="footer-nav">
+                                        <li>
+                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                hwijeong-lee@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer -->
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
