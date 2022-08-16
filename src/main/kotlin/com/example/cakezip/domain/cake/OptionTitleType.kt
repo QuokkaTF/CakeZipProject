@@ -7,5 +7,4 @@ enum class OptionTitleType {
     CFLAVOR, //크림맛
     CCOLOR, //케이크바탕색
     LCOLOR, //레터링색
-    LETTER //레터링 문구
 }
