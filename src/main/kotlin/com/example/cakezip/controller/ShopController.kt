@@ -71,9 +71,8 @@ class ShopController (private val shopService: ShopService, private val uploadSt
 
     @GetMapping("/shops/{shopId}")
     fun shopDetail(@PathVariable("shopId") shopId:Long, model:Model) : String {
-        // TODO : html과 연결해야함
         val shopDetail:ShopDetailInfoDto = shopService.getShopDetail(shopId)
         model.addAttribute("shopInfo",shopDetail)
-        return "shopdetail"
+        return "product"
     }
 }
