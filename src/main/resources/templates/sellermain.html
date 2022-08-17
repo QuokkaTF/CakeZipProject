@@ -170,28 +170,26 @@
                                             <a class="nav-link" th:href="@{/sellers/myinfo/{id} (id = ${shop.getSeller().getSellerId()})}">내 정보 조회</a>
                                         </li>
                                     </ul>
-                                    <div style="height: 30px">
+                                </div>
 
-                                    </div>
-                                    <div class="jumbotron" style="padding:10px; background-color: #eceeef" >
-                                        <h2 th:text = "${shop.getShopName()}"></h2>
-                                        <table>
-                                            <tr th:each = "img : ${shopImgs}">
-                                                <td><img id="imgId" th:src="${img.shopImgUrl}" alt="첨부이미지" /></td>
-                                            </tr>
-                                        </table>
-                                        <p th:text = "|가게 한줄 소개 : ${shop.getShopShortDescriptor()}|"></p>
-                                        <P th:text = "|가게 주소 : ${shop.getShopAddress()}|"></P>
-                                        <P th:text = "|가게 전화번호 : ${shop.getShopPhoneNum()}|"></P>
-                                        <P th:text = "|사업자 등록 번호 : ${shop.getBusinessNum()}|"></P>
-                                        <P>가게 상세 설명 이미지</P>
-                                        <img id="shopDetailimgId" th:src="${shop.getShopImgDescriptionUrl()}" alt="첨부이미지" />
-                                        <P th:text = "|가게 등록일 : ${#temporals.format(shop.createdAt, 'yyyy-MM-dd')}|"></P>
-                                        <p>
-                                            <a class="btn btn-primary btn-large" th:href="@{/shops/{id} (id = ${shop.getShopId()})}">가게 정보 수정</a>
-                                        </p>
+                                <div class="row py-1">
+                                    <div class="col-12">
+                                        <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                            <a class="card-body" th:href="@{/myshops/{id}(id = ${shop.getShopId()})}">
+                                                <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                                <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
+                                                <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                                <div>
+                                                    <th:block th:each="image: ${shopImgs}">
+                                                        <img th:src="${image.toString()}" class="img-fluid"
+                                                             style="height: 300px; width: 300px;">
+                                                    </th:block>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

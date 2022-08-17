@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class ShopImgServiceImpl(private val shopImgRepository: ShopImgRepository) : ShopImgService {
-    override fun getShopImgs(shop: Shop): List<ShopImg> {
-        return shopImgRepository.findByShop(shop)
+    override fun getShopImgs(shop: Shop): List<String> {
+        val imgList = shopImgRepository.findByShop(shop)
+        val retrunList : ArrayList<String> = ArrayList()
+        for (img in imgList) {
+            retrunList.add(img.shopImgUrl)
+        }
+        return retrunList
     }
 }

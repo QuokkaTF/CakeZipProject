@@ -26,22 +26,7 @@ class SellerController (private val sellerService: SellerService, private val sh
         return "sellermain"
     }
 
-    @GetMapping("/sellers/myorders/{sellerId}")
-    fun sellerMyOrder(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
-        //TODO : 주문 받으면 여기서 조회해야 함. -> 주문 정보 받은 후 여기서 설정하기
-        var seller: Seller = sellerService.findBySellerBySellerId(sellerId)
-        var shop : Shop? = shopService.getMyShop(seller)
-        println(shop)
-        model.addAttribute("shop", shop)
-        return "sellermain"
-    }
 
-    @GetMapping("/sellers/myinfo/{sellerId}")
-    fun sellerMyInfo(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
-        var seller: Seller = sellerService.findBySellerBySellerId(sellerId)
-        model.addAttribute("user", seller.user)
-        return "sellermain"
-    }
 
 
 }
