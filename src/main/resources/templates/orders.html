@@ -126,44 +126,45 @@
 
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
-                    <div th:each="dto : ${orderList}" class="row py-3">
+                    <div th:each="dto : ${detail}" class="row py-3">
                         <div class="card col-6 mx-auto py-3">
                             <div class="card-body">
-                                <h4 class="card-title text-purple"><span>주문 번호 </span><span th:text="${dto.orderListId}"></span></h4>
-                                <p><span class="order-short">수령인 : </span><span th:text="${dto.cake.customer.name}"></span></p>
-                                <p><span class="order-short">결제 금액 : </span>31,000 원</p>
-                                <p><span class="order-short">가게 이름 : </span><span th:text="${dto.cake.shop.shopName}"></span></p>
-                                <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a th:onclick="|location.href='@{/orders/orderdetail/{orderListId}
-                        (orderListId=${dto.orderListId})}'|" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
+                                <h4 class="card-title text-purple"><span>주문 번호 </span><span th:text="${dto.orderId}"></span></h4>
+                                <p><span class="order-short">수령인 : </span><span th:text="${dto.customerName}"></span></p>
+                                <p><span class="order-short">결제 금액 : </span><span th:text="${dto.cake.totalPrice}"></span></p>
+                                <p><span class="order-short">가게 이름 : </span><span th:text="${dto.shopName}"></span></p>
+                                <p><span class="order-short">픽업 날짜 : </span><span th:text="${dto.cake.pickupDate}"></span></p>
+                                <p><span class="order-short">주문 상태 : </span><span style="color:#AD81D5; font-size:1.2rem;" th:text="${dto.cake.cakeStatus}"></span></p>
+                                <a th:onclick="|location.href='@{/customers/orders/detail/{cakeId}
+                        (cakeId=${dto.cake.cakeId})}'|" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
                     </div>
-                    <div class="row py-3">
+<!--                    <div class="row py-3">-->
 
-                        <div class="card col-6 mx-auto py-3">
-                            <div class="card-body">
-                                <h4 class="card-title text-purple">주문 2</h4>
-                                <p><span class="order-short">주문 번호 : </span>C32948765</p>
-                                <p><span class="order-short">수령인 : </span>김가영</p>
-                                <p><span class="order-short">가격 : </span>31,000 원</p>
-                                <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row py-3">
-                        <div class="card col-6 mx-auto py-3">
-                            <div class="card-body">
-                                <h4 class="card-title text-purple">주문 3</h4>
-                                <p><span class="order-short">주문 번호 : </span>C32948765</p>
-                                <p><span class="order-short">수령인 : </span>김가영</p>
-                                <p><span class="order-short">가격 : </span>31,000 원</p>
-                                <p><span class="order-short">상태 : </span>픽업 준비중</p>
-                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
-                            </div>
-                        </div>
-                    </div>
+<!--                        <div class="card col-6 mx-auto py-3">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title text-purple">주문 2</h4>-->
+<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
+<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
+<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
+<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
+<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row py-3">-->
+<!--                        <div class="card col-6 mx-auto py-3">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title text-purple">주문 3</h4>-->
+<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
+<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
+<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
+<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
+<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </div>
 

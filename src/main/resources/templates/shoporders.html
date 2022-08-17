@@ -1,7 +1,5 @@
 <!doctype html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -77,7 +75,7 @@
                             <a href="#" class="header-item">
                                 <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
                             </a>
-                            <a href="/cart" class="header-item">
+                            <a href="cart.html" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
                                 <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
                             </a>
@@ -94,7 +92,7 @@
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="electronics"
@@ -121,90 +119,57 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>내 정보 확인 및 수정</h2>
+                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase nanum text-purple">
+                    <h2>내 주문 전체보기</h2>
                 </div>
             </div>
 
-            <main class="row">
-                <div class="col-12 bg-white py-3 mb-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
-
-
-
-                            <!--                                <input class="form-control" readonly placeholder="ID">-->
-                            <!--                                <input class="form-control" readonly placeholder="Password">-->
-
-                            <div class="mb-3">
-                                <label field="username">이메일</label>
-                                <input readonly type="email" class="form-control" placeholder="kykim097@gmail.com">
-                            </div>
-
-                            <div class="mb-3">
-                                <label field="username">비밀번호</label>
-                                <input type="email" class="form-control" placeholder="비밀번호 입력">
-                            </div>
-
-                            <div class="mb-3">
-                                <label field="username">비밀번호 확인</label>
-                                <input type="email" class="form-control" placeholder="비밀번호 재입력">
-                            </div>
-
-                            <div class="mb-3">
-                                <label field="username">전화번호</label>
-                                <input type="phone" class="form-control" placeholder="010-1234-1234">
-                            </div>
-
-                            <div class="mb-3" id="birth" onchange="checkAgeModify()">
-
-                                <div class="birth dropdown">
-                                    <label class="mb-3 form-label" for="birth">생년월일 </label>
-
-                                    <input type="date">
-                                </div>
-
-
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="mb-3 form-label">성별 </label>
-
-                                <select name="성별">
-                                    <option value="">성별 선택</option>
-                                    <option value="남">남</option>
-                                    <option value="여">여</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="mb-3 form-label">선호 지역 </label>
-
-                                <select name="선호 지역">
-                                    <option value="">지역 선택</option>
-                                    <option value="남">서울</option>
-                                    <option value="여">부산</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <button class="w-100 btn btn-lg btn-purple" type="submit"
-                                        onclick="">수정
-                                </button>
-                            </div>
-
-                            <div class="mb-3">
-                                <a type="button" class="w-100 btn btn-lg btn-outline-secondary"
-                                   onclick="">취소</a>
+            <main class="row nanum">
+                <div class="col-12 bg-white py-3">
+                    <div th:each="dto : ${detail}" class="row py-3">
+                        <div class="card col-6 mx-auto py-3">
+                            <div class="card-body">
+                                <h4 class="card-title text-purple"><span>주문 번호 </span><span th:text="${dto.order.orderId}"></span></h4>
+                                <p><span class="order-short">주문자 : </span><span th:text="${dto.order.customer.user.userName}"></span></p>
+                                <p><span class="order-short">결제 금액 : </span><span th:text="${dto.order.merchantPrice}"></span></p>
+                                <p><span class="order-short">픽업 날짜 : </span><span th:text="${dto.cake.pickupDate}"></span></p>
+                                <a th:onclick="|location.href='@{/customers/orders/detail/{orderId}
+                        (orderId=${dto.order.orderId})}'|" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
                     </div>
+<!--                    <div class="row py-3">-->
+
+<!--                        <div class="card col-6 mx-auto py-3">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title text-purple">주문 2</h4>-->
+<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
+<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
+<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
+<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
+<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row py-3">-->
+<!--                        <div class="card col-6 mx-auto py-3">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title text-purple">주문 3</h4>-->
+<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
+<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
+<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
+<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
+<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
                 </div>
 
 
             </main>
             <!-- Main Content -->
         </div>
-
 
         <div class="col-12 align-self-end">
             <!-- Footer -->

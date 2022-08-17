@@ -1,23 +1,24 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.OrderList
-import com.example.cakezip.repository.OrderRepository
-import org.springframework.stereotype.Service
+import com.example.cakezip.domain.OrderDetail
+import com.example.cakezip.domain.Orders
+import com.example.cakezip.domain.cake.Cake
+import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.dto.OrderDto
 
-@Service
-class OrderService(
-    private val orderRepository: OrderRepository,
-) {
-//    fun findAll(): List<OrderList> = orderRepository.findAll()
+interface OrderService {
+    //fun findCakesByOrderId(id: Long): List<Cake>
+    //fun findOrdersByCustomerId(id: Long): List<Orders>
+    //fun findOrderDetailByOrderId(id: Long): OrderDetail
+    //fun findOrderDetailByCustomerId(id: Long): List<OrderDetail>
 
-    fun findAll(): List<OrderList>? {
-        return orderRepository.findAll()
-    }
 
-//    fun findAllById(orderListId : Long): List<OrderList>? {
-//        return orderRepository.findAllById()
-//    }
-    fun getOrderListById(orderListId: Long): OrderList? {
-        return orderRepository.findAllByOrderListId(orderListId)
-    }
+    fun getCustomerAllOrders(CustomerId: Long) : List<OrderDto>?
+
+    fun getCustomerOrderDetail(CakeId: Long) : OrderDto
+
+    fun changeCakeStateCancel(id: Long)
+
+
 }
+

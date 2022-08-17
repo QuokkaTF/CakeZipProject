@@ -14,13 +14,17 @@ class ShopController (private val shopService: ShopService){
         return "addshop"
     }
 
-
     @RequestMapping(value = arrayOf("/add/shop"), method = arrayOf(RequestMethod.POST))
     fun postShop(newShopReqDto: NewShopReqDto) : String{
         println(newShopReqDto)
         var designList : List<String> = newShopReqDto.designList.trim().split(' ')
         println(designList.size)
         shopService.addNewShop(newShopReqDto)
+        return "index"
+    }
+
+    @GetMapping("/home")
+    fun showShop(model: Model): String {
         return "index"
     }
 }

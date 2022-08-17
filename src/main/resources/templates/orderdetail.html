@@ -128,9 +128,9 @@
                 <div class="col-12 bg-white py-3">
                     <div class="row">
                         <div class="col-9 mx-auto card py-3">
-                            <div th:each="dto : ${orderDetail}" class="card-body">
-                                <h4 class="card-title">주문 1</h4>
-                                <p class="card-text"><span>주문 번호 : </span><span th:text="${dto.orderListId}"></span></p>
+                            <div th:each="dto : ${detail}" class="card-body">
+                                <h4 class="card-title">주문 번호 : <span th:text="${dto.orderId}"></span></h4>
+<!--                                <p class="card-text"><span>주문 번호 : </span><span th:text="${dto.orderDetailId}"></span></p>-->
                                 <div class="row">
                                         <form class="row">
                                             <div class="col-12">
@@ -149,7 +149,7 @@
                                                     <tr>
                                                         <td  rowspan="8">
                                                             <img src="/images/cakeimg.png" class="img-fluid">
-                                                            <p th:text="${dto.cake.shop.shopName}"></p>
+                                                            <p th:text="${dto.shopName}"></p>
                                                         </td>
                                                         <td rowspan="8"><span th:text="${dto.cake.pickupDate}"></span></td>
                                                         <td>케이크디자인</td>
@@ -190,12 +190,12 @@
                                                     <tfoot>
                                                     <tr>
                                                         <th colspan="4" class="text-right">Total</th>
-                                                        <th style="text-align: right">21,500원</th>
+                                                        <th style="text-align: right"><span th:text="${dto.cake.totalPrice}"></span></th>
                                                         <th></th>
                                                     </tr>
                                                     <tr>
                                                         <th colspan="4" class="text-right" style="font-size:1.2rem;">주문 상태</th>
-                                                        <th style="text-align: right; color:#AD81D5; font-size:1.2rem;">픽업 준비중</th>
+                                                        <th style="text-align: right; color:#AD81D5; font-size:1.2rem;"><span th:text="${dto.cake.cakeStatus}"></span></th>
                                                         <th></th>
                                                     </tr>
                                                     </tfoot>
@@ -205,9 +205,18 @@
                                         </form>
                                     </div>
 
-                                <a th:onclick="|location.href='@{/orders/delete(orderId=${dto.order.orderId})}'|" class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;">주문 취소</a>
-                                <a href=# class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰 작성</a>
+                                <a th:onclick="|location.href='@{/reviews/{cakeId} (cakeId=${dto.cake.cakeId})}'|" class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰 작성</a>
+                                <form method="post" th:action="@{'/orders/' + ${dto.cake.cakeId} }" style="font-size:1.3rem;">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;" type="submit" value="주문취소">
+                                </form>
 
+
+
+<!--                                <form method="post" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">-->
+<!--                                    <input type="hidden" name="_method" value="DELETE">-->
+<!--                                    <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">-->
+<!--                                </form>-->
                             </div>
                         </div>
 
