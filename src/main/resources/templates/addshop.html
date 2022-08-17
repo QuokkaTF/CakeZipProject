@@ -95,31 +95,7 @@
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
-                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
                                         </div>
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
                                 </ul>
                             </div>
                         </nav>
@@ -199,7 +175,6 @@
                                     <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
                                     <input type="text" id = 'storeDetailImg' style="display: none" th:field = "*{storeDetailImg}"/>
                                 </div>
-
 
 
                                 <h3 for="inputDescription" style="margin:30px; margin-top:80px; ">
@@ -451,6 +426,7 @@
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
                 var jibunAddr = data.jibunAddress; // 지번 주소 변수
+
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('member_post').value = data.zonecode;
                 if(roadAddr !== ''){
@@ -467,14 +443,14 @@
      * 케이크 디자인
      * */
     let countDesign = 1;
-    let inputCakeDesign = document.getElementById('inputCakeDesign');  // 할 일 입력창
+    let inputCakeDesign = document.getElementById('inputCakeDesign');
     let inputDesignPrice = document.getElementById('inputCakeDesignPrice');
-    let addCakeDesign = document.getElementById('addCakeDesign');      // 버튼
-    let cakeDesignList = document.getElementById('cakeDesignList');    // 할 일 리스트창
+    let addCakeDesign = document.getElementById('addCakeDesign');
+    let cakeDesignList = document.getElementById('cakeDesignList');
 
-    addCakeDesign.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
-        var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeDesign.value || !inputDesignPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+    addCakeDesign.addEventListener('click', function(){
+        var list = document.createElement('li');
+        if (!inputCakeDesign.value || !inputDesignPrice.value)
             alert('내용을 입력해 주세요!');
         else
         {
@@ -493,28 +469,26 @@
                 return;
             }
 
-            list.innerHTML = inputCakeDesign.value; // <li>입력된 디테일</li>
+            list.innerHTML = inputCakeDesign.value;
             list.innerHTML += " ";
-            list.innerHTML += inputDesignPrice.value; // <li>입력된 가격</li>
+            list.innerHTML += inputDesignPrice.value;
             list.innerHTML += "원"
-            //list.innerText += ""
             list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove1("+countDesign+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
-            cakeDesignList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            cakeDesignList.appendChild(list);
             console.log(cakeDesignList.textContent)
-            inputCakeDesign.value= ""; // 할 일 입력창 초기화
-            inputDesignPrice.value= ""; // 할 일 입력창 초기화
+            inputCakeDesign.value= "";
+            inputDesignPrice.value= "";
 
             countDesign++
         }
     })
 
     function remove1(cnt) {
-        //window.alert(cnt);
         var li = document.getElementById('li'+cnt);
         cakeDesignList.removeChild(li);
     }
@@ -523,14 +497,14 @@
      * 케이크 호수
      * */
     let countSize = 1;
-    let inputCakeSize = document.getElementById('inputCakeSize');  // 할 일 입력창
-    let inputCakeSizePrice = document.getElementById('inputCakeSizePrice');  // 할 일 입력창
-    let addCakeSize = document.getElementById('addCakeSize');      // 버튼
-    let cakeSizeList = document.getElementById('cakeSizeList');    // 할 일 리스트창
+    let inputCakeSize = document.getElementById('inputCakeSize');
+    let inputCakeSizePrice = document.getElementById('inputCakeSizePrice');
+    let addCakeSize = document.getElementById('addCakeSize');
+    let cakeSizeList = document.getElementById('cakeSizeList');
 
-    addCakeSize.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
-        var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeSize.value || !inputCakeSizePrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+    addCakeSize.addEventListener('click', function(){
+        var list = document.createElement('li');
+        if (!inputCakeSize.value || !inputCakeSizePrice.value)
             alert('내용을 입력해 주세요!');
         else
         {
@@ -562,7 +536,7 @@
                 return;
             }
 
-            list.innerHTML = inputCakeSize.value; // <li>입력된 할 일</li>
+            list.innerHTML = inputCakeSize.value;
             list.innerText += " "
             list.innerHTML += inputCakeSizePrice.value;
             list.innerHTML += "원"
@@ -572,16 +546,15 @@
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
-            cakeSizeList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            cakeSizeList.appendChild(list);
 
-            inputCakeSize.value= ""; // 할 일 입력창 초기화
+            inputCakeSize.value= "";
             inputCakeSizePrice.value="";
             countSize++
         }
     })
 
     function remove2(cnt) {
-        //window.alert(cnt);
         var li = document.getElementById('li'+cnt);
         cakeSizeList.removeChild(li);
     }
@@ -590,14 +563,14 @@
      * 케이크 시트
      * */
     let countSheet = 1;
-    let inputCakeSheet = document.getElementById('inputCakeSheet');  // 할 일 입력창
-    let inputCakeSheetPrice = document.getElementById('inputCakeSheetPrice');  // 할 일 입력창
-    let addCakeSheet = document.getElementById('addCakeSheet');      // 버튼
-    let cakeSheetList = document.getElementById('cakeSheetList');    // 할 일 리스트창
+    let inputCakeSheet = document.getElementById('inputCakeSheet');
+    let inputCakeSheetPrice = document.getElementById('inputCakeSheetPrice');
+    let addCakeSheet = document.getElementById('addCakeSheet');
+    let cakeSheetList = document.getElementById('cakeSheetList');
 
-    addCakeSheet.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
-        var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeSheet.value || !inputCakeSheetPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+    addCakeSheet.addEventListener('click', function(){
+        var list = document.createElement('li');
+        if (!inputCakeSheet.value || !inputCakeSheetPrice.value)
             alert('내용을 입력해 주세요!');
         else
         {
@@ -616,7 +589,7 @@
                 return;
             }
 
-            list.innerHTML = inputCakeSheet.value; // <li>입력된 할 일</li>
+            list.innerHTML = inputCakeSheet.value;
             list.innerText += " "
             list.innerHTML += inputCakeSheetPrice.value;
             list.innerHTML += "원"
@@ -626,16 +599,15 @@
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
-            cakeSheetList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            cakeSheetList.appendChild(list);
 
-            inputCakeSheet.value= ""; // 할 일 입력창 초기화
+            inputCakeSheet.value= "";
             inputCakeSheetPrice.value = "";
             countSheet++
         }
     })
 
     function remove3(cnt) {
-        //window.alert(cnt);
         var li = document.getElementById('li'+cnt);
         cakeSheetList.removeChild(li);
     }
@@ -644,14 +616,14 @@
      * 케이크 크림
      * */
     let countCream = 1;
-    let inputCakeCream = document.getElementById('inputCakeCream');  // 할 일 입력창
-    let inputCakeCreamPrice = document.getElementById('inputCakeCreamPrice');  // 할 일 입력창
-    let addCakeCream = document.getElementById('addCakeCream');      // 버튼
-    let cakeCreamList = document.getElementById('cakeCreamList');    // 할 일 리스트창
+    let inputCakeCream = document.getElementById('inputCakeCream');
+    let inputCakeCreamPrice = document.getElementById('inputCakeCreamPrice');
+    let addCakeCream = document.getElementById('addCakeCream');
+    let cakeCreamList = document.getElementById('cakeCreamList');
 
-    addCakeCream.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
-        var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeCream.value || !inputCakeCreamPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+    addCakeCream.addEventListener('click', function(){
+        var list = document.createElement('li');
+        if (!inputCakeCream.value || !inputCakeCreamPrice.value)
             alert('내용을 입력해 주세요!');
         else
         {
@@ -670,7 +642,7 @@
                 return;
             }
 
-            list.innerHTML = inputCakeCream.value; // <li>입력된 할 일</li>
+            list.innerHTML = inputCakeCream.value;
             list.innerText += " "
             list.innerHTML += inputCakeCreamPrice.value;
             list.innerHTML += "원"
@@ -680,16 +652,15 @@
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
-            cakeCreamList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            cakeCreamList.appendChild(list);
 
-            inputCakeCream.value= ""; // 할 일 입력창 초기화
+            inputCakeCream.value= "";
             inputCakeCreamPrice.value="";
             countCream++
         }
     })
 
     function remove4(cnt) {
-        //window.alert(cnt);
         var li = document.getElementById('li'+cnt);
         cakeCreamList.removeChild(li);
     }
@@ -698,14 +669,14 @@
      * 케이크 크림 색
      * */
     let countCreamColor = 1;
-    let inputCakeCreamColor = document.getElementById('inputCakeCreamColor');  // 할 일 입력창
-    let inputCakeCreamColorPrice = document.getElementById('inputCakeCreamColorPrice');  // 할 일 입력창
-    let addCakeCreamColor = document.getElementById('addCakeCreamColor');      // 버튼
-    let cakeCreamColorList = document.getElementById('cakeCreamColorList');    // 할 일 리스트창
+    let inputCakeCreamColor = document.getElementById('inputCakeCreamColor');
+    let inputCakeCreamColorPrice = document.getElementById('inputCakeCreamColorPrice');
+    let addCakeCreamColor = document.getElementById('addCakeCreamColor');
+    let cakeCreamColorList = document.getElementById('cakeCreamColorList');
 
-    addCakeCreamColor.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
-        var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeCreamColor.value || !inputCakeCreamColorPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+    addCakeCreamColor.addEventListener('click', function(){
+        var list = document.createElement('li');
+        if (!inputCakeCreamColor.value || !inputCakeCreamColorPrice.value)
             alert('내용을 입력해 주세요!');
         else
         {
@@ -725,7 +696,7 @@
             }
 
 
-            list.innerHTML = inputCakeCreamColor.value; // <li>입력된 할 일</li>
+            list.innerHTML = inputCakeCreamColor.value;
             list.innerText += " "
             list.innerHTML += inputCakeCreamColorPrice.value;
             list.innerHTML += "원"
@@ -735,9 +706,9 @@
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
-            cakeCreamColorList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            cakeCreamColorList.appendChild(list);
 
-            inputCakeCreamColor.value= ""; // 할 일 입력창 초기화
+            inputCakeCreamColor.value= "";
             inputCakeCreamColorPrice.value= ""
 
             countCreamColor++
@@ -745,7 +716,6 @@
     })
 
     function remove5(cnt) {
-        //window.alert(cnt);
         var li = document.getElementById('li'+cnt);
         cakeCreamColorList.removeChild(li);
     }
@@ -754,14 +724,14 @@
      * 케이크 레터링색
      * */
     let countLetter = 1;
-    let inputCakeLetter = document.getElementById('inputCakeLetter');  // 할 일 입력창
-    let inputCakeLetterPrice = document.getElementById('inputCakeLetterPrice');  // 할 일 입력창
-    let addCakeLetter = document.getElementById('addCakeLetter');      // 버튼
-    let cakeLetterList = document.getElementById('cakeLetterList');    // 할 일 리스트창
+    let inputCakeLetter = document.getElementById('inputCakeLetter');
+    let inputCakeLetterPrice = document.getElementById('inputCakeLetterPrice');
+    let addCakeLetter = document.getElementById('addCakeLetter');
+    let cakeLetterList = document.getElementById('cakeLetterList');
 
-    addCakeLetter.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
-        var list = document.createElement('li');     // html 'li' 태그 만들기
-        if (!inputCakeLetter.value || !inputCakeLetterPrice.value)            // 할 일 입력창에 내용이 입력되지 않으면 alert 발생
+    addCakeLetter.addEventListener('click', function(){
+        var list = document.createElement('li');
+        if (!inputCakeLetter.value || !inputCakeLetterPrice.value)
             alert('내용을 입력해 주세요!');
         else
         {
@@ -780,7 +750,7 @@
                 return;
             }
 
-            list.innerHTML = inputCakeLetter.value; // <li>입력된 할 일</li>
+            list.innerHTML = inputCakeLetter.value;
             list.innerText += " "
             list.innerHTML += inputCakeLetterPrice.value;
             list.innerHTML += "원"
@@ -790,16 +760,15 @@
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
-            cakeLetterList.appendChild(list);       // 할 일 리스트창에 자식으로 붙이기
+            cakeLetterList.appendChild(list);
 
-            inputCakeLetter.value= ""; // 할 일 입력창 초기화
+            inputCakeLetter.value= "";
             inputCakeLetterPrice.value = ""
             countLetter++
         }
     })
 
     function remove6(cnt) {
-        //window.alert(cnt);
         var li = document.getElementById('li'+cnt);
         cakeLetterList.removeChild(li);
     }
@@ -823,7 +792,9 @@
         let letter = document.getElementById('letter')
         letter.value = cakeLetterList.textContent
     }
+
     let imgList = ""
+
     function uploadStoreImgList(data) {
         imgList = document.getElementById('storeImgList')
         uploadImg(data)
@@ -839,30 +810,17 @@
 
         var files = objectFile.files
         var filesArr =Array.prototype.slice.call(files);
-        // var inputValue = document.getElementById("inputShopImg")
-        // console.log(inputValue)
-        console.log(filesArr)
 
         // 업로드 된 파일 유효성 체크
         if (filesArr.length > 4) {
             alert("이미지는 최대 4개까지 업로드 가능합니다.");
             return;
         }
-        // var inputFileList = new Array();
-
-        // filesArr.forEach(function(f) {
-        //     inputFileList.push(f);    // 이미지 파일을 배열에 담는다.
-        // });
-
-        // console.log("inputFileList: " + inputFileList);
-
 
         var formData = new FormData()
         for (let i = 0; i < filesArr.length; i++) {
             formData.append("images", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
         }
-        console.log(formData)
-
 
         $.ajax({
             url : "/image",
@@ -872,18 +830,16 @@
             contentType: false,
             data : formData,
             async : false,
-            success: function(d) {
-                console.log(d)
-                imgList.value = d
-                alert("성공")
+            success: function(result) {
+                imgList.value = result
+                alert("사진 업로드 성공")
                 return;
             },
             err: function () {
-                alert("실패")
+                alert("사진 업로드 실패")
             }
         })
     }
-
 
 </script>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
