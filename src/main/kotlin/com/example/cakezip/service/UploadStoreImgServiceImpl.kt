@@ -1,21 +1,23 @@
 package com.example.cakezip.service
 
 import com.example.cakezip.config.security.NHNCloudConstants
+import org.apache.tomcat.util.http.fileupload.IOUtils
 import org.springframework.boot.configurationprocessor.json.JSONObject
-import org.springframework.core.io.ByteArrayResource
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
+import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.stereotype.Service
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
+import org.springframework.web.client.HttpMessageConverterExtractor
+import org.springframework.web.client.RequestCallback
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.multipart.MultipartFile
+import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
-import kotlin.collections.LinkedHashMap
+
 
 @Service
 class UploadStoreImgServiceImpl : UploadStoreImgService {
@@ -81,23 +83,26 @@ class UploadStoreImgServiceImpl : UploadStoreImgService {
         var storageId = NHNCloudConstants.STORAGEID
         val containerName = NHNCloudConstants.CONTANIERNAME
 
-
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.MULTIPART_FORM_DATA
-        headers.accept = Collections.singletonList(MediaType.MULTIPART_FORM_DATA)
-        headers.set("X-Auth-Token",token)
-
         var url = storageId + "/" + containerName + "/" + dir
 
-        var byteArrayResource = ByteArrayResource(multipartFile.bytes)
+        val inputStream = BufferedInputStream(multipartFile.inputStream)
 
-        var body: MultiValueMap<String, Any> = LinkedMultiValueMap()
+        val requestCallback = RequestCallback { request ->
+            request.headers.add("X-Auth-Token", token)
+            IOUtils.copy(inputStream, request.body)
+        }
 
-        body.add("file",byteArrayResource)
+        // 오버라이드한 RequestCallback을 사용할 수 있도록 설정
+        val requestFactory = SimpleClientHttpRequestFactory()
+        requestFactory.setBufferRequestBody(false)
+        val restTemplate = RestTemplate(requestFactory)
 
-        val entity = HttpEntity<Any>(body, headers)
-        RestTemplate().exchange(url, HttpMethod.PUT, entity, Any::class.java)
+        val responseExtractor = HttpMessageConverterExtractor(
+            String::class.java, restTemplate.messageConverters
+        )
 
+        // API 호출
+        restTemplate.execute(url, HttpMethod.PUT, requestCallback, responseExtractor)
         return url
     }
 }
