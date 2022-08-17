@@ -147,8 +147,9 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
 
-                            <form th:action ="@{/shops/{id} (id = ${shop.getShopId()})}" method="post">
-                                <input type="hidden" name="_method" value="put"/>
+                            <form th:action ="@{/myshops/{id} (id = ${shop.getShopId()})}" method="post">
+                                <input type="hidden" name="_method" value="PUT"/>
+
                                 <h3 for="inputDescription" style="margin:30px; ">
                                     가게 기본 정보
                                 </h3>
@@ -156,7 +157,7 @@
                                     <h5 for="inputName">
                                         가게이름
                                     </h5>
-                                    <input type="text" class="form-control" id="inputName" th:value = "${shop.getShopName()}"  required/>
+                                    <input type="text" class="form-control" id="inputName" name="shopName" th:value = "${shop.getShopName()}"  required/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputImg">
@@ -169,13 +170,13 @@
                                     <h5 for="inputNumber">
                                         사업자등록번호
                                     </h5>
-                                    <input type="text" th:value ="${shop.getBusinessNum()}" class="form-control" id="inputNumber" required/>
+                                    <input type="text" th:value ="${shop.getBusinessNum()}" name="businessNum" class="form-control" id="inputNumber" required/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputPhone">
                                         가게 전화번호
                                     </h5>
-                                    <input type="text" th:value="${shop.getShopPhoneNum()}" class="form-control" id="inputPhone" required/>
+                                    <input type="text" th:value="${shop.getShopPhoneNum()}" name="shopPhoneNum" class="form-control" id="inputPhone" required/>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputAddress">
@@ -183,14 +184,14 @@
                                     </h5>
                                     <input id="member_post"  type="text" placeholder="Zip Code" readonly onclick="findAddr()" required>
                                     <input id="member_addr" type="text" placeholder="Address" th:value="${shop.getShopAddress()}" readonly> <br>
-                                    <input type="text" th:value="${shop.getShopAddress()}" placeholder="Detailed Address" required>
+                                    <input type="text" th:value="${shop.getShopAddress()}" name="shopAddress" placeholder="Detailed Address" required>
                                 </div>
 
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputDescription">
                                         한줄소개
                                     </h5>
-                                    <input type="text" th:value ="${shop.getShopShortDescriptor()}" class="form-control" id="inputDescription" required/>
+                                    <input type="text" th:value ="${shop.getShopShortDescriptor()}" name="shopShortDescriptor" class="form-control" id="inputDescription" required/>
                                 </div>
 
                                 <div class="form-group" style="margin:30px">
@@ -198,123 +199,54 @@
                                         상세페이지 이미지 첨부
                                     </h5>
                                     <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
-                                    <input type="text" id = 'storeDetailImg' style="display: none" th:value = "${shop.getShopImgDescriptionUrl()}"/>
+                                    <input type="text" id = 'storeDetailImg' style="display: none" name="shopImgDescriptionUrl" th:value = "${shop.getShopImgDescriptionUrl()}"/>
                                 </div>
-
-
-
-                                <h3 for="inputDescription" style="margin:30px; margin-top:80px; ">
-                                    케이크 옵션 영역 설정
-                                </h3>
-
-
-<!--                                <div class="form-group" style="margin:30px">-->
-<!--                                    <h5 for="inputOption1">-->
-<!--                                        1. 케이크 디자인-->
-<!--                                    </h5>-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" id = "inputCakeDesign" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <input type="text" id = "inputCakeDesignPrice" class="form-control" placeholder="가격을 입력하세요">-->
-<!--                                        <button type="button" class="btn" id = "addCakeDesign" style="color:white; background-color:black;">추가</button>-->
-<!--                                    </div>-->
-<!--                                    <div>-->
-<!--                                        <ul style="list-style: none; float: left" id = "cakeDesignList"></ul>-->
-<!--                                        <input type="text" id = 'design' style="display: none" th:field = "*{designList}"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div style="height: 1px"></div>-->
-
-<!--                                <div class="form-group" style="margin:30px;">-->
-<!--                                    <h5 for="inputOption1">-->
-<!--                                        2. 케이크 호수-->
-<!--                                    </h5>-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" id = "inputCakeSize" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <input type="text" id = "inputCakeSizePrice" class="form-control" placeholder="가격을 입력하세요">-->
-<!--                                        <button type="button" class="btn" id = "addCakeSize" style="color:white; background-color:black;">추가</button>-->
-<!--                                    </div>-->
-<!--                                    <div>-->
-<!--                                        <ul style="list-style: none; float: left" id = "cakeSizeList"></ul>-->
-<!--                                        <input type="text" id = 'size' style="display: none" th:field = "*{sizeList}"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div style="height: 1px"></div>-->
-
-<!--                                <div class="form-group" style="margin:30px;">-->
-<!--                                    <h5 for="inputOption1">-->
-<!--                                        3. 케이크 시트맛-->
-<!--                                    </h5>-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" id = "inputCakeSheet" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <input type="text" id = "inputCakeSheetPrice" class="form-control" placeholder="가격을 입력하세요">-->
-<!--                                        <button type="button" class="btn" id = "addCakeSheet" style="color:white; background-color:black;">추가</button>-->
-<!--                                    </div>-->
-<!--                                    <div>-->
-<!--                                        <ul style="list-style: none; float: left" id = "cakeSheetList"></ul>-->
-<!--                                        <input type="text" id = 'sheet' style="display: none" th:field = "*{sheetList}"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div style="height: 1px"></div>-->
-
-<!--                                <div class="form-group" style="margin:30px;">-->
-<!--                                    <h5 for="inputOption1">-->
-<!--                                        4. 케이크 크림맛-->
-<!--                                    </h5>-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" id = "inputCakeCream" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <input type="text" id = "inputCakeCreamPrice" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <button type="button" class="btn" id = "addCakeCream" style="color:white; background-color:black;">추가</button>-->
-<!--                                    </div>-->
-<!--                                    <div>-->
-<!--                                        <ul style="list-style: none; float: left" id = "cakeCreamList"></ul>-->
-<!--                                        <input type="text" id = 'cream' style="display: none" th:field = "*{creamList}"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div style="height: 1px"></div>-->
-
-<!--                                <div class="form-group" style="margin:30px;">-->
-<!--                                    <h5 for="inputOption1">-->
-<!--                                        5. 케이크 크림색-->
-<!--                                    </h5>-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" id = "inputCakeCreamColor" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <input type="text" id = "inputCakeCreamColorPrice" class="form-control" placeholder="가격을 입력하세요">-->
-<!--                                        <button type="button" class="btn" id = "addCakeCreamColor" style="color:white; background-color:black;">추가</button>-->
-<!--                                    </div>-->
-<!--                                    <div>-->
-<!--                                        <ul style="list-style: none; float: left" id = "cakeCreamColorList"></ul>-->
-<!--                                        <input type="text" id = 'creamColor' style="display: none" th:field = "*{creamColorList}"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div style="height: 1px"></div>-->
-
-<!--                                <div class="form-group" style="margin:30px;">-->
-<!--                                    <h5 for="inputOption1">-->
-<!--                                        6. 레터링 색-->
-<!--                                    </h5>-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" id = "inputCakeLetter" class="form-control" placeholder="추가할 옵션명을 입력하세요">-->
-<!--                                        <input type="text" id = "inputCakeLetterPrice" class="form-control" placeholder="가격을 입력하세요">-->
-<!--                                        <button type="button" class="btn" id = "addCakeLetter" style="color:white; background-color:black;">추가</button>-->
-<!--                                    </div>-->
-<!--                                    <div>-->
-<!--                                        <ul style="list-style: none; float: left" id = "cakeLetterList"></ul>-->
-<!--                                        <input type="text" id = 'letter' style="display: none" th:field = "*{letterList}"/>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-                                <div style="height: 1px"></div>
 
                                 <div align="center">
-                                    <button class="btn bg-purple me-3" style="color:white;margin:30px;width:95%;height:40px" type="submit">작성완료</button>
+                                    <button class="btn bg-purple me-3" style="color:white;margin:30px;width:95%;height:40px" type="submit">수정 완료</button>
                                 </div>
-
                             </form>
+
+                            <h3 for="inputDescription" style="margin:30px; margin-top:80px; ">
+                                케이크 옵션 조회 수정하러 가는 버튼
+                            </h3>
+                            <hr>
+                            <div class="form-group" style="margin:30px">
+                                <a th:href="@{/options/design/{id} (id = ${shop.getShopId()})}">
+                                    디자인 조회 및 수정
+                                </a>
+                            </div>
+
+                            <div class="form-group" style="margin:30px">
+                                <a th:href="@{/options/size/{id} (id = ${shop.getShopId()})}">
+                                    사이즈 조회 및 수정
+                                </a>
+                            </div>
+
+                            <div class="form-group" style="margin:30px">
+                                <a th:href="@{/options/sheet/{id} (id = ${shop.getShopId()})}">
+                                    시트 조회 및 수정
+                                </a>
+                            </div>
+
+                            <div class="form-group" style="margin:30px">
+                                <a th:href="@{/options/cream/{id} (id = ${shop.getShopId()})}">
+                                    크림 조회 및 수정
+                                </a>
+                            </div>
+
+                            <div class="form-group" style="margin:30px">
+                                <a th:href="@{/options/creamcolor/{id} (id = ${shop.getShopId()})}">
+                                    크림색 조회 및 수정
+                                </a>
+                            </div>
+
+                            <div class="form-group" style="margin:30px">
+                                <a th:href="@{/options/letter/{id} (id = ${shop.getShopId()})}">
+                                    글자색 조회 및 수정
+                                </a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

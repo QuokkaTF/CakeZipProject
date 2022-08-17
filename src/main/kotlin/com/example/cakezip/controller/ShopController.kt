@@ -43,20 +43,22 @@ class ShopController (private val shopService: ShopService, private val uploadSt
         shopService.addNewShop(newShopReqDto)
         return "redirect:/add/shop" // FIXME : 경로 결정되면 체크하기
     }
-//
-//    @GetMapping("/myshops/{shopId}")
-//    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
-//        model.addAttribute("shop", shopService.getByShopId(shopId))
-//        model.addAttribute("form", NewShopReqDto())
-//        return "editshop"
-//    }
 
-    @PutMapping("/shops/{shopId}")
-    fun modifyShop(shop: Shop) :String{
+    @GetMapping("/myshops/{shopId}")
+    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
+        model.addAttribute("shop", shopService.getByShopId(shopId))
+        //model.addAttribute("form", NewShopReqDto())
+        return "editshop"
+    }
+
+    @PutMapping("/myshops/{shopId}")
+    fun modifyShop(@PathVariable("shopId") shopId:Long, shop: Shop) :String{
+        println(shopId)
         println("oiasdhfiEURHGFIulA")
         println(shop.shopId)
         println(shop.shopName)
-        print(shop.shopShortDescriptor)
+        println(shop.shopShortDescriptor)
+        println(shop.shopImgDescriptionUrl)
         return "index"
     }
 

@@ -6,10 +6,12 @@ import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import javax.persistence.*
 
+
 @Entity
+@AllArgsConstructor
 class CakeOptionList(
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "shop_id")
     val shopId: Shop,
 
@@ -18,7 +20,7 @@ class CakeOptionList(
 
     var optionDetail: String,
 
-    val optionPrice: Long,
+    var optionPrice: Long,
 
     ) : BaseEntity() {
     @Id

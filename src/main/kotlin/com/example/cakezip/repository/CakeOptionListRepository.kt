@@ -12,4 +12,9 @@ import java.util.Optional
 @Repository
 interface CakeOptionListRepository : JpaRepository<CakeOptionList, Long> {
     fun findByShopId (shop: Shop) : List<CakeOptionList>
+
+    fun findByShopIdAndOptionTitle(shop:Shop, title:OptionTitleType) : List<CakeOptionList>
+    fun deleteByCakeOptionListId(optionId: Long)
+
+    fun findByCakeOptionListId(optionId:Long) : Optional<CakeOptionList>
 }
