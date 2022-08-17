@@ -4,14 +4,19 @@ import com.example.cakezip.domain.Orders
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeTask
+import com.example.cakezip.domain.cake.OptionTitleType
 import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.dto.UserDto
 import com.example.cakezip.repository.CustomerRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import sun.jvm.hotspot.code.CompressedStream.L
+import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 @Controller
@@ -132,18 +137,7 @@ class CartController(
 
     @PostMapping("/users/cart/{cakeId}")
     fun paymentCake(@PathVariable cakeId: Long, imp_uid: String, cake_id: Long, price: Long): String {
-        println("=========결제됐음=============")
-        println("=========결제됐음=============")
-        println("=========결제됐음=============")
-        println("=========결제됐음=============")
-        println("=========결제됐음=============")
-
-        println(imp_uid)
-        println(price)
-        println(cake_id)
-//        val orderCustomer = customerService.findByCustomerId(customer_id)
         val orderCake = cakeService.findByCakeId(cake_id)
-
         orderService.addOrder(imp_uid, price, customer, orderCake)
         cakeService.updateCakeStatus(cakeId, "PAYMENT")
         return "redirect:/users/cart"
@@ -153,6 +147,32 @@ class CartController(
     @GetMapping("/product")
     fun getProduct(model: Model): String {
         return "product"
+    }
+
+    @PostMapping("/users/cart")
+    fun addCart(designCheck:String, sizeCheck:String, sheetCheck:String,
+                creamCheck:String, creamcolorCheck:String, letterCheck:String,
+                shop: Shop
+    ): String {
+        cakeService.addCartCake("temp", "temp", "temp",
+        0, "CARTTEMP", shop, customer)
+
+        val cake = cakeService.findByCustomerAndCakeStatus(customer, "CAKETEMP")
+
+        val optionToAdd : ArrayList<CakeOptionList> = ArrayList<CakeOptionList>()
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("DESIGN",designCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("SIZE",sizeCheck))
+        optionToAdd.add( cakeOptionListService.findByOptionTitleAndOptioinDetail("SFLAVOR",sheetCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("CFLAVOR",creamCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("CCOLOR",creamcolorCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("LCOLOR",letterCheck))
+
+        for(option in optionToAdd){
+            cakeTaskService.addCartCakeTask(cake[0],option)
+        }
+
+        cakeService.updateCakeStatus(cake[0].cakeId!!,"CART")
+        return "redirect:/users/cart"
     }
 
 }

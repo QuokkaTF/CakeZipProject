@@ -11,9 +11,9 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div class="container-fluid bg-lightpurple">
@@ -123,30 +123,17 @@
                         <!-- Product Images -->
                         <div class="col-lg-5 col-md-12 mb-3">
                             <div class="col-12 mb-3">
-                                <div class="img-large border" style="background-image: url('images/image-1.jpg')"></div>
+                                <div class="img-large border" th:style="'background-image:url('+ ${shopInfo.getShopImgList().get(0)} +');'"></div>
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-sm-2 col-3">
-                                        <div class="img-small border"
-                                             style="background-image: url('images/image-1.jpg')"
-                                             data-src="images/image-1.jpg"></div>
-                                    </div>
-                                    <div class="col-sm-2 col-3">
-                                        <div class="img-small border"
-                                             style="background-image: url('images/image-2.jpg')"
-                                             data-src="images/image-2.jpg"></div>
-                                    </div>
-                                    <div class="col-sm-2 col-3">
-                                        <div class="img-small border"
-                                             style="background-image: url('images/image-3.jpg')"
-                                             data-src="images/image-3.jpg"></div>
-                                    </div>
-                                    <div class="col-sm-2 col-3">
-                                        <div class="img-small border"
-                                             style="background-image: url('images/image-4.jpg')"
-                                             data-src="images/image-4.jpg"></div>
-                                    </div>
+                                    <th:block th:each="img : ${shopInfo.getShopImgList()}">
+                                        <div class="col-sm-2 col-3">
+                                            <div class="img-small border"
+                                                 th:style="'background-image:url('+ ${img.toString()} +');'"
+                                                 data-src="images/image-2.jpg"></div>
+                                        </div>
+                                    </th:block>
                                 </div>
                             </div>
                         </div>
@@ -155,69 +142,70 @@
                         <!-- Product Info -->
                         <div class="col-lg-7 col-md-12 mb-3">
                             <div class="col-12 product-name large">
-                                오복케이크
-                                <small>서울 마포구 만리재로 3</small>
-                                <small>02-123-1234</small>
+                                <h3 th:text="${shopInfo.getShopName()}">오복케이크</h3>
+                                <small th:text="${shopInfo.getShopAddress()}">서울 마포구 만리재로 3</small>
+                                <small th:text="${shopInfo.getShopPhoneNum()}">02-123-1234</small>
                             </div>
                             <div class="col-12 px-0">
                                 <hr>
                             </div>
                             <div class="col-12">
+
                                 <div>
                                     <label>디자인번호</label>
-                                    <select size="1" required autofocus>
-                                        <option value="크롬">크롬</option>
-                                        <option value="사파리" selected>사파리</option>
-                                        <option value="파이어폭스" disabled>파이어폭스</option>
-                                        <option value="오페라">오페라</option>
+                                    <select size="1" name="designCheck" required autofocus>
+                                        <th:block th:each="design : ${shopInfo.designOptionList}">
+                                            <option th:text="${design.getOptionDetail()} + '_'+ ${design.getOptionPrice()}+'원'" th:value="${design.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
                                     </select>
                                 </div>
                                 <div>
                                     <label>케이크호수</label>
-                                    <select size="1" required autofocus>
-                                        <option value="크롬">크롬</option>
-                                        <option value="사파리" selected>사파리</option>
-                                        <option value="파이어폭스" disabled>파이어폭스</option>
-                                        <option value="오페라">오페라</option>
+                                    <select size="1" name="sizeCheck" required autofocus>
+                                        <th:block th:each="size : ${shopInfo.sizeOptionList}">
+                                            <option th:text="${size.getOptionDetail()} + '_'+ ${size.getOptionPrice()}+'원'" th:value="${size.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
                                     </select>
                                 </div>
                                 <div>
                                     <label>시트맛</label>
-                                    <select size="1" required autofocus>
-                                        <option value="크롬">크롬</option>
-                                        <option value="사파리" selected>사파리</option>
-                                        <option value="파이어폭스" disabled>파이어폭스</option>
-                                        <option value="오페라">오페라</option>
+                                    <select size="1" name="sheetCheck" required autofocus>
+                                        <th:block th:each="sheet : ${shopInfo.sheetOptionList}">
+                                            <option th:text="${sheet.getOptionDetail()} + '_'+ ${sheet.getOptionPrice()}+'원'" th:value="${sheet.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
                                     </select>
                                 </div>
                                 <div>
                                     <label>크림맛</label>
-                                    <select size="1" required autofocus>
-                                        <option value="크롬">크롬</option>
-                                        <option value="사파리" selected>사파리</option>
-                                        <option value="파이어폭스" disabled>파이어폭스</option>
-                                        <option value="오페라">오페라</option>
+                                    <select size="1" name="creamCheck" required autofocus>
+                                        <th:block th:each="cream : ${shopInfo.creamOptionList}">
+                                            <option th:text="${cream.getOptionDetail()} + '_'+ ${cream.getOptionPrice()}+'원'" th:value="${cream.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
                                     </select>
                                 </div>
                                 <div>
                                     <label>케이크바탕색</label>
-                                    <select size="1" required autofocus>
-                                        <option value="크롬">크롬</option>
-                                        <option value="사파리" selected>사파리</option>
-                                        <option value="파이어폭스" disabled>파이어폭스</option>
-                                        <option value="오페라">오페라</option>
+                                    <select size="1" name="creamcolorCheck" required autofocus>
+                                        <th:block th:each="creamcolor : ${shopInfo.creamColorOptionList}">
+                                            <option th:text="${creamcolor.getOptionDetail()} + '_'+ ${creamcolor.getOptionPrice()}+'원'" th:value="${creamcolor.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
                                     </select>
                                 </div>
                                 <div>
                                     <label>레터링색</label>
-                                    <select size="1" required autofocus>
-                                        <option value="크롬">크롬</option>
-                                        <option value="사파리" selected>사파리</option>
-                                        <option value="파이어폭스" disabled>파이어폭스</option>
-                                        <option value="오페라">오페라</option>
+                                    <select size="1" name="letterCheck" required autofocus>
+                                        <th:block th:each="letter : ${shopInfo.letterOptionList}">
+                                            <option th:text="${letter.getOptionDetail()} + '_'+ ${letter.getOptionPrice()}+'원'" th:value="${letter.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
                                     </select>
                                 </div>
-                                <h5>12,000원</h5>
+
                                 <br>
                                 <button class="btn btn-outline-dark" type="button"><i
                                         class="fas fa-cart-plus me-2"></i>장바구니 담기
@@ -235,7 +223,7 @@
                     <div class="col-12 text-uppercase">
                         <h2>상세정보</h2>
                     </div>
-                    <img src="/images/productsample.jpg" class="img-fluid">
+                    <img th:src="${shopInfo.getShopDescriptionImgUrl()}" class="img-fluid">
                     <!-- Details -->
                 </div>
 
@@ -415,14 +403,14 @@
                     </div>
                 </div>
             </footer>
-            <!-- Footer -->
+            <!— Footer —>
         </div>
     </div>
 
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>
