@@ -12,4 +12,5 @@ interface ShopRepository : JpaRepository<Shop, Long> {
 
     fun findByShopId (shopId : Long) : Shop
 
+    fun findAllByStatus(status:String) : List<Shop>
 }

@@ -115,7 +115,7 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
 
     override fun getAllShopSimpleList(): List<ShopSimpleInfoDto> {
         var shopSimpleInfoList : ArrayList<ShopSimpleInfoDto> = ArrayList()
-        val shopList : List<Shop> = shopRepository.findAll()
+        val shopList : List<Shop> = shopRepository.findAllByStatus("active")
 
         for (shop in shopList) {
             val shopImgList : ArrayList<String> = ArrayList()
@@ -125,7 +125,7 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
                 shopImgList.add(img.shopImgUrl)
             }
 
-            var shopSimpleDto = ShopSimpleInfoDto(shop.shopId, shop.shopName, shop.shopShortDescriptor, shop.shopArea, shop.shopPhoneNum,shopImgList)
+            var shopSimpleDto = ShopSimpleInfoDto(shop.shopId, shop.shopName, shop.shopShortDescriptor, shop.shopArea, shopImgList)
             shopSimpleInfoList.add(shopSimpleDto)
         }
         println(shopSimpleInfoList.toString())

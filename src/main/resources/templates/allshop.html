@@ -154,16 +154,11 @@
                                         <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
                                         <div><span class="product-description" th:text="${shop.getShopShortDescription()}"></span></div>
                                         <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
-                                        <div><span class="product-phone" th:text="${shop.getShopPhoneNum()}"></span></div>
-                                        <div th:each="img : ${shop.getShopImgList()}">
-                                            <img th:src="${img.toString()}" class="img-fluid"
-                                                 style="height: 300px; width: 300px;">
-                                            <img th:src="${img.toString()}" class="img-fluid"
-                                                 style="height: 300px; width: 300px;">
-                                            <img th:src="${img.toString()}" class="img-fluid"
-                                                 style="height: 300px; width: 300px;">
-                                            <img th:src="${img.toString()}" class="img-fluid"
-                                                 style="height: 300px; width: 300px;">
+                                        <div>
+                                            <th:block th:each="img : ${shop.getShopImgList()}">
+                                                <img th:src="${img.toString()}" class="img-fluid"
+                                                     style="height: 300px; width: 300px;">
+                                            </th:block>
                                         </div>
                                     </a>
                                 </div>
