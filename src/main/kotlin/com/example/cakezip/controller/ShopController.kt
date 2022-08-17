@@ -63,10 +63,9 @@ class ShopController (private val shopService: ShopService, private val uploadSt
     }
 
     @GetMapping("/shops")
-    @ResponseBody
-    fun shopList() : BaseResponse<List<ShopSimpleInfoDto>> {
-        // TODO : html과 연결해야함
-        return BaseResponse(shopService.getAllShopSimpleList())
+    fun shopList(model: Model) : String {
+        model.addAttribute("shops",shopService.getAllShopSimpleList())
+        return "allshop"
     }
 
     @GetMapping("/shops/{shopId}")
