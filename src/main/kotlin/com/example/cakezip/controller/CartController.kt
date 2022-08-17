@@ -1,13 +1,13 @@
 package com.example.cakezip.controller
 
+import com.example.cakezip.domain.Orders
+import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeTask
 import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.dto.UserDto
 import com.example.cakezip.repository.CustomerRepository
-import com.example.cakezip.service.CakeOptionListService
-import com.example.cakezip.service.CakeService
-import com.example.cakezip.service.CakeTaskService
-import com.example.cakezip.service.CustomerService
+import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -20,8 +20,8 @@ class CartController(
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
-
-    ) {
+    private val orderService: OrderService,
+) {
 
 
     //TODO : 경민한테 받으면 수정
@@ -30,37 +30,42 @@ class CartController(
     @GetMapping("/users/cart")
     fun getCartList(model: Model): String {
 
-        var cake : ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
-        for (c in cakeService.findByCustomerAndCakeStatus(customer, "장바구니")){
-            var totalPrice : Long = 0
+        var cake: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
+        for (c in cakeService.findByCustomerAndCakeStatus(customer, "CART")) {
+            var totalPrice: Long = 0
             var cake_hashMap = HashMap<String, Any>()
-            for (ct in cakeTaskService.findByCake(c)){
+            for (ct in cakeTaskService.findByCake(c)) {
                 if (ct.cakeOptionList.cakeOptionListId != null) {
-                    var cakeOptionList : Optional<CakeOptionList> =
+                    var cakeOptionList: Optional<CakeOptionList> =
                         cakeOptionListService.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                    cake_hashMap.put(cakeOptionList.get().optionTitle.toString(),cakeOptionList.get().optionDetail)
-                    cake_hashMap.put(cakeOptionList.get().optionTitle.toString()+"price",
-                        cakeOptionList.get().optionPrice)
+                    cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
+                    cake_hashMap.put(
+                        cakeOptionList.get().optionTitle.toString() + "price",
+                        cakeOptionList.get().optionPrice
+                    )
 
                     totalPrice += cakeOptionList.get().optionPrice
                 }
             }
-            println("_________---_____^^*_______")
             c.cakeId?.let { cake_hashMap.put("id", it) }
-            cake_hashMap.put("price",totalPrice)
-            cake_hashMap.put("shop",c.shop.shopName)
-            cake_hashMap.put("pickupdate",c.pickupDate)
-            cake_hashMap.put("letterText",c.letterText)
-            cake_hashMap.put("etc",c.etc)
-
+            cake_hashMap.put("price", totalPrice)
+            cake_hashMap.put("shop", c.shop.shopName)
+            cake_hashMap.put("pickupdate", c.pickupDate)
+            cake_hashMap.put("letterText", c.letterText)
+            cake_hashMap.put("etc", c.etc)
             cake.add(cake_hashMap)
         }
-        println("=====================================")
         println(cake)
         model.addAttribute("cake", cake)
 
+        // 결제 userDTO
+        val userinfo: UserDto = UserDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
+        model.addAttribute("userinfo", userinfo)
+        model.addAttribute("username", customer.user.userName)
+        model.addAttribute("userid", customer.user.userId)
+        model.addAttribute("useremail", customer.user.userEmail)
 
-        return "cart" // product.html 반환
+        return "cart"
     }
 
     @DeleteMapping("/users/cart/{cakeId}")
@@ -74,16 +79,80 @@ class CartController(
 
     @DeleteMapping("/users/cart")
     fun deleteAllCake(): String {
-        println("삭제할거야~!~")
-
         // cake task
-        for (c in cakeService.findByCustomerAndCakeStatus(customer, "장바구니")){
+        for (c in cakeService.findByCustomerAndCakeStatus(customer, "CART")) {
             cakeTaskService.deleteAllByCake(c)
         }
-
         // cake
-        cakeService.deleteAllByCustomerAndCakeStatus(customer,"장바구니")
+        cakeService.deleteAllByCustomerAndCakeStatus(customer, "CART")
         return "redirect:/users/cart"
+    }
+
+    @GetMapping("/users/cart/{cakeId}")
+    fun getCartPaymentList(model: Model, @PathVariable cakeId: Long): String {
+
+        var cake: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
+        val c = cakeService.findByCakeId(cakeId)
+        var totalPrice: Long = 0
+        var cake_hashMap = HashMap<String, Any>()
+        for (ct in cakeTaskService.findByCake(c)) {
+            if (ct.cakeOptionList.cakeOptionListId != null) {
+                var cakeOptionList: Optional<CakeOptionList> =
+                    cakeOptionListService.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
+                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
+                cake_hashMap.put(
+                    cakeOptionList.get().optionTitle.toString() + "price",
+                    cakeOptionList.get().optionPrice
+                )
+
+                totalPrice += cakeOptionList.get().optionPrice
+            }
+        }
+        c.cakeId?.let { cake_hashMap.put("id", it) }
+        cake_hashMap.put("price", totalPrice)
+        cake_hashMap.put("shop", c.shop.shopName)
+        cake_hashMap.put("pickupdate", c.pickupDate)
+        cake_hashMap.put("letterText", c.letterText)
+        cake_hashMap.put("etc", c.etc)
+        cake.add(cake_hashMap)
+
+        println(cake)
+        model.addAttribute("cake", cake)
+
+        // 결제 userDTO
+        val userinfo: UserDto = UserDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
+        model.addAttribute("userinfo", userinfo)
+        model.addAttribute("username", customer.user.userName)
+        model.addAttribute("userid", customer.user.userId)
+        model.addAttribute("useremail", customer.user.userEmail)
+
+        return "payment"
+
+    }
+
+    @PostMapping("/users/cart/{cakeId}")
+    fun paymentCake(@PathVariable cakeId: Long, imp_uid: String, cake_id: Long, price: Long): String {
+        println("=========결제됐음=============")
+        println("=========결제됐음=============")
+        println("=========결제됐음=============")
+        println("=========결제됐음=============")
+        println("=========결제됐음=============")
+
+        println(imp_uid)
+        println(price)
+        println(cake_id)
+//        val orderCustomer = customerService.findByCustomerId(customer_id)
+        val orderCake = cakeService.findByCakeId(cake_id)
+
+        orderService.addOrder(imp_uid, price, customer, orderCake)
+        cakeService.updateCakeStatus(cakeId, "PAYMENT")
+        return "redirect:/users/cart"
+    }
+
+    //product temp
+    @GetMapping("/product")
+    fun getProduct(model: Model): String {
+        return "product"
     }
 
 }
