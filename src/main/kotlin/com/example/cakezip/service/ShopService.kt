@@ -8,4 +8,6 @@ import com.example.cakezip.repository.ShopRepository
 interface ShopService {
     fun addNewShop(newShopReqDto: NewShopReqDto)
     fun findBySeller(seller:Seller) : Shop
+
+    fun searchShop(keyword:String):List<Shop>
 }

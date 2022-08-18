@@ -32,4 +32,9 @@ class ShopServiceImpl(private val shopRepository: ShopRepository) : ShopService 
 
         println("저장완료~")
     }
+
+    override fun searchShop(keyword:String):List<Shop> {
+        var shopList = shopRepository.findByShopNameContaining(keyword)
+        return shopList
+    }
 }

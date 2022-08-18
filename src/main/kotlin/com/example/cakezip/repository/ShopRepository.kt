@@ -10,5 +10,6 @@ import java.util.Optional
 interface ShopRepository : JpaRepository<Shop, Long> {
     fun findBySeller(seller:Seller) : Shop
 
+    fun findByShopNameContaining(keyword:String) : List<Shop>
 
 }
