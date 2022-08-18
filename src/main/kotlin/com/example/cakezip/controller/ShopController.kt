@@ -22,10 +22,17 @@ import org.springframework.web.multipart.MultipartFile
 
 @Controller
 class ShopController (private val shopService: ShopService, private val shopImgRepository: ShopImgRepository,private val shopImgService: ShopImgService, private val uploadStoreImgService: UploadStoreImgService){
-    @GetMapping("/add/shop")
+    @GetMapping("/shops/new")
     fun addShop(model: Model):String {
+        //TODO : 사장님 추가
         model.addAttribute("form",NewShopReqDto())
         return "addshop"
+    }
+
+    @RequestMapping(value = arrayOf("/shops/new"), method = arrayOf(RequestMethod.POST))
+    fun postShop(newShopReqDto: NewShopReqDto) : String{
+        shopService.addNewShop(newShopReqDto)
+        return "redirect:/shops/new" // FIXME : 경로 결정되면 체크하기
     }
 
     @ResponseBody
@@ -60,12 +67,6 @@ class ShopController (private val shopService: ShopService, private val shopImgR
         return "editimage"
     }
 
-    @RequestMapping(value = arrayOf("/shop"), method = arrayOf(RequestMethod.POST))
-    fun postShop(newShopReqDto: NewShopReqDto) : String{
-        println(newShopReqDto)
-        shopService.addNewShop(newShopReqDto)
-        return "redirect:/add/shop" // FIXME : 경로 결정되면 체크하기
-    }
 
     @GetMapping("/shops")
     fun shopList(model: Model) : String {

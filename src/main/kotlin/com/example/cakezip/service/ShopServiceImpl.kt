@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 class ShopServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository, private val shopImgRepository: ShopImgRepository) : ShopService {
 
     override fun addNewShop(newShopReqDto: NewShopReqDto) {
-        val shop : Shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress +" "+newShopReqDto.storeDetailAddress,newShopReqDto.storeDetailImg,newShopReqDto.storeShortDescription)
+        val shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress, newShopReqDto.storeDetailAddress, newShopReqDto.storeDetailImg, newShopReqDto.storeShortDescription)
 
         var newShop : Shop = shopRepository.save(shop)
 
@@ -97,8 +97,6 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.LCOLOR, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
-
-        println("저장완료~")
     }
 
     override fun getMyShop(seller: Seller): Shop? {
@@ -162,6 +160,13 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
     }
 
     override fun updateShopInfo(shop: Shop): Shop {
+        println(shop)
         return shopRepository.save(shop)
+    }
+
+    override fun deleteShop(shopId: Long) {
+        val shop:Shop = getByShopId(shopId)
+        shop.status = "deactive"
+        shopRepository.save(shop)
     }
 }
