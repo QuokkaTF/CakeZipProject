@@ -160,4 +160,8 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
         }
         return ShopDetailInfoDto(shopID, shop.shopName, shop.shopAddress, shop.shopArea, shop.shopShortDescriptor, shop.shopPhoneNum, shop.seller, shop.shopImgDescriptionUrl, shopImgUrl, designOptionList, sizeOptionList, sheetOptionList, creamOptionList, creamColorOptionList, letterOptionList)
     }
+
+    override fun updateShopInfo(shop: Shop): Shop {
+        return shopRepository.save(shop)
+    }
 }
