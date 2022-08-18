@@ -30,14 +30,14 @@ class Shop(
 
     @NotNull
     var shopShortDescriptor: String = "",
+
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    var seller : Seller,
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val shopId: Long?=null
-
-    @OneToOne
-    @JoinColumn(name = "seller_id")
-    var seller : Seller? = null
 
     @NotNull
     var shopImgDescriptionUrl: String ?= null

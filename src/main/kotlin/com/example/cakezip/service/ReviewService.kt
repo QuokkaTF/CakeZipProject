@@ -44,15 +44,13 @@ class ReviewService(
         return reviewList
     }
 
-    fun getShopAllReviews(shopId: Long): ArrayList<Review>? {
+    fun getShopAllReviews(shopId: Long): ArrayList<ReviewDto>? {
         val shop = shopRepository.findByShopId(shopId)
-        val reviewList: ArrayList<Review> = ArrayList()
+        val reviewList: ArrayList<ReviewDto> = ArrayList()
 
         for (cake in cakeRepository.findByShop(shop)) {
             val review = reviewRepository.findReviewByCake(cake)
-            if (review != null) {
-                reviewList.add(review)
-            }
+            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt))
         }
 
         return reviewList

@@ -1,6 +1,7 @@
 package com.example.cakezip.service
 
 import com.example.cakezip.domain.cake.Cake
+import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.repository.CakeRepository
@@ -28,7 +29,7 @@ class CakeService(
     fun deleteAllByCustomerAndCakeStatus(customer:Customer, cakeStatus:String) = cakeRepository.deleteAllByCustomerAndCakeStatus(customer,cakeStatus)
 
 
-    fun findByCustomerAndCakeStatusNot(customer:Customer, cakeStatus:String): List<Cake> =
+    fun findByCustomerAndCakeStatusNot(customer:Customer, cakeStatus:CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
 
 

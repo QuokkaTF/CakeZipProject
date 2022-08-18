@@ -23,7 +23,8 @@ class Cake(
 
     var totalPrice: Int,
 
-    var cakeStatus: String,
+    @Enumerated(value = EnumType.STRING)
+    var cakeStatus: CakeStatusType,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
