@@ -134,7 +134,7 @@
                                 <p><span class="order-short">결제 금액 : </span><span th:text="${dto.cake.totalPrice}"></span></p>
                                 <p><span class="order-short">가게 이름 : </span><span th:text="${dto.shopName}"></span></p>
                                 <p><span class="order-short">픽업 날짜 : </span><span th:text="${dto.cake.pickupDate}"></span></p>
-                                <p><span class="order-short">주문 상태 : </span><span style="color:#AD81D5; font-size:1.2rem;" th:text="${dto.cake.cakeStatus}"></span></p>
+                                <p><span class="order-short">주문 상태 : </span><span style="color:#AD81D5; font-size:1.2rem;" th:text="${dto.cake.cakeStatus.cakeStatusName}"></span></p>
                                 <a th:onclick="|location.href='@{/customers/orders/detail/{cakeId}
                         (cakeId=${dto.cake.cakeId})}'|" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>

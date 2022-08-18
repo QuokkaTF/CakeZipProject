@@ -24,34 +24,21 @@ class LikeListService(
     }
 
     fun addLike(customerId: Long, shopId: Long): Boolean {
-        val c = customerRepository.findByCustomerId(customerId)
-        val s = shopRepository.findByShopId(shopId)
+        val customer = customerRepository.findByCustomerId(customerId)
+        val shop = shopRepository.findByShopId(shopId)
 
         //중복 좋아요 방지
-        if (isLike(c, s)) {
+        if (isLike(customer, shop)) {
             // 좋아요 해놨으면 다시 삭제
-            println("왜 안돼???")
-            likeListRepository.deleteByCustomerAndShop(c, s)
-//
-//            if (oldLike?.status == "active") { // 좋아요 해놨으면 취소
-//                oldLike.status = "inactive"
-//                likeListRepository.save(oldLike)
-//                return 0
-//            }
-//            else {
-//                if (oldLike != null) {
-//                    oldLike.status = "active"
-//                    likeListRepository.save(oldLike)
-//                    return 1
-//                }
-//            }
+            //println("외않되???")
+            likeListRepository.deleteByCustomerAndShop(customer, shop)
             return false
 
         }
         //좋아요 안해놨으면 새로 만들기
         val newLike = LikeList(
-            shop = s,
-            customer = c,
+            shop = shop,
+            customer = customer,
         )
         likeListRepository.save(newLike)
 
@@ -61,14 +48,22 @@ class LikeListService(
 
     fun getLikeCount(shopId: Long): Int? {
         val shop = shopRepository.findByShopId(shopId)
-        //val likedList : List<LikeList>? = likeListRepository.findByShop(shop) // 전체 샵 가져옴
-        // status= active 필터링 필요
-//        for ( in likeListRepository.findByShop(shop)) {
-//
-//        }
-
-        //return likeListRepository.countByShopAndStatus(shop, "active") ?: 0 // null 값이면 0 반환
         return likeListRepository.countByShop(shop)
+    }
+
+
+    //사용자 -> 라이크 테이블에서 사용자 키로 가게 찾기
+    fun getLikedShops(customerId: Long): List<Shop>? {
+        val customer = customerRepository.findByCustomerId(customerId)
+        val shopList: ArrayList<Shop> = ArrayList()
+        //val likedShop = likeListRepository.findByCustomer(customer)
+
+        for (liked in likeListRepository.findByCustomer(customer)) {
+
+            // TODO: 가게 표시 코드 합치기
+        }
+
+        return shopList
     }
 
 }

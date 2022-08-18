@@ -1,6 +1,8 @@
 package com.example.cakezip.domain.notice
 
 import com.example.cakezip.domain.BaseEntity
+import com.example.cakezip.domain.Orders
+import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
 import lombok.*
@@ -11,7 +13,7 @@ import javax.persistence.*
 class Notice(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val noticeId:Long,
+    val noticeId:Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -21,7 +23,12 @@ class Notice(
     @JoinColumn(name = "seller_id")
     val seller: Seller,
 
-    val noticeMessage: String,
+    @ManyToOne
+    @JoinColumn(name = "cake_id")
+    val order: Orders?= null,
+
+    @Enumerated(value = EnumType.STRING)
+    val noticeMessage: NoticeMessage,
 
     @Enumerated(value = EnumType.STRING)
     val noticeType: NoticeType,
