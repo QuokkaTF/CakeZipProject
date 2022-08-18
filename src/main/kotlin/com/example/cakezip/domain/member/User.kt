@@ -7,6 +7,7 @@ import javax.persistence.*
 
 @Entity
 class User (
+
     @NotNull
     var userEmail: String,
 
@@ -26,6 +27,5 @@ class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userId: Long?=null
-
 
     }

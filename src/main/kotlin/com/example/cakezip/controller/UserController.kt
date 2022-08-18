@@ -5,6 +5,7 @@ import com.example.cakezip.domain.member.CustomerDto
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserDto
 import com.example.cakezip.service.UserService
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpSession
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpSession
 @Controller
 class UserController(
     private val userService : UserService) {
+
+    @GetMapping("/login")
+    fun getUserLoginView() = "login"
 
     @GetMapping("/register")
     fun getUserRegisterView() = "user-register"
@@ -53,7 +57,6 @@ class UserController(
         } else {
             BaseResponse("false")
         }
-
     }
 
     @PostMapping("/customers")
@@ -65,7 +68,6 @@ class UserController(
     @PostMapping("/sellers")
     fun sellersRegister(userDto: UserDto): String {
         userService.createSeller(userDto)
-
         // TODO 가게 등록 페이지로 리다이렉트하도록 수정해야함
 
         return "redirect:/home"
@@ -82,11 +84,16 @@ class UserController(
                 session.setAttribute("user",user)
             }
         }
+
         return "redirect:/home"
     }
 
-    @PostMapping("/idCheck")
-    fun idCheck(@RequestParam userEmail: String) = BaseResponse(userService.existsUser(userEmail))
+    @GetMapping("/idCheck")
+    @ResponseBody
+    fun idCheck(userEmail: String): ResponseEntity<Boolean>{
+        println(userEmail)
+        return ResponseEntity.ok(userService.existsUser(userEmail))
+    }
 
     @GetMapping("/mypage")
     fun getMyPage(): String {
