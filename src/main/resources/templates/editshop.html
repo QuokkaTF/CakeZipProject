@@ -147,7 +147,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
 
-                            <form th:action ="@{/myshops/{id} (id = ${shop.getShopId()})}" method="post">
+                            <form th:action ="@{/sellers/myshop/info}" method="post">
                                 <input type="hidden" name="_method" value="PUT"/>
 
                                 <h3 for="inputDescription" style="margin:30px; ">
@@ -163,8 +163,11 @@
                                     <h5 for="inputImg">
                                         가게 대표 사진 4장
                                     </h5>
-<!--                                    <input type="file" class="form-control-file" id="inputShopImg" multiple="multiple" onchange="uploadStoreImgList(this)" accept=".png, .jpg, .jpeg"/>-->
-<!--                                    <input type="text" id = 'storeImgList' style="display: none" th:value = "*{}"/>-->
+                                    <div class="form-group" style="margin:30px">
+                                        <a th:href="@{/shops/image/{id} (id = ${shop.getShopId()})}">
+                                            가게 대표 사진 4장 조회 및 수정
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputNumber">
@@ -199,6 +202,7 @@
                                         상세페이지 이미지 첨부
                                     </h5>
                                     <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
+                                    <img th:src="${shop.getShopImgDescriptionUrl()}">
                                     <input type="text" id = 'storeDetailImg' style="display: none" name="shopImgDescriptionUrl" th:value = "${shop.getShopImgDescriptionUrl()}"/>
                                 </div>
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
 
 @Controller
 class SellerController (private val sellerService: SellerService, private val shopService: ShopService, private val shopImgService: ShopImgService){
@@ -24,6 +25,18 @@ class SellerController (private val sellerService: SellerService, private val sh
             model.addAttribute("shopImgs",shopImgService.getShopImgs(shop))
         }
         return "sellermain"
+    }
+
+    @GetMapping("/sellers/myshop/info/{shopId}")
+    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
+        model.addAttribute("shop", shopService.getByShopId(shopId))
+        return "editshop"
+    }
+
+    @PutMapping("/sellers/myshop/info")
+    fun modifyShop(shop: Shop) :String{
+        shopService.updateShopInfo(shop)
+        return "index"
     }
 
 
