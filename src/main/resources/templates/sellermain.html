@@ -181,7 +181,7 @@
                                                 <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
                                                 <div>
                                                     <th:block th:each="image: ${shopImgs}">
-                                                        <img th:src="${image.toString()}" class="img-fluid"
+                                                        <img th:src="${image.getShopImgUrl()}" class="img-fluid"
                                                              style="height: 300px; width: 300px;">
                                                     </th:block>
                                                 </div>
