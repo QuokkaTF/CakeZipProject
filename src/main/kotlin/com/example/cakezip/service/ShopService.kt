@@ -15,5 +15,7 @@ interface ShopService {
     fun getAllShopSimpleList() : List<ShopSimpleInfoDto>
 
     fun getShopDetail(shopID:Long) : ShopDetailInfoDto
-    fun updateShopInfo(shop:Shop) : Shop
+    fun updateShopInfo(shopID: Long, shop:Shop) : Shop
+
+    fun deleteShop(shopId: Long)
 }

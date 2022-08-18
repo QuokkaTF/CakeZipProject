@@ -137,8 +137,8 @@
 
             <div class="row">
                 <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>케이크 가게 등록</h2>
-                    <p>등록을 완료하게 되면 이제 손님들이 사장님의 가게를 확인할 수 있어요.</p>
+                    <h2>케이크 가게 수정</h2>
+                    <p>가게 정보 및 옵션 정보를 수정할 수 있어요!</p>
                 </div>
             </div>
 
@@ -147,7 +147,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
 
-                            <form th:action ="@{/sellers/myshop/info}" method="post">
+                            <form th:action ="@{/sellers/myshop/info/{shopId} (shopId = ${shop.getShopId()})}" method="post">
                                 <input type="hidden" name="_method" value="PUT"/>
 
                                 <h3 for="inputDescription" style="margin:30px; ">
@@ -186,8 +186,8 @@
                                         가게 주소
                                     </h5>
                                     <input id="member_post"  type="text" placeholder="Zip Code" readonly onclick="findAddr()" required>
-                                    <input id="member_addr" type="text" placeholder="Address" th:value="${shop.getShopAddress()}" readonly> <br>
-                                    <input type="text" th:value="${shop.getShopAddress()}" name="shopAddress" placeholder="Detailed Address" required>
+                                    <input id="member_addr" type="text" placeholder="Address" name="shopAddressMain" th:value="${shop.getShopAddressMain()}" readonly> <br>
+                                    <input type="text" th:value="${shop.getShopAddressDetail()}" name="shopAddressDetail" placeholder="Detailed Address" required>
                                 </div>
 
                                 <div class="form-group" style="margin:30px">
@@ -254,6 +254,12 @@
                         </div>
                     </div>
                 </div>
+
+                <form th:action ="@{/sellers/myshop/{id} (id = ${shop.getShopId()})}" method="post">
+                    <input type="hidden" name="_method" value="PUT"/>
+                    <input type="submit" value="가게 삭제">
+                </form>
+
 
             </main>
             <!-- Main Content -->

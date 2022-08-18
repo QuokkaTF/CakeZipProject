@@ -12,6 +12,8 @@ import com.example.cakezip.repository.CakeOptionListRepository
 import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.repository.ShopRepository
 import org.springframework.stereotype.Service
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Service
 class ShopServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository, private val shopImgRepository: ShopImgRepository) : ShopService {
@@ -131,7 +133,8 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
     }
 
     override fun getShopDetail(shopID: Long): ShopDetailInfoDto {
-        val shop : Shop = shopRepository.findByShopId(shopID)
+        val shopInfo: Shop = shopRepository.findByShopId(shopID)
+        val shop = shopInfo
         val shopImg : List<ShopImg> = shopImgRepository.findByShop(shop)
         val shopImgUrl : ArrayList<String> = ArrayList()
         for (img in shopImg) {
@@ -159,14 +162,18 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
         return ShopDetailInfoDto(shopID, shop.shopName, shop.shopAddress, shop.shopArea, shop.shopShortDescriptor, shop.shopPhoneNum, shop.seller, shop.shopImgDescriptionUrl, shopImgUrl, designOptionList, sizeOptionList, sheetOptionList, creamOptionList, creamColorOptionList, letterOptionList)
     }
 
-    override fun updateShopInfo(shop: Shop): Shop {
-        println(shop)
-        return shopRepository.save(shop)
+    override fun updateShopInfo(shopId: Long, shop:Shop): Shop {
+        val editShop = shopRepository.findByShopId(shopId)
+
+        editShop.update(shop.shopName, shop.businessNum, shop.shopPhoneNum, shop.shopAddressMain,shop.shopAddressDetail,shop.shopImgDescriptionUrl,shop.shopShortDescriptor)
+        shopRepository.save(editShop)
+        return shop
     }
 
     override fun deleteShop(shopId: Long) {
-        val shop:Shop = getByShopId(shopId)
+        val shop:Shop = shopRepository.findByShopId(shopId)
         shop.status = "deactive"
         shopRepository.save(shop)
+        println(shop)
     }
 }

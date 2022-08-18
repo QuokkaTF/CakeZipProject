@@ -16,7 +16,7 @@ data class Shop(
     var shopName: String,
 
     @NotNull
-    val businessNum: String,
+    var businessNum: String,
 
     @NotNull
     var shopPhoneNum: String,
@@ -35,7 +35,7 @@ data class Shop(
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val shopId: Long?=null
+    val shopId: Long = 0
 
     @OneToOne
     @JoinColumn(name = "seller_id")
@@ -44,4 +44,15 @@ data class Shop(
     var shopAddress : String = this.shopAddressMain + " " +this.shopAddressDetail
     var shopArea : String = this.shopAddress.split(" ")[0] + " " + this.shopAddress.split(" ")[1] // 가게의 대략적인 지역 예) 서울시 구로구
 
+    fun update(shopName: String, businessNum: String,shopPhoneNum: String, shopAddressMain: String, shopAddressDetail: String, shopImgDescriptionUrl: String, shopShortDescriptor: String) {
+        this.shopName = shopName
+        this.businessNum = businessNum
+        this.shopPhoneNum = shopPhoneNum
+        this.shopAddressMain = shopAddressMain
+        this.shopAddressDetail = shopAddressDetail
+        this.shopImgDescriptionUrl = shopImgDescriptionUrl
+        this.shopShortDescriptor = shopShortDescriptor
+        this.shopAddress = shopAddressMain + " " + shopAddressDetail
+        this.shopArea = this.shopAddress.split(" ")[0] + " " + this.shopAddress.split(" ")[1]
+    }
 }

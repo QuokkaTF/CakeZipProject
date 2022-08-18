@@ -33,12 +33,18 @@ class SellerController (private val sellerService: SellerService, private val sh
         return "editshop"
     }
 
-    @PutMapping("/sellers/myshop/info")
-    fun modifyShop(shop: Shop) :String{
-        shopService.updateShopInfo(shop)
+    @PutMapping("/sellers/myshop/info/{shopId}")
+    fun modifyShop(shop: Shop, @PathVariable("shopId") shopId: Long) :String{
+        val shop = shopService.updateShopInfo(shopId, shop)
+        println(shop)
         return "index"
     }
 
+    @PutMapping("/sellers/myshop/{shopId}")
+    fun modifyShop(@PathVariable("shopId") shopId: Long) :String{
+        shopService.deleteShop(shopId)
+        return "index" // TODO : url 변경 필요
+    }
 
 
 
