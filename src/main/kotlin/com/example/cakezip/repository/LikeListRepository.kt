@@ -19,7 +19,5 @@ interface LikeListRepository : JpaRepository<LikeList, Long> {
     @Transactional
     fun deleteByCustomerAndShop(customer: Customer, shop: Shop)
 
-    fun findByShop(shop: Shop): List<LikeList>?
-
     fun findByCustomer(customer: Customer): List<LikeList>
 }

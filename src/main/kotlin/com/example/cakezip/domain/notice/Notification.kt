@@ -2,15 +2,12 @@ package com.example.cakezip.domain.notice
 
 import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.Orders
-import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
-import lombok.*
-import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
 @Entity
-class Notice(
+class Notification(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val noticeId:Long? = null,
@@ -28,8 +25,8 @@ class Notice(
     val order: Orders?= null,
 
     @Enumerated(value = EnumType.STRING)
-    val noticeMessage: NoticeMessage,
+    val notificationMessage: NotificationMessage,
 
     @Enumerated(value = EnumType.STRING)
-    val noticeType: NoticeType,
+    val notificationType: NotificationType,
 ) : BaseEntity(){}

@@ -1,10 +1,9 @@
 package com.example.cakezip.service
 
 import com.example.cakezip.domain.cake.CakeStatusType
-import com.example.cakezip.domain.notice.NoticeMessage
-import com.example.cakezip.domain.notice.NoticeType
+import com.example.cakezip.domain.notice.NotificationMessage
+import com.example.cakezip.domain.notice.NotificationType
 import com.example.cakezip.dto.OrderDto
-import com.example.cakezip.event.OrderCancelEvent
 import com.example.cakezip.repository.*
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
@@ -12,12 +11,9 @@ import org.springframework.stereotype.Service
 @Service
 class OrderServiceImpl(
     private val orderRepository: OrderRepository,
-    private val orderdetailRepository: OrderDetailRepository,
     private val cakeRepository: CakeRepository,
-    private val shopRepository: ShopRepository,
     private val customerRepository: CustomerRepository,
-    private val eventPublisher: ApplicationEventPublisher,
-    private val noticeService: NoticeService,
+    private val noticeService: NotificationService,
 ) : OrderService {
 
     // 오더 아이디로 케이크 아이디 찾기 -> 케이크 아이디로 띄워주기
@@ -64,7 +60,7 @@ class OrderServiceImpl(
             cakeRepository.save(cake)
             noticeService.makeNotice(
                 cake.customer.customerId, cake.shop.seller.sellerId, order,
-                NoticeMessage.ORDER_CANCEL, NoticeType.TOSELLER
+                NotificationMessage.ORDER_CANCEL, NotificationType.TOSELLER
             )
             println("알림 생성")
 

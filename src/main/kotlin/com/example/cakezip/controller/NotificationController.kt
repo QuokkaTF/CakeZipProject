@@ -4,18 +4,16 @@ import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
-import java.util.*
 
 
 @Controller
-class NoticeController(
+class NotificationController(
     private val customerService: CustomerService,
     private val reviewService: ReviewService,
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
-    private val noticeService: NoticeService,
+    private val noticeService: NotificationService,
 
     ) {
 

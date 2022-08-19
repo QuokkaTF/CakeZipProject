@@ -46,6 +46,12 @@ dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
 
+    ///// 알림 기능 추가
+    implementation("org.infinispan:infinispan-core:12.0.1.Final")
+    implementation("org.infinispan:infinispan-commons:12.0.1.Final")
+    implementation("org.infinispan:infinispan-marshaller-protostuff:12.0.1.Final")
+    implementation("org.jboss.marshalling:jboss-marshalling-osgi:2.0.10.Final")
+
 }
 
 sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {

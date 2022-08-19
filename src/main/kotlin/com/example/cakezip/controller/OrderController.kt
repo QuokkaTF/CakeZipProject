@@ -1,24 +1,20 @@
 package com.example.cakezip.controller
 
-import com.example.cakezip.repository.NoticeRepository
 import com.example.cakezip.repository.ShopRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 
 @Controller
 class OrderController(
     private val orderService: OrderService,
     private val customerService: CustomerService,
-    private val cakeService: CakeService,
     private val likeListService: LikeListService,
-    private val shopService: LikeListService,
     private val shopRepository: ShopRepository,
-    private val noticeService: NoticeService,
+    private val noticeService: NotificationService,
     ){
 
     //TODO: 회원 기능 완료되면 url말고 세션 토큰으로 사용자 정보 받아와서 마이페이지부터 따로 띄우기
@@ -86,11 +82,6 @@ class OrderController(
         return "allshop";
 
     }
-
-//    @GetMapping("/orderdetail")
-//    fun getOrderDetailView(): String {
-//        return "orderdetail";
-//    }
 
     @GetMapping("/cart")
     fun getCartList(model: Model): String {

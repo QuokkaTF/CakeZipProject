@@ -10,14 +10,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class LikeListService(
-    private val reviewRepository: ReviewRepository,
     private val customerRepository: CustomerRepository,
     private val shopRepository: ShopRepository,
-    private val cakeRepository: CakeRepository,
     private val likeListRepository: LikeListRepository,
 ) {
-
-    //fun insertLike(CustomerId: Long, ShopId: Long)
 
     fun isLike(customer: Customer, shop: Shop): Boolean {
         return likeListRepository.findByCustomerAndShop(customer, shop) != null // 있으면 True 없으면 False

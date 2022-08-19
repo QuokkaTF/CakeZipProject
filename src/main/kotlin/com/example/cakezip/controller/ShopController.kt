@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.*
 class ShopController (private val shopService: ShopService){
     @GetMapping("/add/shop")
     fun addShop(model: Model):String {
-        model.addAttribute("form",NewShopReqDto())
+        model.addAttribute("form", NewShopReqDto())
         return "addshop"
     }
 
-    @RequestMapping(value = arrayOf("/add/shop"), method = arrayOf(RequestMethod.POST))
-    fun postShop(newShopReqDto: NewShopReqDto) : String{
-        println(newShopReqDto)
-        var designList : List<String> = newShopReqDto.designList.trim().split(' ')
-        println(designList.size)
-        shopService.addNewShop(newShopReqDto)
-        return "index"
-    }
+//    @RequestMapping(value = arrayOf("/add/shop"), method = arrayOf(RequestMethod.POST))
+//    fun postShop(newShopReqDto: NewShopReqDto) : String{
+//        println(newShopReqDto)
+//        var designList : List<String> = newShopReqDto.designList.trim().split(' ')
+//        println(designList.size)
+//        shopService.addNewShop(newShopReqDto)
+//        return "index"
+//    }
 
     @GetMapping("/home")
     fun showShop(model: Model): String {

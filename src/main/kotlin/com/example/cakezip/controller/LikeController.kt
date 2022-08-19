@@ -8,14 +8,7 @@ import org.springframework.web.bind.annotation.*
 
 @Controller
 class LikeController(
-    private val customerService: CustomerService,
-    private val reviewService: ReviewService,
-    private val cakeService: CakeService,
-    private val cakeTaskService: CakeTaskService,
-    private val cakeOptionListService: CakeOptionListService,
     private val likeListService: LikeListService,
-    private val shopRepository: ShopRepository,
-
     ) {
 
 
@@ -31,18 +24,6 @@ class LikeController(
         return likeListService.addLike(3, 1)
     }
 
-//    @GetMapping("/test/{shopId}")
-//    fun getLikeTest(model: Model, @PathVariable("shopId") shopId: Long): String {
-//        val customer = customerService.findByCustomerId(1)
-//        val shop = shopRepository.findByShopId(shopId)
-//
-//        val like = likeListService.addLike(1, 1)
-//
-//        model.addAttribute("like", like)
-//
-//        println("가게 좋아요 테스트")
-//        return "like";
-//    }
 
 }
 
