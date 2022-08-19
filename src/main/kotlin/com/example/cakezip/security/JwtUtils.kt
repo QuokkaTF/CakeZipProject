@@ -12,7 +12,8 @@ import java.util.*
 @Component
 class JwtUtils(private val userDetailsService: UserDetailsServiceImpl) {
 
-    val EXP_TIME: Long = 1000L * 60 * 3
+    // 토큰 유효 시간 30분
+    val EXP_TIME: Long = 1000L * 60 * 30
     val JWT_SECRET: String = "secret"
     val SIGNATURE_ALG: SignatureAlgorithm = SignatureAlgorithm.HS256
 
@@ -30,6 +31,9 @@ class JwtUtils(private val userDetailsService: UserDetailsServiceImpl) {
 
     // 토큰 검증
     fun validation(token: String) : Boolean {
+        Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token)
+
+
         val claims: Claims = getAllClaims(token)
         val exp: Date = claims.expiration
         return exp.after(Date())
