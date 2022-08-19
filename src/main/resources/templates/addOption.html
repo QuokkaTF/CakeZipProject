@@ -115,40 +115,13 @@
             </header>
         </div>
 
-        <form method="get" th:action="@{/options/new/{type}/{shopId} (type=${type}, shopId = ${shopId})}">
-            <input type="submit" value="추가">
-        </form>
-
         <div class="col-12">
-            <p th:text="${type.toString()}"></p>
-            <table border="1">
-                <tr>
-                    <th>옵션 아이디</th>
-                    <th>옵션 디테일</th>
-                    <th>옵션 가격</th>
-                    <th>수정</th>
-                    <th>삭제</th>
-                </tr>
-                <tr th:each="op:${optionDetail}">
-<!--                    <td><a th:href="@{/product/{id}(id=${p.productNo})}" th:text="${p.productNo}"></a></td>-->
-                    <td th:text="${op.getCakeOptionListId()}"></td>
-                    <td th:text="${op.getOptionDetail()}"></td>
-                    <td th:text="${op.getOptionPrice()}"></td>
-
-                    <td>
-                        <form method="get" th:action="@{/options/modify/detail/{optionId} (optionId=${op.getCakeOptionListId()})}">
-                            <input type="submit" value="수정">
-                        </form>
-                    </td>
-
-                    <td>
-                        <form method="post" th:action="@{/options/delete/detail/{optionId} (optionId=${op.getCakeOptionListId()})}">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="submit" value="삭제">
-                        </form>
-                    </td>
-                </tr>
-            </table>
+            <form method="post" th:action="@{/options/new (type=${type}, shopId = ${shopId})}" th:object="${form}">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="text" th:field="*{optionDetail}" name="optionDetail">
+                <input type="text" th:value="${optionPrice}" name="optionPrice">
+                <input type="submit" value="수정">
+            </form>
             <!-- Main Content -->
         </div>
 
