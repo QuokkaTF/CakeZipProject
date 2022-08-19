@@ -8,8 +8,12 @@ import java.util.Optional
 
 @Repository
 interface ShopRepository : JpaRepository<Shop, Long> {
-    fun findBySeller(seller:Seller) : Shop
+
+    fun findBySeller (seller : Seller) : Optional<Shop>
+
+    fun findByShopId (shopId : Long) : Shop
 
     fun findByShopNameContaining(keyword:String) : List<Shop>
 
+    fun findAllByStatus(status:String) : List<Shop>
 }

@@ -1,0 +1,243 @@
+
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-Commerce Template</title>
+
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container-fluid nanum">
+
+    <div class="row min-vh-100">
+        <div class="col-12">
+            <header class="row">
+                <!-- Top Nav -->
+
+                <div class="col-12 bg-purple py-2 d-md-block d-none">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                </li>
+                                <li>
+                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li>
+                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Nav -->
+
+                <!-- Header -->
+                <div class="col-12 bg-white pt-4">
+                    <div class="row">
+                        <div class="col-lg-auto">
+                            <div class="site-logo text-center text-lg-left">
+                                <a href="/index">Cake.zip</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
+                                               required>
+                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
+                            <a href="#" class="header-item">
+                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            </a>
+                            <a href="/cart" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
+                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Nav -->
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="mainNav">
+                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/shops">전체보기<span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
+                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
+                                            보기</a>
+                                        <div class="dropdown-menu" aria-labelledby="electronics">
+                                            <a class="dropdown-item" href="category.html">서울</a>
+                                            <a class="dropdown-item" href="category.html">부산</a>
+                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
+                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
+                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
+                                        </div>
+                                        <!--                                    </li>-->
+                                        <!--                                    <li class="nav-item dropdown">-->
+                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
+                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
+                                        <!--                                        </div>-->
+                                        <!--                                    </li>-->
+                                        <!--                                    <li class="nav-item dropdown">-->
+                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
+                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
+                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
+                                        <!--                                        </div>-->
+                                        <!--                                    </li>-->
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- Nav -->
+
+                </div>
+                <!-- Header -->
+
+            </header>
+        </div>
+
+        <div class="col-12">
+            <!-- Main Content -->
+            <main class="row">
+
+                <!-- Featured Products -->
+                <div class="col-12 py-1">
+                    <th:block th:each="shop : ${shops}">
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                    <a class="card-body" th:href="@{/shops/{id}(id = ${shop.getShopId()})}">
+                                        <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                        <div><span class="product-description" th:text="${shop.getShopShortDescription()}"></span></div>
+                                        <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                        <div>
+                                            <th:block th:each="img : ${shop.getShopImgList()}">
+                                                <img th:src="${img.toString()}" class="img-fluid"
+                                                     style="height: 300px; width: 300px;">
+                                            </th:block>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+            </main>
+            <!-- Main Content -->
+        </div>
+
+        <div class="col-12 align-self-end">
+            <!-- Footer -->
+            <footer class="row">
+                <div class="col-12 bg-purple text-white pb-5 pt-5">
+                    <div class="row">
+                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="footer-logo">
+                                        <a href="index.html">Cake.zip</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <address>
+                                        Quokka TF<br>
+                                        Seoul, Korea
+                                    </address>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="footer-nav">
+                                        <li>
+                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                hwijeong-lee@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer -->
+        </div>
+    </div>
+
+</div>
+
+<!-- Messages -->
+<div class="toast-container position-fixed bottom-0 start-0 p-3">
+    <div class="toast align-items-center text-white bg-success border-0 bg-purple" data-bs-autohide="false">
+        <a href="#">
+
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle me-2"></i>
+                    테스트!!!!!!
+                </div>
+
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- Messages -->
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

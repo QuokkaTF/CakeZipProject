@@ -1,30 +1,57 @@
-package com.example.cakezip.controller
+package com.example.cakezip.controller;
 
-import com.example.cakezip.domain.cake.Cake
-import com.example.cakezip.domain.cake.CakeOptionList
-import com.example.cakezip.domain.cake.CakeTask
-import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
-import com.example.cakezip.repository.CustomerRepository
-import com.example.cakezip.service.*
-import org.springframework.stereotype.Controller
+import com.example.cakezip.repository.ShopRepository
+import com.example.cakezip.service.SellerService
+import com.example.cakezip.service.ShopImgService
+import com.example.cakezip.service.ShopService
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.*
-import java.util.*
-import kotlin.collections.HashMap
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
 
 @Controller
-class SellerController(
+class SellerController (
+    private val shopImgService: ShopImgService,
     private val shopService: ShopService,
     private val sellerService: SellerService,
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
-    private val orderService: OrderService,
-) {
+    private val orderService: OrderService,){
 
+    @GetMapping("/sellers/myshop/{sellerId}")
+    fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
+
+        var seller: Seller = sellerService.findBySellerBySellerId(sellerId)
+        var shop : Shop? = shopService.getMyShop(seller)
+        model.addAttribute("shop", shop)
+        if (shop != null) {
+            model.addAttribute("shopImgs",shopImgService.getShopImgs(shop))
+        }
+        return "sellermain"
+    }
+
+    @GetMapping("/sellers/myshop/info/{shopId}")
+    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
+        model.addAttribute("shop", shopService.getByShopId(shopId))
+        return "editshop"
+    }
+
+    @PutMapping("/sellers/myshop/info/{shopId}")
+    fun modifyShop(shop: Shop, @PathVariable("shopId") shopId: Long) :String{
+        val shop = shopService.updateShopInfo(shopId, shop)
+        println(shop)
+        return "index"
+    }
+
+    @PutMapping("/sellers/myshop/{shopId}")
+    fun modifyShop(@PathVariable("shopId") shopId: Long) :String{
+        shopService.deleteShop(shopId)
+        return "index" // TODO : url 변경 필요
+    }
 
     //TODO : 경민한테 받으면 수정
     var seller: Seller = sellerService.findBySellerId(1)
@@ -88,5 +115,4 @@ class SellerController(
         println(statusCheck)
         return "redirect:/sellers/orders/{cakeId}"
     }
-
 }
