@@ -7,18 +7,27 @@ import javax.persistence.*
 
 @Entity
 class User (
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val userId: Long?=null,
 
-    var userName: String,
-
+    @NotNull
     var userEmail: String,
 
+    @NotNull
     var password: String,
 
+    @NotNull
     var phoneNum: String,
 
+    @NotNull
+    var userName: String,
+
+    @NotNull
     @Enumerated(value = EnumType.STRING)
-    val userType: UserType,
-    ) : BaseEntity() {}
+    var userType: UserType
+    ) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val userId: Long?=null
+
+
+
+    }

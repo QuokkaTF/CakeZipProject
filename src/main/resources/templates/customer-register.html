@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-Commerce Template</title>
+
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    function idCheck() {
+        var res;
+        $.ajax({
+            type: 'GET',
+            url: '/users/idCheck',
+            async:false,
+            data: {"userEmail":document.getElementById("userEmail").value},
+            dataType: 'json',
+            success: function(result) {
+                res=result;
+            }
+
+        });
+        return res;
+    }
+
+    function formCheck() {
+        var userName = document.getElementById("userName");
+        var userEmail = document.getElementById("userEmail");
+        var userPassword = document.getElementById("userPassword");
+        var userPhoneNum = document.getElementById("userPhoneNum");
+        var userGender = document.getElementById("userGender");
+        var userArea = document.getElementById("userArea");
+
+
+
+        if(userName.value == "") {
+            alert("이름을 입력해주세요");
+            userName.focus();
+            return false;
+        }
+
+        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+        if(userEmail.value == "") {
+            alert("이메일을 입력하세요.");
+            userName.focus();
+            return false;
+        }
+
+        if(!regEmail.test(userEmail.value)) {
+            alert("올바른 이메일 형식을 입력해주세요");
+            userEmail.focus();
+            return false;
+        }
+
+        if(idCheck(userEmail.value)) {
+            alert("이미 존재하는 이메일입니다. 다른 이메일을 적어주세요");
+            userEmail.focus();
+            return false;
+        }
+
+        if(userPassword.value == "") {
+            alert("비밀번호를 입력하세요.");
+            userPassword.focus();
+            return false;
+        }
+        var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+        if (!pwdCheck.test(userPassword.value)) {
+            alert("비밀번호는 영문자+숫자+특수문자 조합으로 8-25자리 사용해야 합니다.");
+            userPassword.focus();
+            return false;
+        }
+
+        var reg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;;
+
+        if(userPhoneNum.value == "") {
+            alert("전화번호를 입력하세요");
+            userPhoneNum.focus();
+            return false;
+        }
+
+        if(!reg.test(userPhoneNum.value)) {
+            alert("올바른 전화번호 형식을 입력해주세요 (010-1234-5678)");
+            userPhoneNum.focus();
+            return false;
+        }
+
+        document.join_form.submit();
+    }
+
+
+    </script>
+</head>
+<body>
+<div class="container-fluid nanum">
+
+    <div class="row min-vh-100">
+        <div class="col-12">
+            <header class="row">
+                <!-- Top Nav -->
+
+                <div class="col-12 bg-purple py-2 d-md-block d-none">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                </li>
+                                <li>
+                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li>
+                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Nav -->
+
+                <!-- Header -->
+                <div class="col-12 bg-white pt-4">
+                    <div class="row">
+                        <div class="col-lg-auto">
+                            <div class="site-logo text-center text-lg-left">
+                                <a href="/index">Cake.zip</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
+                                               required>
+                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
+                            <a href="#" class="header-item">
+                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            </a>
+                            <a href="/cart" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
+                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Nav -->
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="mainNav">
+                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
+                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
+                                            보기</a>
+                                        <div class="dropdown-menu" aria-labelledby="electronics">
+                                            <a class="dropdown-item" href="category.html">서울</a>
+                                            <a class="dropdown-item" href="category.html">부산</a>
+                                        </div>
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- Nav -->
+
+                </div>
+                <!-- Header -->
+
+            </header>
+        </div>
+
+        <div class="col-12">
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
+                    <h2>고객 회원가입</h2>
+                </div>
+            </div>
+
+            <main class="row">
+                <div class="col-12 bg-white py-3 mb-3">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
+                        <form name="join_form"method="POST" action="/users/customers">
+
+                            <!--                                <input class="form-control" readonly placeholder="ID">-->
+                            <!--                                <input class="form-control" readonly placeholder="Password">-->
+
+                            <div class="mb-3">
+                                <label field="userName">이름</label>
+                                <input id="userName"type="name" name="userName" class="form-control" placeholder="이름 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="userEmail">이메일</label>
+                                <input id="userEmail" type="email" name="userEmail" class="form-control" placeholder="이메일 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">비밀번호</label>
+                                <input id="userPassword"type="password" name="password" class="form-control" placeholder="비밀번호 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">전화번호</label>
+                                <input id="userPhoneNum" type="phone" name="phoneNum" class="form-control" placeholder="010-1234-1234">
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="mb-3 form-label">성별 </label>
+                                <select id="userGender"name="gender">
+                                    <option value="MALE">남</option>
+                                    <option value="FEMALE">여</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="mb-3 form-label">선호 지역 </label>
+
+                                <select id="userArea" name="areas">
+                                    <option value="서울">서울</option>
+                                    <option value="부산">부산</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="w-100 btn btn-lg btn-purple" type="button"
+                                        onclick="formCheck();">완료
+                                </button>
+                            </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
+            <!-- Main Content -->
+        </div>
+
+
+        <div class="col-12 align-self-end">
+            <!-- Footer -->
+            <footer class="row">
+                <div class="col-12 bg-purple text-white pb-5 pt-5">
+                    <div class="row">
+                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="footer-logo">
+                                        <a href="index.html">Cake.zip</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <address>
+                                        Quokka TF<br>
+                                        Seoul, Korea
+                                    </address>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="footer-nav">
+                                        <li>
+                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                hwijeong-lee@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer -->
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

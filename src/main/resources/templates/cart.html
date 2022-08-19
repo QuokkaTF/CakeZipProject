@@ -50,23 +50,52 @@
 
         //버튼 클릭하면 실행
         function payment(data) {
+            var price = document.getElementById("price")
+            var name = document.getElementById("name")
+
+            var uname = document.getElementById("uname")
+            var uphonenum = document.getElementById("uphonenum")
+            var uemail = document.getElementById("uemail")
+            var cid = document.getElementById("cid")
+
+            var postpath = 'cart/' + cid.innerHTML
+
             IMP.init('imp66507436');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
             IMP.request_pay({// param
                 pg: "kakaopay.TC0ONETIME", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
                 pay_method: "card", //지불 방법
-                merchant_uid: "iamport_test_id1", //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-                name: "빤짝거리는케이크", //결제창에 노출될 상품명
-                amount: 13700, //금액
-                buyer_email : "testiamport@naver.com",
-                buyer_name : "홍길동",
-                buyer_tel : "01012341234"
+                merchant_uid: 'merchant_'+new Date().getTime(), //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+                name: name.innerHTML, //결제창에 노출될 상품명
+                amount: price.innerHTML, //금액
+                buyer_email : uemail.innerHTML,
+                buyer_name : uname.innerHTML,
+                buyer_tel : uphonenum.innerHTML
             }, function (rsp) { // callback
                 if (rsp.success) {
                     alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
+                    sendData(postpath, {imp_uid: rsp.imp_uid, cake_id: cid.innerHTML, price:price.innerHTML});
                 } else {
                     alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
                 }
             });
+        }
+
+        function sendData(path, parameters, method='post') {
+
+          const form = document.createElement('form');
+          form.method = method;
+          form.action = path;
+          document.body.appendChild(form);
+
+          for (const key in parameters) {
+              const formField = document.createElement('input');
+              formField.type = 'hidden';
+              formField.name = key;
+              formField.value = parameters[key];
+
+              form.appendChild(formField);
+          }
+          form.submit();
         }
 
 
@@ -211,7 +240,7 @@
                                     </td>
                                     <td rowspan="8" th:text="${dto.get('pickupdate')}"></td>
                                     <td>케이크디자인</td>
-                                    <td th:text="${dto.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
+                                    <td th:text="${dto.get('DESIGN')}" id="name">1번 핑크토끼케이크 [BEST]</td>
                                     <td style="text-align: right" th:text="${dto.get('DESIGNprice')}">21,500
                                     </td>
                                 </tr>
@@ -256,7 +285,11 @@
                                 </tr>
                                 <tr>
                                     <th colspan="4" class="text-right">Total</th>
-                                    <th style="text-align: right" th:text="${dto.get('price')}">4,000</th>
+                                    <th style="text-align: right" th:text="${dto.get('price')}" id="price">4,000</th>
+                                    <th style=" display: none;" th:text="${userinfo.name}" id="uname"></th>
+                                    <th style=" display: none;" th:text="${userinfo.phoneNum}" id="uphonenum"></th>
+                                    <th style=" display: none;" th:text="${userinfo.email}" id="uemail"></th>
+                                    <th style=" display: none;" th:text="${dto.get('id')}" id="cid"></th>
                                 </tr>
                                 </tbody>
 
@@ -266,8 +299,12 @@
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">
                             </form>
-                            <button id="iamportPayment" class="btn btn-outline-success" type="button">주문하기
-                            </button>
+
+                            <form method="get" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">
+                                <input class="btn btn-outline-success" type="submit" value="주문하기">
+                            </form>
+                            <br>
+
                         </div>
                     </div>
                 </div>

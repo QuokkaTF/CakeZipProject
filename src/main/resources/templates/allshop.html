@@ -92,7 +92,7 @@
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/shops">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="electronics"
@@ -144,69 +144,26 @@
 
                 <!-- Featured Products -->
                 <div class="col-12 py-1">
-                    <div class="row py-1">
-                        <div class="col-12">
-                            <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                <a class="card-body" href="product.html">
-                                    <div class="card-title text-purple"><span class="product-name">케이크 가게1</span></div>
-                                    <div><span class="product-price">~5000원</span></div>
-                                    <div>
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                    </div>
-
-                                </a>
+                
+                    <th:block th:each="shop : ${shops}">
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                    <a class="card-body" th:href="@{/shops/{id}(id = ${shop.getShopId()})}">
+                                        <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                        <div><span class="product-description" th:text="${shop.getShopShortDescription()}"></span></div>
+                                        <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                        <div>
+                                            <th:block th:each="img : ${shop.getShopImgList()}">
+                                                <img th:src="${img.toString()}" class="img-fluid"
+                                                     style="height: 300px; width: 300px;">
+                                            </th:block>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row py-1">
-                        <div class="col-12">
-                            <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                <a class="card-body" href="product.html">
-                                    <div class="card-title text-purple"><span class="product-name">케이크 가게1</span></div>
-                                    <div><span class="product-price">~5000원</span></div>
-                                    <div>
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                    </div>
-
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row py-1">
-                        <div class="col-12">
-                            <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                <a class="card-body" href="product.html">
-                                    <div class="card-title text-purple"><span class="product-name">케이크 가게1</span></div>
-                                    <div><span class="product-price">~5000원</span></div>
-                                    <div>
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                        <img src="images/cake_thumbnail1.jpeg" class="img-fluid"
-                                             style="height: 300px; width: 300px;">
-                                    </div>
-
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    </th:block>
                 </div>
 
             </main>
