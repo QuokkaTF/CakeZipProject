@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script th:inline="javascript">
+
+
+
+    </script>
+
 </head>
 <body>
 <div class="container-fluid nanum">
@@ -75,7 +85,7 @@
                             <a href="#" class="header-item">
                                 <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
                             </a>
-                            <a href="/cart" class="header-item">
+                            <a href="cart.html" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
                                 <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
                             </a>
@@ -119,99 +129,83 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase nanum text-purple">
-                    <h2>주문 상세보기</h2>
+                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase text-purple">
+                    <h2>내 리뷰 전체보기</h2>
                 </div>
             </div>
 
-            <main class="row nanum">
+            <main class="row">
                 <div class="col-12 bg-white py-3">
-                    <div class="row">
-                        <div class="col-9 mx-auto card py-3">
-                            <div th:each="dto : ${orderDetail}" class="card-body">
-                                <h4 class="card-title">주문 1</h4>
-                                <p class="card-text"><span>주문 번호 : </span><span th:text="${dto.orderListId}"></span></p>
-                                <div class="row">
-                                        <form class="row">
-                                            <div class="col-12">
-                                                <table class="table table-sm">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>상품</th>
-                                                        <th>픽업날짜</th>
-                                                        <th>상세옵션</th>
-                                                        <th></th>
-                                                        <th style="text-align: right">총 금액</th>
-                                                    </tr>
-                                                    </thead>
+                    <div th:each="dto : ${review}" class="row py-3">
+                        <div class="card col-6 mx-auto py-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image"
+                                         class="img-rounded">
+                                    <div class="review-block-name"><a href="#"><span
+                                            th:text="${dto.cake.shop.shopName}"></span></a></div>
+                                    <div class="review-block-date">2022.08.02</div>
+                                </div>
+                                <div class="col-9">
+                                    <div class="review-block-rate">
+                                        <span class="review-block-title">리뷰 별점 : </span>
+                                        <span th:if="${dto.reviewScore} == 1" >
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                        </span>
+                                        <span th:if="${dto.reviewScore} == 2" >
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                        </span>
+                                        <span th:if="${dto.reviewScore} == 3" >
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                        </span>
+                                        <span th:if="${dto.reviewScore} == 4" >
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                        </span>
+                                        <span th:if="${dto.reviewScore} == 5" >
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                        </span>
+                                        <!--                                        <span class="fas fa-star"-->
+                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
+                                        <!--                                        <span class="fas fa-star"-->
+                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
+                                        <!--                                        <span class="fas fa-star"-->
+                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
+                                        <!--                                        <span class="fas fa-star"-->
+                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
+                                        <!--                                        <span class="fas fa-star"-->
+                                        <!--                                              style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
+                                        <div></div>
 
-                                                    <tbody>
-                                                    <tr>
-                                                        <td  rowspan="8">
-                                                            <img src="/images/cakeimg.png" class="img-fluid">
-                                                            <p th:text="${dto.cake.shop.shopName}"></p>
-                                                        </td>
-                                                        <td rowspan="8"><span th:text="${dto.cake.pickupDate}"></span></td>
-                                                        <td>케이크디자인</td>
-                                                        <td>1번 핑크토끼케이크 [BEST]</td>
-                                                        <td rowspan="8"  style="text-align: right">21,500원</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>케이크 호수</td>
-                                                        <td>1호</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>시트맛</td>
-                                                        <td>오레오</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>크림맛</td>
-                                                        <td>생크림</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>케이크 바탕색</td>
-                                                        <td>흰색</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>레터링 색</td>
-                                                        <td>주황색</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>레터링 문구</td>
-                                                        <td>HBD</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>기타 요청사항</td>
-                                                        <td>둘러싼 크림을 파란색으로 해주세요!</td>
-                                                    </tr>
-                                                    </tbody>
-
-
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th colspan="4" class="text-right">Total</th>
-                                                        <th style="text-align: right">21,500원</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th colspan="4" class="text-right" style="font-size:1.2rem;">주문 상태</th>
-                                                        <th style="text-align: right; color:#AD81D5; font-size:1.2rem;">픽업 준비중</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </form>
                                     </div>
+                                    <p><span class="review-block-title">제목 : </span><span
+                                            class="review-block-description" th:text="${dto.reviewTitle}"></span></p>
+                                    <p><span class="review-block-title">내용 : </span>
+                                        <span class="review-block-description" th:text="${dto.reviewContent}"></span>
+                                    </p>
 
-                                <a th:onclick="|location.href='@{/orders/delete(orderId=${dto.order.orderId})}'|" class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;">주문 취소</a>
-                                <a href=# class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰 작성</a>
-
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -266,8 +260,5 @@
 
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

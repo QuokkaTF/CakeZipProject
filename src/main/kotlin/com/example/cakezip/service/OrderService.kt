@@ -1,5 +1,9 @@
 package com.example.cakezip.service
 
+import com.example.cakezip.domain.OrderList
+import com.example.cakezip.repository.OrderRepository
+import org.springframework.stereotype.Service
+
 import com.example.cakezip.domain.Orders
 import com.example.cakezip.domain.Review
 import com.example.cakezip.domain.cake.Cake
@@ -17,12 +21,24 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 
-
 @Service
 class OrderService(
     private val orderRepository: OrderRepository,
-    ) {
-    fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders {
+) {
+//    fun findAll(): List<OrderList> = orderRepository.findAll()
+
+    fun findAll(): List<OrderList>? {
+        return orderRepository.findAll()
+    }
+
+//    fun findAllById(orderListId : Long): List<OrderList>? {
+//        return orderRepository.findAllById()
+//    }
+    fun getOrderListById(orderListId: Long): OrderList? {
+        return orderRepository.findAllByOrderListId(orderListId)
+    }
+    
+     fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders {
         val order = Orders(
             merchantUid = merchantUid,
             merchantPrice = merchantPrice,
@@ -32,5 +48,5 @@ class OrderService(
         Orders()
         return orderRepository.save(order)
     }
-
 }
+

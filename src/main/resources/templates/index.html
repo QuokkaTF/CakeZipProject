@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -95,44 +95,14 @@
                             </button>
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                                
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/allshop">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
+                                    
                                     <li class="nav-item active">
                                         <a class="nav-link" href="/map">지도보기<span class="sr-only">(current)</span></a>
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
-                                        </div>
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
                                 </ul>
                             </div>
                         </nav>
@@ -182,122 +152,7 @@
                 </div>
                 <!-- Slider -->
 
-                <!-- Featured Products -->
-                <div class="col-12 py-3">
-                    <div class="row">
-                        <!-- Product -->
-                        <div class="col-12">
-                            <div class="col-12 bg-white text-center h-100 product-item">
-                                <div class="row h-100">
-                                    <div class="col-12">
-                                        <a href="product.html">
-                                            <img src="images/image-1.jpg" class="img-fluid" style="height: 300px;">
-                                        </a>
-                                    </div>
-                                    <div class="col-12">
-                                        <a href="product.html" class="product-name">케이크 가게1</a>
-                                    </div>
-                                    <div class="col-12">
 
-                                        <span class="product-price">
-                                            ~5000원
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 py-3">
-                    <div class="row">
-                        <!-- Product -->
-                        <div class="col-12">
-                            <div class="col-12 bg-white text-center h-100 product-item">
-                                <div class="row h-100">
-                                    <div class="col-12">
-                                        <a href="product.html">
-                                            <img src="images/image-1.jpg" class="img-fluid" style="height: 300px;">
-                                        </a>
-                                    </div>
-                                    <div class="col-12">
-                                        <a href="product.html" class="product-name">케이크 가게1</a>
-                                    </div>
-                                    <div class="col-12">
-
-                                        <span class="product-price">
-                                            ~5000원
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 py-3">
-                    <div class="row">
-                        <!-- Product -->
-                        <div class="col-12">
-                            <div class="col-12 bg-white text-center h-100 product-item">
-                                <div class="row h-100">
-                                    <div class="col-12">
-                                        <a href="product.html">
-                                            <img src="images/image-1.jpg" class="img-fluid" style="height: 300px;">
-                                        </a>
-                                    </div>
-                                    <div class="col-12">
-                                        <a href="product.html" class="product-name">케이크 가게1</a>
-                                    </div>
-                                    <div class="col-12">
-
-                                        <span class="product-price">
-                                            ~5000원
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Featured Products -->
-
-                <div class="col-12 py-3 bg-light d-sm-block d-none">
-                    <div class="row">
-                        <div class="col-lg-3 col ms-auto large-holder">
-                            <div class="row">
-                                <div class="col-auto ms-auto large-icon">
-                                    <i class="fas fa-money-bill"></i>
-                                </div>
-                                <div class="col-auto me-auto large-text">
-                                    Best Price
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col large-holder">
-                            <div class="row">
-                                <div class="col-auto ms-auto large-icon">
-                                    <i class="fas fa-truck-moving"></i>
-                                </div>
-                                <div class="col-auto me-auto large-text">
-                                    Fast Delivery
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col me-auto large-holder">
-                            <div class="row">
-                                <div class="col-auto ms-auto large-icon">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="col-auto me-auto large-text">
-                                    Genuine Products
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </main>
             <!-- Main Content -->
         </div>
@@ -350,7 +205,7 @@
 
 <!-- Messages -->
 <div class="toast-container position-fixed bottom-0 start-0 p-3">
-정    <div class="toast align-items-center text-white bg-success border-0 bg-purple" data-bs-autohide="false">
+    <div class="toast align-items-center text-white bg-success border-0 bg-purple" data-bs-autohide="false">
         <a href="#">
 
             <div class="d-flex">

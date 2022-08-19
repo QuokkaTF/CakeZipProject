@@ -1,13 +1,11 @@
 package com.example.cakezip.repository
 
-import com.example.cakezip.domain.Orders
-import com.example.cakezip.domain.cake.Cake
-import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.shop.Shop
+import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
+import com.example.cakezip.domain.shop.Shop
 import java.util.*
+import javax.persistence.EntityManager
 
-interface OrderRepository : JpaRepository<Orders, Long> {
+interface OrderRepository : JpaRepository<OrderList, Long> {
 
 }
