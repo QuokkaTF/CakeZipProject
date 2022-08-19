@@ -19,7 +19,7 @@ class UserService(
     private val authenticationManager : AuthenticationManager,
     private val jwtUtils : JwtUtils
 ) {
-
+    fun findCustomerByUser(user: User) = customerRepository.findCustomerByUser(user)
     fun findSellerByUser(user: User) = sellerRepository.findSellerByUser(user)
 
     fun findUserEmail(userName: String, userPhoneNum: String) : String? {
