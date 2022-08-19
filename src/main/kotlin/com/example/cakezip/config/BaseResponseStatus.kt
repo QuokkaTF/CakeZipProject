@@ -56,6 +56,8 @@ enum class BaseResponseStatus  //BaseResponseStatus 에서 각 해당하는 코�
     ),
     PATCH_USERS_INVALID_NICKNAME_PERIOD(false, 2025, "닉네임 변경은 14일 이후에 가능합니다."),
 
+
+
     /**
      * 2500 : Questions 오류
      */
@@ -123,6 +125,11 @@ enum class BaseResponseStatus  //BaseResponseStatus 에서 각 해당하는 코�
         4011,
         "비밀번호 암호화에 실패하였습니다."
     ),
-    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
+
+    /**
+     * 5000 :
+     */
+    PUT_ORDERS_INVALID_STATUS(false, 5001, "이미 취소된 주문입니다.");
 }

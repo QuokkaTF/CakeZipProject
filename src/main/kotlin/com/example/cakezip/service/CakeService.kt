@@ -22,8 +22,13 @@ class CakeService(
     fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus: String): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatus(customer, cakeStatus)
 
+    fun findByCustomerAndCakeStatusNot(customer:Customer, cakeStatus:CakeStatusType): List<Cake> =
+        cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
+
+
     fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus: String): List<Cake> =
         cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)
+
 
     @Transactional
     fun deleteAllByCakeId(id: Long) = cakeRepository.deleteAllByCakeId(id)
@@ -61,3 +66,4 @@ class CakeService(
         return cakeRepository.save(cake)
     }
 }
+

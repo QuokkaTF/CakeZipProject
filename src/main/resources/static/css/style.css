@@ -97,6 +97,10 @@ a {
     background-color: #AD81D5 !important;
 }
 
+color-purple {
+    color: #AD81D5;
+}
+
 .product-item {
     box-shadow: #ccc 0 0 10px 1px;
 }
@@ -106,9 +110,8 @@ a {
 }
 
 .product-name {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: 600;
-    color: #656565;
     text-decoration: none;
 }
 
@@ -415,6 +418,7 @@ table td img {
 
 
 
+동적 별점
 
 .star-rating {
   display: flex;
@@ -446,6 +450,44 @@ table td img {
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
 }
+
+
+
+//별점 표시
+
+.star-ratings {
+  color: #aaa9a9;
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+}
+
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+}
+
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
+}
+
+
+//리뷰 페이지
+
+
+
+
 
 
 

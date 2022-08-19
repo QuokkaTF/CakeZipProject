@@ -25,10 +25,17 @@ class ReviewController(
     //TODO : 경민한테 받으면 수정
     var customer: Customer = customerService.findByCustomerId(2)
     
-    @GetMapping("/reviews/{customerId}")
+    @GetMapping("/reviews/customer/{customerId}")
     fun getMyReviews(model: Model, @PathVariable("customerId") customerId: Long): String {
-        model.addAttribute("review", reviewService.getReviewByCustomerId(customerId))
+        model.addAttribute("review", reviewService.getCustomerAllReviews(customerId))
         println("해당 사용자의 리뷰 전체 목록")
+        return "myreview";
+    }
+
+    @GetMapping("/reviews/shop/{shopId}")
+    fun getShopReviews(model: Model, @PathVariable("shopId") shopId: Long): String {
+        model.addAttribute("review", reviewService.getShopAllReviews(shopId))
+        println("해당 가게의 리뷰 전체 목록")
         return "myreview";
     }
 
