@@ -19,4 +19,6 @@ class CakeOptionListService(
 
     fun findByCakeOptionListId(id: Long) : Optional<CakeOptionList> = cakeOptionListRepository.findByCakeOptionListId(id)
 
+    fun findByOptionTitleAndOptioinDetail(title:String, detail:String):CakeOptionList =
+        cakeOptionListRepository.findByOptionTitleAndOptioinDetail(title, detail)
 }

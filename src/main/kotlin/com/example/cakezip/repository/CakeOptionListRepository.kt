@@ -10,5 +10,5 @@ import java.util.*
 interface CakeOptionListRepository : JpaRepository<CakeOptionList, Long> {
 
     fun findByCakeOptionListId(id: Long) : Optional<CakeOptionList>
-
+    fun findByOptionTitleAndOptioinDetail(title:String, detail:String):CakeOptionList
 }

@@ -25,20 +25,6 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript">
-<!--		$(document).ready(function() {-->
-<!--			$("#cbx_chkAll").click(function() {-->
-<!--				if($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);-->
-<!--				else $("input[name=chk]").prop("checked", false);-->
-<!--			});-->
-
-<!--			$("input[name=chk]").click(function() {-->
-<!--				var total = $("input[name=chk]").length;-->
-<!--				var checked = $("input[name=chk]:checked").length;-->
-
-<!--				if(total != checked) $("#cbx_chkAll").prop("checked", false);-->
-<!--				else $("#cbx_chkAll").prop("checked", true);-->
-<!--			});-->
-<!--		});-->
 
 		//문서가 준비되면 제일 먼저 실행
         $(document).ready(function(){
@@ -58,7 +44,7 @@
             var uemail = document.getElementById("uemail")
             var cid = document.getElementById("cid")
 
-            var postpath = 'cart/' + cid.innerHTML
+            var postpath = cid.innerHTML
 
             IMP.init('imp66507436');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
             IMP.request_pay({// param
@@ -97,7 +83,6 @@
           }
           form.submit();
         }
-
 
 
     </script>
@@ -207,18 +192,18 @@
 
             <div class="row">
                 <div class="col-12 pt-2 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>장바구니</h2>
+                    <h2>결제</h2>
                 </div>
             </div>
 
             <main class="row">
                 <div class="col-12 bg-white py-3 mb-3">
                     <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
-                        <form method="post" th:action="@{'cart/'}"
-                              style="float:right; padding: 30px 0px 50px 0px;">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input class="btn btn-outline-secondary me-3" type="submit" value="장바구니 비우기">
-                        </form>
+                        <br>
+                        <div style="color:#198754">
+                            <h4>아래 내용을 확인하고 결제버튼을 눌러주세요!</h4>
+                        </div>
+                        <br>
                         <div class="col-12" th:each="dto : ${cake}" style="padding: 30px 0px 30px 0px;">
                             <table class="table table-sm">
                                 <thead>
@@ -295,15 +280,9 @@
 
                             </table>
 
-                            <form method="post" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">
-                            </form>
-
-                            <form method="get" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">
-                                <input class="btn btn-outline-success" type="submit" value="주문하기">
-                            </form>
                             <br>
+                            <input id="iamportPayment" class="btn btn-outline-success" type="submit" value="결제하기"
+                            style="width:100%">
 
                         </div>
                     </div>

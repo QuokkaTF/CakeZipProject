@@ -10,6 +10,7 @@ import java.util.*
 interface CakeRepository : JpaRepository<Cake, Long> {
 
     fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus:String) : List<Cake>
+    fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus:String) : List<Cake>
 
     fun deleteAllByCakeId(id:Long)
 
