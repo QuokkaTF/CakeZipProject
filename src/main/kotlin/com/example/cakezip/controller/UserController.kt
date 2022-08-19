@@ -119,6 +119,11 @@ class UserController(
             if (user != null) {
                 //session.setAttribute("userId",user.userId)
                 session.setAttribute("user",user)
+                if(user.userType == UserType.CUSTOMER) {
+                    session.setAttribute("customer", userService.findCustomerByUser(user))
+                } else {
+                    session.setAttribute("selle", userService.findSellerByUser(user))
+                }
 
             }
         } else {
