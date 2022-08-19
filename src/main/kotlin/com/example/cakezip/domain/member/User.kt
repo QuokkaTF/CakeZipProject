@@ -28,4 +28,6 @@ class User (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userId: Long?=null
 
+
+
     }

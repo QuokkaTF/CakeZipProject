@@ -1,12 +1,11 @@
 package com.example.cakezip.controller
 
 import com.example.cakezip.config.BaseResponse
-import com.example.cakezip.domain.member.CustomerDto
-import com.example.cakezip.domain.member.User
-import com.example.cakezip.domain.member.UserDto
+import com.example.cakezip.domain.member.*
 import com.example.cakezip.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpSession
 
@@ -27,8 +26,33 @@ class UserController(
     @GetMapping("/sellers/register")
     fun getSellerRegisterView() = "seller-register"
 
-    @GetMapping("/editInfo")
-    fun getUserEditView() = "editInfo"
+    @GetMapping("/password")
+    fun getFindPasswordView() = "find-password"
+
+    @GetMapping("/email")
+    fun getFindUserEmailView() = "find-email"
+
+    @GetMapping("/edit")
+    fun getUserEditView(session: HttpSession,model: Model): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            println("this is seller")
+            val seller: Seller = userService.findSellerByUser(user)
+            model.addAttribute("sellerDto",seller.toSellerDto())
+        }
+        return "seller-edit"
+    }
+
+    @PutMapping("/customer/edit")
+    fun editSeller(session: HttpSession, customerDto: CustomerDto): String {
+        return "temp"
+    }
+
+    @PutMapping("/seller/edit")
+    fun editCustomer(session: HttpSession, sellerDto: SellerDto): String {
+        return "temp"
+    }
+
 
     @DeleteMapping("/deactivate") // 탈퇴
     fun deactivateUser(session: HttpSession): String {
@@ -38,8 +62,15 @@ class UserController(
     }
 
     @PostMapping("/email")
-    fun findUserEmail(@RequestParam userName: String, @RequestParam userPhoneNum: String): BaseResponse<String?> {
-        return BaseResponse(userService.findUserEmail(userName,userPhoneNum));
+    fun findUserEmail(@RequestParam userName: String, @RequestParam userPhoneNum: String, model: Model): String {
+        val userEmail: String? = userService.findUserEmail(userName,userPhoneNum)
+        if(userEmail==null) {
+            model.addAttribute("error","일치하는 회원이 없습니다.")
+        }else {
+            model.addAttribute("error",userEmail)
+        }
+        return "find-email"
+
     }
 
     @GetMapping("/logout")
@@ -49,13 +80,14 @@ class UserController(
     }
 
     @PostMapping("/password")
-    fun resetPassword(@RequestParam userName:String, @RequestParam userEmail: String, @RequestParam userPassword: String): BaseResponse<String> {
+    fun resetPassword(@RequestParam userName:String, @RequestParam userEmail: String, @RequestParam userPassword: String, model: Model): String {
         val user: User ?= userService.validateUserEmailAndName(userName, userEmail)
-        return if(user != null) {
+        if(user != null) {
             userService.setUserPassword(user,userPassword)
-            BaseResponse("true")
+            return "redirect:/home"
         } else {
-            BaseResponse("false")
+            model.addAttribute("error","해당하는 계정이 없습니다.")
+            return "find-password"
         }
     }
 
@@ -74,7 +106,7 @@ class UserController(
     }
 
     @PostMapping("/login")
-    fun login(@RequestParam userEmail: String, @RequestParam password: String, session: HttpSession) : String{
+    fun login(@RequestParam userEmail: String, @RequestParam password: String, session: HttpSession, model: Model) : String{
         val res: String = userService.userLogin(userEmail,password)
 
         if(res != "0"&& res != "-1") {
@@ -82,7 +114,11 @@ class UserController(
             if (user != null) {
                 //session.setAttribute("userId",user.userId)
                 session.setAttribute("user",user)
+
             }
+        } else {
+            model.addAttribute("error","비밀번호가 틀렸거나 존재하지않는 이메일입니다.")
+            return "login"
         }
 
         return "redirect:/home"

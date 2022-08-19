@@ -20,12 +20,14 @@ class UserService(
     private val jwtUtils : JwtUtils
 ) {
 
+    fun findSellerByUser(user: User) = sellerRepository.findSellerByUser(user)
+
     fun findUserEmail(userName: String, userPhoneNum: String) : String? {
         return userRepository.findByUserNameAndPhoneNum(userName,userPhoneNum)?.userEmail
     }
 
     fun findUser(userEmail: String): User? {
-        return userRepository.findByUserEmail(userEmail)
+        return userRepository.findUserByUserEmail(userEmail)
     }
 
     fun setUserPassword(user: User, userPassword: String) {
@@ -39,7 +41,12 @@ class UserService(
     }
 
     fun validateUserEmailAndName(userName: String, userEmail: String): User? {
-        return userRepository.findByUserEmail(userEmail)
+        val user: User? = userRepository.findUserByUserEmail(userEmail)
+        if (user != null) {
+            if(user.userName == userName)
+                return user
+        }
+        return null
     }
 
     fun existsUser(userEmail: String): Boolean {
