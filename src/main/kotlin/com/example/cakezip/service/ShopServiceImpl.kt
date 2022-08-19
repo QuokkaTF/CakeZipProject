@@ -18,6 +18,11 @@ import kotlin.collections.ArrayList
 @Service
 class ShopServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository, private val shopImgRepository: ShopImgRepository) : ShopService {
 
+    override fun findBySeller(seller:Seller) : Shop {
+        var shop = shopRepository.findBySeller(seller)
+        return shop
+    }
+
     override fun addNewShop(newShopReqDto: NewShopReqDto) {
         val shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress, newShopReqDto.storeDetailAddress, newShopReqDto.storeDetailImg, newShopReqDto.storeShortDescription)
 
@@ -175,5 +180,10 @@ class ShopServiceImpl(private val shopRepository: ShopRepository, private val ca
         shop.status = "deactive"
         shopRepository.save(shop)
         println(shop)
+    }
+
+    override fun searchShop(keyword:String):List<Shop> {
+        var shopList = shopRepository.findByShopNameContaining(keyword)
+        return shopList
     }
 }

@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <script>
+        function getScore(event) {
+          document.getElementById('result').value =
+            event.target.value;
+        }
+
+
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-Commerce Template</title>
+
+    <link href="/fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="/fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="container-fluid">
+
+    <div class="row min-vh-100">
+        <div class="col-12">
+            <header class="row">
+                <!-- Top Nav -->
+
+                <div class="col-12 bg-purple py-2 d-md-block d-none">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                </li>
+                                <li>
+                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="customers.html"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li>
+                                    <a href="register.html"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="login.html"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Nav -->
+
+                <!-- Header -->
+                <div class="col-12 bg-white pt-4">
+                    <div class="row">
+                        <div class="col-lg-auto">
+                            <div class="site-logo text-center text-lg-left">
+                                <a href="index.html" style="">Cake.zip</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
+                                               required>
+                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
+                            <a href="#" class="header-item">
+                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            </a>
+                            <a href="cart.html" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
+                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Nav -->
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="mainNav">
+                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
+                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
+                                            보기</a>
+                                        <div class="dropdown-menu" aria-labelledby="electronics">
+                                            <a class="dropdown-item" href="category.html">서울</a>
+                                            <a class="dropdown-item" href="category.html">부산</a>
+                                        </div>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- Nav -->
+
+                </div>
+                <!-- Header -->
+
+            </header>
+        </div>
+
+        <div class="col-12">
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-12 pt-2 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
+                    <h2>리뷰작성</h2>
+                </div>
+            </div>
+
+            <main class="row">
+                <div class="col-12 bg-white mb-3">
+
+                    <div class="col-8 mx-auto" th:each="dto : ${cake}" style="padding: 30px 0px 30px 0px;">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>가게명</th>
+                                <th>픽업날짜</th>
+                                <th>상세옵션</th>
+                                <th></th>
+                                <th style="text-align: right">금액</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <tr>
+                                <td rowspan="8">
+                                    <img src="/images/cakeimg.png" class="img-fluid">
+                                    <p th:text="${dto.get('shop')}"></p>
+                                </td>
+                                <td rowspan="8" th:text="${dto.get('pickupdate')}"></td>
+                                <td>케이크디자인</td>
+                                <td th:text="${dto.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
+                                <td style="text-align: right" th:text="${dto.get('DESIGNprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>케이크 호수</td>
+                                <td th:text="${dto.get('SIZE')}">1호</td>
+                                <td style="text-align: right" th:text="${dto.get('SIZEprice')}">21,500</td>
+                            </tr>
+                            <tr>
+                                <td>시트맛</td>
+                                <td th:text="${dto.get('SFLAVOR')}">오레오</td>
+                                <td style="text-align: right" th:text="${dto.get('SFLAVORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>크림맛</td>
+                                <td th:text="${dto.get('CFLAVOR')}">생크림</td>
+                                <td style="text-align: right" th:text="${dto.get('CFLAVORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>케이크 바탕색</td>
+                                <td th:text="${dto.get('CCOLOR')}">흰색</td>
+                                <td style="text-align: right" th:text="${dto.get('CCOLORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>레터링 색</td>
+                                <td th:text="${dto.get('LCOLOR')}">주황색</td>
+                                <td style="text-align: right" th:text="${dto.get('LCOLORprice')}">21,500
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>레터링 문구</td>
+                                <td th:text="${dto.get('letterText')}">HBD</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                            <tr>
+                                <td>기타 요청사항</td>
+                                <td th:text="${dto.get('etc')}">둘러싼 크림을 파란색으로 해주세요!</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" class="text-right">Total</th>
+                                <th style="text-align: right" th:text="${dto.get('price')}">4,000</th>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="col-8 mx-auto" style="padding: 0px 0px 30px 0px;">
+                        <div class="rating-block card py-3">
+
+                            <h5 class="text-purple">케이크에 만족하셨나요?</h5>
+
+                            <div class="star-rating space-x-4">
+                                <input type="radio" id="5-stars" name="rating"
+                                       value="5" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="5-stars" class="star pr-4">★</label>
+
+                                <input type="radio" id="4-stars" name="rating"
+                                       value="4" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="4-stars" class="star">★</label>
+
+                                <input type="radio" id="3-stars" name="rating"
+                                       value="3" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="3-stars" class="star">★</label>
+
+                                <input type="radio" id="2-stars" name="rating"
+                                       value="2" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="2-stars" class="star">★</label>
+
+                                <input type="radio" id="1-star" name="rating"
+                                       value="1" v-model="ratings" onclick='getScore(event)'/>
+                                <label for="1-star" class="star">★</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <form th:action="@{${cakeId}}" method="POST">
+                        <div class="row py-1">
+                            <div class="col-8 mx-auto" style="padding: 0px 0px 30px 0px;">
+                                <div class="rating-block card py-3">
+                                    <h5 class="text-purple">케이크에 대한 리뷰를 남겨주세요!</h5>
+                                    <input type="text" class="form-control" id='result' name="reviewScore"
+                                           style="display: none;">
+                                    <input type="text" name="reviewTitle" class="form-control" placeholder="제목"
+                                           required>
+                                    <input type="text" name="reviewContent" class="form-control" text-align="top"
+                                           style="height:200px;r" placeholder="내용" required>
+                                </div>
+                                <input type="submit" class="btn btn-outline-success" value="작성완료"
+                                       style="float:right; margin: 30px 0px 50px 0px;">
+                            </div>
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+            </main>
+            <!-- Main Content -->
+        </div>
+
+        <div class="col-12 align-self-end">
+            <!-- Footer -->
+            <footer class="row">
+                <div class="col-12 bg-purple text-white pb-5 pt-5">
+                    <div class="row">
+                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="footer-logo">
+                                        <a href="index.html">Cake.zip</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <address>
+                                        Quokka TF<br>
+                                        Seoul, Korea
+                                    </address>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="footer-nav">
+                                        <li>
+                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                hwijeong-lee@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer -->
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

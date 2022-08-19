@@ -153,7 +153,8 @@
 
                                 <div>
                                     <label>디자인번호</label>
-                                    <select size="1" required autofocus>
+                                    
+                                    <select size="1" name="designCheck" required autofocus>
                                         <th:block th:each="design : ${shopInfo.designOptionList}">
                                             <option th:text="${design.getOptionDetail()} + '_'+ ${design.getOptionPrice()}+'원'" th:value="${design.getCakeOptionListId()}">
                                             </option>
@@ -162,7 +163,8 @@
                                 </div>
                                 <div>
                                     <label>케이크호수</label>
-                                    <select size="1" required autofocus>
+
+                                    <select size="1" name="sizeCheck" required autofocus>
                                         <th:block th:each="size : ${shopInfo.sizeOptionList}">
                                             <option th:text="${size.getOptionDetail()} + '_'+ ${size.getOptionPrice()}+'원'" th:value="${size.getCakeOptionListId()}">
                                             </option>
@@ -171,7 +173,7 @@
                                 </div>
                                 <div>
                                     <label>시트맛</label>
-                                    <select size="1" required autofocus>
+                                    <select size="1" name="sheetCheck" required autofocus>
                                         <th:block th:each="sheet : ${shopInfo.sheetOptionList}">
                                             <option th:text="${sheet.getOptionDetail()} + '_'+ ${sheet.getOptionPrice()}+'원'" th:value="${sheet.getCakeOptionListId()}">
                                             </option>
@@ -180,7 +182,8 @@
                                 </div>
                                 <div>
                                     <label>크림맛</label>
-                                    <select size="1" required autofocus>
+
+                                    <select size="1" name="creamCheck" required autofocus>
                                         <th:block th:each="cream : ${shopInfo.creamOptionList}">
                                             <option th:text="${cream.getOptionDetail()} + '_'+ ${cream.getOptionPrice()}+'원'" th:value="${cream.getCakeOptionListId()}">
                                             </option>
@@ -189,7 +192,8 @@
                                 </div>
                                 <div>
                                     <label>케이크바탕색</label>
-                                    <select size="1" required autofocus>
+                                    
+                                    <select size="1" name="creamcolorCheck" required autofocus>
                                         <th:block th:each="creamcolor : ${shopInfo.creamColorOptionList}">
                                             <option th:text="${creamcolor.getOptionDetail()} + '_'+ ${creamcolor.getOptionPrice()}+'원'" th:value="${creamcolor.getCakeOptionListId()}">
                                             </option>
@@ -206,7 +210,6 @@
                                     </select>
                                 </div>
 
-                                <h5>12,000원</h5>
                                 <br>
                                 <button class="btn btn-outline-dark" type="button"><i
                                         class="fas fa-cart-plus me-2"></i>장바구니 담기

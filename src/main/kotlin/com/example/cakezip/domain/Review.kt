@@ -1,9 +1,6 @@
 package com.example.cakezip.domain
 
-import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.cake.Cake
-import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import javax.persistence.*
 
@@ -13,9 +10,9 @@ class Review(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val reviewId: Long? = null,
 
-    val reviewTitle: String,
-    val reviewContent: String,
-    val reviewScore: Float,
+    val reviewTitle: String?="제목없음",
+    val reviewContent: String?="",
+    val reviewScore: Integer?,
 
     @OneToOne
     @JoinColumn(name = "cake_id")

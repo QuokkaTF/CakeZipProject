@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,9 +13,97 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    function idCheck() {
+        var res;
+        $.ajax({
+            type: 'GET',
+            url: '/users/idCheck',
+            async:false,
+            data: {"userEmail":document.getElementById("userEmail").value},
+            dataType: 'json',
+            success: function(result) {
+                res=result;
+            }
+
+        });
+        return res;
+    }
+
+    function formCheck() {
+        var userName = document.getElementById("userName");
+        var userEmail = document.getElementById("userEmail");
+        var userPassword = document.getElementById("userPassword");
+        var userPhoneNum = document.getElementById("userPhoneNum");
+        var userGender = document.getElementById("userGender");
+        var userArea = document.getElementById("userArea");
+
+
+
+        if(userName.value == "") {
+            alert("이름을 입력해주세요");
+            userName.focus();
+            return false;
+        }
+
+        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+        if(userEmail.value == "") {
+            alert("이메일을 입력하세요.");
+            userName.focus();
+            return false;
+        }
+
+        if(!regEmail.test(userEmail.value)) {
+            alert("올바른 이메일 형식을 입력해주세요");
+            userEmail.focus();
+            return false;
+        }
+
+        if(idCheck(userEmail.value)) {
+            alert("이미 존재하는 이메일입니다. 다른 이메일을 적어주세요");
+            userEmail.focus();
+            return false;
+        }
+
+        if(userPassword.value == "") {
+            alert("비밀번호를 입력하세요.");
+            userPassword.focus();
+            return false;
+        }
+        var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+        if (!pwdCheck.test(userPassword.value)) {
+            alert("비밀번호는 영문자+숫자+특수문자 조합으로 8-25자리 사용해야 합니다.");
+            userPassword.focus();
+            return false;
+        }
+
+        var reg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;;
+
+        if(userPhoneNum.value == "") {
+            alert("전화번호를 입력하세요");
+            userPhoneNum.focus();
+            return false;
+        }
+
+        if(!reg.test(userPhoneNum.value)) {
+            alert("올바른 전화번호 형식을 입력해주세요 (010-1234-5678)");
+            userPhoneNum.focus();
+            return false;
+        }
+
+        document.join_form.submit();
+    }
+
+
+    </script>
 </head>
 <body>
 <div class="container-fluid nanum">
@@ -38,7 +128,7 @@
                         <div class="col-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="/users/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
                                 </li>
                                 <li>
                                     <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
@@ -101,31 +191,8 @@
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
-                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
                                         </div>
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
+
                                 </ul>
                             </div>
                         </nav>
@@ -142,37 +209,65 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase font-monospace text-purple">
-                    <h2>MY PAGE</h2>
+                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
+                    <h2>고객 회원가입</h2>
                 </div>
             </div>
 
-            <main class="row nanum">
-                <div class="col-12 bg-white py-3">
+            <main class="row">
+                <div class="col-12 bg-white py-3 mb-3">
                     <div class="row">
-<!--                        <a href="#" class="btn btn-purple btn-lg btn-block col-8 text-center">주문 조회</a>-->
-<!--                        <a href="#" class="btn btn-purple btn-lg btn-block col-8 text-center">주문 조회</a>-->
-<!--                        <a href="#" class="btn btn-purple btn-lg btn-block col-8 text-center">주문 조회</a>-->
+                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
+                        <form name="join_form"method="POST" action="/users/customers">
+
+                            <!--                                <input class="form-control" readonly placeholder="ID">-->
+                            <!--                                <input class="form-control" readonly placeholder="Password">-->
+
+                            <div class="mb-3">
+                                <label field="userName">이름</label>
+                                <input id="userName"type="name" name="userName" class="form-control" placeholder="이름 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="userEmail">이메일</label>
+                                <input id="userEmail" type="email" name="userEmail" class="form-control" placeholder="이메일 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">비밀번호</label>
+                                <input id="userPassword"type="password" name="password" class="form-control" placeholder="비밀번호 입력">
+                            </div>
+
+                            <div class="mb-3">
+                                <label field="username">전화번호</label>
+                                <input id="userPhoneNum" type="phone" name="phoneNum" class="form-control" placeholder="010-1234-1234">
+                            </div>
 
 
+                            <div class="mb-3">
+                                <label class="mb-3 form-label">성별 </label>
+                                <select id="userGender"name="gender">
+                                    <option value="MALE">남</option>
+                                    <option value="FEMALE">여</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="mb-3 form-label">선호 지역 </label>
 
-                        <div class="col-12 text-center py-2">
-                            <a href="/orders" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i> 주문 조회</a>
+                                <select id="userArea" name="areas">
+                                    <option value="서울">서울</option>
+                                    <option value="부산">부산</option>
+                                </select>
+                            </div>
 
+                            <div class="mb-3">
+                                <button class="w-100 btn btn-lg btn-purple" type="button"
+                                        onclick="formCheck();">완료
+                                </button>
+                            </div>
 
-
+                            </form>
                         </div>
-                        <div class="col-12 text-center py-2">
-
-                            <a href="/users/edit" class="btn btn-purple btn-lg btn-block"><i class="fa fa-user"></i> 정보 수정</a>
-
-                        </div>
-                        <div class="col-12 text-center py-2">
-
-                            <a href="#" class="btn btn-purple btn-lg btn-block"><i class="fa fa-thumbs-up"></i> 내가 쓴 리뷰</a>
-
-                        </div>
-
                     </div>
                 </div>
 
@@ -180,6 +275,7 @@
             </main>
             <!-- Main Content -->
         </div>
+
 
         <div class="col-12 align-self-end">
             <!-- Footer -->
