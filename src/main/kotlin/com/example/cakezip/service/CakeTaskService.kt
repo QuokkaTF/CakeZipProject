@@ -4,17 +4,12 @@ import com.example.cakezip.domain.Orders
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeTask
-import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.shop.Shop
-import com.example.cakezip.domain.cake.Cake
-import com.example.cakezip.domain.cake.CakeTask
+
 import com.example.cakezip.repository.CakeRepository
 import com.example.cakezip.repository.CakeTaskRepository
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
-import org.springframework.data.jpa.repository.Query
+
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.Optional
 
 
 @Service

@@ -1,6 +1,9 @@
 package com.example.cakezip.service
 
+import com.example.cakezip.domain.Orders
+import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeStatusType
+import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.notice.NotificationMessage
 import com.example.cakezip.domain.notice.NotificationType
 import com.example.cakezip.dto.OrderDto
@@ -59,12 +62,23 @@ class OrderServiceImpl(
             cake.cakeStatus = CakeStatusType.CANCEL
             cakeRepository.save(cake)
             noticeService.makeNotice(
-                cake.customer.customerId, cake.shop.seller.sellerId, order,
+                cake.customer.customerId, cake.shop.seller!!.sellerId!!, order,
                 NotificationMessage.ORDER_CANCEL, NotificationType.TOSELLER
             )
             println("알림 생성")
 
         }
+    }
+
+    override fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders {
+        val order = Orders(
+            merchantUid = merchantUid,
+            merchantPrice = merchantPrice,
+            customer = customer,
+            cake =cake,
+        )
+        Orders()
+        return orderRepository.save(order)
     }
 
 

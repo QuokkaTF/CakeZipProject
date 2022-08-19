@@ -1,13 +1,7 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
-import com.example.cakezip.domain.cake.CakeTask
-import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.repository.CakeOptionListRepository
-import com.example.cakezip.repository.CakeRepository
-import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Service
 import java.util.Optional
 
@@ -19,6 +13,6 @@ class CakeOptionListService(
 
     fun findByCakeOptionListId(id: Long) : Optional<CakeOptionList> = cakeOptionListRepository.findByCakeOptionListId(id)
 
-    fun findByOptionTitleAndOptioinDetail(title:String, detail:String):CakeOptionList =
-        cakeOptionListRepository.findByOptionTitleAndOptioinDetail(title, detail)
+    fun findByOptionTitleAndOptionDetail(title:String, detail:String):CakeOptionList =
+        cakeOptionListRepository.findByOptionTitleAndOptionDetail(title, detail)
 }

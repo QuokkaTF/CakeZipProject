@@ -27,8 +27,6 @@ interface OrderService {
 
     fun changeCakeStateCancel(id: Long)
 
-    fun getOrderListById(orderListId: Long): OrderList?
-    
     fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders
     
 }

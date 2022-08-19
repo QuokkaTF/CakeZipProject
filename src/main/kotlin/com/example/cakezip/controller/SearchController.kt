@@ -1,22 +1,10 @@
 package com.example.cakezip.controller
 
-import com.example.cakezip.domain.Orders
-import com.example.cakezip.domain.cake.Cake
-import com.example.cakezip.domain.cake.CakeOptionList
-import com.example.cakezip.domain.cake.CakeTask
-import com.example.cakezip.domain.cake.OptionTitleType
 import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.shop.Shop
-import com.example.cakezip.dto.UserDto
-import com.example.cakezip.repository.CustomerRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 @Controller
 class SearchController(

@@ -1,20 +1,16 @@
 package com.example.cakezip.controller
 
-import com.example.cakezip.domain.Orders
-import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
-import com.example.cakezip.domain.cake.CakeTask
-import com.example.cakezip.domain.cake.OptionTitleType
+import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.shop.Shop
-import com.example.cakezip.dto.UserDto
-import com.example.cakezip.repository.CustomerRepository
+import com.example.cakezip.dto.UserPaymentDto
+
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import sun.jvm.hotspot.code.CompressedStream.L
-import java.time.LocalDate
+
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -36,7 +32,7 @@ class CartController(
     fun getCartList(model: Model): String {
 
         var cake: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
-        for (c in cakeService.findByCustomerAndCakeStatus(customer, "CART")) {
+        for (c in cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART)) {
             var totalPrice: Long = 0
             var cake_hashMap = HashMap<String, Any>()
             for (ct in cakeTaskService.findByCake(c)) {
@@ -64,7 +60,7 @@ class CartController(
         model.addAttribute("cake", cake)
 
         // 결제 userDTO
-        val userinfo: UserDto = UserDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
+        val userinfo: UserPaymentDto = UserPaymentDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
         model.addAttribute("userinfo", userinfo)
         model.addAttribute("username", customer.user.userName)
         model.addAttribute("userid", customer.user.userId)
@@ -85,11 +81,11 @@ class CartController(
     @DeleteMapping("/users/cart")
     fun deleteAllCake(): String {
         // cake task
-        for (c in cakeService.findByCustomerAndCakeStatus(customer, "CART")) {
+        for (c in cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART)) {
             cakeTaskService.deleteAllByCake(c)
         }
         // cake
-        cakeService.deleteAllByCustomerAndCakeStatus(customer, "CART")
+        cakeService.deleteAllByCustomerAndCakeStatus(customer, CakeStatusType.CART)
         return "redirect:/users/cart"
     }
 
@@ -125,7 +121,7 @@ class CartController(
         model.addAttribute("cake", cake)
 
         // 결제 userDTO
-        val userinfo: UserDto = UserDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
+        val userinfo: UserPaymentDto = UserPaymentDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
         model.addAttribute("userinfo", userinfo)
         model.addAttribute("username", customer.user.userName)
         model.addAttribute("userid", customer.user.userId)
@@ -139,7 +135,7 @@ class CartController(
     fun paymentCake(@PathVariable cakeId: Long, imp_uid: String, cake_id: Long, price: Long): String {
         val orderCake = cakeService.findByCakeId(cake_id)
         orderService.addOrder(imp_uid, price, customer, orderCake)
-        cakeService.updateCakeStatus(cakeId, "PAYMENT")
+        cakeService.updateCakeStatus(cakeId, CakeStatusType.PAYMENT)
         return "redirect:/users/cart"
     }
 
@@ -155,23 +151,23 @@ class CartController(
                 shop: Shop
     ): String {
         cakeService.addCartCake("temp", "temp", "temp",
-        0, "CARTTEMP", shop, customer)
+        0, CakeStatusType.CARTTEMP, shop, customer)
 
-        val cake = cakeService.findByCustomerAndCakeStatus(customer, "CAKETEMP")
+        val cake = cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CARTTEMP)
 
         val optionToAdd : ArrayList<CakeOptionList> = ArrayList<CakeOptionList>()
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("DESIGN",designCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("SIZE",sizeCheck))
-        optionToAdd.add( cakeOptionListService.findByOptionTitleAndOptioinDetail("SFLAVOR",sheetCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("CFLAVOR",creamCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("CCOLOR",creamcolorCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptioinDetail("LCOLOR",letterCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("DESIGN",designCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("SIZE",sizeCheck))
+        optionToAdd.add( cakeOptionListService.findByOptionTitleAndOptionDetail("SFLAVOR",sheetCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("CFLAVOR",creamCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("CCOLOR",creamcolorCheck))
+        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("LCOLOR",letterCheck))
 
         for(option in optionToAdd){
             cakeTaskService.addCartCakeTask(cake[0],option)
         }
 
-        cakeService.updateCakeStatus(cake[0].cakeId!!,"CART")
+        cakeService.updateCakeStatus(cake[0].cakeId!!, CakeStatusType.CART)
         return "redirect:/users/cart"
     }
 

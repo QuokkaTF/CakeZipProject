@@ -16,11 +16,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Service
-class ShopServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository, private val shopImgRepository: ShopImgRepository) : ShopService {
+class ShopServiceImpl(
+    private val shopRepository: ShopRepository,
+    private val cakeOptionListRepository: CakeOptionListRepository,
+    private val shopImgRepository: ShopImgRepository)
+    : ShopService {
 
     override fun findBySeller(seller:Seller) : Shop {
         var shop = shopRepository.findBySeller(seller)
-        return shop
+        return shop.get()
     }
 
     override fun addNewShop(newShopReqDto: NewShopReqDto) {

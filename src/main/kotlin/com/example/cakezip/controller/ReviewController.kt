@@ -78,7 +78,7 @@ class ReviewController(
     @PostMapping("/reviews/{cakeId}")
     fun addReview(
         @PathVariable cakeId: Long, model: Model,
-        reviewTitle: String, reviewContent: String, reviewScore: Integer
+        reviewTitle: String, reviewContent: String, reviewScore: Int
     ): String {
 
 

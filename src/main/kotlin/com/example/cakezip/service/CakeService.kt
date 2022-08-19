@@ -19,14 +19,14 @@ class CakeService(
 ) {
     fun findByCakeId(id: Long): Cake = cakeRepository.findByCakeId(id)
 
-    fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus: String): List<Cake> =
+    fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatus(customer, cakeStatus)
 
     fun findByCustomerAndCakeStatusNot(customer:Customer, cakeStatus:CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
 
 
-    fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus: String): List<Cake> =
+    fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)
 
 
@@ -34,12 +34,12 @@ class CakeService(
     fun deleteAllByCakeId(id: Long) = cakeRepository.deleteAllByCakeId(id)
 
     @Transactional
-    fun deleteAllByCustomerAndCakeStatus(customer: Customer, cakeStatus: String) =
+    fun deleteAllByCustomerAndCakeStatus(customer: Customer, cakeStatus: CakeStatusType) =
         cakeRepository.deleteAllByCustomerAndCakeStatus(customer, cakeStatus)
 
 
     @Transactional
-    fun updateCakeStatus(CakeId: Long, statusCheck: String) {
+    fun updateCakeStatus(CakeId: Long, statusCheck: CakeStatusType) {
         val cake = cakeRepository.findByCakeId(CakeId)
 
         if (cake.cakeStatus.equals(statusCheck)) {
@@ -51,7 +51,7 @@ class CakeService(
     }
 
     fun addCartCake(
-        pickupDate: String, letterText: String, etc: String, totalPrice: Int, cakeStatus: String,
+        pickupDate: String, letterText: String, etc: String, totalPrice: Int, cakeStatus: CakeStatusType,
         shop: Shop, customer: Customer
     ): Cake {
         val cake = Cake(

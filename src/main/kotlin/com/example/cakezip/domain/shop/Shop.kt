@@ -12,6 +12,7 @@ import javax.persistence.OneToOne
 
 @Entity
 data class Shop(
+
     @NotNull
     var shopName: String,
 
@@ -33,13 +34,14 @@ data class Shop(
     @NotNull
     var shopShortDescriptor: String,
 ) : BaseEntity() {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val shopId: Long = 0
+    val shopId: Long? = null
 
     @OneToOne
     @JoinColumn(name = "seller_id")
-    var seller : Seller? = null
+    var seller : Seller ?= null
 
     var shopAddress : String = this.shopAddressMain + " " +this.shopAddressDetail
     var shopArea : String = this.shopAddress.split(" ")[0] + " " + this.shopAddress.split(" ")[1] // 가게의 대략적인 지역 예) 서울시 구로구
