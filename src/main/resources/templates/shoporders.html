@@ -75,7 +75,7 @@
                             <a href="#" class="header-item">
                                 <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
                             </a>
-                            <a href="/cart" class="header-item">
+                            <a href="cart.html" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
                                 <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
                             </a>
@@ -120,108 +120,50 @@
 
             <div class="row">
                 <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase nanum text-purple">
-                    <h2>주문 상세보기</h2>
+                    <h2>내 주문 전체보기</h2>
                 </div>
             </div>
 
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
-                    <div class="row">
-                        <div class="col-9 mx-auto card py-3">
-                            <div th:each="dto : ${detail}" class="card-body">
-                                <h4 class="card-title">주문 번호 : <span th:text="${dto.orderId}"></span></h4>
-<!--                                <p class="card-text"><span>주문 번호 : </span><span th:text="${dto.orderDetailId}"></span></p>-->
-                                <div class="row">
-                                        <form class="row">
-                                            <div class="col-12">
-                                                <table class="table table-sm">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>상품</th>
-                                                        <th>픽업날짜</th>
-                                                        <th>상세옵션</th>
-                                                        <th></th>
-                                                        <th style="text-align: right">총 금액</th>
-                                                    </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                    <tr>
-                                                        <td  rowspan="8">
-                                                            <img src="/images/cakeimg.png" class="img-fluid">
-                                                            <p th:text="${dto.shopName}"></p>
-                                                        </td>
-                                                        <td rowspan="8"><span th:text="${dto.cake.pickupDate}"></span></td>
-                                                        <td>케이크디자인</td>
-                                                        <td>1번 핑크토끼케이크 [BEST]</td>
-                                                        <td rowspan="8"  style="text-align: right">21,500원</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>케이크 호수</td>
-                                                        <td>1호</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>시트맛</td>
-                                                        <td>오레오</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>크림맛</td>
-                                                        <td>생크림</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>케이크 바탕색</td>
-                                                        <td>흰색</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>레터링 색</td>
-                                                        <td>주황색</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>레터링 문구</td>
-                                                        <td>HBD</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>기타 요청사항</td>
-                                                        <td>둘러싼 크림을 파란색으로 해주세요!</td>
-                                                    </tr>
-                                                    </tbody>
-
-
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th colspan="4" class="text-right">Total</th>
-                                                        <th style="text-align: right"><span th:text="${dto.cake.totalPrice}"></span></th>
-                                                        <th></th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th colspan="4" class="text-right" style="font-size:1.2rem;">주문 상태</th>
-                                                        <th style="text-align: right; color:#AD81D5; font-size:1.2rem;"><span th:text="${dto.cake.cakeStatus.cakeStatusName}"></span></th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </form>
-                                    </div>
-
-                                <a th:onclick="|location.href='@{/reviews/{cakeId} (cakeId=${dto.cake.cakeId})}'|" class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰 작성</a>
-                                <form method="post" th:action="@{'/orders/' + ${dto.cake.cakeId} }" style="font-size:1.3rem;">
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <input class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;" type="submit" value="주문취소">
-                                </form>
-
-
-
-<!--                                <form method="post" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">-->
-<!--                                    <input type="hidden" name="_method" value="DELETE">-->
-<!--                                    <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">-->
-<!--                                </form>-->
+                    <div th:each="dto : ${detail}" class="row py-3">
+                        <div class="card col-6 mx-auto py-3">
+                            <div class="card-body">
+                                <h4 class="card-title text-purple"><span>주문 번호 </span><span th:text="${dto.order.orderId}"></span></h4>
+                                <p><span class="order-short">주문자 : </span><span th:text="${dto.order.customer.user.userName}"></span></p>
+                                <p><span class="order-short">결제 금액 : </span><span th:text="${dto.order.merchantPrice}"></span></p>
+                                <p><span class="order-short">픽업 날짜 : </span><span th:text="${dto.cake.pickupDate}"></span></p>
+                                <a th:onclick="|location.href='@{/customers/orders/detail/{orderId}
+                        (orderId=${dto.order.orderId})}'|" class="btn btn-purple btn-md card-link">주문 상세 보기</a>
                             </div>
                         </div>
-
-
                     </div>
+<!--                    <div class="row py-3">-->
+
+<!--                        <div class="card col-6 mx-auto py-3">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title text-purple">주문 2</h4>-->
+<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
+<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
+<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
+<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
+<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row py-3">-->
+<!--                        <div class="card col-6 mx-auto py-3">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title text-purple">주문 3</h4>-->
+<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
+<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
+<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
+<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
+<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
                 </div>
 
 

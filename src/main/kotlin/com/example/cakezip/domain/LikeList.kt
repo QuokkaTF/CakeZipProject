@@ -12,14 +12,14 @@ import javax.persistence.*
 class LikeList(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AI 한다는 뜻
-    val likeListId: Long ?= null,
+    val likeListId: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    val shop:Shop,
+    val shop: Shop,
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    val customer:Customer,
+    val customer: Customer,
 
     ) : BaseEntity() {}

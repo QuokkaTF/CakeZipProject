@@ -1,8 +1,6 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.OrderList
-import com.example.cakezip.repository.OrderRepository
-import org.springframework.stereotype.Service
+import com.example.cakezip.dto.OrderDto
 
 import com.example.cakezip.domain.Orders
 import com.example.cakezip.domain.Review
@@ -22,31 +20,15 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 
 @Service
-class OrderService(
-    private val orderRepository: OrderRepository,
-) {
-//    fun findAll(): List<OrderList> = orderRepository.findAll()
+interface OrderService {
+    fun getCustomerAllOrders(customerId: Long) : List<OrderDto>?
 
-    fun findAll(): List<OrderList>? {
-        return orderRepository.findAll()
-    }
+    fun getCustomerOrders(cakeId: Long) : OrderDto
 
-//    fun findAllById(orderListId : Long): List<OrderList>? {
-//        return orderRepository.findAllById()
-//    }
-    fun getOrderListById(orderListId: Long): OrderList? {
-        return orderRepository.findAllByOrderListId(orderListId)
-    }
+    fun changeCakeStateCancel(id: Long)
+
+    fun getOrderListById(orderListId: Long): OrderList?
     
-     fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders {
-        val order = Orders(
-            merchantUid = merchantUid,
-            merchantPrice = merchantPrice,
-            customer = customer,
-            cake =cake,
-        )
-        Orders()
-        return orderRepository.save(order)
-    }
+    fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders
+    
 }
-

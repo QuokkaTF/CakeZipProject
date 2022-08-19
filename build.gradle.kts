@@ -13,6 +13,7 @@ group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 val qeurydslVersion = "4.4.0"
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -31,6 +32,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
     implementation("mysql:mysql-connector-java")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -46,6 +48,16 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     developmentOnly ("org.springframework.boot:spring-boot-devtools")
+
+    implementation("com.querydsl:querydsl-jpa:$qeurydslVersion")
+    kapt("com.querydsl:querydsl-apt:$qeurydslVersion:jpa")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+
+}
+
+sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+    kotlin.srcDir("$buildDir/generated/source/kapt/main")
 }
 
 sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {

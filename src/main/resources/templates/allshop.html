@@ -14,9 +14,86 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+
+    $(function (){
+        alert("TEST");
+        const shopId = 1;
+
+        let likeVal = $('#like_check').val();
+        const likeImg = $('#likeImg');
+
+        console.log("likeImg : " + likeImg);
+
+        if (likeVal === 'true') {
+            // 데이터 존재하면 채운 하트
+            console.log("채운 하트 출력");
+            $('#likeImg').attr("src", "images/heart-fill.svg");
+        } else if(likeVal === 'false') {
+            // 데이터 없으면 빈 하트
+            console.log("빈 하트 출력");
+            $('#likeImg').attr("src", "images/heart.svg");
+        }
+
+        // 하트 클릭시 이벤트
+        $('.heart').click(function() {
+<!--            alert("왜 안되냐고");-->
+
+            const likeVal = $('#like_check').val();
+
+            console.log(likeVal);
+            if (likeVal === 'true') {
+                const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
+                if (con_check) {
+                    console.log("좋아요 취소 진입");
+                    $.ajax({
+                        type: 'POST',
+                        url: '/like/' + shopId,
+                        contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+                        $('#likeImg').attr("src", "images/heart.svg");
+                        location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    })
+                }
+            } else if(likeVal === 'false'){
+
+                const con_check = confirm("가게 좋아요를 하시겠습니까?");
+                if (con_check) {
+                    console.log("좋아요 진입");
+                    $.ajax({
+                        type: 'POST',
+                        url: '/like/' + shopId,
+                        contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+<!--                        alert("새로고침")-->
+                        $('#likeImg').attr("src", "images/heart-fill.svg");
+                        location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    })
+                }
+            }
+        });
+
+    });
+
+
+
+</script>
 </head>
 <body>
 <div class="container-fluid nanum">
+    <div>
+        <a class="heart ">
+            <input type="hidden" id="like_check" th:value="${like}">
+            <img th:id="likeImg" src="images/heart.svg" alt="" fill="#AD81D5" width="20px" height="20px">
+            <span th:text="${count}"></span>
+        </a>
+    </div>
 
     <div class="row min-vh-100">
         <div class="col-12">
@@ -138,8 +215,13 @@
             </header>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 nanum">
             <!-- Main Content -->
+            <div class="row">
+                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase font-monospace text-purple">
+                    <h2>전체보기</h2>
+                </div>
+            </div>
             <main class="row">
 
                 <!-- Featured Products -->

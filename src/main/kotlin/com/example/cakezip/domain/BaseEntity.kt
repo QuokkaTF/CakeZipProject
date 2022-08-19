@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-@NoArgsConstructor
+@AllArgsConstructor
 open class BaseEntity {
 
     var status: String = "active"
