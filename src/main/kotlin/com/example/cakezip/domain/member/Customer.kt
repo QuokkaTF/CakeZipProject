@@ -16,5 +16,5 @@ class Customer(
 ) : BaseEntity(){
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val customerId: Long?=null
+    val customerId: Long = 0
 }

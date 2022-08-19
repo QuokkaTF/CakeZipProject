@@ -1,16 +1,20 @@
 package com.example.cakezip.controller;
 
+import com.example.cakezip.domain.cake.Cake
+import com.example.cakezip.domain.cake.CakeOptionList
+import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.repository.ShopRepository
-import com.example.cakezip.service.SellerService
-import com.example.cakezip.service.ShopImgService
-import com.example.cakezip.service.ShopService
+import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 @Controller
 class SellerController (
@@ -25,7 +29,7 @@ class SellerController (
     @GetMapping("/sellers/myshop/{sellerId}")
     fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
 
-        var seller: Seller = sellerService.findBySellerBySellerId(sellerId)
+        var seller: Seller = sellerService.findBySellerId(sellerId)
         var shop : Shop? = shopService.getMyShop(seller)
         model.addAttribute("shop", shop)
         if (shop != null) {
@@ -57,7 +61,7 @@ class SellerController (
     var seller: Seller = sellerService.findBySellerId(1)
 
     var shop: Shop = shopService.findBySeller(seller)
-    val cake = cakeService.findByShopAndCakeStatusNot(shop, "CART")
+    val cake = cakeService.findByShopAndCakeStatusNot(shop, CakeStatusType.CART)
 
     @GetMapping("/sellers/orders")
     fun getOrderList(model: Model): String {
@@ -110,7 +114,7 @@ class SellerController (
     }
 
     @PutMapping("/sellers/orders/{cakeId}")
-    fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: String): String {
+    fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: CakeStatusType): String {
         cakeService.updateCakeStatus(cakeId, statusCheck)
         println(statusCheck)
         return "redirect:/sellers/orders/{cakeId}"

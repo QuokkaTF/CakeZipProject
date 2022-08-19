@@ -1,8 +1,6 @@
 package com.example.cakezip.repository
 
-import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
-import com.example.cakezip.domain.cake.CakeTask
 import com.example.cakezip.domain.cake.OptionTitleType
 import com.example.cakezip.domain.shop.Shop
 import org.springframework.data.jpa.repository.JpaRepository
@@ -17,6 +15,6 @@ interface CakeOptionListRepository : JpaRepository<CakeOptionList, Long> {
     fun deleteByCakeOptionListId(optionId: Long)
 
     fun findByCakeOptionListId(optionId:Long) : Optional<CakeOptionList>
-    fun findByOptionTitleAndOptioinDetail(title:String, detail:String):CakeOptionList
+    fun findByOptionTitleAndOptionDetail(title:String, detail:String):CakeOptionList
 
 }

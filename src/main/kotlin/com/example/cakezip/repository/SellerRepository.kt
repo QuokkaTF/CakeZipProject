@@ -8,6 +8,6 @@ import java.util.Optional
 
 @Repository
 interface SellerRepository: JpaRepository<Seller, Long> {
-    fun findBySellerId(sellerId : Long) : Optional<Seller>
+    fun findBySellerId(sellerId : Long) : Seller
     fun findSellerByUser(user: User): Seller
 }

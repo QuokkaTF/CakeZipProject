@@ -8,8 +8,6 @@ import com.example.cakezip.dto.ShopDetailInfoDto
 import com.example.cakezip.dto.ShopSimpleInfoDto
 
 interface ShopService {
-    fun addNewShop(newShopReqDto: NewShopReqDto)
-    
     fun getMyShop(seller: Seller) : Shop?
 
     fun getByShopId(shopId:Long) : Shop
