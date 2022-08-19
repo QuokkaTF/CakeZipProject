@@ -209,38 +209,42 @@
 
                             <div class="mb-3">
                                 <label field="userName">이름</label>
-                                <input readonly id="userName"type="name" name="userName" class="form-control" th:value="${userDto.userName}" >
+                                <input readonly id="userName"type="name" name="userName" class="form-control" th:value="${customerEditDto.userName}" >
                             </div>
 
                             <div class="mb-3">
                                 <label field="userEmail">이메일</label>
-                                <input readonly id="userEmail" type="email" name="userEmail" class="form-control" th:value="${userDto.userEmail}" >
+                                <input readonly id="userEmail" type="email" name="userEmail" class="form-control" th:value="${customerEditDto.userEmail}" >
                             </div>
 
                             <div class="mb-3">
                                 <label field="username">비밀번호</label>
-                                <input id="userPassword"type="password" name="password" class="form-control" th:value="${userDto.password}" >
+                                <input readonly id="userPassword"type="password" name="password" class="form-control" th:value="${customerEditDto.password}" >
                             </div>
 
                             <div class="mb-3">
                                 <label field="username">전화번호</label>
-                                <input id="userPhoneNum" type="phone" name="phoneNum" class="form-control" th:value="${userDto.phoneNum}">
+                                <input id="userPhoneNum" type="phone" name="phoneNum" class="form-control" th:value="${customerEditDto.phoneNum}">
                             </div>
 
 
                             <div class="mb-3">
-                                <label class="mb-3 form-label">성별 </label>
-                                <select id="userGender"name="gender">
-                                    <option value="MALE">남</option>
-                                    <option value="FEMALE">여</option>
-                                </select>
+                                <label class="mb-3 form-label">성별</label>
+                                <input readonly id="gender" type="name" name="gender" class="form-control" th:value="${customerEditDto.gender}">
+                            </div>
                             </div>
                             <div class="mb-3">
                                 <label class="mb-3 form-label">선호 지역 </label>
 
                                 <select id="userArea" name="areas">
+                                    <th:block th:if="${customerEditDto.areas == '서울'}">
                                     <option value="서울">서울</option>
                                     <option value="부산">부산</option>
+                                    <th:block>
+                                    <th:block th:if="${customerEditDto.areas == '부산'}">
+                                    <option value="서울">서울</option>
+                                    <option value="부산">부산</option>
+                                    <th:block>
                                 </select>
                             </div>
 
