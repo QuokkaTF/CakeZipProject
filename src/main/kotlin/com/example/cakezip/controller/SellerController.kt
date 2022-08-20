@@ -5,14 +5,12 @@ import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
-import com.example.cakezip.repository.ShopRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -24,7 +22,9 @@ class SellerController (
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
-    private val orderService: OrderService,){
+    private val orderService: OrderService,
+    private val userService: UserService,
+){
 
     @GetMapping("/sellers/myshop/{sellerId}")
     fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
@@ -61,56 +61,20 @@ class SellerController (
     var seller: Seller = sellerService.findBySellerId(1)
 
     var shop: Shop = shopService.findBySeller(seller)
-    val cake = cakeService.findByShopAndCakeStatusNot(shop, CakeStatusType.CART)
 
     @GetMapping("/sellers/orders")
     fun getOrderList(model: Model): String {
-        model.addAttribute("cake", cake)
-        return "sellerorders"
+        model.addAttribute("cake", cakeService.getSellerCakeList(shop, CakeStatusType.CART))
+        return "sellerOrders"
     }
 
     @GetMapping("/sellers/orders/{cakeId}")
     fun getOrderDetailList(model: Model, @PathVariable cakeId: Long): String {
-        var cakelist: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
-        var cake_hashMap = HashMap<String, Any>()
-        var totalPrice : Long=0
         val c : Cake = cakeService.findByCakeId(cakeId)
-
-        for (ct in cakeTaskService.findByCake(c)) {
-            if (ct.cakeOptionList.cakeOptionListId != null) {
-                var cakeOptionList: Optional<CakeOptionList> =
-                    cakeOptionListService.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
-                cake_hashMap.put(
-                    cakeOptionList.get().optionTitle.toString() + "price",
-                    cakeOptionList.get().optionPrice
-                )
-                totalPrice += cakeOptionList.get().optionPrice
-            }
-        }
-        println("_________---_____^^*_______")
-        cake_hashMap.put("price", totalPrice)
-        cake_hashMap.put("shop", c.shop.shopName)
-        cake_hashMap.put("pickupdate", c.pickupDate)
-        cake_hashMap.put("letterText", c.letterText)
-        cake_hashMap.put("etc", c.etc)
-
-        cakelist.add(cake_hashMap)
-
-        println("=====================================")
-        println(cakelist)
-        model.addAttribute("cakedetail", cakelist)
-        model.addAttribute("cakeId", cakeId)
-
-
-        val statusSelected = cakeService.findByCakeId(cakeId).cakeStatus
-        println("=====================================")
-        println(statusSelected)
-        println("=====================================")
-        model.addAttribute("statusSelected", statusSelected)
-
-
-        return "sellerorderdetail"
+        model.addAttribute("cakedetail", cakeService.getCakeOptionList(c))
+        model.addAttribute("customerInfo", userService.getCustomerInfo(c))
+        model.addAttribute("statusSelected", cakeService.findByCakeId(cakeId).cakeStatus.toString())
+        return "sellerOrderDetail"
     }
 
     @PutMapping("/sellers/orders/{cakeId}")
