@@ -62,7 +62,7 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
     }
 
     @PutMapping("/options/modify/detail/{optionId}")
-    fun modifyOption(@PathVariable("optionId") optionId:Long, optionDetail: String, optionPrice:Long) :String {
+    fun modifyOption(@PathVariable("optionId") optionId:Long, optionDetail: String, optionPrice:Int) :String {
         var oldOption: Optional<CakeOptionList> = optionListRepository.findByCakeOptionListId(optionId)
         oldOption.get().optionDetail = optionDetail
         oldOption.get().optionPrice = optionPrice
