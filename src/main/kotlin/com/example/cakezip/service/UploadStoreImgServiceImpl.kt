@@ -1,6 +1,9 @@
 package com.example.cakezip.service
 
 import com.example.cakezip.config.security.NHNCloudConstants
+import com.example.cakezip.domain.shop.ShopImg
+import com.example.cakezip.repository.ShopImgRepository
+import com.example.cakezip.repository.ShopRepository
 import org.apache.tomcat.util.http.fileupload.IOUtils
 import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.http.HttpEntity
@@ -20,7 +23,15 @@ import java.util.*
 
 
 @Service
-class UploadStoreImgServiceImpl : UploadStoreImgService {
+class UploadStoreImgServiceImpl(
+    private val shopImgRepository: ShopImgRepository,
+    private val shopRepository: ShopRepository
+) : UploadStoreImgService {
+    override fun addNewShopImg(image: MultipartFile, shopId: Long) {
+        var token = getCloudAPI()
+        var url = upload(image, image.originalFilename.toString(), token)
+        shopImgRepository.save(ShopImg(shopRepository.findByShopId(shopId), url))
+    }
 
     override fun getCloudAPI(): String {
         var url = NHNCloudConstants.GETTOKENURL
