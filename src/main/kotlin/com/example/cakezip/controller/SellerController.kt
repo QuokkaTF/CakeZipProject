@@ -28,7 +28,6 @@ class SellerController (
 
     @GetMapping("/sellers/myshop/{sellerId}")
     fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
-
         var seller: Seller = sellerService.findBySellerId(sellerId)
         var shop : Shop? = shopService.getMyShop(seller)
         model.addAttribute("shop", shop)
@@ -47,8 +46,7 @@ class SellerController (
     @PutMapping("/sellers/myshop/info/{shopId}")
     fun modifyShop(shop: Shop, @PathVariable("shopId") shopId: Long) :String{
         val shop = shopService.updateShopInfo(shopId, shop)
-        println(shop)
-        return "index"
+        return "redirect:/sellers/myshop/info/$shopId"
     }
 
     @PutMapping("/sellers/myshop/{shopId}")
