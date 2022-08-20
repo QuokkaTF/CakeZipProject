@@ -33,11 +33,6 @@
     }
 
 
-
-
-
-
-
 </style>
 <head>
     <meta charset="UTF-8">
@@ -163,147 +158,116 @@
                 </div>
             </div>
 
-
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
                     <div class="row">
                         <div class="col-9 mx-auto card py-3">
-                            <div class="card-body" style="padding: 20px 20px 20px 20px;">
-                                <div >
-                                    <form method="get" th:action="@{'/sellers/orders'}">
-                                        <input class="btn btn-purple btn-md card-link" type="submit" value=" < 주문전체보기">
-                                    </form>
-                                </div>
-                                <br>
-                                <br>
-                                <h5 class="text-purple">주문상태</h5>
-                                <p>주문상태를 변경할 경우, 고객에게 알림이 갑니다.</p>
-                                <form method="post" th:action="@{'/sellers/orders/' + ${cakedetail.cake.cakeId} }">
+                            <div class="card-body">
+                                <form method="post" th:action="@{'/sellers/orders/' + ${cakeId} }" style="float:left">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input type="hidden" name="_method" value="PUT"/>
 
-                                            <select size="1" class="form-control border-dark" style="text-align:center"
-                                                    name="statusCheck"
+                                            <select size="1" class="form-control border-dark" name="statusCheck"
                                                     th:value="${statusSelected}" required autofocus>
                                                 <option th:selected="${statusSelected}=='PAYMENT'"
-                                                        value="PAYMENT" selected>결제완료
-                                                </option>
+                                                        value="PAYMENT" selected>결제완료</option>
                                                 <option th:selected="${statusSelected}=='REJECT'"
-                                                        value="REJECT">주문거절
-                                                </option>
-                                                <option th:selected="${statusSelected}=='PROCEED'"
-                                                        value="PROCEED">준비중
-                                                </option>
+                                                        value="REJECT">주문거절</option>
+                                                <option th:selected="${statusSelected}==PROCEED"
+                                                        value="PROCEED">준비중</option>
                                                 <option th:selected="${statusSelected}=='READY'"
-                                                        value="READY">픽업대기
-                                                </option>
+                                                        value="READY">픽업대기</option>
                                                 <option th:selected="${statusSelected}=='COMPLETE'"
-                                                        value="COMPLETE">픽업완료
-                                                </option>
+                                                        value="COMPLETE">픽업완료</option>
                                             </select>
-                                            <button class="btn btn-outline-dark" type="submit"
-                                                    onclick="alert('주문상태가 변경되었습니다!');">변경하기
-                                            </button>
+                                            <button class="btn btn-outline-dark" type="submit" >주문 상태 변경하기</button>
                                         </div>
                                     </div>
                                 </form>
 
                                 <br>
-                                <br>
+                                <form class="row">
+                                    <div class="col-12" th:each="dto : ${cakedetail}"
+                                         style="padding: 30px 0px 30px 0px;">
+                                        <table class="table table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th>상품</th>
+                                                <th>픽업날짜</th>
+                                                <th>상세옵션</th>
+                                                <th></th>
+                                                <th style="text-align: right">총 금액</th>
+                                            </tr>
+                                            </thead>
 
-                                <div class="col-12"
-                                     style="padding: 30px 0px 30px 0px;">
-
-
-                                    <h5 class="text-purple">고객정보</h5>
-                                    <p><span class="order-short">이름 : </span>
-                                        <span th:text="${customerInfo.name}"></span></p>
-                                    <p><span class="order-short">전화번호 : </span>
-                                        <span th:text="${customerInfo.phone}"></span></p>
-                                    <p><span class="order-short">이메일 : </span>
-                                        <span th:text="${customerInfo.email}"></span></p>
-                                    <br>
-                                    <br>
-
-                                    <h5 class="text-purple">주문내용</h5>
-
-                                    <table class="table table-sm">
-                                        <thead>
-                                        <tr>
-                                            <th>상품</th>
-                                            <th>픽업날짜</th>
-                                            <th>상세옵션</th>
-                                            <th></th>
-                                            <th style="text-align: right">총 금액</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <tr>
-                                            <td rowspan="8">
-                                                <img th:src="${cakedetail.get('img')}">
-                                            </td>
-                                            <td rowspan="8">2022.08.02</td>
-                                            <td>케이크디자인</td>
-                                            <td th:text="${cakedetail.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
-                                            <td style="text-align: right" th:text="${cakedetail.get('DESIGNprice')}">
-                                                21,500
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>케이크 호수</td>
-                                            <td th:text="${cakedetail.get('SIZE')}">1호</td>
-                                            <td style="text-align: right" th:text="${cakedetail.get('SIZEprice')}">
-                                                21,500
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>시트맛</td>
-                                            <td th:text="${cakedetail.get('SFLAVOR')}">오레오</td>
-                                            <td style="text-align: right" th:text="${cakedetail.get('SFLAVORprice')}">
-                                                21,500
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>크림맛</td>
-                                            <td th:text="${cakedetail.get('CFLAVOR')}">생크림</td>
-                                            <td style="text-align: right" th:text="${cakedetail.get('CFLAVORprice')}">
-                                                21,500
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>케이크 바탕색</td>
-                                            <td th:text="${cakedetail.get('CCOLOR')}">흰색</td>
-                                            <td style="text-align: right" th:text="${cakedetail.get('CCOLORprice')}">
-                                                21,500
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>레터링 색</td>
-                                            <td th:text="${cakedetail.get('LCOLOR')}">주황색</td>
-                                            <td style="text-align: right" th:text="${cakedetail.get('LCOLORprice')}">
-                                                21,500
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>레터링 문구</td>
-                                            <td th:text="${cakedetail.get('cake').letterText}">HBD</td>
-                                            <td style="text-align: right"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>기타 요청사항</td>
-                                            <td th:text="${cakedetail.get('cake').etc}">둘러싼 크림을 파란색으로 해주세요!</td>
-                                            <td style="text-align: right"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="4" class="text-right">Total</th>
-                                            <th style="text-align: right" th:text="${cakedetail.get('cake').totalPrice}">4,000
-                                            </th>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            <tbody>
+                                            <tr>
+                                                <td rowspan="8">
+                                                    <img src="/images/cakeimg.png" class="img-fluid">
+                                                    <p th:text="${dto.get('shop')}"></p>
+                                                </td>
+                                                <td rowspan="8">2022.08.02</td>
+                                                <td>케이크디자인</td>
+                                                <td th:text="${dto.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
+                                                <td style="text-align: right" th:text="${dto.get('DESIGNprice')}">
+                                                    21,500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>케이크 호수</td>
+                                                <td th:text="${dto.get('SIZE')}">1호</td>
+                                                <td style="text-align: right" th:text="${dto.get('SIZEprice')}">
+                                                    21,500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>시트맛</td>
+                                                <td th:text="${dto.get('SFLAVOR')}">오레오</td>
+                                                <td style="text-align: right" th:text="${dto.get('SFLAVORprice')}">
+                                                    21,500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>크림맛</td>
+                                                <td th:text="${dto.get('CFLAVOR')}">생크림</td>
+                                                <td style="text-align: right" th:text="${dto.get('CFLAVORprice')}">
+                                                    21,500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>케이크 바탕색</td>
+                                                <td th:text="${dto.get('CCOLOR')}">흰색</td>
+                                                <td style="text-align: right" th:text="${dto.get('CCOLORprice')}">
+                                                    21,500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>레터링 색</td>
+                                                <td th:text="${dto.get('LCOLOR')}">주황색</td>
+                                                <td style="text-align: right" th:text="${dto.get('LCOLORprice')}">
+                                                    21,500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>레터링 문구</td>
+                                                <td th:text="${dto.get('letterText')}">HBD</td>
+                                                <td style="text-align: right"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>기타 요청사항</td>
+                                                <td th:text="${dto.get('etc')}">둘러싼 크림을 파란색으로 해주세요!</td>
+                                                <td style="text-align: right"></td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4" class="text-right">Total</th>
+                                                <th style="text-align: right" th:text="${dto.get('price')}">4,000
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
