@@ -1,6 +1,5 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.member.*
 import com.example.cakezip.repository.CustomerRepository
 import com.example.cakezip.repository.SellerRepository
@@ -102,13 +101,4 @@ class UserService(
     */
     }
 
-    fun getCustomerInfo(cake: Cake):CustomerInfoDto{
-        val user = cake.customer.user
-        val customerInfo=CustomerInfoDto(
-            user.userName,
-            user.phoneNum,
-            user.userEmail,
-        )
-        return customerInfo
-    }
 }
