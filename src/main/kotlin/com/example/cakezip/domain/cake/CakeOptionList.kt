@@ -20,7 +20,7 @@ class CakeOptionList(
 
     var optionDetail: String,
 
-    var optionPrice: Long,
+    var optionPrice: Int,
 
     ) : BaseEntity() {
     @Id
