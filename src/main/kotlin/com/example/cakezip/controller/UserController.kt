@@ -36,11 +36,16 @@ class UserController(
     fun getUserEditView(session: HttpSession,model: Model): String {
         val user: User = session.getAttribute("user") as User
         if(user.userType == UserType.SELLER) {
-            println("this is seller")
             val seller: Seller = userService.findSellerByUser(user)
             model.addAttribute("sellerDto",seller.toSellerDto())
+
+            return "seller-edit"
+        } else {
+            val customer: Customer = userService.findCustomerByUser(user)
+            model.addAttribute("customerEditDto",customer.toCustomerEditDto())
+
+            return "customer-edit"
         }
-        return "seller-edit"
     }
 
     @PutMapping("/customer/edit")
@@ -114,6 +119,11 @@ class UserController(
             if (user != null) {
                 //session.setAttribute("userId",user.userId)
                 session.setAttribute("user",user)
+                if(user.userType == UserType.CUSTOMER) {
+                    session.setAttribute("customer", userService.findCustomerByUser(user))
+                } else {
+                    session.setAttribute("seller", userService.findSellerByUser(user))
+                }
 
             }
         } else {
