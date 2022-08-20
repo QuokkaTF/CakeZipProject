@@ -116,7 +116,7 @@
         </div>
 
         <div class="col-12">
-            <form method="post" th:action="@{/options/modify/detail/{optionId} (optionId=${cakeOption.getCakeOptionListId()})}">
+            <form method="post" th:object="${form}" th:action="@{/sellers/myshop/options/{optionId} (optionId=${cakeOption.getCakeOptionListId()})}">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="text" th:value="${cakeOption.getOptionDetail()}" name="optionDetail">
                 <input type="text" th:value="${cakeOption.getOptionPrice()}" name="optionPrice">

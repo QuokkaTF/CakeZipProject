@@ -3,6 +3,7 @@ package com.example.cakezip.controller
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.OptionTitleType.*
+import com.example.cakezip.dto.EditOptionDto
 import com.example.cakezip.dto.NewOptionReqDto
 import com.example.cakezip.repository.CakeOptionListRepository
 import com.example.cakezip.service.OptionDetailService
@@ -15,7 +16,7 @@ import java.util.Optional
 @Controller
 class OptionController (private val optionDetailService: OptionDetailService, private val shopService: ShopService,private val optionListRepository: CakeOptionListRepository){
 
-    @GetMapping("/options/{type}/{shopId}")
+    @GetMapping("/sellers/myshop/options/{type}/{shopId}")
     fun getShopDesignOption(@PathVariable("type") type:String,@PathVariable("shopId") shopId:Long, model: Model) : String{
         var optionDetailList : List<CakeOptionList> = ArrayList()
         when(type) {
@@ -32,7 +33,7 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
         return "optionpage"
     }
 
-    @GetMapping("/options/new/{type}/{shopId}")
+    @GetMapping("/sellers/myshop/options/new/{type}/{shopId}")
     fun addOptionPage(@PathVariable("shopId") shopId: Long, @PathVariable("type") type:String ,model: Model) : String {
         model.addAttribute("shopId", shopId)
         model.addAttribute("type", type)
@@ -40,34 +41,37 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
         return "addOption"
     }
 
-    @RequestMapping(value = arrayOf("/options/new/{type}/{shopId}"), method = arrayOf(RequestMethod.POST))
-    fun addOption(@PathVariable("shopId") shopId: Long, @PathVariable("type") type:String , model: Model) : String {
-        val shop = shopService.getByShopId(shopId)
-        model.addAttribute("shopId", shop.shopId)
-        model.addAttribute("form", NewOptionReqDto())
-        return "addOption"
+    @RequestMapping(value = arrayOf("/sellers/myshop/options/new"), method = arrayOf(RequestMethod.POST))
+    fun addOption(newOptionReqDto: NewOptionReqDto) : String {
+        optionDetailService.addNewOption(newOptionReqDto)
+        return "redirect:/sellers/myshop/options/"+newOptionReqDto.optionType+"/"+newOptionReqDto.shopId
     }
 
-    @DeleteMapping("/options/delete/detail/{optionId}")
-    fun deleteOption(@PathVariable("optionId") optionId:Long) {
-        var op = optionListRepository.findByCakeOptionListId(optionId)
-        optionListRepository.delete(op.get())
-    }
-
-    @GetMapping("/options/modify/detail/{optionId}")
+    @GetMapping("/sellers/myshop/options/{optionId}")
     fun modifyOption(@PathVariable("optionId") optionId:Long, model:Model) :String {
         var cakeOption = optionListRepository.findByCakeOptionListId(optionId)
         model.addAttribute("cakeOption", cakeOption.get())
+        model.addAttribute("form", EditOptionDto())
         return "editOption"
     }
 
-    @PutMapping("/options/modify/detail/{optionId}")
-    fun modifyOption(@PathVariable("optionId") optionId:Long, optionDetail: String, optionPrice:Long) :String {
+    @PutMapping("/sellers/myshop/options/{optionId}")
+    fun modifyOption(@PathVariable("optionId") optionId:Long, editOptionDto: EditOptionDto) :String {
+        println(editOptionDto)
         var oldOption: Optional<CakeOptionList> = optionListRepository.findByCakeOptionListId(optionId)
-        oldOption.get().optionDetail = optionDetail
-        oldOption.get().optionPrice = optionPrice
+        oldOption.get().optionDetail = editOptionDto.optionDetail
+        oldOption.get().optionPrice = editOptionDto.optionPrice
         optionListRepository.save(oldOption.get())
+        return "redirect:/sellers/myshop/options/$optionId"
+    }
 
+    @DeleteMapping("/sellers/myshop/options/{optionId}")
+    fun deleteOption(@PathVariable("optionId") optionId:Long) :String{
+        var op = optionListRepository.findByCakeOptionListId(optionId)
+        op.get().status="deactive"
+        optionListRepository.save(op.get())
         return "index"
     }
+
+
 }
