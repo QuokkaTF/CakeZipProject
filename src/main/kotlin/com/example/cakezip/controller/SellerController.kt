@@ -5,13 +5,11 @@ import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
-import com.example.cakezip.repository.ShopRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -24,31 +22,50 @@ class SellerController (
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
-    private val orderService: OrderService,){
+    private val uploadStoreImgService: UploadStoreImgService,
+    ){
 
     @GetMapping("/sellers/myshop/{sellerId}")
     fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
-
         var seller: Seller = sellerService.findBySellerId(sellerId)
         var shop : Shop? = shopService.getMyShop(seller)
         model.addAttribute("shop", shop)
         if (shop != null) {
             model.addAttribute("shopImgs",shopImgService.getShopImgs(shop))
         }
-        return "sellermain"
+        return "sellerMain"
     }
 
     @GetMapping("/sellers/myshop/info/{shopId}")
     fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
         model.addAttribute("shop", shopService.getByShopId(shopId))
-        return "editshop"
+        return "editShop"
     }
 
     @PutMapping("/sellers/myshop/info/{shopId}")
     fun modifyShop(shop: Shop, @PathVariable("shopId") shopId: Long) :String{
         val shop = shopService.updateShopInfo(shopId, shop)
-        println(shop)
-        return "index"
+        return "redirect:/sellers/myshop/info/$shopId"
+    }
+
+    @GetMapping("/sellers/myshop/image/{shopId}")
+    fun shopMainImages(@PathVariable("shopId") shopId:Long, model: Model) : String {
+        val shop : Shop = shopService.getByShopId(shopId)
+        model.addAttribute("shop", shop)
+        model.addAttribute("shopImg", shopImgService.getShopImgs(shop))
+        return "editImage"
+    }
+
+    @DeleteMapping("/sellers/myshop/image/{imageId}")
+    fun deleteShopImg(@PathVariable("imageId") imageIds:Long) : String {
+        val shopId : Long = shopImgService.deleteImage(imageIds)
+        return "redirect:/sellers/myshop/image/$shopId"
+    }
+
+    @RequestMapping(value = arrayOf("/sellers/myshop/image/new"), method = arrayOf(RequestMethod.POST))
+    fun editImage(@RequestParam image: MultipartFile, @RequestParam shopId : String, model: Model) :String {
+        uploadStoreImgService.addNewShopImg(image, shopId.toLong())
+        return "redirect:/sellers/myshop/image/$shopId"
     }
 
     @PutMapping("/sellers/myshop/{shopId}")
