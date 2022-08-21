@@ -14,6 +14,27 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(function () {
+        let cakeId = $('#cakeId').val();
+        $('#cancelButton').click(function () {
+          const con_check = confirm("주문을 취소하시겠습니까?");
+          if (con_check) {
+             $.ajax({
+                type: 'POST',
+                url: '/orders/' + cakeId,
+                contentType: 'application/json; charset=utf-8'
+             }).done(function () {
+                location.reload();
+             }).fail(function (error) {
+                alert(JSON.stringify(error));
+             })
+          }
+        });
+      });
+    </script>
 </head>
 <body>
 <div class="container-fluid nanum">
@@ -205,15 +226,18 @@
                                         </form>
                                     </div>
 
-                                <a th:onclick="|location.href='@{/reviews/{cakeId} (cakeId=${dto.cake.cakeId})}'|" class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰 작성</a>
-                                <form method="post" th:action="@{'/orders/' + ${dto.cake.cakeId} }" style="font-size:1.3rem;">
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <input class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;" type="submit" value="주문취소">
-                                </form>
+                                <a th:onclick="|location.href='@{/reviews/{cakeId} (cakeId=${dto.cake.cakeId})}'|" class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰작성</a>
+<!--                                <form method="post" id="cancelButton" th:action="@{'/orders/' + ${dto.cake.cakeId} }" style="display:inline font-size:1.3rem;">-->
+<!--                                    <input type="hidden" name="_method" value="PUT">-->
+<!--                                    <input class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;" type="submit" value="주문취소">-->
+<!--                                </form>-->
+                                <input type="hidden" th:id="cakeId" th:value="${dto.cake.cakeId}">
+                                <a id="cancelButton" class="btn btn-outline-secondary btn-md card-link" style="font-size:1.3rem;">주문 취소</a>
 
 
 
-<!--                                <form method="post" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">-->
+
+                                <!--                                <form method="post" th:action="@{'cart/' + ${dto.get('id')} }" style="float:left">-->
 <!--                                    <input type="hidden" name="_method" value="DELETE">-->
 <!--                                    <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">-->
 <!--                                </form>-->
@@ -272,8 +296,47 @@
             <!-- Footer -->
         </div>
     </div>
-
 </div>
+
+<!-- Messages -->
+<div class="toast-container position-fixed bottom-0 start-0 p-3">
+    <div
+            th:each="dto : ${notification}"
+            class="toast align-items-center text-purple bg-success border-0 bg-lightpurple"
+            data-bs-autohide="false"
+    >
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-check-circle me-2"></i>
+                <span>주문번호 : <span th:text="${dto.order.orderId}"></span></span>
+                <br />
+                <th:block th:switch="${dto.noticeType}">
+              <span th:case="TOCUSTOMER">
+                <span th:text="${dto.order.customer.user.userName}"></span>님의
+              </span>
+                    <span th:case="TOSELLER"></span>
+                    <span th:case="*">아놔</span>
+                </th:block>
+                <th:block th:switch="${dto.noticeMessage}">
+                    <span th:case="ORDER_NEW">새로운 주문이 발생했습니다.</span>
+                    <span th:case="ORDER_CANCEL">주문이 취소되었습니다.</span>
+                    <span th:case="ORDER_DENIED">주문이 거절되었습니다.</span>
+                    <span th:case="ORDER_ACCEPTED">주문이 승인되었습니다.</span>
+                    <span th:case="ORDER_READY">주문이 준비완료되었습니다.</span>
+                </th:block>
+            </div>
+            <button
+                    th:value="${dto.noticeId}"
+                    type="button"
+                    id="notice_id"
+                    class="delete btn-close me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+            ></button>
+        </div>
+    </div>
+</div>
+<!-- Messages -->
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>

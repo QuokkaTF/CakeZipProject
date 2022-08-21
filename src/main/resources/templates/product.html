@@ -47,7 +47,7 @@
             if (likeVal === 'true') {
                 const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
                 if (con_check) {
-                    console.log("좋아요 취소 진입");
+<!--                    console.log("좋아요 취소 진입");-->
                     $.ajax({
                         type: 'POST',
                         url: '/like/' + shopId,
@@ -62,7 +62,7 @@
             } else if(likeVal === 'false'){
                 const con_check = confirm("가게 좋아요를 하시겠습니까?");
                 if (con_check) {
-                    console.log("좋아요 진입");
+<!--                    console.log("좋아요 진입");-->
                     $.ajax({
                         type: 'POST',
                         url: '/like/' + shopId,
@@ -210,7 +210,7 @@
                         <div class="col-lg-7 col-md-12 mb-3">
                             <div class="col-12 product-name large">
                                 <h3 th:text="${shopInfo.getShopName()}">오복케이크</h3>
-                                <a class="heart ">
+                                <a class="heart" style="display: inline;">
                                     <input type="hidden" th:id="likeCheck" th:value="${shopInfo.likeCheck}">
                                     <input type="hidden" th:id="shopId" th:value="${shopInfo.shopID}">
                                     <input type="hidden" th:id="customer_id" th:value="${customer.customerId}">
