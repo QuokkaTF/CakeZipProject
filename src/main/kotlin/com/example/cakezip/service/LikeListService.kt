@@ -1,17 +1,17 @@
 package com.example.cakezip.service
 
-
 import com.example.cakezip.domain.LikeList
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.domain.shop.ShopImg
+import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.repository.*
 import org.springframework.stereotype.Service
 
-
 @Service
 class LikeListService(
-    private val customerRepository: CustomerRepository,
     private val likeListRepository: LikeListRepository,
+    private val shopImgRepository: ShopImgRepository,
 ) {
 
     fun isLike(customer: Customer, shop: Shop): Boolean {
@@ -22,7 +22,6 @@ class LikeListService(
         if (isLike(customer, shop)) {
             likeListRepository.deleteByCustomerAndShop(customer, shop)
             return false
-
         }
         val newLike = LikeList(
             shop = shop,
@@ -31,24 +30,35 @@ class LikeListService(
         likeListRepository.save(newLike)
 
         return true
-
     }
 
-    fun getLikeCount(shop: Shop): Int {
-        return likeListRepository.countByShop(shop)
-    }
+    fun getShopLikeCount(shop: Shop): Int = likeListRepository.countByShop(shop)
 
-    fun getLikedShops(customerId: Long): List<Shop>? {
-        val customer = customerRepository.findByCustomerId(customerId)
-        val shopList: ArrayList<Shop> = ArrayList()
+    fun getCustomerLikeCount(customer: Customer): Int = likeListRepository.countByCustomer(customer)
+
+    fun getLikedShopList(customer: Customer): List<ShopSimpleInfoDto> {
+        val shopSimpleInfoList: ArrayList<ShopSimpleInfoDto> = ArrayList()
 
         for (liked in likeListRepository.findByCustomer(customer)) {
-            // TODO: 가게 표시 코드 합치기
+            val shopImgList: ArrayList<String> = ArrayList()
+
+            val getShopImg: List<ShopImg> = shopImgRepository.findByShop(liked.shop)
+            for (img in getShopImg) {
+                shopImgList.add(img.shopImgUrl)
+            }
+
+            val shopSimpleDto = ShopSimpleInfoDto(
+                liked.shop.shopId,
+                liked.shop.shopName,
+                liked.shop.shopShortDescriptor,
+                liked.shop.shopArea,
+                shopImgList
+            )
+            shopSimpleInfoList.add(shopSimpleDto)
         }
-
-        return shopList
+        return shopSimpleInfoList
     }
-
 }
+
 
 

@@ -1,12 +1,41 @@
 package com.example.cakezip.controller
 
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.Seller
+import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.service.LikeListService
+import com.example.cakezip.service.NotificationService
+import com.example.cakezip.service.ShopService
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import javax.servlet.http.HttpSession
 
 
 @Controller
-class MainController {
+class MainController(
+    private val notificationService: NotificationService,
+    private val likeListService: LikeListService,
+    private val shopService: ShopService
+    ) {
 
     @GetMapping("/home")
-    fun getMainView() = "index"
+    fun getMainView(model: Model, session: HttpSession): String {
+        if (session != null)  {
+            val user: User = session.getAttribute("user") as User
+
+            if(user.userType == UserType.CUSTOMER) {
+                val customer = session.getAttribute("customer") as Customer
+                model.addAttribute("notification", notificationService.getCNotifications(customer))
+                model.addAttribute("likeCount", likeListService.getCustomerLikeCount(customer))
+            } else {
+                val seller = session.getAttribute("seller") as Seller
+                model.addAttribute("notification", notificationService.getSNotifications(seller))
+                val shop = shopService.findBySeller(seller)
+                model.addAttribute("likeCount", likeListService.getShopLikeCount(shop))
+            }
+        }
+        return "index"
+    }
 }

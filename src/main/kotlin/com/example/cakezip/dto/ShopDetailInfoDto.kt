@@ -19,4 +19,6 @@ data class ShopDetailInfoDto (
     val creamOptionList : ArrayList<CakeOptionList> = ArrayList(),
     val creamColorOptionList : ArrayList<CakeOptionList> = ArrayList(),
     val letterOptionList : ArrayList<CakeOptionList> = ArrayList(),
-        ){}
+    val shopLikeCount : Int = 0,
+    val likeCheck : Boolean ?= false,
+){}
