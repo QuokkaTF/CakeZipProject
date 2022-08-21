@@ -78,6 +78,8 @@ class CakeService(
                 totalPrice += cakeOptionList.get().optionPrice
             }
         }
+        cake.totalPrice = totalPrice
+        cakeRepository.save(cake)
         return totalPrice
     }
 
@@ -99,22 +101,11 @@ class CakeService(
         return cake_hashMap
     }
 
-    fun getCakeOptionListAll(cake:Cake):HashMap<String, Any>{
-        var cake_hashMap = HashMap<String, Any>()
-        for (ct in cakeTaskRepository.findByCake(cake)) {
-            if (ct.cakeOptionList.cakeOptionListId != null) {
-                var cakeOptionList: Optional<CakeOptionList> =
-                    cakeOptionListRepository.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
-                cake_hashMap.put(
-                    cakeOptionList.get().optionTitle.toString() + "price",
-                    cakeOptionList.get().optionPrice
-                )
-            }
+    fun getCakeOptionListAll(cakes: List<Cake>):ArrayList<HashMap<String, Any>>{
+        var cake_arrayList: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
+        for (c in cakes){
+            cake_arrayList.add(getCakeOptionList(c))
         }
-        cake_hashMap.put("cake",cake)
-        cake_hashMap.put("img", shopImgService.getThumbnail(cake.shop).shopImgUrl)
-        return cake_hashMap
+        return cake_arrayList
     }
 }
-
