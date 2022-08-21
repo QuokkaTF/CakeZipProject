@@ -1,6 +1,5 @@
 package com.example.cakezip.service
 
-import com.example.cakezip.domain.Orders
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeTask
@@ -33,7 +32,6 @@ class CakeTaskService(
             cake = cake,
             cakeOptionList = cakeOptionList,
         )
-        Orders()
         return cakeTaskRepository.save(caketask)
     }
 }
