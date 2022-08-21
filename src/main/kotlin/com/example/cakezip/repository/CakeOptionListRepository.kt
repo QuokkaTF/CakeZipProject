@@ -15,6 +15,4 @@ interface CakeOptionListRepository : JpaRepository<CakeOptionList, Long> {
     fun deleteByCakeOptionListId(optionId: Long)
 
     fun findByCakeOptionListId(optionId:Long) : Optional<CakeOptionList>
-    fun findByOptionTitleAndOptionDetail(title:String, detail:String):CakeOptionList
-
 }
