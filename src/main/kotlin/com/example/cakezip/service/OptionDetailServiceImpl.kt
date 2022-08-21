@@ -48,7 +48,7 @@ class OptionDetailServiceImpl(
 
     override fun deleteCakeOption(optionId: Long): CakeOptionList {
         var deleteOption = cakeOptionListRepository.findByCakeOptionListId(optionId).get()
-        deleteOption.status = "deactive"
+        deleteOption.status = "inactive"
         cakeOptionListRepository.save(deleteOption)
         return deleteOption
     }

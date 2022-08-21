@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*
 import java.util.Optional
 
 @Controller
-class OptionController (private val optionDetailService: OptionDetailService, private val shopService: ShopService,private val optionListRepository: CakeOptionListRepository){
+class OptionController (
+    private val optionDetailService: OptionDetailService,
+    ){
 
     @GetMapping("/sellers/myshop/options/{type}/{shopId}")
     fun getShopDesignOption(@PathVariable("type") type:String,@PathVariable("shopId") shopId:Long, model: Model) : String{

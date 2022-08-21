@@ -181,7 +181,7 @@ class ShopServiceImpl(
 
     override fun deleteShop(shopId: Long) {
         val shop:Shop = shopRepository.findByShopId(shopId)
-        shop.status = "deactive"
+        shop.status = "inactive"
         shopRepository.save(shop)
         println(shop)
     }
