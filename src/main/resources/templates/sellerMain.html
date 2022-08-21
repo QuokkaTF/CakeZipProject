@@ -155,7 +155,13 @@
                         </div>
                     </div>
 
-                    <div th:if ="${shop} != null">
+                    <div th:if ="${shop.getStatus()} != 'active'">
+                        <div class="col-12 text-center py-2">
+                            <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                        </div>
+                    </div>
+
+                    <div th:if ="${shop.getStatus()} == 'active'">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12">

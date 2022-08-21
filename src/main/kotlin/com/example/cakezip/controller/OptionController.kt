@@ -14,18 +14,20 @@ import org.springframework.web.bind.annotation.*
 import java.util.Optional
 
 @Controller
-class OptionController (private val optionDetailService: OptionDetailService, private val shopService: ShopService,private val optionListRepository: CakeOptionListRepository){
+class OptionController (
+    private val optionDetailService: OptionDetailService,
+    ){
 
     @GetMapping("/sellers/myshop/options/{type}/{shopId}")
     fun getShopDesignOption(@PathVariable("type") type:String,@PathVariable("shopId") shopId:Long, model: Model) : String{
         var optionDetailList : List<CakeOptionList> = ArrayList()
         when(type) {
-            "design" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, DESIGN)
-            "size" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, SIZE)
-            "sheet" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, SFLAVOR)
-            "cream" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, CFLAVOR)
-            "creamcolor" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, CCOLOR)
-            "letter" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, LCOLOR)
+            "design" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, DESIGN, "active")
+            "size" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, SIZE, "active")
+            "sheet" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, SFLAVOR, "active")
+            "cream" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, CFLAVOR, "active")
+            "creamcolor" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, CCOLOR, "active")
+            "letter" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, LCOLOR, "active")
         }
         model.addAttribute("shopId", shopId)
         model.addAttribute("type", type)
@@ -49,28 +51,40 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
 
     @GetMapping("/sellers/myshop/options/{optionId}")
     fun modifyOption(@PathVariable("optionId") optionId:Long, model:Model) :String {
-        var cakeOption = optionListRepository.findByCakeOptionListId(optionId)
-        model.addAttribute("cakeOption", cakeOption.get())
+        var cakeOption = optionDetailService.findByCakeOptionListId(optionId)
+        model.addAttribute("cakeOption", cakeOption)
         model.addAttribute("form", EditOptionDto())
         return "editOption"
     }
 
     @PutMapping("/sellers/myshop/options/{optionId}")
     fun modifyOption(@PathVariable("optionId") optionId:Long, editOptionDto: EditOptionDto) :String {
-        println(editOptionDto)
-        var oldOption: Optional<CakeOptionList> = optionListRepository.findByCakeOptionListId(optionId)
-        oldOption.get().optionDetail = editOptionDto.optionDetail
-        oldOption.get().optionPrice = editOptionDto.optionPrice
-        optionListRepository.save(oldOption.get())
-        return "redirect:/sellers/myshop/options/$optionId"
+        var editOption = optionDetailService.editCakeOption(optionId, editOptionDto)
+        var type = ""
+        when(editOption.optionTitle) {
+            DESIGN -> type = "design"
+            SIZE -> type = "size"
+            SFLAVOR -> type = "sheet"
+            CFLAVOR -> type = "cream"
+            CCOLOR -> type = "creamcolor"
+            LCOLOR -> type = "letter"
+        }
+        return "redirect:/sellers/myshop/options/$type/${editOption.shopId.shopId}"
     }
 
     @DeleteMapping("/sellers/myshop/options/{optionId}")
     fun deleteOption(@PathVariable("optionId") optionId:Long) :String{
-        var op = optionListRepository.findByCakeOptionListId(optionId)
-        op.get().status="deactive"
-        optionListRepository.save(op.get())
-        return "index"
+        var deleteOption = optionDetailService.deleteCakeOption(optionId)
+        var type = ""
+        when(deleteOption.optionTitle) {
+            DESIGN -> type = "design"
+            SIZE -> type = "size"
+            SFLAVOR -> type = "sheet"
+            CFLAVOR -> type = "cream"
+            CCOLOR -> type = "creamcolor"
+            LCOLOR -> type = "letter"
+        }
+        return "redirect:/sellers/myshop/options/$type/${deleteOption.shopId.shopId}"
     }
 
 

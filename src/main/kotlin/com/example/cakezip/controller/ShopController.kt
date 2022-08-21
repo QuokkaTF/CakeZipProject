@@ -2,6 +2,7 @@ package com.example.cakezip.controller
 
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.dto.ShopDetailInfoDto
+import com.example.cakezip.service.ReviewService
 import com.example.cakezip.service.ShopService
 import com.example.cakezip.service.UploadStoreImgService
 
@@ -13,7 +14,11 @@ import org.springframework.web.multipart.MultipartFile
 
 
 @Controller
-class ShopController (private val shopService: ShopService, private val uploadStoreImgService: UploadStoreImgService){
+class ShopController (
+    private val shopService: ShopService,
+    private val uploadStoreImgService: UploadStoreImgService,
+    private val reviewService: ReviewService
+    ){
     @GetMapping("/shops/new")
     fun addShop(model: Model):String {
         //TODO : 사장님 추가
@@ -49,8 +54,9 @@ class ShopController (private val shopService: ShopService, private val uploadSt
 
     @GetMapping("/shops/{shopId}")
     fun shopDetail(@PathVariable("shopId") shopId:Long, model:Model) : String {
-        val shopDetail:ShopDetailInfoDto = shopService.getShopDetail(shopId)
-        model.addAttribute("shopInfo",shopDetail)
+        model.addAttribute("reviewScore", reviewService.getShopReviewPercent(shopId))
+        model.addAttribute("reviewDetail", reviewService.getShopAllReviews(shopId))
+        model.addAttribute("shopInfo",shopService.getShopDetail(shopId))
         return "product"
     }
 
