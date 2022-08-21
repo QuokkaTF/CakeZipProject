@@ -242,11 +242,11 @@
                             <div class="row">
                                 <div class="col-sm-4 text-center">
                                     <div class="row">
-                                        <div class="col-12 average-rating">
+                                        <div class="col-12 average-rating" th:text="${#numbers.formatDecimal(reviewScore.getAverage(),1,2)}">
                                             4.1
                                         </div>
                                         <div class="col-12">
-                                            of 100 reviews
+                                            / 5
                                         </div>
                                     </div>
                                 </div>
@@ -255,8 +255,8 @@
                                         <li>
                                             <div class="progress">
                                                 <div class="progress-bar bg-dark" role="progressbar"
-                                                     style="width: 45%;" aria-valuenow="45"
-                                                     aria-valuemin="0" aria-valuemax="100">45%
+                                                     th:style="'width:'+${#numbers.formatInteger(reviewScore.getFivePercent(),1)}+'%;'"
+                                                     aria-valuemin="0" aria-valuemax="100" th:text="|${#numbers.formatInteger(reviewScore.getFivePercent(),1)}%|">45%
                                                 </div>
                                             </div>
                                             <div class="rating-progress-label">
@@ -266,8 +266,8 @@
                                         <li>
                                             <div class="progress">
                                                 <div class="progress-bar bg-dark" role="progressbar"
-                                                     style="width: 30%;" aria-valuenow="30"
-                                                     aria-valuemin="0" aria-valuemax="100">30%
+                                                     th:style="'width:'+${#numbers.formatInteger(reviewScore.getFourPercent(),1)}+'%;'"
+                                                     aria-valuemin="0" aria-valuemax="100" th:text="|${#numbers.formatInteger(reviewScore.getFourPercent(),1)}%|">45%
                                                 </div>
                                             </div>
                                             <div class="rating-progress-label">
@@ -277,8 +277,8 @@
                                         <li>
                                             <div class="progress">
                                                 <div class="progress-bar bg-dark" role="progressbar"
-                                                     style="width: 15%;" aria-valuenow="15"
-                                                     aria-valuemin="0" aria-valuemax="100">15%
+                                                     th:style="'width:'+${#numbers.formatInteger(reviewScore.getThreePercent(),1)}+'%;'"
+                                                     aria-valuemin="0" aria-valuemax="100" th:text="|${#numbers.formatInteger(reviewScore.getThreePercent(),1)}%|">45%
                                                 </div>
                                             </div>
                                             <div class="rating-progress-label">
@@ -288,8 +288,8 @@
                                         <li>
                                             <div class="progress">
                                                 <div class="progress-bar bg-dark" role="progressbar"
-                                                     style="width: 7%;" aria-valuenow="7" aria-valuemin="0"
-                                                     aria-valuemax="100">7%
+                                                     th:style="'width:'+${#numbers.formatInteger(reviewScore.getTwoPercent(),1)}+'%;'"
+                                                     aria-valuemin="0" aria-valuemax="100" th:text="|${#numbers.formatInteger(reviewScore.getTwoPercent(),1)}%|">45%
                                                 </div>
                                             </div>
                                             <div class="rating-progress-label">
@@ -299,8 +299,8 @@
                                         <li>
                                             <div class="progress">
                                                 <div class="progress-bar bg-dark" role="progressbar"
-                                                     style="width: 3%;" aria-valuenow="3" aria-valuemin="3"
-                                                     aria-valuemax="100">3%
+                                                     th:style="'width:'+${#numbers.formatInteger(reviewScore.getOnePercent(),1)}+'%;'"
+                                                     aria-valuemin="0" aria-valuemax="100" th:text="|${#numbers.formatInteger(reviewScore.getOnePercent(),1)}%|">45%
                                                 </div>
                                             </div>
                                             <div class="rating-progress-label">
@@ -319,43 +319,41 @@
                             </div>
 
                             <!-- Review -->
-                            <div class="row">
-                                <div class="col-12">
+                            <th:block th:each="review : ${reviewDetail}">
+                                <div class="row">
+                                    <div class="col-12">
 
-                                    <!-- Comments -->
-                                    <div class="col-12 text-justify py-2 px-3 mb-3 bg-lightpurple">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <strong class="me-2">Steve Rogers</strong>
-                                                <small>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                </small>
-                                            </div>
-                                            <div class="col-12">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut
-                                                ullamcorper quam, non congue odio.
-                                                <br>
-                                                Fusce ligula augue, faucibus sed neque non, auctor rhoncus enim. Sed
-                                                nec molestie turpis. Nullam accumsan porttitor rutrum. Curabitur
-                                                eleifend venenatis volutpat.
-                                                <br>
-                                                Aenean faucibus posuere vehicula.
-                                            </div>
-                                            <div class="col-12">
-                                                <small>
-                                                    <i class="fas fa-clock me-2"></i>5 hours ago
-                                                </small>
+                                        <!-- Comments -->
+                                        <div class="col-12 text-justify py-2 px-3 mb-3 bg-lightpurple">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <strong class="me-2" th:text="${review.reviewer}"></strong>
+                                                    <small>
+                                                        <th:block th:each="n : ${#numbers.sequence(0,review.getReviewScore()-1)}">
+                                                            <i class="fas fa-star"></i>
+                                                        </th:block>
+
+                                                        <th:block th:if="${review.reviewScore} != 5" th:each="n : ${#numbers.sequence(0,5 - review.getReviewScore()-1)}">
+                                                            <i class="far fa-star"></i>
+                                                        </th:block>
+                                                    </small>
+                                                </div>
+                                                <div class="col-12">
+                                                    <strong class="me-2" th:text="${review.reviewTitle}"></strong>
+                                                    <p th:text="${review.reviewContent}"></p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <small>
+                                                        <i class="fas fa-clock me-2"></i> <p th:text="${review.getCreatedAt()}"></p>
+                                                    </small>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Comments -->
+                                        <!-- Comments -->
 
+                                    </div>
                                 </div>
-                            </div>
+                            </th:block>
                             <!-- Review -->
 
                         </div>
