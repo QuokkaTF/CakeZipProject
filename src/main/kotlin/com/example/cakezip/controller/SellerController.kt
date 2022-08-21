@@ -37,7 +37,7 @@ class SellerController (
     }
 
     @GetMapping("/sellers/myshop/info/{shopId}")
-    fun modifySHopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
+    fun modifyShopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
         model.addAttribute("shop", shopService.getByShopId(shopId))
         return "editShop"
     }
@@ -70,8 +70,9 @@ class SellerController (
 
     @PutMapping("/sellers/myshop/{shopId}")
     fun modifyShop(@PathVariable("shopId") shopId: Long) :String{
+        val shop:Shop = shopService.getByShopId(shopId)
         shopService.deleteShop(shopId)
-        return "index" // TODO : url 변경 필요
+        return "redirect:/sellers/myshop/${shop.seller?.sellerId}" // TODO : url 변경 필요
     }
 
     //TODO : 경민한테 받으면 수정

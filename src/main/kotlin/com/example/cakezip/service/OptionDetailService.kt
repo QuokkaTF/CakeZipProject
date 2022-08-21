@@ -5,6 +5,6 @@ import com.example.cakezip.domain.cake.OptionTitleType
 import com.example.cakezip.dto.NewOptionReqDto
 
 interface OptionDetailService {
-    fun getOptionDetailByShopAndType(shopId:Long, type:OptionTitleType) : List<CakeOptionList>
+    fun getOptionDetailByShopAndTypeAndStatus(shopId:Long, type:OptionTitleType, status:String) : List<CakeOptionList>
     fun addNewOption(newOptionReqDto: NewOptionReqDto)
 }

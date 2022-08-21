@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service
 @Service
 class OptionDetailServiceImpl(private val shopRepository: ShopRepository, private val cakeOptionListRepository: CakeOptionListRepository) : OptionDetailService {
 
-    override fun getOptionDetailByShopAndType(shopId: Long, type: OptionTitleType)  : List<CakeOptionList>{
+    override fun getOptionDetailByShopAndTypeAndStatus(shopId: Long, type: OptionTitleType, status:String)  : List<CakeOptionList>{
         var shop:Shop = shopRepository.findByShopId(shopId)
-        var detailList : List<CakeOptionList> = cakeOptionListRepository.findByShopIdAndOptionTitle(shop, type)
+        var detailList : List<CakeOptionList> = cakeOptionListRepository.findByShopIdAndOptionTitleAndStatus(shop, type, status)
         return detailList
     }
 

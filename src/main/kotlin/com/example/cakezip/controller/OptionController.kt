@@ -20,12 +20,12 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
     fun getShopDesignOption(@PathVariable("type") type:String,@PathVariable("shopId") shopId:Long, model: Model) : String{
         var optionDetailList : List<CakeOptionList> = ArrayList()
         when(type) {
-            "design" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, DESIGN)
-            "size" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, SIZE)
-            "sheet" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, SFLAVOR)
-            "cream" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, CFLAVOR)
-            "creamcolor" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, CCOLOR)
-            "letter" -> optionDetailList = optionDetailService.getOptionDetailByShopAndType(shopId, LCOLOR)
+            "design" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, DESIGN, "active")
+            "size" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, SIZE, "active")
+            "sheet" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, SFLAVOR, "active")
+            "cream" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, CFLAVOR, "active")
+            "creamcolor" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, CCOLOR, "active")
+            "letter" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, LCOLOR, "active")
         }
         model.addAttribute("shopId", shopId)
         model.addAttribute("type", type)
@@ -67,9 +67,9 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
 
     @DeleteMapping("/sellers/myshop/options/{optionId}")
     fun deleteOption(@PathVariable("optionId") optionId:Long) :String{
-        var op = optionListRepository.findByCakeOptionListId(optionId)
-        op.get().status="deactive"
-        optionListRepository.save(op.get())
+        var option = optionListRepository.findByCakeOptionListId(optionId)
+        option.get().status="deactive"
+        optionListRepository.save(option.get())
         return "index"
     }
 
