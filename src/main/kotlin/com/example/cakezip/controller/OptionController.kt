@@ -49,28 +49,40 @@ class OptionController (private val optionDetailService: OptionDetailService, pr
 
     @GetMapping("/sellers/myshop/options/{optionId}")
     fun modifyOption(@PathVariable("optionId") optionId:Long, model:Model) :String {
-        var cakeOption = optionListRepository.findByCakeOptionListId(optionId)
-        model.addAttribute("cakeOption", cakeOption.get())
+        var cakeOption = optionDetailService.findByCakeOptionListId(optionId)
+        model.addAttribute("cakeOption", cakeOption)
         model.addAttribute("form", EditOptionDto())
         return "editOption"
     }
 
     @PutMapping("/sellers/myshop/options/{optionId}")
     fun modifyOption(@PathVariable("optionId") optionId:Long, editOptionDto: EditOptionDto) :String {
-        println(editOptionDto)
-        var oldOption: Optional<CakeOptionList> = optionListRepository.findByCakeOptionListId(optionId)
-        oldOption.get().optionDetail = editOptionDto.optionDetail
-        oldOption.get().optionPrice = editOptionDto.optionPrice
-        optionListRepository.save(oldOption.get())
-        return "redirect:/sellers/myshop/options/$optionId"
+        var editOption = optionDetailService.editCakeOption(optionId, editOptionDto)
+        var type = ""
+        when(editOption.optionTitle) {
+            DESIGN -> type = "design"
+            SIZE -> type = "size"
+            SFLAVOR -> type = "sheet"
+            CFLAVOR -> type = "cream"
+            CCOLOR -> type = "creamcolor"
+            LCOLOR -> type = "letter"
+        }
+        return "redirect:/sellers/myshop/options/$type/${editOption.shopId.shopId}"
     }
 
     @DeleteMapping("/sellers/myshop/options/{optionId}")
     fun deleteOption(@PathVariable("optionId") optionId:Long) :String{
-        var option = optionListRepository.findByCakeOptionListId(optionId)
-        option.get().status="deactive"
-        optionListRepository.save(option.get())
-        return "index"
+        var deleteOption = optionDetailService.deleteCakeOption(optionId)
+        var type = ""
+        when(deleteOption.optionTitle) {
+            DESIGN -> type = "design"
+            SIZE -> type = "size"
+            SFLAVOR -> type = "sheet"
+            CFLAVOR -> type = "cream"
+            CCOLOR -> type = "creamcolor"
+            LCOLOR -> type = "letter"
+        }
+        return "redirect:/sellers/myshop/options/$type/${deleteOption.shopId.shopId}"
     }
 
 

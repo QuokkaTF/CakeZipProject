@@ -10,10 +10,7 @@ import java.util.Optional
 @Repository
 interface CakeOptionListRepository : JpaRepository<CakeOptionList, Long> {
     fun findByShopId (shop: Shop) : List<CakeOptionList>
-
     fun findByShopIdAndOptionTitleAndStatus(shop:Shop, title:OptionTitleType, status:String) : List<CakeOptionList>
-
     fun findByCakeOptionListId(optionId:Long) : Optional<CakeOptionList>
     fun findByOptionTitleAndOptionDetail(title:String, detail:String):CakeOptionList
-
 }
