@@ -14,6 +14,72 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+
+    $(function (){
+    <!--        alert("TEST");-->
+    <!--        const shopId = 1;-->
+
+        let likeVal = $('#likeCheck').val();
+        const likeImg = $('#likeImg');
+
+        console.log("likeImg : " + likeImg);
+        console.log("likeVal : " + likeVal);
+
+        if (likeVal === 'true') {
+            // 데이터 존재하면 채운 하트
+            console.log("채운 하트 출력");
+            $('#likeImg').attr("src", "/images/heart-fill.svg");
+        } else if(likeVal === 'false') {
+            // 데이터 없으면 빈 하트
+            console.log("빈 하트 출력");
+            $('#likeImg').attr("src", "/images/heart.svg");
+        }
+
+        // 하트 클릭시 이벤트
+        $('.heart').click(function() {
+            const likeVal = $('#likeCheck').val();
+            let shopId = $('#shopId').val();
+
+            console.log("shopID : "+shopId);
+
+            if (likeVal === 'true') {
+                const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
+                if (con_check) {
+                    console.log("좋아요 취소 진입");
+                    $.ajax({
+                        type: 'POST',
+                        url: '/like/' + shopId,
+                        contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+                        $('#likeImg').attr("src", "/images/heart.svg");
+                        location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    })
+                }
+            } else if(likeVal === 'false'){
+                const con_check = confirm("가게 좋아요를 하시겠습니까?");
+                if (con_check) {
+                    console.log("좋아요 진입");
+                    $.ajax({
+                        type: 'POST',
+                        url: '/like/' + shopId,
+                        contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+                        <!--                        alert("새로고침")-->
+                        $('#likeImg').attr("src", "/images/heart-fill.svg");
+                        location.reload();
+                    }).fail(function (error) {
+                         alert(JSON.stringify(error));
+                    })
+                }
+            }
+        });
+    });
+
+</script>
 </head>
 <body>
 <div class="container-fluid bg-lightpurple">
@@ -123,7 +189,8 @@
                         <!-- Product Images -->
                         <div class="col-lg-5 col-md-12 mb-3">
                             <div class="col-12 mb-3">
-                                <div class="img-large border" th:style="'background-image:url('+ ${shopInfo.getShopImgList().get(0)} +');'"></div>
+                                <div class="img-large border"
+                                     th:style="'background-image:url('+ ${shopInfo.getShopImgList().get(0)} +');'"></div>
                             </div>
                             <div class="col-12">
                                 <div class="row">
@@ -143,6 +210,13 @@
                         <div class="col-lg-7 col-md-12 mb-3">
                             <div class="col-12 product-name large">
                                 <h3 th:text="${shopInfo.getShopName()}">오복케이크</h3>
+                                <a class="heart ">
+                                    <input type="hidden" th:id="likeCheck" th:value="${shopInfo.likeCheck}">
+                                    <input type="hidden" th:id="shopId" th:value="${shopInfo.shopID}">
+                                    <input type="hidden" th:id="customer_id" th:value="${customer.customerId}">
+                                    <img th:id="likeImg" src="/images/heart.svg" alt="" fill="#AD81D5" width="20px" height="20px">
+                                    <span th:text="${shopInfo.shopLikeCount}"></span>
+                                </a>
                                 <small th:text="${shopInfo.getShopAddress()}">서울 마포구 만리재로 3</small>
                                 <small th:text="${shopInfo.getShopPhoneNum()}">02-123-1234</small>
                             </div>
@@ -153,10 +227,11 @@
 
                                 <div>
                                     <label>디자인번호</label>
-                                    
+
                                     <select size="1" name="designCheck" required autofocus>
                                         <th:block th:each="design : ${shopInfo.designOptionList}">
-                                            <option th:text="${design.getOptionDetail()} + '_'+ ${design.getOptionPrice()}+'원'" th:value="${design.getCakeOptionListId()}">
+                                            <option th:text="${design.getOptionDetail()} + '_'+ ${design.getOptionPrice()}+'원'"
+                                                    th:value="${design.getCakeOptionListId()}">
                                             </option>
                                         </th:block>
                                     </select>
@@ -166,7 +241,8 @@
 
                                     <select size="1" name="sizeCheck" required autofocus>
                                         <th:block th:each="size : ${shopInfo.sizeOptionList}">
-                                            <option th:text="${size.getOptionDetail()} + '_'+ ${size.getOptionPrice()}+'원'" th:value="${size.getCakeOptionListId()}">
+                                            <option th:text="${size.getOptionDetail()} + '_'+ ${size.getOptionPrice()}+'원'"
+                                                    th:value="${size.getCakeOptionListId()}">
                                             </option>
                                         </th:block>
                                     </select>
@@ -175,7 +251,8 @@
                                     <label>시트맛</label>
                                     <select size="1" name="sheetCheck" required autofocus>
                                         <th:block th:each="sheet : ${shopInfo.sheetOptionList}">
-                                            <option th:text="${sheet.getOptionDetail()} + '_'+ ${sheet.getOptionPrice()}+'원'" th:value="${sheet.getCakeOptionListId()}">
+                                            <option th:text="${sheet.getOptionDetail()} + '_'+ ${sheet.getOptionPrice()}+'원'"
+                                                    th:value="${sheet.getCakeOptionListId()}">
                                             </option>
                                         </th:block>
                                     </select>
@@ -185,17 +262,19 @@
 
                                     <select size="1" name="creamCheck" required autofocus>
                                         <th:block th:each="cream : ${shopInfo.creamOptionList}">
-                                            <option th:text="${cream.getOptionDetail()} + '_'+ ${cream.getOptionPrice()}+'원'" th:value="${cream.getCakeOptionListId()}">
+                                            <option th:text="${cream.getOptionDetail()} + '_'+ ${cream.getOptionPrice()}+'원'"
+                                                    th:value="${cream.getCakeOptionListId()}">
                                             </option>
                                         </th:block>
                                     </select>
                                 </div>
                                 <div>
                                     <label>케이크바탕색</label>
-                                    
+
                                     <select size="1" name="creamcolorCheck" required autofocus>
                                         <th:block th:each="creamcolor : ${shopInfo.creamColorOptionList}">
-                                            <option th:text="${creamcolor.getOptionDetail()} + '_'+ ${creamcolor.getOptionPrice()}+'원'" th:value="${creamcolor.getCakeOptionListId()}">
+                                            <option th:text="${creamcolor.getOptionDetail()} + '_'+ ${creamcolor.getOptionPrice()}+'원'"
+                                                    th:value="${creamcolor.getCakeOptionListId()}">
                                             </option>
                                         </th:block>
                                     </select>
@@ -204,7 +283,8 @@
                                     <label>레터링색</label>
                                     <select size="1" required autofocus>
                                         <th:block th:each="letter : ${shopInfo.letterOptionList}">
-                                            <option th:text="${letter.getOptionDetail()} + '_'+ ${letter.getOptionPrice()}+'원'" th:value="${letter.getCakeOptionListId()}">
+                                            <option th:text="${letter.getOptionDetail()} + '_'+ ${letter.getOptionPrice()}+'원'"
+                                                    th:value="${letter.getCakeOptionListId()}">
                                             </option>
                                         </th:block>
                                     </select>

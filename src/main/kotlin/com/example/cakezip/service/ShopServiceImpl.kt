@@ -2,6 +2,7 @@ package com.example.cakezip.service
 
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.OptionTitleType
+import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.shop.Shop
 import com.example.cakezip.domain.shop.ShopImg
@@ -12,14 +13,15 @@ import com.example.cakezip.repository.CakeOptionListRepository
 import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.repository.ShopRepository
 import org.springframework.stereotype.Service
-import java.util.*
 import kotlin.collections.ArrayList
 
 @Service
 class ShopServiceImpl(
     private val shopRepository: ShopRepository,
     private val cakeOptionListRepository: CakeOptionListRepository,
-    private val shopImgRepository: ShopImgRepository)
+    private val shopImgRepository: ShopImgRepository,
+    private val likeListService: LikeListService,
+    )
     : ShopService {
 
     override fun findBySeller(seller:Seller) : Shop {
@@ -141,7 +143,7 @@ class ShopServiceImpl(
         return shopSimpleInfoList;
     }
 
-    override fun getShopDetail(shopID: Long): ShopDetailInfoDto {
+    override fun getShopDetail(customer: Customer?, shopID: Long): ShopDetailInfoDto {
         val shopInfo: Shop = shopRepository.findByShopId(shopID)
         val shop = shopInfo
         val shopImg : List<ShopImg> = shopImgRepository.findByShop(shop)
@@ -157,6 +159,9 @@ class ShopServiceImpl(
         val creamOptionList : ArrayList<CakeOptionList> = ArrayList()
         val creamColorOptionList : ArrayList<CakeOptionList> = ArrayList()
         val letterOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val likeCount = likeListService.getShopLikeCount(shop)
+
+        val likeCheck = customer?.let { likeListService.isLike(it, shop) }
 
         for (option in cakeOptionList) {
             when(option.optionTitle) {
@@ -168,7 +173,7 @@ class ShopServiceImpl(
                 OptionTitleType.LCOLOR -> letterOptionList.add(option)
             }
         }
-        return ShopDetailInfoDto(shopID, shop.shopName, shop.shopAddress, shop.shopArea, shop.shopShortDescriptor, shop.shopPhoneNum, shop.seller, shop.shopImgDescriptionUrl, shopImgUrl, designOptionList, sizeOptionList, sheetOptionList, creamOptionList, creamColorOptionList, letterOptionList)
+        return ShopDetailInfoDto(shopID, shop.shopName, shop.shopAddress, shop.shopArea, shop.shopShortDescriptor, shop.shopPhoneNum, shop.seller, shop.shopImgDescriptionUrl, shopImgUrl, designOptionList, sizeOptionList, sheetOptionList, creamOptionList, creamColorOptionList, letterOptionList, likeCount, likeCheck)
     }
 
     override fun updateShopInfo(shopId: Long, shop:Shop): Shop {
