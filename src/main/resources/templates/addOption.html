@@ -116,11 +116,12 @@
         </div>
 
         <div class="col-12">
-            <form method="post" th:action="@{/options/new (type=${type}, shopId = ${shopId})}" th:object="${form}">
-                <input type="hidden" name="_method" value="PUT">
+            <form method="post" th:action="@{/sellers/myshop/options/new}" th:object="${form}">
+                <input type="text" style="display: none" th:value="${shopId}" name="shopId">
+                <input type="text" th:value="${type.toString()}" name="optionType">
                 <input type="text" th:field="*{optionDetail}" name="optionDetail">
-                <input type="text" th:value="${optionPrice}" name="optionPrice">
-                <input type="submit" value="수정">
+                <input type="text" th:field="*{optionPrice}" name="optionPrice">
+                <input type="submit" value="추가">
             </form>
             <!-- Main Content -->
         </div>

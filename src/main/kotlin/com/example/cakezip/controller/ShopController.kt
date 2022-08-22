@@ -1,5 +1,6 @@
 package com.example.cakezip.controller
 
+
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
@@ -10,8 +11,15 @@ import com.example.cakezip.dto.ShopDetailInfoDto
 import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.repository.ShopRepository
 import com.example.cakezip.service.*
+
+import com.example.cakezip.dto.NewShopReqDto
+import com.example.cakezip.dto.ShopDetailInfoDto
+import com.example.cakezip.service.ReviewService
+import com.example.cakezip.service.ShopService
+import com.example.cakezip.service.UploadStoreImgService
+
+
 import org.springframework.stereotype.Controller
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -21,9 +29,12 @@ import javax.servlet.http.HttpSession
 @Controller
 class ShopController (
     private val shopService: ShopService,
+    
     private val shopImgRepository: ShopImgRepository,
     private val shopImgService: ShopImgService,
     private val uploadStoreImgService: UploadStoreImgService,
+    private val reviewService: ReviewService
+
     ){
     @GetMapping("/shops/new")
     fun addShop(model: Model):String {
@@ -35,7 +46,7 @@ class ShopController (
     @RequestMapping(value = arrayOf("/shops/new"), method = arrayOf(RequestMethod.POST))
     fun postShop(newShopReqDto: NewShopReqDto) : String{
         shopService.addNewShop(newShopReqDto)
-        return "redirect:/shops/new" // FIXME : 경로 결정되면 체크하기
+        return "redirect:/shops/new"
     }
 
     @ResponseBody
@@ -52,25 +63,6 @@ class ShopController (
         return storeUrlList
     }
 
-
-    @RequestMapping(value = arrayOf("/new/image"), method = arrayOf(RequestMethod.POST))
-    fun editImage(@RequestParam images: List<MultipartFile>, @RequestParam shopId : String, model: Model) : String{
-        var storeUrlList : ArrayList<String> = ArrayList()
-
-        var token:String = uploadStoreImgService.getCloudAPI() // 클라우드 api를 사용하기 위한 곳
-
-        for(image:MultipartFile in images) {
-            var url:String = uploadStoreImgService.upload(image, image.originalFilename.toString(), token)
-            storeUrlList.add(url)
-        }
-        shopImgRepository.save(ShopImg(shopService.getByShopId(shopId.toLong()),storeUrlList.get(0)))
-
-        model.addAttribute("shop", shopService.getByShopId(shopId.toLong()))
-        model.addAttribute("shopImg", shopImgService.getShopImgs(shopService.getByShopId(shopId.toLong())))
-        return "editimage"
-    }
-
-
     @GetMapping("/shops")
     fun shopList(model: Model) : String {
         model.addAttribute("shops",shopService.getAllShopSimpleList())
@@ -84,12 +76,17 @@ class ShopController (
 
         if(user.userType == UserType.CUSTOMER) {
             customer = session.getAttribute("customer") as Customer
-        }
+        } 
 
         val shopDetail:ShopDetailInfoDto = shopService.getShopDetail(customer, shopId)
 
         model.addAttribute("customer", customer)
         model.addAttribute("shopInfo",shopDetail)
+        
+        model.addAttribute("reviewScore", reviewService.getShopReviewPercent(shopId))
+        model.addAttribute("reviewDetail", reviewService.getShopAllReviews(shopId))
+        
+
         return "product"
     }
 
@@ -116,3 +113,8 @@ class ShopController (
     }
 
 }
+
+    
+
+
+

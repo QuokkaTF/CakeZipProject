@@ -8,4 +8,6 @@ class CustomerEditDto(
     var gender: Gender,
     var areas: String
 ) {
+    fun toUser() = User(userEmail,password,phoneNum,userName,UserType.CUSTOMER)
+    fun toCustomer(user: User) = Customer(user,gender,areas)
 }
