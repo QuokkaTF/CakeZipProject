@@ -19,7 +19,8 @@ import kotlin.collections.ArrayList
 class ShopServiceImpl(
     private val shopRepository: ShopRepository,
     private val cakeOptionListRepository: CakeOptionListRepository,
-    private val shopImgRepository: ShopImgRepository)
+    private val shopImgRepository: ShopImgRepository,
+)
     : ShopService {
 
     override fun findBySeller(seller:Seller) : Shop {
@@ -186,8 +187,12 @@ class ShopServiceImpl(
         println(shop)
     }
 
-    override fun searchShop(keyword:String):List<Shop> {
+    override fun searchShop(keyword:String):ArrayList<ShopDetailInfoDto> {
         var shopList = shopRepository.findByShopNameContaining(keyword)
-        return shopList
+        var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
+        for (sl in shopList){
+            shopDetailList.add(getShopDetail(sl.shopId!!))
+        }
+        return shopDetailList
     }
 }
