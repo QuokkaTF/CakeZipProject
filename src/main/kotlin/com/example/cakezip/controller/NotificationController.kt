@@ -1,46 +1,42 @@
 package com.example.cakezip.controller
 
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.Seller
+import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpSession
 
 
 @Controller
 class NotificationController(
-    private val customerService: CustomerService,
-    private val reviewService: ReviewService,
-    private val cakeService: CakeService,
-    private val cakeTaskService: CakeTaskService,
-    private val cakeOptionListService: CakeOptionListService,
-    private val noticeService: NotificationService,
+    private val notificationService: NotificationService,
+) {
+    @GetMapping("/notifications")
+    fun getNotification(model: Model, customerId: Long, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            var customer = session.getAttribute("customer") as Customer
+            model.addAttribute("notification", notificationService.getCNotifications(customer))
+        } else if (user.userType == UserType.CUSTOMER) {
+            var seller = session.getAttribute("seller") as Seller
+            model.addAttribute("notification", notificationService.getSNotifications(seller))
+        } else {
+            throw Exception("잘못된 요청입니다.")
+        }
 
-    ) {
-
-//    @GetMapping(value = ["/subscribe/{id}"], produces = ["text/event-stream"])
-//    fun subscribe(
-//        @PathVariable id: Long?,
-//        @RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") lastEventId: String?
-//    ): SseEmitter? {
-//        //return noticeService.subscribe(id, lastEventId)
-//    }
-
-    @GetMapping("/notification/{customerId}")
-    fun getNotification(model: Model, customerId: Long): String {
-        //val customer = customerService.findByCustomerId(customerId)
-        //noticeService.getCustomerNotices(customerId)
-        model.addAttribute("notification", noticeService.getCustomerNotices(customerId))
-        println("개인 회원 전체 알림")
-        return "notification";
+        return "notification"
     }
 
     @DeleteMapping("/notification/delete/{noticeId}")
     @ResponseBody
-    fun deleteNotification(model: Model, @PathVariable("noticeId") noticeId:Long) {
-        noticeService.deleteNotice(noticeId)
+    fun deleteNotification(model: Model, @PathVariable("noticeId") noticeId: Long) {
+        notificationService.deleteNotification(noticeId)
     }
-
-
-
 }
+
+
 

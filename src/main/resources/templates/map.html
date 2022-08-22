@@ -8,6 +8,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>E-Commerce Template</title>
+    <style>
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+</style>
 
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
@@ -16,69 +23,13 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/all.min.css">
     <link rel="stylesheet" href="../static/css/style.css">
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-    function idCheck() {
-        var res;
-        $.ajax({
-            type: 'GET',
-            url: '/users/idCheck',
-            async:false,
-            data: {"userEmail":document.getElementById("userEmail").value},
-            dataType: 'json',
-            success: function(result) {
-                res=result;
-            }
-
-        });
-        return res;
-    }
-
-    function formCheck() {
-        var userEmail = document.getElementById("userEmail");
-        var userName = document.getElementById("userName");
-        var userPassword = document.getElementById("userPassword");
-        var userPhoneNum = document.getElementById("userPhoneNum");
-        var userGender = document.getElementById("userGender");
-        var userArea = document.getElementById("userArea");
-
-        if(userPassword.value == "") {
-            alert("비밀번호를 입력하세요.");
-            userPassword.focus();
-            return false;
-        }
-        /*
-        var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-        if (!pwdCheck.test(userPassword.value)) {
-            alert("비밀번호는 영문자+숫자+특수문자 조합으로 8-25자리 사용해야 합니다.");
-            userPassword.focus();
-            return false;
-        }*/
-
-        var reg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;;
-
-        if(userPhoneNum.value == "") {
-            alert("전화번호를 입력하세요");
-            userPhoneNum.focus();
-            return false;
-        }
-
-        if(!reg.test(userPhoneNum.value)) {
-            alert("올바른 전화번호 형식을 입력해주세요 (010-1234-5678)");
-            userPhoneNum.focus();
-            return false;
-        }
 
 
-
-        document.join_form.submit();
-    }
-
-
-    </script>
 </head>
 <body>
 <div class="container-fluid nanum">
@@ -148,30 +99,7 @@
                     </div>
 
                     <!-- Nav -->
-                    <div class="row">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#mainNav">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="mainNav">
-                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                        </div>
 
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
                     <!-- Nav -->
 
                 </div>
@@ -184,51 +112,180 @@
             <!-- Main Content -->
 
             <div class="row">
-                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>고객 정보 조회 및 수정</h2>
+                <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase " style="color:#AD81D5">
+                    <h2>지도</h2>
                 </div>
             </div>
 
             <main class="row">
-                <div class="col-12 bg-white py-3 mb-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
-                        <form name="join_form"method="POST" action="/users/seller/edit">
+                <p style="margin-top:-12px">
+    <em class="link">
 
-                            <!--                                <input class="form-control" readonly placeholder="ID">-->
-                            <!--                                <input class="form-control" readonly placeholder="Password">-->
+    </em>
+</p>
+<div id="map" style="width:100%;height:700px;"></div>
 
-                            <div class="mb-3">
-                                <label field="userName">이름</label>
-                                <input readonly id="userName"type="name" name="userName" class="form-control" th:value="${sellerDto.userName}">
-                            </div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fc4b2dbba0859111556e37839ea5f8c8&libraries=services"></script>
 
-                            <div class="mb-3">
-                                <label field="userEmail">이메일</label>
-                                <input readonly id="userEmail" type="email" name="userEmail" class="form-control" th:value="${sellerDto.userEmail}" >
-                            </div>
+<script>
 
-                            <div class="mb-3">
-                                <label field="username">비밀번호</label>
-                                <input readonly id="userPassword"type="password" name="password" class="form-control" th:value="${sellerDto.password}">
-                            </div>
+var res;
 
-                            <div class="mb-3">
-                                <label field="username">전화번호</label>
-                                <input id="userPhoneNum" type="phone" name="userPhoneNum" class="form-control" placeholder="010-1234-1234" th:value="${sellerDto.userPhoneNum}">
-                            </div>
+$.ajax({
+    type: 'GET',
+    url: '/map/list',
+    async:false,
+    data: {},
+    dataType: 'json',
+    success: function(result) {
+        res=result;
+    }
+
+});
 
 
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 10 // 지도의 확대 레벨
+    };
 
-                            <div class="mb-3">
-                                <button class="w-100 btn btn-lg btn-purple" type="button"
-                                        onclick="formCheck();">완료
-                                </button>
-                            </div>
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-                            </form>
-                        </div>
-                    </div>
+// HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+if (navigator.geolocation) {
+
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+        var lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+
+        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+            message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
+
+        // 마커와 인포윈도우를 표시합니다
+        displayMarker(locPosition, message);
+
+      });
+
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+        message = 'GPS를 사용할 수 없습니다.'
+
+    displayMarker(locPosition, message);
+}
+
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition
+    });
+
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+
+    // 인포윈도우를 마커위에 표시합니다
+    infowindow.open(map, marker);
+
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);
+}
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+var imageSrc = 'https://cdn.crowdpic.net/detail-thumb/thumb_d_D90F49969FC4349B42013C569916F909.png',
+    imageSize = new kakao.maps.Size(45, 45), // 마커이미지의 크기입니다
+    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
+
+for(var i=0;i<res.length;i++) {
+    var tit = res[i]['shopName'];
+    var shop_id = res[i]['shopId'];
+    console.log(tit);
+    geocoder.addressSearch(res[i]['shopAddress'], function(result, status) {
+
+        // 정상적으로 검색이 완료됐으면
+         if (status === kakao.maps.services.Status.OK) {
+
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+                title: tit,
+                image: markerImage
+            });
+
+            kakao.maps.event.addListener(marker, 'click', function() {
+                location.href="/shops/"+shop_id
+
+            /*
+            // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
+            // 마커의 이미지를 클릭 이미지로 변경합니다
+            if (!selectedMarker || selectedMarker !== marker) {
+
+                // 클릭된 마커 객체가 null이 아니면
+                // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+                !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+                // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+                marker.setImage(clickImage);
+            }
+
+            // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+            selectedMarker = marker;
+            */
+        });
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            //map.setCenter(coords);
+        }
+    });
+}
+
+
+
+function displayMarker(locPosition, message) {
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition
+    });
+
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+
+    // 인포윈도우를 마커위에 표시합니다
+    infowindow.open(map, marker);
+
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);
+}
+
+
+</script>
+
                 </div>
 
 

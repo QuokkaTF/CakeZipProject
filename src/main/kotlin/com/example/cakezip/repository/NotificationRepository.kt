@@ -11,8 +11,8 @@ import javax.transaction.Transactional
 @Repository
 interface NotificationRepository : JpaRepository<Notification, Long> {
     fun findByCustomer(customer: Customer): List<Notification>
+    fun findBySeller(seller: Seller): List<Notification>
 
     @Transactional
     fun deleteByNoticeId(noticeId: Long)
-
 }

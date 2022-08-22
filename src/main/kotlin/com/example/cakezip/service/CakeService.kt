@@ -11,6 +11,7 @@ import com.example.cakezip.repository.CakeTaskRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
+import kotlin.collections.HashMap
 
 
 @Service
@@ -20,18 +21,34 @@ class CakeService(
     private val cakeOptionListRepository: CakeOptionListRepository,
     private val shopImgService: ShopImgService,
 ) {
+    fun getCakeOptionList(cake:Cake):HashMap<String, Any>{
+        var cake_hashMap = HashMap<String, Any>()
+        for (ct in cakeTaskRepository.findByCake(cake)) {
+            if (ct.cakeOptionList.cakeOptionListId != null) {
+                var cakeOptionList: Optional<CakeOptionList> =
+                    cakeOptionListRepository.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
+                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
+                cake_hashMap.put(
+                    cakeOptionList.get().optionTitle.toString() + "price",
+                    cakeOptionList.get().optionPrice
+                )
+            }
+        }
+        cake_hashMap.put("cake",cake)
+        cake_hashMap.put("img", shopImgService.getThumbnail(cake.shop).shopImgUrl)
+        return cake_hashMap
+    }
     fun findByCakeId(id: Long): Cake = cakeRepository.findByCakeId(id)
 
     fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatus(customer, cakeStatus)
 
-    fun findByCustomerAndCakeStatusNot(customer:Customer, cakeStatus:CakeStatusType): List<Cake> =
+    fun findByCustomerAndCakeStatusNot(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
 
 
     fun getSellerCakeList(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)
-
 
     @Transactional
     fun deleteAllByCakeId(id: Long) = cakeRepository.deleteAllByCakeId(id)
@@ -39,7 +56,6 @@ class CakeService(
     @Transactional
     fun deleteAllByCustomerAndCakeStatus(customer: Customer, cakeStatus: CakeStatusType) =
         cakeRepository.deleteAllByCustomerAndCakeStatus(customer, cakeStatus)
-
 
     @Transactional
     fun updateCakeStatus(CakeId: Long, statusCheck: CakeStatusType) {
@@ -68,7 +84,7 @@ class CakeService(
         )
         return cakeRepository.save(cake)
     }
-
+    
     fun sumPrice(cake:Cake):Int{
         var totalPrice : Int=0
         for (ct in cakeTaskRepository.findByCake(cake)) {
@@ -109,4 +125,5 @@ class CakeService(
         return cake_arrayList
     }
     fun countByCustomer(customer:Customer):Int = cakeRepository.countByCustomer(customer)
+
 }

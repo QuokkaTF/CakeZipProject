@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -75,7 +75,7 @@
                             <a href="#" class="header-item">
                                 <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
                             </a>
-                            <a href="/cart" class="header-item">
+                            <a href="cart.html" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
                                 <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
                             </a>
@@ -101,31 +101,8 @@
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
-                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
                                         </div>
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
+
                                 </ul>
                             </div>
                         </nav>
@@ -138,65 +115,30 @@
             </header>
         </div>
 
+
+        <div>
+            <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
+        </div>
+
+        <input type="text" id="shopId" style="display: none" th:value="${shop.getShopId()}">
         <div class="col-12">
-            <!-- Main Content -->
-
-            <div class="row">
-                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase font-monospace text-purple">
-                    <h2>사장님용 페이지입니다.</h2>
-                </div>
-            </div>
-
-            <main class="row nanum">
-                <div class="col-12 bg-white py-3">
-                    <div th:if ="${shop} == null">
-                        <div class="col-12 text-center py-2">
-                            <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
-                        </div>
-                    </div>
-
-                    <div th:if ="${shop} != null">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" th:href="@{/sellers/myshop/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sellers/myorders/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게 주문 조회</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sellers/myinfo/{id} (id = ${shop.getSeller().getSellerId()})}">내 정보 조회</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="row py-1">
-                                    <div class="col-12">
-                                        <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                            <a class="card-body" th:href="@{/sellers/myshop/info/{id}(id = ${shop.getShopId()})}">
-                                                <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
-                                                <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
-                                                <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
-                                                <div>
-                                                    <th:block th:each="image: ${shopImgs}">
-                                                        <img th:src="${image.getShopImgUrl()}" class="img-fluid"
-                                                             style="height: 300px; width: 300px;">
-                                                    </th:block>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </main>
+            <table>
+                <tr>
+                    <th>사진</th>
+                    <th>삭제</th>
+                </tr>
+                <tbody id = "pictureListId">
+                    <tr th:each="image : ${shopImg}">
+                        <td><img th:src="${image.getShopImgUrl()}"></td>
+                        <td>
+                            <form method="post" th:action="@{/sellers/myshop/image/{imageId} (imageId=${image.getShopImgId()})}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="submit" value="사진 삭제">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <!-- Main Content -->
         </div>
 
@@ -245,6 +187,50 @@
     </div>
 
 </div>
+<script>
+
+    function uploadStoreDetailImg(data) {
+        uploadImg(data)
+    }
+
+    function uploadImg(objectFile) {
+        let shopId = document.getElementById("shopId").value
+        let pictureList = document.getElementById("pictureListId")
+
+        var files = objectFile.files
+        var filesArr =Array.prototype.slice.call(files);
+
+        // 업로드 된 파일 유효성 체크
+        if (pictureList.children.length >= 4) {
+            alert("총 업로드 가능한 사진 수는 4장입니다.");
+            return;
+        }
+
+        var formData = new FormData()
+        for (let i = 0; i < filesArr.length; i++) {
+            formData.append("image", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
+        }
+        formData.append("shopId",shopId)
+
+        $.ajax({
+            url : "/sellers/myshop/image/new",
+            type : "POST",
+            enctype:"multipart/form-data",
+            processData: false,
+            contentType: false,
+            data : formData,
+            async : false,
+            success: function(result) {
+                alert("사진 업로드 성공")
+                window.location.href = "/sellers/myshop/image/"+shopId
+                return;
+            },
+            err: function () {
+                alert("사진 업로드 실패")
+            }
+        })
+    }
+</script>
 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>

@@ -1,17 +1,30 @@
 package com.example.cakezip.controller
 
+
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.dto.Message
+
+import com.example.cakezip.domain.cake.CakeOptionList
+import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
+
 import com.example.cakezip.service.*
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+
 import javax.servlet.http.HttpSession
+
+import java.util.*
+import javax.servlet.http.HttpSession
+import kotlin.collections.HashMap
+
 
 @Controller
 class ReviewController(
@@ -20,14 +33,22 @@ class ReviewController(
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
+
 ) {
 
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
-    @GetMapping("/reviews/customer/{customerId}")
-    fun getMyReviews(model: Model, @PathVariable("customerId") customerId: Long): String {
-        model.addAttribute("review", reviewService.getCustomerAllReviews(customerId))
-        println("해당 사용자의 리뷰 전체 목록")
+    @GetMapping("/reviews")
+    fun getMyReviews(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+
+        if (user.userType == UserType.CUSTOMER) {
+            val customer = session.getAttribute("customer") as Customer
+            model.addAttribute("review", reviewService.getCustomerAllReviews(customer))
+        } else {
+            model.addAttribute("error", -1)
+            throw Exception("잘못된 접근입니다.")
+        }
         return "myreview";
     }
 

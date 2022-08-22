@@ -34,6 +34,7 @@ class UserController(
 
     @GetMapping("/edit")
     fun getUserEditView(session: HttpSession,model: Model): String {
+        println( (session.getAttribute("user") as User).userName)
         val user: User = session.getAttribute("user") as User
         if(user.userType == UserType.SELLER) {
             val seller: Seller = userService.findSellerByUser(user)
@@ -43,19 +44,23 @@ class UserController(
         } else {
             val customer: Customer = userService.findCustomerByUser(user)
             model.addAttribute("customerEditDto",customer.toCustomerEditDto())
-
+            println(customer.toCustomerEditDto().areas=="부산")
             return "customer-edit"
         }
     }
 
-    @PutMapping("/customer/edit")
-    fun editSeller(session: HttpSession, customerDto: CustomerDto): String {
-        return "temp"
+    @PostMapping("/customer/edit")
+    fun editCustomer(session: HttpSession, customerEditDto: CustomerEditDto): String {
+        userService.editCustomer(session.getAttribute("user") as User,customerEditDto)
+
+        return "redirect:/home"
     }
 
-    @PutMapping("/seller/edit")
-    fun editCustomer(session: HttpSession, sellerDto: SellerDto): String {
-        return "temp"
+    @PostMapping("/seller/edit")
+    fun editSeller(session: HttpSession, sellerDto: SellerDto): String {
+        userService.editSeller(session.getAttribute("user") as User,sellerDto)
+
+        return "redirect:/home"
     }
 
 
@@ -130,6 +135,7 @@ class UserController(
             model.addAttribute("error","비밀번호가 틀렸거나 존재하지않는 이메일입니다.")
             return "login"
         }
+        println((session.getAttribute("user") as User).userName)
 
         return "redirect:/home"
     }

@@ -14,9 +14,13 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+
 </head>
 <body>
 <div class="container-fluid nanum">
+    <div>
+    </div>
 
     <div class="row min-vh-100">
         <div class="col-12">
@@ -57,7 +61,7 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
+                                <a href="/home">Cake.zip</a>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
@@ -72,10 +76,11 @@
                             </form>
                         </div>
                         <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            <a href="/likedshop" class="header-item">
+                                <i class="fas fa-heart me-2"></i
+                                ><span id="header-favorite" th:text="${likeCount}"></span>
                             </a>
-                            <a href="cart.html" class="header-item">
+                            <a href="/cart" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
                                 <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
                             </a>
@@ -92,7 +97,7 @@
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/shops">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="electronics"
@@ -102,7 +107,6 @@
                                             <a class="dropdown-item" href="category.html">서울</a>
                                             <a class="dropdown-item" href="category.html">부산</a>
                                         </div>
-
                                 </ul>
                             </div>
                         </nav>
@@ -115,30 +119,42 @@
             </header>
         </div>
 
+        <div class="col-12 nanum">
+            <!-- Main Content -->
+            <div class="row">
+                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase font-monospace text-purple">
+                    <h2>내가 좋아요한 가게</h2>
+                </div>
+            </div>
+            <main class="row">
 
-        <div>
-            <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
-        </div>
+                <!-- Featured Products -->
+                <div class="col-12 py-1">
+                
+                    <th:block th:each="shop : ${shops}">
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                    <a class="card-body" th:href="@{/shops/{id}(id = ${shop.getShopId()})}">
+                                        <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                        <div>
+                                        </div>
+                                        <div><span class="product-description" th:text="${shop.getShopShortDescription()}"></span></div>
+                                        <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                        <div>
+                                            <th:block th:each="img : ${shop.getShopImgList()}">
+                                                <img th:src="${img.toString()}" class="img-fluid"
+                                                     style="height: 300px; width: 300px;">
+                                            </th:block>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
 
-        <input type="text" id="shopId" th:value="${shop.getShopId()}">
-        <div class="col-12">
-            <table>
-                <tr>
-                    <th>사진</th>
-                    <th>삭제</th>
-                </tr>
-                <tbody id = "pictureListId">
-                    <tr th:each="image : ${shopImg}">
-                        <td><img th:src="${image.getShopImgUrl()}"></td>
-                        <td>
-                            <form method="post" th:action="@{/shops/image/{imageId} (imageId=${image.getShopImgId()})}">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="submit" value="삭제dd">
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            </main>
             <!-- Main Content -->
         </div>
 
@@ -187,60 +203,28 @@
     </div>
 
 </div>
-<script>
 
-    function uploadStoreDetailImg(data) {
-        //imgList = document.getElementById('storeDetailImg')
-        uploadImg(data)
-    }
+<!-- Messages -->
+<div class="toast-container position-fixed bottom-0 start-0 p-3">
+    <div class="toast align-items-center text-white bg-success border-0 bg-purple" data-bs-autohide="false">
+        <a href="#">
 
-    function uploadImg(objectFile) {
-        let shopId = document.getElementById("shopId").value
-        let pictureList = document.getElementById("pictureListId")
-        console.log(pictureList)
-        console.log(pictureList.children.length)
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle me-2"></i>
+                    테스트!!!!!!
+                </div>
 
-        var files = objectFile.files
-        var filesArr =Array.prototype.slice.call(files);
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- Messages -->
 
-        // 업로드 된 파일 유효성 체크
-        if (pictureList.children.length > 4) {
-            alert("총 업로드 가능한 사진 수는 4장입니다.");
-            return;
-        }
-
-        var formData = new FormData()
-        for (let i = 0; i < filesArr.length; i++) {
-            formData.append("images", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
-        }
-        formData.append("shopId",shopId)
-
-        console.log(shopId)
-        console.log(shopId)
-        console.log(formData.get("shopId"))
-
-        $.ajax({
-            url : "/new/image",
-            type : "POST",
-            enctype:"multipart/form-data",
-            processData: false,
-            contentType: false,
-            data : formData,
-            async : false,
-            success: function(result) {
-                alert(result)
-                alert("사진 업로드 성공")
-                return;
-            },
-            err: function () {
-                alert("사진 업로드 실패")
-            }
-        })
-    }
-</script>
-
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

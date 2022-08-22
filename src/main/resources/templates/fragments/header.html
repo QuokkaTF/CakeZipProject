@@ -1,0 +1,33 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--headerFragment 선언-->
+<div th:fragment="headerFragment">
+    <!-- Top Nav -->
+                <div class="col-12 bg-purple py-2 d-md-block d-none">
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <ul class="top-nav">
+                                <li>
+                                    <a href="#"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li th:if="${session.user != null}"  >
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li th:if="${session.user == null}">
+                                    <a href="/users/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li th:if="${session.user == null}" >
+                                    <a href="/users/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+</div>
+</html>
