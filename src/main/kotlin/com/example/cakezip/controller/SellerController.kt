@@ -3,14 +3,29 @@ package com.example.cakezip.controller;
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeStatusType
+import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
+import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.domain.shop.Shop
+
+import com.example.cakezip.dto.Message
+import com.example.cakezip.service.*
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
+import java.util.NoSuchElementException
+import javax.servlet.http.HttpSession
+
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
+
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -22,8 +37,11 @@ class SellerController (
     private val cakeService: CakeService,
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
+    private val orderService: OrderService,
+    private val userService: UserService,
     private val uploadStoreImgService: UploadStoreImgService,
     ){
+
 
     @GetMapping("/sellers/myshop/{sellerId}")
     fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
@@ -75,64 +93,52 @@ class SellerController (
         return "redirect:/sellers/myshop/${shop.seller?.sellerId}" // TODO : url 변경 필요
     }
 
-    //TODO : 경민한테 받으면 수정
-    var seller: Seller = sellerService.findBySellerId(1)
-
-    var shop: Shop = shopService.findBySeller(seller)
-    val cake = cakeService.findByShopAndCakeStatusNot(shop, CakeStatusType.CART)
-
     @GetMapping("/sellers/orders")
-    fun getOrderList(model: Model): String {
-        model.addAttribute("cake", cake)
-        return "sellerorders"
+    fun getOrderList(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
+        } else {
+            val seller: Seller = session.getAttribute("seller") as Seller
+            try {
+                model.addAttribute(
+                    "cake",
+                    cakeService.getSellerCakeList(shopService.findBySeller(seller), CakeStatusType.CART)
+                )
+                model.addAttribute("data", Message("", ""))
+            } catch (e: NoSuchElementException){
+                model.addAttribute("data", Message("가게 등록이 되지 않았습니다.", "/"))
+            }
+        }
+        return "sellerOrders"
     }
 
     @GetMapping("/sellers/orders/{cakeId}")
-    fun getOrderDetailList(model: Model, @PathVariable cakeId: Long): String {
-        var cakelist: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
-        var cake_hashMap = HashMap<String, Any>()
-        var totalPrice : Long=0
-        val c : Cake = cakeService.findByCakeId(cakeId)
-
-        for (ct in cakeTaskService.findByCake(c)) {
-            if (ct.cakeOptionList.cakeOptionListId != null) {
-                var cakeOptionList: Optional<CakeOptionList> =
-                    cakeOptionListService.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
-                cake_hashMap.put(
-                    cakeOptionList.get().optionTitle.toString() + "price",
-                    cakeOptionList.get().optionPrice
-                )
-                totalPrice += cakeOptionList.get().optionPrice
-            }
+    fun getOrderDetailList(model: Model, @PathVariable cakeId: Long, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
+        } else {
+            val seller: Seller = session.getAttribute("seller") as Seller
+            model.addAttribute("data", Message("", ""))
         }
-        println("_________---_____^^*_______")
-        cake_hashMap.put("price", totalPrice)
-        cake_hashMap.put("shop", c.shop.shopName)
-        cake_hashMap.put("pickupdate", c.pickupDate)
-        cake_hashMap.put("letterText", c.letterText)
-        cake_hashMap.put("etc", c.etc)
-
-        cakelist.add(cake_hashMap)
-
-        println("=====================================")
-        println(cakelist)
-        model.addAttribute("cakedetail", cakelist)
-        model.addAttribute("cakeId", cakeId)
-
-
-        val statusSelected = cakeService.findByCakeId(cakeId).cakeStatus
-        println("=====================================")
-        println(statusSelected)
-        println("=====================================")
-        model.addAttribute("statusSelected", statusSelected)
-
-
-        return "sellerorderdetail"
+        val c : Cake = cakeService.findByCakeId(cakeId)
+        model.addAttribute("cakedetail", cakeService.getCakeOptionList(c))
+        model.addAttribute("customerInfo", userService.getCustomerInfo(c))
+        model.addAttribute("statusSelected", cakeService.findByCakeId(cakeId).cakeStatus.toString())
+        return "sellerOrderDetail"
     }
 
     @PutMapping("/sellers/orders/{cakeId}")
-    fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: CakeStatusType): String {
+    fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: CakeStatusType,
+                         session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
+        } else {
+            val seller: Seller = session.getAttribute("seller") as Seller
+            model.addAttribute("data", Message("", ""))
+        }
         cakeService.updateCakeStatus(cakeId, statusCheck)
         println(statusCheck)
         return "redirect:/sellers/orders/{cakeId}"

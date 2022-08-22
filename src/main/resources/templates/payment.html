@@ -2,6 +2,19 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+		</script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+		</script>
+    </th:block>
+
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -58,8 +71,9 @@
                 buyer_tel : uphonenum.innerHTML
             }, function (rsp) { // callback
                 if (rsp.success) {
-                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
-                    sendData(postpath, {imp_uid: rsp.imp_uid, cake_id: cid.innerHTML, price:price.innerHTML});
+                    alert("결제가 완료되었습니다.")
+<!--                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);-->
+<!--                    sendData(postpath, {imp_uid: rsp.imp_uid, cake_id: cid.innerHTML, price:price.innerHTML});-->
                 } else {
                     alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
                 }
@@ -204,7 +218,7 @@
                             <h4>아래 내용을 확인하고 결제버튼을 눌러주세요!</h4>
                         </div>
                         <br>
-                        <div class="col-12" th:each="dto : ${cake}" style="padding: 30px 0px 30px 0px;">
+                        <div class="col-12" style="padding: 30px 0px 30px 0px;">
                             <table class="table table-sm">
                                 <thead>
                                 <tr>
@@ -220,61 +234,61 @@
 
                                 <tr>
                                     <td rowspan="8">
-                                        <img src="/images/cakeimg.png" class="img-fluid">
-                                        <p th:text="${dto.get('shop')}"></p>
+                                        <img th:src="${cake.get('img')}">
+                                        <p th:text="${cake.get('cake').shop.shopName}"></p>
                                     </td>
-                                    <td rowspan="8" th:text="${dto.get('pickupdate')}"></td>
+                                    <td rowspan="8" th:text="${cake.get('cake').pickupDate}"></td>
                                     <td>케이크디자인</td>
-                                    <td th:text="${dto.get('DESIGN')}" id="name">1번 핑크토끼케이크 [BEST]</td>
-                                    <td style="text-align: right" th:text="${dto.get('DESIGNprice')}">21,500
+                                    <td th:text="${cake.get('DESIGN')}" id="name">1번 핑크토끼케이크 [BEST]</td>
+                                    <td style="text-align: right" th:text="${cake.get('DESIGNprice')}">21,500
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>케이크 호수</td>
-                                    <td th:text="${dto.get('SIZE')}">1호</td>
-                                    <td style="text-align: right" th:text="${dto.get('SIZEprice')}">21,500</td>
+                                    <td th:text="${cake.get('SIZE')}">1호</td>
+                                    <td style="text-align: right" th:text="${cake.get('SIZEprice')}">21,500</td>
                                 </tr>
                                 <tr>
                                     <td>시트맛</td>
-                                    <td th:text="${dto.get('SFLAVOR')}">오레오</td>
-                                    <td style="text-align: right" th:text="${dto.get('SFLAVORprice')}">21,500
+                                    <td th:text="${cake.get('SFLAVOR')}">오레오</td>
+                                    <td style="text-align: right" th:text="${cake.get('SFLAVORprice')}">21,500
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>크림맛</td>
-                                    <td th:text="${dto.get('CFLAVOR')}">생크림</td>
-                                    <td style="text-align: right" th:text="${dto.get('CFLAVORprice')}">21,500
+                                    <td th:text="${cake.get('CFLAVOR')}">생크림</td>
+                                    <td style="text-align: right" th:text="${cake.get('CFLAVORprice')}">21,500
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>케이크 바탕색</td>
-                                    <td th:text="${dto.get('CCOLOR')}">흰색</td>
-                                    <td style="text-align: right" th:text="${dto.get('CCOLORprice')}">21,500
+                                    <td th:text="${cake.get('CCOLOR')}">흰색</td>
+                                    <td style="text-align: right" th:text="${cake.get('CCOLORprice')}">21,500
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>레터링 색</td>
-                                    <td th:text="${dto.get('LCOLOR')}">주황색</td>
-                                    <td style="text-align: right" th:text="${dto.get('LCOLORprice')}">21,500
+                                    <td th:text="${cake.get('LCOLOR')}">주황색</td>
+                                    <td style="text-align: right" th:text="${cake.get('LCOLORprice')}">21,500
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>레터링 문구</td>
-                                    <td th:text="${dto.get('letterText')}">HBD</td>
+                                    <td th:text="${cake.get('cake').letterText}">HBD</td>
                                     <td style="text-align: right"></td>
                                 </tr>
                                 <tr>
                                     <td>기타 요청사항</td>
-                                    <td th:text="${dto.get('etc')}">둘러싼 크림을 파란색으로 해주세요!</td>
+                                    <td th:text="${cake.get('cake').etc}">둘러싼 크림을 파란색으로 해주세요!</td>
                                     <td style="text-align: right"></td>
                                 </tr>
                                 <tr>
                                     <th colspan="4" class="text-right">Total</th>
-                                    <th style="text-align: right" th:text="${dto.get('price')}" id="price">4,000</th>
+                                    <th style="text-align: right" th:text="${cake.get('cake').totalPrice}" id="price">4,000</th>
                                     <th style=" display: none;" th:text="${userinfo.name}" id="uname"></th>
                                     <th style=" display: none;" th:text="${userinfo.phoneNum}" id="uphonenum"></th>
                                     <th style=" display: none;" th:text="${userinfo.email}" id="uemail"></th>
-                                    <th style=" display: none;" th:text="${dto.get('id')}" id="cid"></th>
+                                    <th style=" display: none;" th:text="${cake.get('cake').cakeId}" id="cid"></th>
                                 </tr>
                                 </tbody>
 

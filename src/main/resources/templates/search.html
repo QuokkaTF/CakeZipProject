@@ -24,16 +24,15 @@
         <div class="col-12">
             <header class="row">
                 <!-- Top Nav -->
-
                 <div class="col-12 bg-purple py-2 d-md-block d-none">
                     <div class="row">
                         <div class="col-auto me-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                    <a href="#"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
                                 </li>
                                 <li>
-                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                    <a href="#"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
                                 </li>
                             </ul>
                         </div>
@@ -43,10 +42,10 @@
                                     <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
                                 </li>
                                 <li>
-                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                    <a href="/users/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                    <a href="/users/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
                                 </li>
                             </ul>
                         </div>
@@ -66,7 +65,7 @@
                             <form method="get" th:action="@{'/search'}">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="search" name="keyword" class="form-control border-dark"
+                                        <input type="search" name="keyword" th:value="${keyword}" class="form-control border-dark"
                                                placeholder="케이크 가게 이름을 검색해보세요"
                                                required>
                                         <button type="submit" class="btn btn-outline-dark">
@@ -129,16 +128,16 @@
                         <div class="row py-1">
                             <div class="col-12">
                                 <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                    <a class="card-body" th:href="@{/shops/{id}(id = ${shop.shopId})}">
+                                    <a class="card-body" th:href="@{/shops/{id}(id = ${shop.shopID})}">
                                         <div class="card-title text-purple"><span class="product-name" th:text="${shop.shopName}">케이크 가게1</span></div>
-                                        <div><span class="product-description" th:text="${shop.shopShortDescriptor}"></span></div>
+                                        <div><span class="product-description" th:text="${shop.shopShortDescription}"></span></div>
                                         <div><span class="product-area" th:text="${shop.shopArea}"></span></div>
-<!--                                        <div>-->
-<!--                                            <th:block th:each="img : ${shop.getShopImgList()}">-->
-<!--                                                <img th:src="${img.toString()}" class="img-fluid"-->
-<!--                                                     style="height: 300px; width: 300px;">-->
-<!--                                            </th:block>-->
-<!--                                        </div>-->
+                                        <div>
+                                            <th:block th:each="img : ${shop.getShopImgList()}">
+                                                <img th:src="${img.toString()}" class="img-fluid"
+                                                     style="height: 300px; width: 300px;">
+                                            </th:block>
+                                        </div>
                                     </a>
                                 </div>
                             </div>
@@ -164,24 +163,23 @@
                                 </div>
                                 <div class="col-12">
                                     <address>
-                                        Quokka TF<br>
+                                        Quokka TF<br/>
                                         Seoul, Korea
                                     </address>
                                 </div>
                                 <div class="col-12">
                                     <ul class="footer-nav">
                                         <li>
-                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                            kayeong-kim@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                hwijeong-lee@nhn-commerce.com</a>
+                                            hwijeong-lee@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                            hyerim-hwang@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                            gyoungmin-yoo@nhn-commerce.com
                                         </li>
                                     </ul>
                                 </div>

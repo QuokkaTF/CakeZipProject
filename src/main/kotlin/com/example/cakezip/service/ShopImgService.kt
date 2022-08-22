@@ -8,4 +8,4 @@ interface ShopImgService {
     fun findByImgId(imageId:Long) : ShopImg
     fun getThumbnail(shop:Shop):ShopImg
     fun deleteImage(imageId: Long) : Long
-}  
+}

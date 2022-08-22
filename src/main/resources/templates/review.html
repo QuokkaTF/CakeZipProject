@@ -3,6 +3,17 @@
 
 <head>
 
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+		</script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+		</script>
+    </th:block>
+
     <script>
         function getScore(event) {
           document.getElementById('result').value =
@@ -11,6 +22,8 @@
 
 
     </script>
+
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -138,7 +151,7 @@
             <main class="row">
                 <div class="col-12 bg-white mb-3">
 
-                    <div class="col-8 mx-auto" th:each="dto : ${cake}" style="padding: 30px 0px 30px 0px;">
+                    <div class="col-8 mx-auto" style="padding: 30px 0px 30px 0px;">
                         <table class="table table-sm">
                             <thead>
                             <tr>
@@ -154,57 +167,57 @@
 
                             <tr>
                                 <td rowspan="8">
-                                    <img src="/images/cakeimg.png" class="img-fluid">
-                                    <p th:text="${dto.get('shop')}"></p>
+                                    <img th:src="${cake.get('img')}">
+                                    <p th:text="${cake.get('cake').shop.shopName}"></p>
                                 </td>
-                                <td rowspan="8" th:text="${dto.get('pickupdate')}"></td>
+                                <td rowspan="8" th:text="${cake.get('cake').pickupDate}"></td>
                                 <td>케이크디자인</td>
-                                <td th:text="${dto.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
-                                <td style="text-align: right" th:text="${dto.get('DESIGNprice')}">21,500
+                                <td th:text="${cake.get('DESIGN')}">1번 핑크토끼케이크 [BEST]</td>
+                                <td style="text-align: right" th:text="${cake.get('DESIGNprice')}">21,500
                                 </td>
                             </tr>
                             <tr>
                                 <td>케이크 호수</td>
-                                <td th:text="${dto.get('SIZE')}">1호</td>
-                                <td style="text-align: right" th:text="${dto.get('SIZEprice')}">21,500</td>
+                                <td th:text="${cake.get('SIZE')}">1호</td>
+                                <td style="text-align: right" th:text="${cake.get('SIZEprice')}">21,500</td>
                             </tr>
                             <tr>
                                 <td>시트맛</td>
-                                <td th:text="${dto.get('SFLAVOR')}">오레오</td>
-                                <td style="text-align: right" th:text="${dto.get('SFLAVORprice')}">21,500
+                                <td th:text="${cake.get('SFLAVOR')}">오레오</td>
+                                <td style="text-align: right" th:text="${cake.get('SFLAVORprice')}">21,500
                                 </td>
                             </tr>
                             <tr>
                                 <td>크림맛</td>
-                                <td th:text="${dto.get('CFLAVOR')}">생크림</td>
-                                <td style="text-align: right" th:text="${dto.get('CFLAVORprice')}">21,500
+                                <td th:text="${cake.get('CFLAVOR')}">생크림</td>
+                                <td style="text-align: right" th:text="${cake.get('CFLAVORprice')}">21,500
                                 </td>
                             </tr>
                             <tr>
                                 <td>케이크 바탕색</td>
-                                <td th:text="${dto.get('CCOLOR')}">흰색</td>
-                                <td style="text-align: right" th:text="${dto.get('CCOLORprice')}">21,500
+                                <td th:text="${cake.get('CCOLOR')}">흰색</td>
+                                <td style="text-align: right" th:text="${cake.get('CCOLORprice')}">21,500
                                 </td>
                             </tr>
                             <tr>
                                 <td>레터링 색</td>
-                                <td th:text="${dto.get('LCOLOR')}">주황색</td>
-                                <td style="text-align: right" th:text="${dto.get('LCOLORprice')}">21,500
+                                <td th:text="${cake.get('LCOLOR')}">주황색</td>
+                                <td style="text-align: right" th:text="${cake.get('LCOLORprice')}">21,500
                                 </td>
                             </tr>
                             <tr>
                                 <td>레터링 문구</td>
-                                <td th:text="${dto.get('letterText')}">HBD</td>
+                                <td th:text="${cake.get('cake').letterText}">HBD</td>
                                 <td style="text-align: right"></td>
                             </tr>
                             <tr>
                                 <td>기타 요청사항</td>
-                                <td th:text="${dto.get('etc')}">둘러싼 크림을 파란색으로 해주세요!</td>
+                                <td th:text="${cake.get('cake').etc}">둘러싼 크림을 파란색으로 해주세요!</td>
                                 <td style="text-align: right"></td>
                             </tr>
                             <tr>
                                 <th colspan="4" class="text-right">Total</th>
-                                <th style="text-align: right" th:text="${dto.get('price')}">4,000</th>
+                                <th style="text-align: right" th:text="${cake.get('cake').totalPrice}">4,000</th>
                             </tr>
                             </tbody>
 
@@ -216,27 +229,20 @@
 
                             <h5 class="text-purple">케이크에 만족하셨나요?</h5>
 
-                            <div class="star-rating space-x-4">
-                                <input type="radio" id="5-stars" name="rating"
-                                       value="5" v-model="ratings" onclick='getScore(event)'/>
-                                <label for="5-stars" class="star pr-4">★</label>
-
-                                <input type="radio" id="4-stars" name="rating"
-                                       value="4" v-model="ratings" onclick='getScore(event)'/>
-                                <label for="4-stars" class="star">★</label>
-
-                                <input type="radio" id="3-stars" name="rating"
-                                       value="3" v-model="ratings" onclick='getScore(event)'/>
-                                <label for="3-stars" class="star">★</label>
-
-                                <input type="radio" id="2-stars" name="rating"
-                                       value="2" v-model="ratings" onclick='getScore(event)'/>
-                                <label for="2-stars" class="star">★</label>
-
-                                <input type="radio" id="1-star" name="rating"
-                                       value="1" v-model="ratings" onclick='getScore(event)'/>
-                                <label for="1-star" class="star">★</label>
-                            </div>
+                            <form name="myform" id="myform">
+                                <fieldset>
+                                    <input type="radio" name="rating" value="5" id="rate1"
+                                           onclick='getScore(event)'><label for="rate1">⭐</label>
+                                    <input type="radio" name="rating" value="4" id="rate2"
+                                           onclick='getScore(event)'><label for="rate2">⭐</label>
+                                    <input type="radio" name="rating" value="3" id="rate3"
+                                           onclick='getScore(event)'><label for="rate3">⭐</label>
+                                    <input type="radio" name="rating" value="2" id="rate4"
+                                           onclick='getScore(event)'><label for="rate4">⭐</label>
+                                    <input type="radio" name="rating" value="1" id="rate5"
+                                           onclick='getScore(event)'><label for="rate5">⭐</label>
+                                </fieldset>
+                            </form>
 
                         </div>
                     </div>

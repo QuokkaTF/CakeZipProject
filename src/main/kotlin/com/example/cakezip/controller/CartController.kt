@@ -1,19 +1,17 @@
 package com.example.cakezip.controller
 
-import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.domain.member.Seller
+import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.dto.Message
 import com.example.cakezip.dto.UserPaymentDto
-
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+import javax.servlet.http.HttpSession
 
 @Controller
 class CartController(
@@ -22,153 +20,136 @@ class CartController(
     private val cakeTaskService: CakeTaskService,
     private val cakeOptionListService: CakeOptionListService,
     private val orderService: OrderService,
+    private val shopService: ShopService,
 ) {
-
-
-    //TODO : 경민한테 받으면 수정
-    var customer: Customer = customerService.findByCustomerId(2)
+    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/users/cart")
-    fun getCartList(model: Model): String {
-
-        var cake: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
-        for (c in cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART)) {
-            var totalPrice: Long = 0
-            var cake_hashMap = HashMap<String, Any>()
-            for (ct in cakeTaskService.findByCake(c)) {
-                if (ct.cakeOptionList.cakeOptionListId != null) {
-                    var cakeOptionList: Optional<CakeOptionList> =
-                        cakeOptionListService.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                    cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
-                    cake_hashMap.put(
-                        cakeOptionList.get().optionTitle.toString() + "price",
-                        cakeOptionList.get().optionPrice
-                    )
-
-                    totalPrice += cakeOptionList.get().optionPrice
-                }
-            }
-            c.cakeId?.let { cake_hashMap.put("id", it) }
-            cake_hashMap.put("price", totalPrice)
-            cake_hashMap.put("shop", c.shop.shopName)
-            cake_hashMap.put("pickupdate", c.pickupDate)
-            cake_hashMap.put("letterText", c.letterText)
-            cake_hashMap.put("etc", c.etc)
-            cake.add(cake_hashMap)
+    fun getCartList(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            val customer: Customer = session.getAttribute("customer") as Customer
+            var cake =
+                cakeService.getCakeOptionListAll(cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART))
+            model.addAttribute("cake", cake)
+            model.addAttribute("data", Message("", ""))
+        } else {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
         }
-        println(cake)
-        model.addAttribute("cake", cake)
-
-        // 결제 userDTO
-        val userinfo: UserPaymentDto = UserPaymentDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
-        model.addAttribute("userinfo", userinfo)
-        model.addAttribute("username", customer.user.userName)
-        model.addAttribute("userid", customer.user.userId)
-        model.addAttribute("useremail", customer.user.userEmail)
-
         return "cart"
     }
 
     @DeleteMapping("/users/cart/{cakeId}")
-    fun deleteCake(@PathVariable cakeId: Long): String {
-        // cake task
-        cakeTaskService.deleteAllByCake_cakeId(cakeId)
-        // cake
-        cakeService.deleteAllByCakeId(cakeId)
+    fun deleteCake(@PathVariable cakeId: Long, session: HttpSession, model: Model): String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            val customer: Customer = session.getAttribute("customer") as Customer
+            if (cakeService.findByCakeId(cakeId).customer == customer) {
+                model.addAttribute("data", Message("", ""))
+                cakeTaskService.deleteAllByCake_cakeId(cakeId)
+                cakeService.deleteAllByCakeId(cakeId)
+            } else {
+                model.addAttribute("data", noAccessMessage)
+            }
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
         return "redirect:/users/cart"
     }
 
     @DeleteMapping("/users/cart")
-    fun deleteAllCake(): String {
-        // cake task
-        for (c in cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART)) {
-            cakeTaskService.deleteAllByCake(c)
+    fun deleteAllCake(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            val customer: Customer = session.getAttribute("customer") as Customer
+            for (c in cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART)) {
+                cakeTaskService.deleteAllByCake(c)
+            }
+            cakeService.deleteAllByCustomerAndCakeStatus(customer, CakeStatusType.CART)
+            model.addAttribute("data", Message("", ""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
         }
-        // cake
-        cakeService.deleteAllByCustomerAndCakeStatus(customer, CakeStatusType.CART)
         return "redirect:/users/cart"
     }
 
     @GetMapping("/users/cart/{cakeId}")
-    fun getCartPaymentList(model: Model, @PathVariable cakeId: Long): String {
-
-        var cake: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
-        val c = cakeService.findByCakeId(cakeId)
-        var totalPrice: Long = 0
-        var cake_hashMap = HashMap<String, Any>()
-        for (ct in cakeTaskService.findByCake(c)) {
-            if (ct.cakeOptionList.cakeOptionListId != null) {
-                var cakeOptionList: Optional<CakeOptionList> =
-                    cakeOptionListService.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
-                cake_hashMap.put(
-                    cakeOptionList.get().optionTitle.toString() + "price",
-                    cakeOptionList.get().optionPrice
-                )
-
-                totalPrice += cakeOptionList.get().optionPrice
+    fun getCartPaymentList(model: Model, @PathVariable cakeId: Long, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            val customer: Customer = session.getAttribute("customer") as Customer
+            if (cakeService.findByCakeId(cakeId).customer.customerId == customer.customerId) {
+                model.addAttribute("data", Message("", ""))
+                model.addAttribute("cake", cakeService.getCakeOptionList(cakeService.findByCakeId(cakeId)))
+                println(cakeService.findByCakeId(cakeId))
+                val userinfo: UserPaymentDto =
+                    UserPaymentDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
+                model.addAttribute("userinfo", userinfo)
+            } else {
+                model.addAttribute("data", noAccessMessage)
             }
+        } else {
+            model.addAttribute("data", noAccessMessage)
         }
-        c.cakeId?.let { cake_hashMap.put("id", it) }
-        cake_hashMap.put("price", totalPrice)
-        cake_hashMap.put("shop", c.shop.shopName)
-        cake_hashMap.put("pickupdate", c.pickupDate)
-        cake_hashMap.put("letterText", c.letterText)
-        cake_hashMap.put("etc", c.etc)
-        cake.add(cake_hashMap)
-
-        println(cake)
-        model.addAttribute("cake", cake)
-
-        // 결제 userDTO
-        val userinfo: UserPaymentDto = UserPaymentDto(customer.user.userName, customer.user.userEmail, customer.user.phoneNum)
-        model.addAttribute("userinfo", userinfo)
-        model.addAttribute("username", customer.user.userName)
-        model.addAttribute("userid", customer.user.userId)
-        model.addAttribute("useremail", customer.user.userEmail)
-
         return "payment"
-
     }
 
     @PostMapping("/users/cart/{cakeId}")
-    fun paymentCake(@PathVariable cakeId: Long, imp_uid: String, cake_id: Long, price: Long): String {
-        val orderCake = cakeService.findByCakeId(cake_id)
-        orderService.addOrder(imp_uid, price, customer, orderCake)
-        cakeService.updateCakeStatus(cakeId, CakeStatusType.PAYMENT)
+    fun paymentCake(
+        @PathVariable cakeId: Long, imp_uid: String, cake_id: Long,
+        price: Long, session: HttpSession, model: Model
+    ): String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            val customer: Customer = session.getAttribute("customer") as Customer
+            if (cakeService.findByCakeId(cakeId).customer.customerId == customer.customerId) {
+                model.addAttribute("data", Message("", ""))
+                val orderCake = cakeService.findByCakeId(cake_id)
+                orderService.addOrder(imp_uid, price, customer, orderCake)
+                cakeService.updateCakeStatus(cakeId, CakeStatusType.PAYMENT)
+            } else {
+                model.addAttribute("data", noAccessMessage)
+            }
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
         return "redirect:/users/cart"
-    }
-
-    //product temp
-    @GetMapping("/product")
-    fun getProduct(model: Model): String {
-        return "product"
     }
 
     @PostMapping("/users/cart")
-    fun addCart(designCheck:String, sizeCheck:String, sheetCheck:String,
-                creamCheck:String, creamcolorCheck:String, letterCheck:String,
-                shop: Shop
+    fun addCart(
+        designCheck: Long,
+        sizeCheck: Long,
+        sheetCheck: Long,
+        creamCheck: Long,
+        creamcolorCheck: Long,
+        letterCheck: Long,
+        shopId: Long,
+        letterText: String,
+        etc: String,
+        date: String,
+        time: String,
+        session: HttpSession,
+        model: Model
     ): String {
-        cakeService.addCartCake("temp", "temp", "temp",
-        0, CakeStatusType.CARTTEMP, shop, customer)
-
-        val cake = cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CARTTEMP)
-
-        val optionToAdd : ArrayList<CakeOptionList> = ArrayList<CakeOptionList>()
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("DESIGN",designCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("SIZE",sizeCheck))
-        optionToAdd.add( cakeOptionListService.findByOptionTitleAndOptionDetail("SFLAVOR",sheetCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("CFLAVOR",creamCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("CCOLOR",creamcolorCheck))
-        optionToAdd.add(cakeOptionListService.findByOptionTitleAndOptionDetail("LCOLOR",letterCheck))
-
-        for(option in optionToAdd){
-            cakeTaskService.addCartCakeTask(cake[0],option)
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.CUSTOMER) {
+            val customer: Customer = session.getAttribute("customer") as Customer
+            model.addAttribute("data", Message("", ""))
+            cakeService.addCartCake(
+                date + " " + time, letterText, etc,
+                0, CakeStatusType.CARTTEMP, shopService.getByShopId(shopId), customer
+            )
+            val cake = cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CARTTEMP)[0]
+            val check: LongArray = longArrayOf(designCheck, sizeCheck, sheetCheck, creamCheck, creamcolorCheck, letterCheck)
+            for (c in check) {
+                cakeTaskService.addCartCakeTask(cake, cakeOptionListService.findByCakeOptionListId(c).get())
+            }
+            cakeService.sumPrice(cake)
+            cakeService.updateCakeStatus(cake.cakeId!!, CakeStatusType.CART)
+        } else {
+            model.addAttribute("data", noAccessMessage)
         }
-
-        cakeService.updateCakeStatus(cake[0].cakeId!!, CakeStatusType.CART)
         return "redirect:/users/cart"
     }
-
 }

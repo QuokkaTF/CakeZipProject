@@ -72,6 +72,7 @@ class OptionController (
         return "redirect:/sellers/myshop/options/$type/${editOption.shopId.shopId}"
     }
 
+
     @DeleteMapping("/sellers/myshop/options/{optionId}")
     fun deleteOption(@PathVariable("optionId") optionId:Long) :String{
         var deleteOption = optionDetailService.deleteCakeOption(optionId)

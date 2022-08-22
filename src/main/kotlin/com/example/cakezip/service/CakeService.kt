@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import kotlin.collections.HashMap
 
+
 @Service
 class CakeService(
     private val cakeRepository: CakeRepository,
@@ -45,7 +46,8 @@ class CakeService(
     fun findByCustomerAndCakeStatusNot(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
 
-    fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
+
+    fun getSellerCakeList(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)
 
     @Transactional
@@ -82,4 +84,46 @@ class CakeService(
         )
         return cakeRepository.save(cake)
     }
+    
+    fun sumPrice(cake:Cake):Int{
+        var totalPrice : Int=0
+        for (ct in cakeTaskRepository.findByCake(cake)) {
+            if (ct.cakeOptionList.cakeOptionListId != null) {
+                var cakeOptionList: Optional<CakeOptionList> =
+                    cakeOptionListRepository.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
+                totalPrice += cakeOptionList.get().optionPrice
+            }
+        }
+        cake.totalPrice = totalPrice
+        cakeRepository.save(cake)
+        return totalPrice
+    }
+
+    fun getCakeOptionList(cake:Cake):HashMap<String, Any>{
+        var cake_hashMap = HashMap<String, Any>()
+        for (ct in cakeTaskRepository.findByCake(cake)) {
+            if (ct.cakeOptionList.cakeOptionListId != null) {
+                var cakeOptionList: Optional<CakeOptionList> =
+                    cakeOptionListRepository.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
+                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
+                cake_hashMap.put(
+                    cakeOptionList.get().optionTitle.toString() + "price",
+                    cakeOptionList.get().optionPrice
+                )
+            }
+        }
+        cake_hashMap.put("cake",cake)
+        cake_hashMap.put("img", shopImgService.getThumbnail(cake.shop).shopImgUrl)
+        return cake_hashMap
+    }
+
+    fun getCakeOptionListAll(cakes: List<Cake>):ArrayList<HashMap<String, Any>>{
+        var cake_arrayList: ArrayList<HashMap<String, Any>> = ArrayList<HashMap<String, Any>>()
+        for (c in cakes){
+            cake_arrayList.add(getCakeOptionList(c))
+        }
+        return cake_arrayList
+    }
+    fun countByCustomer(customer:Customer):Int = cakeRepository.countByCustomer(customer)
+
 }

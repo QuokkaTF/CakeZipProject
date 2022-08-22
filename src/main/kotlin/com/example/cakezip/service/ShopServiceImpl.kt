@@ -46,7 +46,7 @@ class ShopServiceImpl(
             }
             var info: List<String> = design.split(" ");
             var detail: String = info.get(0)
-            var price: Long = info.get(1).replace("원", "").toLong()
+            var price: Int = info.get(1).replace("원", "").toInt()
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.DESIGN, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
@@ -58,7 +58,7 @@ class ShopServiceImpl(
             }
             var info: List<String> = size.split(" ");
             var detail: String = info.get(0)
-            var price: Long = info.get(1).replace("원", "").toLong()
+            var price: Int = info.get(1).replace("원", "").toInt()
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.SIZE, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
@@ -70,7 +70,7 @@ class ShopServiceImpl(
             }
             var info: List<String> = sheet.split(" ");
             var detail: String = info.get(0)
-            var price: Long = info.get(1).replace("원", "").toLong()
+            var price: Int = info.get(1).replace("원", "").toInt()
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.SFLAVOR, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
@@ -82,7 +82,7 @@ class ShopServiceImpl(
             }
             var info: List<String> = cream.split(" ");
             var detail: String = info.get(0)
-            var price: Long = info.get(1).replace("원", "").toLong()
+            var price: Int = info.get(1).replace("원", "").toInt()
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.CFLAVOR, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
@@ -94,7 +94,7 @@ class ShopServiceImpl(
             }
             var info: List<String> = creamColor.split(" ");
             var detail: String = info.get(0)
-            var price: Long = info.get(1).replace("원", "").toLong()
+            var price: Int = info.get(1).replace("원", "").toInt()
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.CCOLOR, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
@@ -106,7 +106,7 @@ class ShopServiceImpl(
             }
             var info: List<String> = letter.split(" ");
             var detail: String = info.get(0)
-            var price: Long = info.get(1).replace("원", "").toLong()
+            var price: Int = info.get(1).replace("원", "").toInt()
             val cakeOptionList: CakeOptionList = CakeOptionList(newShop, OptionTitleType.LCOLOR, detail, price);
             cakeOptionListRepository.save(cakeOptionList)
         }
@@ -191,8 +191,12 @@ class ShopServiceImpl(
         println(shop)
     }
 
-    override fun searchShop(keyword:String):List<Shop> {
+    override fun searchShop(keyword:String):ArrayList<ShopDetailInfoDto> {
         var shopList = shopRepository.findByShopNameContaining(keyword)
-        return shopList
+        var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
+        for (sl in shopList){
+            shopDetailList.add(getShopDetail(sl.shopId!!))
+        }
+        return shopDetailList
     }
 }
