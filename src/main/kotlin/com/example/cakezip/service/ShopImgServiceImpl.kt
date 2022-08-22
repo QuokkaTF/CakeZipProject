@@ -11,7 +11,13 @@ class ShopImgServiceImpl(private val shopImgRepository: ShopImgRepository) : Sho
         return shopImgRepository.findByShop(shop)
     }
 
-    override fun findByImgId(imageId: Long): ShopImg {
-        return shopImgRepository.findByShopImgId(imageId)
+    override fun deleteImage(imageId: Long): Long {
+        val shopImg:ShopImg = shopImgRepository.findByShopImgId(imageId)
+        val shopId = shopImg.shop.shopId;
+        shopImgRepository.deleteByShopImgId(imageId)
+        if (shopId == null) {
+            throw Exception("잘못된 요청입니다.")
+        }
+        return shopId
     }
 }

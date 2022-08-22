@@ -120,7 +120,7 @@
             <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
         </div>
 
-        <input type="text" id="shopId" th:value="${shop.getShopId()}">
+        <input type="text" id="shopId" style="display: none" th:value="${shop.getShopId()}">
         <div class="col-12">
             <table>
                 <tr>
@@ -131,9 +131,9 @@
                     <tr th:each="image : ${shopImg}">
                         <td><img th:src="${image.getShopImgUrl()}"></td>
                         <td>
-                            <form method="post" th:action="@{/shops/image/{imageId} (imageId=${image.getShopImgId()})}">
+                            <form method="post" th:action="@{/sellers/myshop/image/{imageId} (imageId=${image.getShopImgId()})}">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="submit" value="삭제dd">
+                                <input type="submit" value="사진 삭제">
                             </form>
                         </td>
                     </tr>
@@ -190,37 +190,30 @@
 <script>
 
     function uploadStoreDetailImg(data) {
-        //imgList = document.getElementById('storeDetailImg')
         uploadImg(data)
     }
 
     function uploadImg(objectFile) {
         let shopId = document.getElementById("shopId").value
         let pictureList = document.getElementById("pictureListId")
-        console.log(pictureList)
-        console.log(pictureList.children.length)
 
         var files = objectFile.files
         var filesArr =Array.prototype.slice.call(files);
 
         // 업로드 된 파일 유효성 체크
-        if (pictureList.children.length > 4) {
+        if (pictureList.children.length >= 4) {
             alert("총 업로드 가능한 사진 수는 4장입니다.");
             return;
         }
 
         var formData = new FormData()
         for (let i = 0; i < filesArr.length; i++) {
-            formData.append("images", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
+            formData.append("image", filesArr[i]);  // 배열에서 이미지들을 꺼내 폼 객체에 담는다.
         }
         formData.append("shopId",shopId)
 
-        console.log(shopId)
-        console.log(shopId)
-        console.log(formData.get("shopId"))
-
         $.ajax({
-            url : "/new/image",
+            url : "/sellers/myshop/image/new",
             type : "POST",
             enctype:"multipart/form-data",
             processData: false,
@@ -228,8 +221,8 @@
             data : formData,
             async : false,
             success: function(result) {
-                alert(result)
                 alert("사진 업로드 성공")
+                window.location.href = "/sellers/myshop/image/"+shopId
                 return;
             },
             err: function () {
