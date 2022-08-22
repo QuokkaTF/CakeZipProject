@@ -11,7 +11,7 @@ class Seller(
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    val user:User,
+    var user:User,
 
 //    @OneToOne
 //    @JoinColumn(name="shop_id")
@@ -23,5 +23,9 @@ class Seller(
 
     fun toSellerDto(): SellerDto {
         return SellerDto(user.userEmail,user.password,user.phoneNum,user.userName)
+    }
+
+    fun setSellerByUser(user: User) {
+        this.user = user
     }
 }

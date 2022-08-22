@@ -10,7 +10,7 @@ class Customer(
     val user:User,
 
     @Enumerated(value = EnumType.STRING)
-    val gender: Gender,
+    var gender: Gender,
 
     var areas : String,
 ) : BaseEntity(){
@@ -19,4 +19,9 @@ class Customer(
     val customerId: Long=0
 
     fun toCustomerEditDto() = CustomerEditDto(user.userEmail,user.password,user.phoneNum,user.userName,gender,areas)
+
+    fun setByCustomerEditDto(customerEditDto: CustomerEditDto) {
+        gender = customerEditDto.gender
+        areas = customerEditDto.areas
+    }
 }
