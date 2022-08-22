@@ -29,7 +29,7 @@ class ShopController (
     @RequestMapping(value = arrayOf("/shops/new"), method = arrayOf(RequestMethod.POST))
     fun postShop(newShopReqDto: NewShopReqDto) : String{
         shopService.addNewShop(newShopReqDto)
-        return "redirect:/shops/new" // FIXME : 경로 결정되면 체크하기
+        return "redirect:/shops/new"
     }
 
     @ResponseBody
