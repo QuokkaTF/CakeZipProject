@@ -21,4 +21,6 @@ interface CakeRepository : JpaRepository<Cake, Long> {
     fun deleteAllByCustomerAndCakeStatus(customer:Customer, cakeStatus:CakeStatusType)
 
     fun findByCakeId(id:Long):Cake
+
+    fun countByCustomer(customer:Customer):Int
 }

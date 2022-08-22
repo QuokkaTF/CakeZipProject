@@ -108,4 +108,5 @@ class CakeService(
         }
         return cake_arrayList
     }
+    fun countByCustomer(customer:Customer):Int = cakeRepository.countByCustomer(customer)
 }
