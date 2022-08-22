@@ -20,6 +20,7 @@ class UserService(
     private val jwtUtils : JwtUtils
 ) {
     fun findCustomerByUser(user: User) = customerRepository.findCustomerByUser(user)
+
     fun findSellerByUser(user: User) = sellerRepository.findSellerByUser(user)
 
     fun findUserEmail(userName: String, userPhoneNum: String) : String? {
@@ -33,6 +34,18 @@ class UserService(
     fun setUserPassword(user: User, userPassword: String) {
         user.password = passwordEncoder.encode(userPassword)
         userRepository.save(user)
+    }
+
+    fun editSeller(sessionUser: User, sellerEditDto: SellerDto) {
+        sessionUser.setBySellerEditDto(sellerEditDto)
+        userRepository.save(sessionUser)
+    }
+
+    fun editCustomer(sessionUser: User, customerEditDto: CustomerEditDto) {
+        sessionUser.setByCustomerEditDto(customerEditDto)
+        val customer: Customer = findCustomerByUser(userRepository.save(sessionUser))
+        customer.setByCustomerEditDto(customerEditDto)
+        customerRepository.save(customer)
     }
 
     fun secessionUser(user: User) {

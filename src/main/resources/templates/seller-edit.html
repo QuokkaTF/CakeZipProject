@@ -50,12 +50,13 @@
             userPassword.focus();
             return false;
         }
+        /*
         var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
         if (!pwdCheck.test(userPassword.value)) {
             alert("비밀번호는 영문자+숫자+특수문자 조합으로 8-25자리 사용해야 합니다.");
             userPassword.focus();
             return false;
-        }
+        }*/
 
         var reg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;;
 
@@ -71,17 +72,7 @@
             return false;
         }
 
-        $.ajax({
-            type: 'PUT',
-            url: '/users/customers',
-            async:false,
-            data: {"userEmail":userEmail.value,"userName":userName.value,"userPassword":userPassword.value,"userPhoneNum":userPhoneNum.value,"userGender":userGender,"userArea":userArea},
-            dataType: 'json',
-            success: function(result) {
-                location.href='/home'
-            }
 
-        });
 
         document.join_form.submit();
     }
@@ -202,7 +193,7 @@
                 <div class="col-12 bg-white py-3 mb-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
-                        <form name="join_form"method="POST" action="/users/customers">
+                        <form name="join_form"method="POST" action="/users/seller/edit">
 
                             <!--                                <input class="form-control" readonly placeholder="ID">-->
                             <!--                                <input class="form-control" readonly placeholder="Password">-->
@@ -224,7 +215,7 @@
 
                             <div class="mb-3">
                                 <label field="username">전화번호</label>
-                                <input id="userPhoneNum" type="phone" name="phoneNum" class="form-control" placeholder="010-1234-1234" th:value="${sellerDto.userPhoneNum}">
+                                <input id="userPhoneNum" type="phone" name="userPhoneNum" class="form-control" placeholder="010-1234-1234" th:value="${sellerDto.userPhoneNum}">
                             </div>
 
 
