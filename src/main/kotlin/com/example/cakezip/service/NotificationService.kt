@@ -16,8 +16,13 @@ class NotificationService(
     private val sellerRepository: SellerRepository,
     private val notificationRepository: NotificationRepository,
 ) {
-
-    fun makeNotification(customerId: Long, sellerId: Long, order: Orders?, notificationMessage: NotificationMessage, notificationType: NotificationType) {
+    fun makeNotification(
+        customerId: Long,
+        sellerId: Long,
+        order: Orders,
+        notificationMessage: NotificationMessage,
+        notificationType: NotificationType
+    ) {
         val customer = customerRepository.findByCustomerId(customerId)
         val seller = sellerRepository.findBySellerId(sellerId)
 
@@ -46,8 +51,14 @@ class NotificationService(
         val noticeList: ArrayList<NotificationDto> = ArrayList()
 
         for (notice in notificationRepository.findByCustomer(customer)) {
-            //val order = orderRepository.findOrdersByCake()
-            noticeList.add(NotificationDto(notice.noticeId, notice.order, notice.notificationMessage.toString(), notice.notificationType.toString()))
+            noticeList.add(
+                NotificationDto(
+                    notice.noticeId,
+                    notice.order,
+                    notice.notificationMessage.toString(),
+                    notice.notificationType.toString()
+                )
+            )
         }
         return noticeList
     }
@@ -56,13 +67,18 @@ class NotificationService(
         val noticeList: ArrayList<NotificationDto> = ArrayList()
 
         for (notice in notificationRepository.findBySeller(seller)) {
-            noticeList.add(NotificationDto(notice.noticeId, notice.order, notice.notificationMessage.toString(), notice.notificationType.toString()))
+            noticeList.add(
+                NotificationDto(
+                    notice.noticeId,
+                    notice.order,
+                    notice.notificationMessage.toString(),
+                    notice.notificationType.toString()
+                )
+            )
         }
-        println("TEST Notification")
-        println(noticeList)
         return noticeList
     }
 
     fun deleteNotification(noticeId: Long) = notificationRepository.deleteByNoticeId(noticeId)
-
 }
+

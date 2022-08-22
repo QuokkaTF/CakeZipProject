@@ -24,16 +24,11 @@
         let likeVal = $('#likeCheck').val();
         const likeImg = $('#likeImg');
 
-        console.log("likeImg : " + likeImg);
-        console.log("likeVal : " + likeVal);
-
         if (likeVal === 'true') {
             // 데이터 존재하면 채운 하트
-            console.log("채운 하트 출력");
             $('#likeImg').attr("src", "/images/heart-fill.svg");
         } else if(likeVal === 'false') {
             // 데이터 없으면 빈 하트
-            console.log("빈 하트 출력");
             $('#likeImg').attr("src", "/images/heart.svg");
         }
 
@@ -47,7 +42,6 @@
             if (likeVal === 'true') {
                 const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
                 if (con_check) {
-<!--                    console.log("좋아요 취소 진입");-->
                     $.ajax({
                         type: 'POST',
                         url: '/like/' + shopId,
@@ -62,17 +56,15 @@
             } else if(likeVal === 'false'){
                 const con_check = confirm("가게 좋아요를 하시겠습니까?");
                 if (con_check) {
-<!--                    console.log("좋아요 진입");-->
                     $.ajax({
                         type: 'POST',
                         url: '/like/' + shopId,
                         contentType: 'application/json; charset=utf-8'
                     }).done(function () {
-                        <!--                        alert("새로고침")-->
                         $('#likeImg').attr("src", "/images/heart-fill.svg");
                         location.reload();
                     }).fail(function (error) {
-                         alert(JSON.stringify(error));
+                         alert("잘못된 접근입니다.");
                     })
                 }
             }

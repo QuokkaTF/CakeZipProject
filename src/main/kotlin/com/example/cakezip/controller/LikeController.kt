@@ -14,18 +14,20 @@ import javax.servlet.http.HttpSession
 class LikeController(
     private val likeListService: LikeListService,
     private val shopRepository: ShopRepository,
-    ) {
+) {
     @PostMapping("/like/{shopId}")
     @ResponseBody
     fun shopLike(model: Model, @PathVariable("shopId") shopId: Long, session: HttpSession): Boolean {
         val shop = shopRepository.findByShopId(shopId)
 
         val user: User = session.getAttribute("user") as User
-        var customer : Customer? = null
+        var customer: Customer? = null
 
-        if(user.userType == UserType.CUSTOMER) {
+        if (user.userType == UserType.CUSTOMER) {
             customer = session.getAttribute("customer") as Customer
             return likeListService.addLike(customer, shop)
+        } else {
+            throw Exception("잘못된 요청입니다.")
         }
         return false
     }
@@ -33,16 +35,19 @@ class LikeController(
     @GetMapping("/likedshop")
     fun likedShopList(model: Model, session: HttpSession): String {
         val user: User = session.getAttribute("user") as User
-        var customer : Customer? = null
+        var customer: Customer? = null
 
-        if(user.userType == UserType.CUSTOMER) {
+        if (user.userType == UserType.CUSTOMER) {
             customer = session.getAttribute("customer") as Customer
             model.addAttribute("shops", likeListService.getLikedShopList(customer))
+        } else {
+            throw Exception("잘못된 요청입니다.")
         }
 
         return "likedshop"
     }
 
 }
+
 
 

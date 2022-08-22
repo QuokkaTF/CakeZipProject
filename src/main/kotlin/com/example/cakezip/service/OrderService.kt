@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service
 
 @Service
 interface OrderService {
-    fun getCustomerAllOrders(customer: Customer) : List<OrderDto>?
+    fun getCustomerAllOrders(customer: Customer): List<OrderDto>?
 
-    fun getCustomerOrders(cakeId: Long) : OrderDto
+    fun getCustomerOrders(cakeId: Long): OrderDto
 
-    fun changeCakeStateCancel(id: Long)
+    fun changeCakeStateCancel(id: Long): Int
 
-    fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders
+    fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer, cake: Cake): Orders
 }
 

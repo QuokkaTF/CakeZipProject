@@ -13,9 +13,8 @@ class LikeListService(
     private val likeListRepository: LikeListRepository,
     private val shopImgRepository: ShopImgRepository,
 ) {
-
     fun isLike(customer: Customer, shop: Shop): Boolean {
-        return likeListRepository.findByCustomerAndShop(customer, shop) != null // 있으면 True 없으면 False
+        return likeListRepository.findByCustomerAndShop(customer, shop) != null
     }
 
     fun addLike(customer: Customer, shop: Shop): Boolean {
@@ -59,6 +58,3 @@ class LikeListService(
         return shopSimpleInfoList
     }
 }
-
-
-

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 class OrderServiceImpl(
     private val orderRepository: OrderRepository,
     private val cakeRepository: CakeRepository,
-    private val noticeService: NotificationService,
+    private val notificationService: NotificationService,
 ) : OrderService {
     override fun getCustomerAllOrders(customer: Customer): List<OrderDto>? {
         val cakeList: ArrayList<OrderDto> = ArrayList()
@@ -33,39 +33,43 @@ class OrderServiceImpl(
         return OrderDto(order?.orderId, cake.customer.user.userName, cake.shop.shopName, cake)
     }
 
-
-    override fun changeCakeStateCancel(CakeId: Long) {
+    override fun changeCakeStateCancel(CakeId: Long): Int {
         val cake = cakeRepository.findByCakeId(CakeId)
         val order = orderRepository.findOrdersByCake(cake)
 
-        if (cake.cakeStatus.equals(CakeStatusType.CANCEL)) {
-            //TODO: 이미 주문 취소일 경우 예외 처리
-            //TODO: 상태가 준비중 전일 때만 주문 취소 가능하게 처리
-
-            println("이미 CANCEL")
-        } else {
-            println("CANCEL 완")
-            cake.cakeStatus = CakeStatusType.CANCEL
-            cakeRepository.save(cake)
-            noticeService.makeNotification(
-                cake.customer.customerId, cake.shop.seller!!.sellerId!!, order,
-                NotificationMessage.ORDER_CANCEL, NotificationType.TOSELLER
-            )
-            println("알림 생성")
-
+        when (cake.cakeStatus) {
+            CakeStatusType.CANCEL -> {
+//                throw Exception("이미 취소된 주문입니다.")
+                return -1
+            }
+            CakeStatusType.REJECT -> {
+                return -2
+//                throw Exception("이미 거절된 주문입니다.")
+            }
+            CakeStatusType.PAYMENT -> {
+                cake.cakeStatus = CakeStatusType.CANCEL
+                cakeRepository.save(cake)
+                notificationService.makeNotification(
+                    cake.customer.customerId, cake.shop.seller!!.sellerId!!, order!!,
+                    NotificationMessage.ORDER_CANCEL, NotificationType.TOSELLER
+                )
+                return 0
+            }
+            else -> {
+//                throw Exception("이미 진행중인 주문은 취소할 수 없습니다.")
+                return -3
+            }
         }
     }
 
-    override fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer,cake: Cake): Orders {
+    override fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer, cake: Cake): Orders {
         val order = Orders(
             merchantUid = merchantUid,
             merchantPrice = merchantPrice,
             customer = customer,
-            cake =cake,
+            cake = cake,
         )
         Orders()
         return orderRepository.save(order)
     }
-
 }
-
