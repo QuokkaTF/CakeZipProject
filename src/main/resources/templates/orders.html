@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(function () {
+        let error = $('#error').val();
+        if (error === '-1') {
+            alert("잘못된 접근입니다.");
+        }
+      });
+    </script>
 </head>
 <body>
 <div class="container-fluid nanum">
