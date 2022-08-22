@@ -18,10 +18,15 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
-    <script th:inline="javascript">
 
-
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(function () {
+        let error = $('#error').val();
+        if (error === '-1') {
+            alert("잘못된 접근입니다.");
+        }
+      });
     </script>
 
 </head>

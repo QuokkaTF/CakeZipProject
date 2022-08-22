@@ -39,12 +39,10 @@ class OrderServiceImpl(
 
         when (cake.cakeStatus) {
             CakeStatusType.CANCEL -> {
-//                throw Exception("이미 취소된 주문입니다.")
                 return -1
             }
             CakeStatusType.REJECT -> {
                 return -2
-//                throw Exception("이미 거절된 주문입니다.")
             }
             CakeStatusType.PAYMENT -> {
                 cake.cakeStatus = CakeStatusType.CANCEL
@@ -56,7 +54,6 @@ class OrderServiceImpl(
                 return 0
             }
             else -> {
-//                throw Exception("이미 진행중인 주문은 취소할 수 없습니다.")
                 return -3
             }
         }

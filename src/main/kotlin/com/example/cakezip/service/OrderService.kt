@@ -16,4 +16,3 @@ interface OrderService {
 
     fun addOrder(merchantUid: String, merchantPrice: Long, customer: Customer, cake: Cake): Orders
 }
-

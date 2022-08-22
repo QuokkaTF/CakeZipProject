@@ -2,6 +2,7 @@ package com.example.cakezip.service
 
 import com.example.cakezip.domain.Review
 import com.example.cakezip.domain.cake.Cake
+import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.dto.ReviewDto
 import com.example.cakezip.repository.CakeRepository
 import com.example.cakezip.repository.CustomerRepository
@@ -26,8 +27,7 @@ class ReviewService(
         return reviewRepository.save(review)
     }
 
-    fun getCustomerAllReviews(customerId: Long): List<ReviewDto>? {
-        val customer = customerRepository.findByCustomerId(customerId)
+    fun getCustomerAllReviews(customer: Customer): List<ReviewDto>? {
         val reviewList: ArrayList<ReviewDto> = ArrayList()
 
         for (cake in cakeRepository.findByCustomer(customer)) {
