@@ -40,6 +40,19 @@
 
 </style>
 <head>
+
+
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+		</script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+		</script>
+    </th:block>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -61,16 +74,15 @@
         <div class="col-12">
             <header class="row">
                 <!-- Top Nav -->
-
                 <div class="col-12 bg-purple py-2 d-md-block d-none">
                     <div class="row">
                         <div class="col-auto me-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                    <a href="#"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
                                 </li>
                                 <li>
-                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                    <a href="#"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
                                 </li>
                             </ul>
                         </div>
@@ -80,10 +92,10 @@
                                     <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
                                 </li>
                                 <li>
-                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                    <a href="/users/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                    <a href="/users/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
                                 </li>
                             </ul>
                         </div>
@@ -330,24 +342,23 @@
                                 </div>
                                 <div class="col-12">
                                     <address>
-                                        Quokka TF<br>
+                                        Quokka TF<br/>
                                         Seoul, Korea
                                     </address>
                                 </div>
                                 <div class="col-12">
                                     <ul class="footer-nav">
                                         <li>
-                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                            kayeong-kim@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                hwijeong-lee@nhn-commerce.com</a>
+                                            hwijeong-lee@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                            hyerim-hwang@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                            gyoungmin-yoo@nhn-commerce.com
                                         </li>
                                     </ul>
                                 </div>
