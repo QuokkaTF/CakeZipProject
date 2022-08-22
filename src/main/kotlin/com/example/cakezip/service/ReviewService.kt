@@ -32,7 +32,7 @@ class ReviewService(
         val reviewList: ArrayList<ReviewDto> = ArrayList()
         for (cake in cakeRepository.findByCustomer(customer)) {
             val review = reviewRepository.findReviewByCake(cake)
-            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.customer?.user?.userName,review?.cake?.shop?.shopName, review?.createdAt))
+            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, cake))
         }
         return reviewList
     }
@@ -43,7 +43,7 @@ class ReviewService(
 
         for (cake in cakeRepository.findByShop(shop)) {
             val review = reviewRepository.findReviewByCake(cake)
-            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.customer?.user?.userName, review?.cake?.shop?.shopName, review?.createdAt))
+            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, cake))
         }
         return reviewList
     }

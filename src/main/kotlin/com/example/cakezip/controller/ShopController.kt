@@ -9,14 +9,8 @@ import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.dto.ShopDetailInfoDto
 import com.example.cakezip.repository.ShopImgRepository
-import com.example.cakezip.repository.ShopRepository
 import com.example.cakezip.service.*
 
-import com.example.cakezip.dto.NewShopReqDto
-import com.example.cakezip.dto.ShopDetailInfoDto
-import com.example.cakezip.service.ReviewService
-import com.example.cakezip.service.ShopService
-import com.example.cakezip.service.UploadStoreImgService
 
 
 import org.springframework.stereotype.Controller
@@ -88,28 +82,6 @@ class ShopController (
         
 
         return "product"
-    }
-
-    @GetMapping("/shops/image/{shopId}")
-    fun shopImg(@PathVariable("shopId") shopId:Long, model: Model) : String {
-
-        val shop : Shop = shopService.getByShopId(shopId)
-
-        model.addAttribute("shop", shop)
-        model.addAttribute("shopImg", shopImgService.getShopImgs(shop))
-        return "editimage"
-    }
-
-
-    @DeleteMapping("/shops/image/{imageId}")
-    @Transactional
-    fun deleteShopImg(@PathVariable("imageId") imageIds:Long, model:Model) : String {
-        val shopImg : ShopImg = shopImgService.findByImgId(imageIds)
-        shopImgRepository.deleteByShopImgId(imageIds)
-
-        model.addAttribute("shop", shopImg.shop)
-        model.addAttribute("shopImg", shopImgService.getShopImgs(shopImg.shop))
-        return "editimage"
     }
 
 }

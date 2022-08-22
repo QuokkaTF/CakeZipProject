@@ -4,5 +4,5 @@ data class NewOptionReqDto (
     val shopId : Long = 0,
     val optionType : String = "",
     val optionDetail : String = "",
-    val optionPrice : Long = 0,
+    val optionPrice : Int = 0,
         ) {}

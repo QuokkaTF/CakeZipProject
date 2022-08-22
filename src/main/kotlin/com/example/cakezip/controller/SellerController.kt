@@ -19,15 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping
 import java.util.NoSuchElementException
 import javax.servlet.http.HttpSession
 
-import com.example.cakezip.service.*
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import java.util.*
-
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 @Controller
 class SellerController (

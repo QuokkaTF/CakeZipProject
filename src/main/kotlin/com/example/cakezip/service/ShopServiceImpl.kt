@@ -191,11 +191,11 @@ class ShopServiceImpl(
         println(shop)
     }
 
-    override fun searchShop(keyword:String):ArrayList<ShopDetailInfoDto> {
+    override fun searchShop(keyword:String, customer: Customer?):ArrayList<ShopDetailInfoDto> {
         var shopList = shopRepository.findByShopNameContaining(keyword)
         var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
         for (sl in shopList){
-            shopDetailList.add(getShopDetail(sl.shopId!!))
+            shopDetailList.add(getShopDetail(customer, sl.shopId!!))
         }
         return shopDetailList
     }
