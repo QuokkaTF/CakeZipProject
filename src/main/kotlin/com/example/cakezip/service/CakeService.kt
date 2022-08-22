@@ -21,23 +21,6 @@ class CakeService(
     private val cakeOptionListRepository: CakeOptionListRepository,
     private val shopImgService: ShopImgService,
 ) {
-    fun getCakeOptionList(cake:Cake):HashMap<String, Any>{
-        var cake_hashMap = HashMap<String, Any>()
-        for (ct in cakeTaskRepository.findByCake(cake)) {
-            if (ct.cakeOptionList.cakeOptionListId != null) {
-                var cakeOptionList: Optional<CakeOptionList> =
-                    cakeOptionListRepository.findByCakeOptionListId(ct.cakeOptionList.cakeOptionListId!!)
-                cake_hashMap.put(cakeOptionList.get().optionTitle.toString(), cakeOptionList.get().optionDetail)
-                cake_hashMap.put(
-                    cakeOptionList.get().optionTitle.toString() + "price",
-                    cakeOptionList.get().optionPrice
-                )
-            }
-        }
-        cake_hashMap.put("cake",cake)
-        cake_hashMap.put("img", shopImgService.getThumbnail(cake.shop).shopImgUrl)
-        return cake_hashMap
-    }
     fun findByCakeId(id: Long): Cake = cakeRepository.findByCakeId(id)
 
     fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
@@ -45,7 +28,6 @@ class CakeService(
 
     fun findByCustomerAndCakeStatusNot(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
-
 
     fun getSellerCakeList(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
         cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)

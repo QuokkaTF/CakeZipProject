@@ -24,4 +24,5 @@ class ShopImgServiceImpl(private val shopImgRepository: ShopImgRepository) : Sho
     override fun getThumbnail(shop: Shop): ShopImg {
         return shopImgRepository.findByShop(shop)[0]
     }
+
 }

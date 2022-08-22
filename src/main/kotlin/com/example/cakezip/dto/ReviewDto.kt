@@ -1,5 +1,6 @@
 package com.example.cakezip.dto
 
+import com.example.cakezip.domain.cake.Cake
 import java.time.LocalDateTime
 
 data class ReviewDto(
@@ -11,5 +12,5 @@ data class ReviewDto(
     val createdAt: LocalDateTime?,
     val cake: Cake,
 
-) {
+    ) {
 }

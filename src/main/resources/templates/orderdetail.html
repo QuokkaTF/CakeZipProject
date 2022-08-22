@@ -32,6 +32,8 @@
                 url: '/orders/' + cakeId,
                 contentType: 'application/json; charset=utf-8'
              }).done(function () {
+
+                 alert("test");
                 location.reload();
              }).fail(function (statusType) {
                 if (statusType === 'CANCEL') {
@@ -320,8 +322,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>

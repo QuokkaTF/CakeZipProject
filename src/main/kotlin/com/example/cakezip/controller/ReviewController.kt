@@ -8,13 +8,7 @@ import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.dto.Message
 
-import com.example.cakezip.domain.cake.CakeOptionList
-import com.example.cakezip.domain.member.Customer
-import com.example.cakezip.domain.member.User
-import com.example.cakezip.domain.member.UserType
-
 import com.example.cakezip.service.*
-import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -22,8 +16,6 @@ import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpSession
 
 import java.util.*
-import javax.servlet.http.HttpSession
-import kotlin.collections.HashMap
 
 
 @Controller
