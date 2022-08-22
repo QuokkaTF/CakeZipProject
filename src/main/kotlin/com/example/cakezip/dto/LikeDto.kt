@@ -7,4 +7,5 @@ data class LikeDto(
     val likeListId: Long,
     val shop: Shop,
     val customer: Customer,
-) {}
+) {
+}
