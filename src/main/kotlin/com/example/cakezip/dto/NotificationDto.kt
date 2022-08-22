@@ -7,5 +7,5 @@ data class NotificationDto(
     val order: Orders? = null,
     val noticeMessage: String,
     val noticeType: String,
-    ) {
+) {
 }

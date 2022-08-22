@@ -7,7 +7,7 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>E-Commerce Template</title>
+    <title>CAKE.ZIP</title>
 
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet" />
     <link
@@ -26,12 +26,15 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/css/all.min.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
       $(function () {
         $(".delete").click(function () {
           const noticeId = $("#notice_id").val();
-          alert("noticeId");
           $.ajax({
             type: "DELETE",
             url: "/notification/delete/" + noticeId,
@@ -98,7 +101,7 @@
               <div class="row">
                 <div class="col-lg-auto">
                   <div class="site-logo text-center text-lg-left">
-                    <a href="/index">Cake.zip</a>
+                    <a href="/home">Cake.zip</a>
                   </div>
                 </div>
                 <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
@@ -121,15 +124,13 @@
                 <div
                   class="col-lg-auto text-center text-lg-left header-item-holder"
                 >
-                  <a href="#" class="header-item">
+                  <a href="/likedshop" class="header-item">
                     <i class="fas fa-heart me-2"></i
-                    ><span id="header-favorite">0</span>
+                    ><span id="header-favorite" th:text="${likeCount}"></span>
                   </a>
                   <a href="/cart" class="header-item">
                     <i class="fas fa-shopping-bag me-2"></i
                     ><span id="header-qty" class="me-3">2</span>
-                    <i class="fas fa-money-bill-wave me-2"></i
-                    ><span id="header-price">$4,000</span>
                   </a>
                 </div>
               </div>
@@ -150,9 +151,8 @@
                   <div class="collapse navbar-collapse" id="mainNav">
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                       <li class="nav-item active">
-                        <a class="nav-link" href="/allshop"
-                          >전체보기<span class="sr-only">(current)</span></a
-                        >
+                        <a class="nav-link" href="/shops"
+                          >전체보기<span class="sr-only">(current)</span></a>
                       </li>
 
                       <li class="nav-item active">
@@ -315,8 +315,5 @@
     </div>
     <!-- Messages -->
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
   </body>
 </html>

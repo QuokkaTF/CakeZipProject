@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(function () {
+        let error = $('#error').val();
+        if (error === '-1') {
+            alert("잘못된 접근입니다.");
+        }
+      });
+    </script>
 </head>
 <body>
 <div class="container-fluid nanum">
@@ -28,23 +38,33 @@
                         <div class="col-auto me-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                    <a href="tel:+123-456-7890"
+                                    ><i class="fa fa-phone-square me-2"></i>+123-456-7890</a
+                                    >
                                 </li>
                                 <li>
-                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                    <a href="mailto:cakezip@cake.com"
+                                    ><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a
+                                    >
                                 </li>
                             </ul>
                         </div>
                         <div class="col-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                    <a href="/mypage"
+                                    ><i class="fas fa-user-alt me-2"></i>마이페이지</a
+                                    >
                                 </li>
                                 <li>
-                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                    <a href="/users/register"
+                                    ><i class="fas fa-user-edit me-2"></i>회원가입</a
+                                    >
                                 </li>
                                 <li>
-                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                    <a href="/users/login"
+                                    ><i class="fas fa-sign-in-alt me-2"></i>로그인</a
+                                    >
                                 </li>
                             </ul>
                         </div>
@@ -57,61 +77,72 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
+                                <a href="/home">Cake.zip</a>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
                             <form action="#">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
-                                               required>
-                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                                        <input
+                                                type="search"
+                                                class="form-control border-dark"
+                                                placeholder="검색어를 입력하세요"
+                                                required
+                                        />
+                                        <button class="btn btn-outline-dark">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                        <div
+                                class="col-lg-auto text-center text-lg-left header-item-holder"
+                        >
+                            <a href="/likedshop" class="header-item">
+                                <i class="fas fa-heart me-2"></i
+                                ><span id="header-favorite" th:text="${likeCount}"></span>
                             </a>
-                            <a href="cart.html" class="header-item">
-                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
-                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
+                            <a href="/cart" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i
+                                ><span id="header-qty" class="me-3">2</span>
                             </a>
                         </div>
                     </div>
 
                     <!-- Nav -->
                     <div class="row">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#mainNav">
+                        <nav
+                                class="navbar navbar-expand-lg navbar-light bg-white col-12"
+                        >
+                            <button
+                                    class="navbar-toggler d-lg-none border-0"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav"
+                            >
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/allshop"
+                                        >전체보기<span class="sr-only">(current)</span></a>
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                        </div>
 
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/map"
+                                        >지도보기<span class="sr-only">(current)</span></a
+                                        >
+                                    </li>
                                 </ul>
                             </div>
                         </nav>
                     </div>
                     <!-- Nav -->
-
                 </div>
                 <!-- Header -->
-
             </header>
         </div>
 
@@ -140,32 +171,6 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="row py-3">-->
-
-<!--                        <div class="card col-6 mx-auto py-3">-->
-<!--                            <div class="card-body">-->
-<!--                                <h4 class="card-title text-purple">주문 2</h4>-->
-<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
-<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
-<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
-<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
-<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row py-3">-->
-<!--                        <div class="card col-6 mx-auto py-3">-->
-<!--                            <div class="card-body">-->
-<!--                                <h4 class="card-title text-purple">주문 3</h4>-->
-<!--                                <p><span class="order-short">주문 번호 : </span>C32948765</p>-->
-<!--                                <p><span class="order-short">수령인 : </span>김가영</p>-->
-<!--                                <p><span class="order-short">가격 : </span>31,000 원</p>-->
-<!--                                <p><span class="order-short">상태 : </span>픽업 준비중</p>-->
-<!--                                <a href="/orderdetail" class="btn btn-purple btn-md card-link">주문 상세 보기</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
                 </div>
 
 

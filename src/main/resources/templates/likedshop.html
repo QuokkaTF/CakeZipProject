@@ -14,9 +14,13 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+
 </head>
 <body>
 <div class="container-fluid nanum">
+    <div>
+    </div>
 
     <div class="row min-vh-100">
         <div class="col-12">
@@ -38,7 +42,7 @@
                         <div class="col-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="/users/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
                                 </li>
                                 <li>
                                     <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
@@ -57,7 +61,7 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
+                                <a href="/home">Cake.zip</a>
                             </div>
                         </div>
                         <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
@@ -72,8 +76,9 @@
                             </form>
                         </div>
                         <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
+                            <a href="/likedshop" class="header-item">
+                                <i class="fas fa-heart me-2"></i
+                                ><span id="header-favorite" th:text="${likeCount}"></span>
                             </a>
                             <a href="/cart" class="header-item">
                                 <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
@@ -92,7 +97,7 @@
                             <div class="collapse navbar-collapse" id="mainNav">
                                 <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="/shops">전체보기<span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="electronics"
@@ -100,7 +105,7 @@
                                             보기</a>
                                         <div class="dropdown-menu" aria-labelledby="electronics">
                                             <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a><!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
+                                            <a class="dropdown-item" href="category.html">부산</a>
                                         </div>
                                 </ul>
                             </div>
@@ -116,34 +121,37 @@
 
         <div class="col-12 nanum">
             <!-- Main Content -->
-
             <div class="row">
                 <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase font-monospace text-purple">
-                    <h2>마이페이지</h2>
+                    <h2>내가 좋아요한 가게</h2>
                 </div>
             </div>
-
             <main class="row">
-                <div class="col-12 bg-white py-3">
-                    <div class="row">
-                        <!--                        <a href="#" class="btn btn-purple btn-lg btn-block col-8 text-center">주문 조회</a>-->
-                        <!--                        <a href="#" class="btn btn-purple btn-lg btn-block col-8 text-center">주문 조회</a>-->
-                        <!--                        <a href="#" class="btn btn-purple btn-lg btn-block col-8 text-center">주문 조회</a>-->
 
-
-                        <div class="col-12 text-center py-2">
-                            <a href="customers/orders" class="btn btn-purple btn-lg btn-block">
-                                <i class="fa fa-credit-card"></i> 주문 조회</a>
+                <!-- Featured Products -->
+                <div class="col-12 py-1">
+                
+                    <th:block th:each="shop : ${shops}">
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                    <a class="card-body" th:href="@{/shops/{id}(id = ${shop.getShopId()})}">
+                                        <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                        <div>
+                                        </div>
+                                        <div><span class="product-description" th:text="${shop.getShopShortDescription()}"></span></div>
+                                        <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                        <div>
+                                            <th:block th:each="img : ${shop.getShopImgList()}">
+                                                <img th:src="${img.toString()}" class="img-fluid"
+                                                     style="height: 300px; width: 300px;">
+                                            </th:block>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-12 text-center py-2">
-                            <a href="/users/edit" class="btn btn-purple btn-lg btn-block">
-                                <i class="fa fa-user"></i> 정보 수정</a>
-                        </div>
-                        <div class="col-12 text-center py-2">
-                            <a href="/reviews" class="btn btn-purple btn-lg btn-block"><i class="fa fa-thumbs-up"></i>
-                                내가 쓴 리뷰</a>
-                        </div>
-                    </div>
+                    </th:block>
                 </div>
 
             </main>
@@ -159,7 +167,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="footer-logo">
-                                        <a href="/index">Cake.zip</a>
+                                        <a href="index.html">Cake.zip</a>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -196,6 +204,24 @@
 
 </div>
 
+<!-- Messages -->
+<div class="toast-container position-fixed bottom-0 start-0 p-3">
+    <div class="toast align-items-center text-white bg-success border-0 bg-purple" data-bs-autohide="false">
+        <a href="#">
+
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle me-2"></i>
+                    테스트!!!!!!
+                </div>
+
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- Messages -->
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
