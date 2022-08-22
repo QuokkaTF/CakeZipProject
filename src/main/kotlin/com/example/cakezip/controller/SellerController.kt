@@ -3,14 +3,20 @@ package com.example.cakezip.controller;
 import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeOptionList
 import com.example.cakezip.domain.cake.CakeStatusType
+import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
+import com.example.cakezip.domain.member.User
+import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.dto.Message
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
+import java.util.NoSuchElementException
+import javax.servlet.http.HttpSession
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -57,19 +63,35 @@ class SellerController (
         return "index" // TODO : url 변경 필요
     }
 
-    //TODO : 경민한테 받으면 수정
-    var seller: Seller = sellerService.findBySellerId(1)
-
-    var shop: Shop = shopService.findBySeller(seller)
-
     @GetMapping("/sellers/orders")
-    fun getOrderList(model: Model): String {
-        model.addAttribute("cake", cakeService.getSellerCakeList(shop, CakeStatusType.CART))
+    fun getOrderList(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
+        } else {
+            val seller: Seller = session.getAttribute("seller") as Seller
+            try {
+                model.addAttribute(
+                    "cake",
+                    cakeService.getSellerCakeList(shopService.findBySeller(seller), CakeStatusType.CART)
+                )
+                model.addAttribute("data", Message("", ""))
+            } catch (e: NoSuchElementException){
+                model.addAttribute("data", Message("가게 등록이 되지 않았습니다.", "/"))
+            }
+        }
         return "sellerOrders"
     }
 
     @GetMapping("/sellers/orders/{cakeId}")
-    fun getOrderDetailList(model: Model, @PathVariable cakeId: Long): String {
+    fun getOrderDetailList(model: Model, @PathVariable cakeId: Long, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
+        } else {
+            val seller: Seller = session.getAttribute("seller") as Seller
+            model.addAttribute("data", Message("", ""))
+        }
         val c : Cake = cakeService.findByCakeId(cakeId)
         model.addAttribute("cakedetail", cakeService.getCakeOptionList(c))
         model.addAttribute("customerInfo", userService.getCustomerInfo(c))
@@ -78,7 +100,15 @@ class SellerController (
     }
 
     @PutMapping("/sellers/orders/{cakeId}")
-    fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: CakeStatusType): String {
+    fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: CakeStatusType,
+                         session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
+        } else {
+            val seller: Seller = session.getAttribute("seller") as Seller
+            model.addAttribute("data", Message("", ""))
+        }
         cakeService.updateCakeStatus(cakeId, statusCheck)
         println(statusCheck)
         return "redirect:/sellers/orders/{cakeId}"
