@@ -27,6 +27,7 @@
             alert("잘못된 접근입니다.");
         }
       });
+
     </script>
 
 </head>
@@ -144,70 +145,80 @@
                     <div th:each="dto : ${review}" class="row py-3">
                         <div class="card col-6 mx-auto py-3">
                             <div class="row">
-                                <div class="col-3">
-                                    <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image"
-                                         class="img-rounded">
-                                    <div class="review-block-name"><a href="#"><span
-                                            th:text="${dto.shopName}"></span></a></div>
-                                    <div class="review-block-date"><span th:text="${#temporals.format(dto.createdAt, 'yyyy/MM/dd HH:mm')}"></span></div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="review-block-rate">
-                                        <span class="review-block-title">리뷰 별점 : </span>
-                                        <span th:if="${dto.reviewScore} == 1" >
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                <div class="col-12">
+                                    <a th:onclick="|location.href='@{/customers/orders/detail/{cakeId}
+                                    (cakeId=${dto.cake.cakeId})}'|">
+                                        <div style="font-size:1.3rem;" class="text-purple review-block-title"><span th:text="${dto.shopName}"></span></div>
+                                        <div class="review-block-rate">
+                                        <span th:if="${dto.reviewScore} == 1">
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 2" >
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <span th:if="${dto.reviewScore} == 2">
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 3" >
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <span th:if="${dto.reviewScore} == 3">
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 4" >
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <span th:if="${dto.reviewScore} == 4">
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 5" >
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
-                                            <i class="fas fa-star" style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <span th:if="${dto.reviewScore} == 5">
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
+                                            <i class="fas fa-star"
+                                               style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <!--                                        <span class="fas fa-star"-->
-                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
-                                        <!--                                        <span class="fas fa-star"-->
-                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
-                                        <!--                                        <span class="fas fa-star"-->
-                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
-                                        <!--                                        <span class="fas fa-star"-->
-                                        <!--                                              style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
-                                        <!--                                        <span class="fas fa-star"-->
-                                        <!--                                              style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></span>-->
-                                        <div></div>
-
-                                    </div>
-                                    <p><span class="review-block-title">제목 : </span><span
-                                            class="review-block-description" th:text="${dto.reviewTitle}"></span></p>
-                                    <p><span class="review-block-title">내용 : </span>
-                                        <span class="review-block-description" th:text="${dto.reviewContent}"></span>
-                                    </p>
-
+                                        </div>
+                                        <p><span class="review-block-title">제목 : </span><span class="review-block-description" th:text="${dto.reviewTitle}"></span>
+                                        </p>
+                                        <p><span class="review-block-title">내용 : </span><span class="review-block-description" th:text="${dto.reviewContent}"></span>
+                                        </p>
+                                        <div class="review-block-date"><span
+                                                th:text="${#temporals.format(dto.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
