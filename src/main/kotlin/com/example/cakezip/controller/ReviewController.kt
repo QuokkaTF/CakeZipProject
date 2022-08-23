@@ -86,9 +86,10 @@ class ReviewController(
         reviewTitle: String, reviewContent: String, reviewScore: Int
     ): String {
         val cake = cakeService.findByCakeId(cakeId)
-        model.addAttribute("cakeId", cakeId)
+
         reviewService.addReview(reviewTitle, reviewContent, reviewScore, cake)
         cakeService.updateCakeStatus(cake.cakeId!!, CakeStatusType.REVIEW)
-        return "redirect:/"
+
+        return "redirect:/reviews"
     }
 }
