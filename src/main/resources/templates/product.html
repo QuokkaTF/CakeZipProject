@@ -25,72 +25,9 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../static/css/all.min.css"/>
-    <link rel="stylesheet" href="../static/css/style.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script>
-
-    $(function (){
-        alert("TEST");
-
-        let likeVal = $('#likeCheck').val();
-        const likeImg = $('#likeImg');
-
-        if (likeVal === 'true') {
-            // 데이터 존재하면 채운 하트
-            $('#likeImg').attr("src", "/images/heart-fill.svg");
-        } else if(likeVal === 'false') {
-            // 데이터 없으면 빈 하트
-            $('#likeImg').attr("src", "/images/heart.svg");
-        }
-
-        // 하트 클릭시 이벤트
-        $('.heart').click(function() {
-            const likeVal = $('#likeCheck').val();
-            let shopId = $('#shopId').val();
-
-            console.log("shopID : "+shopId);
-
-            if (likeVal === 'true') {
-                const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
-                if (con_check) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/like/' + shopId,
-                        contentType: 'application/json; charset=utf-8'
-                    }).done(function () {
-                        $('#likeImg').attr("src", "/images/heart.svg");
-                        location.reload();
-                    }).fail(function (error) {
-                        alert(JSON.stringify(error));
-                    })
-                }
-            } else if(likeVal === 'false'){
-                const con_check = confirm("가게 좋아요를 하시겠습니까?");
-                if (con_check) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/like/' + shopId,
-                        contentType: 'application/json; charset=utf-8'
-                    }).done(function () {
-                        $('#likeImg').attr("src", "/images/heart-fill.svg");
-                        location.reload();
-                    }).fail(function (error) {
-                        alert(JSON.stringify(error));
-                    })
-                }
-            }
-        });
-    });
-
-
-    </script>
-
 </head>
 <body>
 <div class="container-fluid bg-lightpurple" layout:fragment="content">
@@ -100,26 +37,27 @@
             <main class="row bg-lightpurple">
                 <div class="bg-white py-3 my-3">
                     <div class="row">
-
                         <!-- Product Images -->
                         <div class="col-lg-5 col-md-12 mb-3">
                             <div class="col-12 mb-3">
-                                <div class="img-large border"
-                                     th:style="'background-image:url('+ ${shopInfo.getShopImgList().get(0)} +');'"></div>
+<!--                                <div class="img-large border"-->
+<!--                                     th:style="'background-image:url('+${shopInfo.getShopImgList().get(0)} +');'">-->
+<!--                                </div>-->
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    <th:block th:each="img : ${shopInfo.getShopImgList()}">
-                                        <div class="col-sm-2 col-3">
-                                            <div class="img-small border"
-                                                 th:style="'background-image:url('+ ${img.toString()} +');'"
-                                                 data-src="images/image-2.jpg"></div>
-                                        </div>
-                                    </th:block>
+                                    <div class="col-sm-2 col-3" th:if="${shopInfo.getShopImgList().size() > 1}">
+                                        <th:block th:each="img : ${shopInfo.getShopImgList()}">
+                                                <div class="img-small border"
+                                                     th:style="'background-image:url('+ ${img.toString()} +');'"
+                                                     data-src="/images/image-2.jpg"></div>
+                                        </th:block>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Product Images -->
+
 
                         <!-- Product Info -->
                         <div class="col-lg-7 col-md-12 mb-3">
@@ -216,25 +154,25 @@
                                         <label style="color:#AD81D5"><b>요청사항</b></label>
                                         <input type="text" name="etc">
                                     </div>
-                                    <div style="padding:5px;">
-                                        <label style="color:#AD81D5"><b>픽업날짜</b></label>
+<!--                                    <div style="padding:5px;">-->
+<!--                                        <label style="color:#AD81D5"><b>픽업날짜</b></label>-->
 
-                                        <p style="padding:5px;">
-                                            <input type="date" name="date">
-                                            <input type="time" min="10:00" max="18:00" name="time"></p>
-                                    </div>
+<!--                                        <p style="padding:5px;">-->
+<!--                                            <input type="date" name="date">-->
+<!--                                            <input type="time" min="10:00" max="18:00" name="time"></p>-->
+<!--                                    </div>-->
 
-                                    <script>
-                                        let aa = $('#minDate').val();
-                                        let bb = #dates.format(#minDate, 'yyyy-MM-dd');
-                                        document.getElementById("tttt").value = $('#minDate').val()
+<!--                                    <script>-->
+<!--                                        let aa = $('#minDate').val();-->
+<!--                                        let bb = #dates.format(#minDate, 'yyyy-MM-dd');-->
+<!--                                        document.getElementById("tttt").value = $('#minDate').val()-->
 
-                                    </script>
+<!--                                    </script>-->
 
                                     <input type="text" name="shopId" th:value="${shopInfo.shopID}"
                                            style=" display: none;">
 
-                                    <button style="margin:10px; background-color:#EDE7F6; color:#AD81D5"
+                                    <button style="margin:10px; background-color:#EDE7F6; color:#AD81D5"x
                                             class="btn btn-outline-dark" type="submit"><i
                                             class="fas fa-cart-plus me-2" id="addCart"></i>장바구니 담기
                                     </button>
@@ -364,7 +302,7 @@
                                         <div class="col-12 text-justify py-2 px-3 mb-3 bg-lightpurple">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <strong class="me-2" th:text="${review.reviewer}"></strong>
+                                                    <strong class="me-2" th:text="${review.getCake().getCustomer().getUser().getUserName()}"></strong>
                                                     <small>
                                                         <th:block
                                                                 th:each="n : ${#numbers.sequence(0,review.getReviewScore()-1)}">
@@ -407,6 +345,64 @@
     </div>
 
 </div>
+
+<script>
+
+    $(function (){
+        alert("TEST");
+
+        let likeVal = $('#likeCheck').val();
+        const likeImg = $('#likeImg');
+
+        if (likeVal === 'true') {
+            // 데이터 존재하면 채운 하트
+            $('#likeImg').attr("src", "/images/heart-fill.svg");
+        } else if(likeVal === 'false') {
+            // 데이터 없으면 빈 하트
+            $('#likeImg').attr("src", "/images/heart.svg");
+        }
+
+        // 하트 클릭시 이벤트
+        $('.heart').click(function() {
+            const likeVal = $('#likeCheck').val();
+            let shopId = $('#shopId').val();
+
+            console.log("shopID : "+shopId);
+
+            if (likeVal === 'true') {
+                const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
+                if (con_check) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/like/' + shopId,
+                        contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+                        $('#likeImg').attr("src", "/images/heart.svg");
+                        location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    })
+                }
+            } else if(likeVal === 'false'){
+                const con_check = confirm("가게 좋아요를 하시겠습니까?");
+                if (con_check) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/like/' + shopId,
+                        contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+                        $('#likeImg').attr("src", "/images/heart-fill.svg");
+                        location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    })
+                }
+            }
+        });
+    });
+
+
+</script>
 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>

@@ -5,16 +5,14 @@ import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.dto.ReviewDto
 import com.example.cakezip.dto.ReviewPercentDto
-import com.example.cakezip.repository.CakeRepository
-import com.example.cakezip.repository.CustomerRepository
-import com.example.cakezip.repository.ReviewRepository
-import com.example.cakezip.repository.ShopRepository
+import com.example.cakezip.repository.*
 import org.springframework.stereotype.Service
 
 @Service
 class ReviewService(
     private val reviewRepository: ReviewRepository,
     private val shopRepository: ShopRepository,
+    private val orderRepository: OrderRepository,
     private val cakeRepository: CakeRepository,
 ){
     fun addReview(reviewTitle: String, reviewContent: String, reviewScore: Int, cake: Cake): Review {
@@ -31,6 +29,7 @@ class ReviewService(
         val reviewList: ArrayList<ReviewDto> = ArrayList()
         for (cake in cakeRepository.findByCustomer(customer)) {
             if (reviewRepository.findReviewByCake(cake) != null) {
+                val order = orderRepository.findOrdersByCake(cake)
                 val review = reviewRepository.findReviewByCake(cake)
                 reviewList.add(
                     ReviewDto(
@@ -39,12 +38,12 @@ class ReviewService(
                         review?.reviewScore,
                         review?.cake?.shop?.shopName,
                         review?.createdAt,
+                        order,
                         cake
                     )
                 )
             }
         }
-
         return reviewList
     }
 
@@ -53,8 +52,9 @@ class ReviewService(
         val reviewList: ArrayList<ReviewDto> = ArrayList()
 
         for (cake in cakeRepository.findByShop(shop)) {
+            val order = orderRepository.findOrdersByCake(cake)
             val review = reviewRepository.findReviewByCake(cake)
-            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, cake))
+            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, order, cake))
         }
         return reviewList
     }
