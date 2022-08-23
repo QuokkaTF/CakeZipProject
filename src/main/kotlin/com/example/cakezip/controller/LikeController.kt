@@ -3,6 +3,7 @@ package com.example.cakezip.controller
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.dto.Message
 import com.example.cakezip.repository.ShopRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
@@ -15,19 +16,19 @@ class LikeController(
     private val likeListService: LikeListService,
     private val shopRepository: ShopRepository,
 ) {
+    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
+
     @PostMapping("/like/{shopId}")
     @ResponseBody
     fun shopLike(model: Model, @PathVariable("shopId") shopId: Long, session: HttpSession): Boolean {
         val shop = shopRepository.findByShopId(shopId)
-
         val user: User = session.getAttribute("user") as User
-        var customer: Customer? = null
-
         if (user.userType == UserType.CUSTOMER) {
-            customer = session.getAttribute("customer") as Customer
+            val customer = session.getAttribute("customer") as Customer
+            model.addAttribute("data", Message("", ""))
             return likeListService.addLike(customer, shop)
         } else {
-            throw Exception("잘못된 요청입니다.")
+            model.addAttribute("data", noAccessMessage)
         }
         return false
     }
@@ -35,19 +36,18 @@ class LikeController(
     @GetMapping("/likedshop")
     fun likedShopList(model: Model, session: HttpSession): String {
         val user: User = session.getAttribute("user") as User
-        var customer: Customer? = null
-
         if (user.userType == UserType.CUSTOMER) {
-            customer = session.getAttribute("customer") as Customer
-            model.addAttribute("shops", likeListService.getLikedShopList(customer))
+            val customer = session.getAttribute("customer") as Customer
+            if (likeListService.getLikedShopList(customer).isNullOrEmpty()) {
+                model.addAttribute("data", Message("좋아요한 가게가 아직 존재하지 않습니다.", "/"))
+            } else {
+                model.addAttribute("shops", likeListService.getLikedShopList(customer))
+                model.addAttribute("data", Message("", ""))
+            }
         } else {
-            throw Exception("잘못된 요청입니다.")
+            model.addAttribute("data", noAccessMessage)
         }
 
         return "likedshop"
     }
-
 }
-
-
-

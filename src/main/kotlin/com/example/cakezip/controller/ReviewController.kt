@@ -1,33 +1,21 @@
 package com.example.cakezip.controller
 
-
-import com.example.cakezip.domain.cake.Cake
 import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.dto.Message
-
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-
 import javax.servlet.http.HttpSession
-
-import java.util.*
-
 
 @Controller
 class ReviewController(
-    private val customerService: CustomerService,
     private val reviewService: ReviewService,
     private val cakeService: CakeService,
-    private val cakeTaskService: CakeTaskService,
-    private val cakeOptionListService: CakeOptionListService,
-
-) {
-
+    ) {
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/reviews")
@@ -36,10 +24,14 @@ class ReviewController(
 
         if (user.userType == UserType.CUSTOMER) {
             val customer = session.getAttribute("customer") as Customer
-            model.addAttribute("review", reviewService.getCustomerAllReviews(customer))
+            if (reviewService.getCustomerAllReviews(customer).isNullOrEmpty()) {
+                model.addAttribute("data", Message("작성한 리뷰가 아직 존재하지 않습니다.", "/mypage"))
+            } else {
+                model.addAttribute("review", reviewService.getCustomerAllReviews(customer))
+                model.addAttribute("data", Message("", ""))
+            }
         } else {
-            model.addAttribute("error", -1)
-            throw Exception("잘못된 접근입니다.")
+            model.addAttribute("data", noAccessMessage)
         }
         return "myreview";
     }
