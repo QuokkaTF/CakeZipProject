@@ -44,7 +44,7 @@ class CartController(
         val user: User = session.getAttribute("user") as User
         if (user.userType == UserType.CUSTOMER) {
             val customer: Customer = session.getAttribute("customer") as Customer
-            if (cakeService.findByCakeId(cakeId).customer == customer) {
+            if (cakeService.findByCakeId(cakeId).customer.customerId == customer.customerId) {
                 model.addAttribute("data", Message("", ""))
                 cakeTaskService.deleteAllByCake_cakeId(cakeId)
                 cakeService.deleteAllByCakeId(cakeId)
