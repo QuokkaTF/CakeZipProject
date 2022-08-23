@@ -113,7 +113,7 @@ class CartController(
         } else {
             model.addAttribute("data", noAccessMessage)
         }
-        return "redirect:/users/cart"
+        return "redirect:/customers/orders/detail/{cakeId}"
     }
 
     @PostMapping("/users/cart")
