@@ -28,62 +28,105 @@ class SellerController (
     private val shopService: ShopService,
     private val sellerService: SellerService,
     private val cakeService: CakeService,
-    private val cakeTaskService: CakeTaskService,
-    private val cakeOptionListService: CakeOptionListService,
-    private val orderService: OrderService,
     private val userService: UserService,
     private val uploadStoreImgService: UploadStoreImgService,
     ){
 
+    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
-    @GetMapping("/sellers/myshop/{sellerId}")
-    fun sellerMyShop(@PathVariable("sellerId") sellerId:Long, model:Model) : String {
-        var seller: Seller = sellerService.findBySellerId(sellerId)
-        var shop : Shop? = shopService.getMyShop(seller)
-        model.addAttribute("shop", shop)
-        if (shop != null) {
-            model.addAttribute("shopImgs",shopImgService.getShopImgs(shop))
+    @GetMapping("/sellers/myshop")
+    fun sellerMyShop(model:Model, session: HttpSession) : String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.SELLER) {
+            val seller:Seller = session.getAttribute("seller") as Seller
+            var shop : Shop? = shopService.getMyShop(seller)
+            model.addAttribute("shop", shop)
+            if (shop != null) {
+                model.addAttribute("shopImgs",shopImgService.getShopImgs(shop))
+            }
+            model.addAttribute("data", Message("",""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
         }
         return "sellerMain"
     }
 
-    @GetMapping("/sellers/myshop/info/{shopId}")
-    fun modifyShopInfoPage(@PathVariable("shopId") shopId:Long, model:Model) :String {
-        model.addAttribute("shop", shopService.getByShopId(shopId))
+    @GetMapping("/sellers/myshop/info")
+    fun modifyShopInfoPage(model:Model,session: HttpSession) :String {
+        val user: User = session.getAttribute("user") as User
+        if (user.userType == UserType.SELLER) {
+            val seller:Seller = session.getAttribute("seller") as Seller
+            var shop : Shop? = shopService.getMyShop(seller)
+            model.addAttribute("shop", shopService.getByShopId(shop!!.shopId!!))
+            model.addAttribute("data", Message("",""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
         return "editShop"
     }
 
-    @PutMapping("/sellers/myshop/info/{shopId}")
-    fun modifyShop(shop: Shop, @PathVariable("shopId") shopId: Long) :String{
-        val shop = shopService.updateShopInfo(shopId, shop)
-        return "redirect:/sellers/myshop/info/$shopId"
+    @PutMapping("/sellers/myshop/info")
+    fun modifyShop(shop: Shop, model:Model,session: HttpSession) :String{
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            val seller:Seller = session.getAttribute("seller") as Seller
+            var shop : Shop? = shopService.getMyShop(seller)
+            model.addAttribute("shop", shopService.updateShopInfo(shop!!.shopId!! , shop))
+            model.addAttribute("data", Message("",""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
+        return "redirect:/sellers/myshop/info"
     }
 
-    @GetMapping("/sellers/myshop/image/{shopId}")
-    fun shopMainImages(@PathVariable("shopId") shopId:Long, model: Model) : String {
-        val shop : Shop = shopService.getByShopId(shopId)
-        model.addAttribute("shop", shop)
-        model.addAttribute("shopImg", shopImgService.getShopImgs(shop))
+    @GetMapping("/sellers/myshop/image")
+    fun shopMainImages(model: Model,session: HttpSession) : String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            val seller:Seller = session.getAttribute("seller") as Seller
+            var shop : Shop? = shopService.getMyShop(seller)
+
+            model.addAttribute("shop", shop)
+            model.addAttribute("shopImg", shopImgService.getShopImgs(shop!!))
+            model.addAttribute("data", Message("",""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
         return "editImage"
     }
 
     @DeleteMapping("/sellers/myshop/image/{imageId}")
-    fun deleteShopImg(@PathVariable("imageId") imageIds:Long) : String {
-        val shopId : Long = shopImgService.deleteImage(imageIds)
-        return "redirect:/sellers/myshop/image/$shopId"
+    fun deleteShopImg(@PathVariable("imageId") imageIds:Long, session: HttpSession, model: Model) : String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            val shopId : Long = shopImgService.deleteImage(imageIds)
+            model.addAttribute("data", Message("","/"))
+        }else {
+            model.addAttribute("data", noAccessMessage)
+        }
+        return "redirect:/sellers/myshop/image"
     }
 
     @RequestMapping(value = arrayOf("/sellers/myshop/image/new"), method = arrayOf(RequestMethod.POST))
     fun editImage(@RequestParam image: MultipartFile, @RequestParam shopId : String, model: Model) :String {
         uploadStoreImgService.addNewShopImg(image, shopId.toLong())
-        return "redirect:/sellers/myshop/image/$shopId"
+        return "redirect:/sellers/myshop/image"
     }
 
-    @PutMapping("/sellers/myshop/{shopId}")
-    fun modifyShop(@PathVariable("shopId") shopId: Long) :String{
-        val shop:Shop = shopService.getByShopId(shopId)
-        shopService.deleteShop(shopId)
-        return "redirect:/sellers/myshop/${shop.seller?.sellerId}" // TODO : url 변경 필요
+    @PutMapping("/sellers/myshop")
+    fun modifyShop(session: HttpSession, model:Model) :String{
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            val seller:Seller = session.getAttribute("seller") as Seller
+            var shop : Shop? = shopService.getMyShop(seller)
+
+            shopService.deleteShop(shop!!.shopId!!)
+            model.addAttribute("data", Message("",""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
+
+        return "redirect:/sellers/myshop"
     }
 
     @GetMapping("/sellers/orders")

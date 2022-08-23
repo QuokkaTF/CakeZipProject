@@ -2,8 +2,11 @@ package com.example.cakezip.controller
 
 
 import com.example.cakezip.domain.member.Customer
+import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.domain.shop.Shop
+import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.Message
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.dto.ShopDetailInfoDto
@@ -18,20 +21,37 @@ import javax.servlet.http.HttpSession
 @Controller
 class ShopController (
     private val shopService: ShopService,
+    private val sellerService: SellerService,
+    private val shopImgService: ShopImgService,
     private val uploadStoreImgService: UploadStoreImgService,
     private val reviewService: ReviewService
     ){
+
+    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
+
     @GetMapping("/shops/new")
-    fun addShop(model: Model):String {
-        //TODO : 사장님 추가
-        model.addAttribute("form",NewShopReqDto())
+    fun addShop(model: Model, session: HttpSession):String {
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            model.addAttribute("form",NewShopReqDto())
+            model.addAttribute("data", Message("", ""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
         return "addshop"
     }
 
     @RequestMapping(value = arrayOf("/shops/new"), method = arrayOf(RequestMethod.POST))
-    fun postShop(newShopReqDto: NewShopReqDto) : String{
-        shopService.addNewShop(newShopReqDto)
-        return "redirect:/shops/new"
+    fun postShop(newShopReqDto: NewShopReqDto, session: HttpSession, model: Model) : String{
+        val user: User = session.getAttribute("user") as User
+        if(user.userType == UserType.SELLER) {
+            val seller:Seller = session.getAttribute("seller") as Seller
+            shopService.addNewShop(newShopReqDto, seller)
+            model.addAttribute("data", Message("", ""))
+        } else {
+            model.addAttribute("data", noAccessMessage)
+        }
+        return "redirect:/sellers/myshop"
     }
 
     @ResponseBody

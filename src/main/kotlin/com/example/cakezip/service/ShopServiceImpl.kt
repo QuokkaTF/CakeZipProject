@@ -29,9 +29,9 @@ class ShopServiceImpl(
         return shop.get()
     }
 
-    override fun addNewShop(newShopReqDto: NewShopReqDto) {
+    override fun addNewShop(newShopReqDto: NewShopReqDto, seller: Seller) {
         val shop = Shop(newShopReqDto.storeName, newShopReqDto.bussinessNum, newShopReqDto.storeNum, newShopReqDto.storeAddress, newShopReqDto.storeDetailAddress, newShopReqDto.storeDetailImg, newShopReqDto.storeShortDescription)
-
+        shop.seller = seller
         var newShop : Shop = shopRepository.save(shop)
 
         for (imageUrl in newShopReqDto.storeImgList) {
