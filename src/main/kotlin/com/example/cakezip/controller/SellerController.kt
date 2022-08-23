@@ -159,7 +159,7 @@ class SellerController (
             model.addAttribute("data", Message("", ""))
         }
         val c : Cake = cakeService.findByCakeId(cakeId)
-        model.addAttribute("cakedetail", cakeService.getCakeOptionList(c))
+        model.addAttribute("cakeDetail", cakeService.getCakeOptionList(c))
         model.addAttribute("customerInfo", userService.getCustomerInfo(c))
         model.addAttribute("statusSelected", cakeService.findByCakeId(cakeId).cakeStatus.toString())
         return "sellerOrderDetail"

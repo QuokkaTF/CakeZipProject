@@ -103,7 +103,7 @@
                                 <br>
                                 <h5 class="text-purple">주문상태</h5>
                                 <p>주문상태를 변경할 경우, 고객에게 알림이 갑니다.</p>
-                                <form method="post" th:action="@{'/sellers/orders/' + ${cakeDetail.cake.cakeId} }">
+                                <form method="post" th:action="@{'/sellers/orders/' + ${cakeDetail.get('cake').cakeId} }">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input type="hidden" name="_method" value="PUT"/>
