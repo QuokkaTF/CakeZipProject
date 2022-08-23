@@ -5,11 +5,15 @@
     <th:block th:if="${#strings.length(data.message) != 0}">
         <script>
 			top.alert("[[${data.message}]]");
+
+
         </script>
     </th:block>
     <th:block th:if="${#strings.length(data.href) != 0}">
         <script>
 			top.location.href = '[[${data.href}]]';
+
+
         </script>
     </th:block>
     <meta charset="UTF-8">
@@ -51,12 +55,17 @@
                 <div th:each="dto : ${review}" class="row py-3">
                     <div class="card col-6 mx-auto py-3">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="review col-12">
+                                <a th:onclick="|location.href='@{/shops/{shopId}
+                                    (shopId=${dto.cake.shop.shopId})}'|" style="cursor:pointer;">
+                                    <span style="font-size:1.3rem; display:inline-block; cursor:pointer;" class="text-purple review-block-title"th:text="${dto.shopName}"></span>
+                                    <span class="text-purple">(가게 상세 정보)</span>
+                                </a>
+                                <hr>
                                 <a th:onclick="|location.href='@{/customers/orders/detail/{cakeId}
-                                    (cakeId=${dto.cake.cakeId})}'|">
-                                    <div style="font-size:1.3rem;" class="text-purple review-block-title"><span
-                                            th:text="${dto.shopName}"></span></div>
-                                    <div class="review-block-rate">
+                                    (cakeId=${dto.cake.cakeId})}'|" style="cursor:pointer;">
+                                <div class="review-block-rate">
+                                    <span class="review-block-title">별점 : </span>
                                         <span th:if="${dto.reviewScore} == 1">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
@@ -69,7 +78,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 2">
+                                    <span th:if="${dto.reviewScore} == 2">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -81,7 +90,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 3">
+                                    <span th:if="${dto.reviewScore} == 3">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -93,7 +102,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 4">
+                                    <span th:if="${dto.reviewScore} == 4">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -105,7 +114,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        <span th:if="${dto.reviewScore} == 5">
+                                    <span th:if="${dto.reviewScore} == 5">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -117,17 +126,20 @@
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                    </div>
-                                    <p><span class="review-block-title">제목 : </span><span
-                                            class="review-block-description" th:text="${dto.reviewTitle}"></span>
+                                </div>
+                                    <p><span class="review-block-title">주문번호 : </span><span
+                                            class="review-block-description" th:text="${dto.order.orderId}"></span>
                                     </p>
-                                    <p><span class="review-block-title">내용 : </span><span
-                                            class="review-block-description" th:text="${dto.reviewContent}"></span>
-                                    </p>
-                                    <div class="review-block-date"><span
-                                            th:text="${#temporals.format(dto.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
-                                    </div>
                                 </a>
+                                <p><span class="review-block-title">제목 : </span><span
+                                        class="review-block-description" th:text="${dto.reviewTitle}"></span>
+                                </p>
+                                <p><span class="review-block-title">내용 : </span><span
+                                        class="review-block-description" th:text="${dto.reviewContent}"></span>
+                                </p>
+                                <div class="review-block-date"><span
+                                        th:text="${#temporals.format(dto.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
+                                </div>
                             </div>
                         </div>
                     </div>

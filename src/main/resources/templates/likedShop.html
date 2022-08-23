@@ -20,12 +20,9 @@
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
-
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
-
 </head>
 <body>
 <div class="container-fluid nanum" layout:fragment="content">
@@ -37,10 +34,8 @@
             </div>
         </div>
         <main class="row">
-
             <!-- Featured Products -->
             <div class="col-12 py-1">
-
                 <th:block th:each="shop : ${shops}">
                     <div class="row py-1">
                         <div class="col-12">
@@ -66,35 +61,10 @@
                     </div>
                 </th:block>
             </div>
-
         </main>
         <!-- Main Content -->
     </div>
-
-
 </div>
-
-
-
-<!-- Messages -->
-<div class="toast-container position-fixed bottom-0 start-0 p-3">
-    <div class="toast align-items-center text-white bg-success border-0 bg-purple" data-bs-autohide="false">
-        <a href="#">
-
-            <div class="d-flex">
-                <div class="toast-body">
-                    <i class="fas fa-check-circle me-2"></i>
-                    테스트!!!!!!
-                </div>
-
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-            </div>
-        </a>
-    </div>
-</div>
-<!-- Messages -->
-
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>

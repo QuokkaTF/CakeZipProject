@@ -2,6 +2,7 @@ package com.example.cakezip.controller
 
 import com.example.cakezip.config.BaseResponse
 import com.example.cakezip.domain.member.*
+import com.example.cakezip.dto.Message
 import com.example.cakezip.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -144,11 +145,5 @@ class UserController(
     fun idCheck(userEmail: String): ResponseEntity<Boolean>{
         println(userEmail)
         return ResponseEntity.ok(userService.existsUser(userEmail))
-    }
-
-    @GetMapping("/mypage")
-    fun getMyPage(): String {
-        println("mypage")
-        return "mypage"
     }
 }
