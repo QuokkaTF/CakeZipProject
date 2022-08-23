@@ -5,16 +5,16 @@
         layout:decorate="~{layout/default_layout}">
 <head>
 
-    <th:block th:if="${#strings.length(data.message) != 0}">
-        <script>
-			top.alert("[[${data.message}]]");
-		</script>
-    </th:block>
-    <th:block th:if="${#strings.length(data.href) != 0}">
-        <script>
-			top.location.href = '[[${data.href}]]';
-		</script>
-    </th:block>
+<!--        <th:block th:if="${#strings.length(data.message) != 0}">-->
+<!--            <script>-->
+<!--    			top.alert("[[${data.message}]]");-->
+<!--            </script>-->
+<!--        </th:block>-->
+<!--        <th:block th:if="${#strings.length(data.href) != 0}">-->
+<!--            <script>-->
+<!--    			top.location.href = '[[${data.href}]]';-->
+<!--            </script>-->
+<!--        </th:block>-->
 
     <script>
         function getScore(event) {
@@ -37,9 +37,12 @@
     <link href="/fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="/fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/css/all.min.css"/>
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 
 <body>
@@ -133,48 +136,48 @@
                     </div>
 
                     <div class="col-8 mx-auto" style="padding: 0px 0px 30px 0px;">
-                        <div class="rating-block card py-3">
+                        <form name="myform" id="myform" th:action="@{${cakeId}}" method="POST">
+                            <div class="rating-block card py-3">
+                                <h5 class="text-purple">케이크에 만족하셨나요?</h5>
 
-                            <h5 class="text-purple">케이크에 만족하셨나요?</h5>
+                                <div style="width:100%;">
+                                    <fieldset>
+                                        <input type="radio" name="rating" value="5" id="rate1"
+                                               onclick='getScore(event)'><label for="rate1">⭐</label>
+                                        <input type="radio" name="rating" value="4" id="rate2"
+                                               onclick='getScore(event)'><label for="rate2">⭐</label>
+                                        <input type="radio" name="rating" value="3" id="rate3"
+                                               onclick='getScore(event)'><label for="rate3">⭐</label>
+                                        <input type="radio" name="rating" value="2" id="rate4"
+                                               onclick='getScore(event)'><label for="rate4">⭐</label>
+                                        <input type="radio" name="rating" value="1" id="rate5"
+                                               onclick='getScore(event)'><label for="rate5">⭐</label>
+                                    </fieldset>
 
-                            <form name="myform" id="myform">
-                                <fieldset>
-                                    <input type="radio" name="rating" value="5" id="rate1"
-                                           onclick='getScore(event)'><label for="rate1">⭐</label>
-                                    <input type="radio" name="rating" value="4" id="rate2"
-                                           onclick='getScore(event)'><label for="rate2">⭐</label>
-                                    <input type="radio" name="rating" value="3" id="rate3"
-                                           onclick='getScore(event)'><label for="rate3">⭐</label>
-                                    <input type="radio" name="rating" value="2" id="rate4"
-                                           onclick='getScore(event)'><label for="rate4">⭐</label>
-                                    <input type="radio" name="rating" value="1" id="rate5"
-                                           onclick='getScore(event)'><label for="rate5">⭐</label>
-                                </fieldset>
-                            </form>
-
-                        </div>
-                    </div>
-
-                    <form th:action="@{${cakeId}}" method="POST">
-                        <div class="row py-1">
-                            <div class="col-8 mx-auto" style="padding: 0px 0px 30px 0px;">
-                                <div class="rating-block card py-3">
-                                    <h5 class="text-purple">케이크에 대한 리뷰를 남겨주세요!</h5>
-                                    <input type="text" class="form-control" id='result' name="reviewScore"
-                                           style="display: none;">
-                                    <input type="text" name="reviewTitle" class="form-control" placeholder="제목"
-                                           required>
-                                    <input type="text" name="reviewContent" class="form-control" text-align="top"
-                                           style="height:200px;r" placeholder="내용" required>
                                 </div>
-                                <input type="submit" class="btn btn-outline-success" value="작성완료"
-                                       style="float:right; margin: 30px 0px 50px 0px;">
+                                <br>
+                                <input type="number" min=1 max=5 class="form-control" id='result' name="reviewScore"
+                                       required oninvalid="this.setCustomValidity('별점을 선택해주세요!')">
+
+                            </div>
+                            <br>
+                            <div class="rating-block card py-3">
+
+                                <h5 class="text-purple">케이크에 대한 리뷰를 남겨주세요!</h5>
+
+                                <input type="text" name="reviewTitle" class="form-control" placeholder="제목"
+                                       required oninvalid="this.setCustomValidity('제목을 입력해주세요!')">
+                                <textarea
+                                       name="reviewContent" class="form-control" placeholder="내용"
+                                       required oninvalid="this.setCustomValidity('내용을 입력해주세요!')"></textarea>
                             </div>
 
-                        </div>
+                            <input type="submit" onclick="_func()" class="btn btn-outline-success" value="작성완료"
+                                   style="float:right; margin: 30px 0px 50px 0px;">
 
 
-                    </form>
+                        </form>
+                    </div>
 
 
                 </div>
