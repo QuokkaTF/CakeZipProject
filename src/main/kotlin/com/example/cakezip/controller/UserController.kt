@@ -2,6 +2,7 @@ package com.example.cakezip.controller
 
 import com.example.cakezip.config.BaseResponse
 import com.example.cakezip.domain.member.*
+import com.example.cakezip.dto.Message
 import com.example.cakezip.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession
 @Controller
 class UserController(
     private val userService : UserService) {
+    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/login")
     fun getUserLoginView() = "login"
@@ -147,8 +149,15 @@ class UserController(
     }
 
     @GetMapping("/mypage")
-    fun getMyPage(): String {
-        println("mypage")
-        return "mypage"
+    fun getMyPageView(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+
+        if (user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("", ""))
+        } else if (user.userType == UserType.SELLER) {
+            model.addAttribute("data", noAccessMessage)
+        }
+
+        return "myPage"
     }
 }

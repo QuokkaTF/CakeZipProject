@@ -1,6 +1,5 @@
 package com.example.cakezip.controller
 
-import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
@@ -85,16 +84,5 @@ class OrderController(
         return "redirect:/customers/orders/detail/{cakeId}"
     }
 
-    @GetMapping("/mypage")
-    fun getMyPageView(model: Model, session: HttpSession): String {
-        val user: User = session.getAttribute("user") as User
 
-        if (user.userType == UserType.CUSTOMER) {
-            return "mypage"
-        } else if (user.userType == UserType.SELLER) {
-            // TODO: 개인/기업 회원 구분 필요
-        }
-
-        return "mypage"
-    }
 }
