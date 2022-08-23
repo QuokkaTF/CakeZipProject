@@ -35,7 +35,18 @@ class OptionController (
             val shopId : Long = shop!!.shopId!!
 
             var optionDetailList : List<CakeOptionList> = ArrayList()
+
+            var typeInput = type
             when(type) {
+                "DESIGN" -> typeInput = "design"
+                "SIZE" -> typeInput = "size"
+                "SFLAVOR" -> typeInput = "sheet"
+                "CFLAVOR" -> typeInput = "cream"
+                "CCOLOR" -> typeInput = "creamcolor"
+                "LCOLOR" -> typeInput = "letter"
+            }
+
+            when(typeInput) {
                 "design" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, DESIGN, "active")
                 "size" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, SIZE, "active")
                 "sheet" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, SFLAVOR, "active")
@@ -44,7 +55,7 @@ class OptionController (
                 "letter" -> optionDetailList = optionDetailService.getOptionDetailByShopAndTypeAndStatus(shopId, LCOLOR, "active")
             }
             model.addAttribute("shopId", shopId)
-            model.addAttribute("type", type)
+            model.addAttribute("type", typeInput)
             model.addAttribute("optionDetail",optionDetailList)
             model.addAttribute("data",Message("","/"))
         } else {
