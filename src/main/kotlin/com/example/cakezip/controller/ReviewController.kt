@@ -52,9 +52,20 @@ class ReviewController(
             if (cakeService.findByCakeId(cakeId).customer.customerId == customer.customerId) {
                 if (cakeService.findByCakeId(cakeId).cakeStatus != CakeStatusType.COMPLETE) {
                     if (cakeService.findByCakeId(cakeId).cakeStatus == CakeStatusType.REVIEW) {
-                        model.addAttribute("data", Message("이미 작성된 리뷰입니다.", "/"))
+                        model.addAttribute(
+                            "data", Message(
+                                "이미 작성된 리뷰입니다.",
+                                "/customers/orders/detail/${cakeId}"
+                            )
+                        )
+
                     } else {
-                        model.addAttribute("data", Message("픽업 완료한 케이크만 리뷰를 작성할 수 있습니다.", "/"))
+                        model.addAttribute(
+                            "data", Message(
+                                "픽업 완료한 케이크만 리뷰를 작성할 수 있습니다.",
+                                "/customers/orders/detail/${cakeId}"
+                            )
+                        )
                     }
                 } else {
                     model.addAttribute("data", Message("", ""))
@@ -75,9 +86,10 @@ class ReviewController(
         reviewTitle: String, reviewContent: String, reviewScore: Int
     ): String {
         val cake = cakeService.findByCakeId(cakeId)
-        model.addAttribute("cakeId", cakeId)
+
         reviewService.addReview(reviewTitle, reviewContent, reviewScore, cake)
         cakeService.updateCakeStatus(cake.cakeId!!, CakeStatusType.REVIEW)
-        return "redirect:/"
+
+        return "redirect:/reviews"
     }
 }

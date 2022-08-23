@@ -5,6 +5,8 @@ import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.domain.notice.NotificationMessage
+import com.example.cakezip.domain.notice.NotificationType
 import com.example.cakezip.dto.Message
 import com.example.cakezip.dto.UserPaymentDto
 import com.example.cakezip.service.*
@@ -21,6 +23,7 @@ class CartController(
     private val cakeOptionListService: CakeOptionListService,
     private val orderService: OrderService,
     private val shopService: ShopService,
+    private val notificationService: NotificationService,
 ) {
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
@@ -107,13 +110,20 @@ class CartController(
                 val orderCake = cakeService.findByCakeId(cake_id)
                 orderService.addOrder(imp_uid, price, customer, orderCake)
                 cakeService.updateCakeStatus(cakeId, CakeStatusType.PAYMENT)
+
+                notificationService.makeNotification(
+                    orderCake.customer.customerId, orderCake.shop.seller!!.sellerId!!,
+                    orderService.findByCake(orderCake)!!,
+                    NotificationMessage.ORDER_NEW, NotificationType.TOSELLER
+                )
+
             } else {
                 model.addAttribute("data", noAccessMessage)
             }
         } else {
             model.addAttribute("data", noAccessMessage)
         }
-        return "redirect:/users/cart"
+        return "redirect:/customers/orders/detail/{cakeId}"
     }
 
     @PostMapping("/users/cart")
