@@ -22,20 +22,6 @@ class MainController(
 
     @GetMapping("/home")
     fun getMainView(model: Model, session: HttpSession): String {
-        if (session != null)  {
-            val user: User = session.getAttribute("user") as User
-
-            if(user.userType == UserType.CUSTOMER) {
-                val customer = session.getAttribute("customer") as Customer
-                model.addAttribute("notification", notificationService.getCNotifications(customer))
-                model.addAttribute("likeCount", likeListService.getCustomerLikeCount(customer))
-            } else {
-                val seller = session.getAttribute("seller") as Seller
-                model.addAttribute("notification", notificationService.getSNotifications(seller))
-                val shop = shopService.findBySeller(seller)
-                model.addAttribute("likeCount", likeListService.getShopLikeCount(shop))
-            }
-        }
         return "index"
     }
 }

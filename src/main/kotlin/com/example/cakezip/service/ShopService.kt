@@ -20,7 +20,7 @@ interface ShopService {
 
     fun deleteShop(shopId: Long)
 
-    fun addNewShop(newShopReqDto: NewShopReqDto)
+    fun addNewShop(newShopReqDto: NewShopReqDto, seller: Seller)
     
     fun findBySeller(seller:Seller) : Shop
 
