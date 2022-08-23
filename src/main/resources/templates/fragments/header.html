@@ -5,12 +5,12 @@
                 <div class="col-12 bg-purple py-2 d-md-block d-none">
                     <div class="row">
                         <div class="col-auto me-auto">
-                            <ul class="top-nav">
+                            <ul class="top-nav" style="color:white;">
                                 <li>
-                                    <a href="#"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                    <i class="fa fa-phone-square me-2"></i>+123-456-7890
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
+                                    <i class="fa fa-envelope me-2"></i>cakezip@cake.com
                                 </li>
                             </ul>
                         </div>
@@ -18,6 +18,9 @@
                             <ul class="top-nav">
                                 <li th:if="${session.user != null}"  >
                                     <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li th:if="${session.user != null}"  >
+                                    <a href="/users/logout"><i class="fas fa-user-alt me-2"></i>로그아웃</a>
                                 </li>
                                 <li th:if="${session.user == null}">
                                     <a href="/users/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
@@ -29,5 +32,81 @@
                         </div>
                     </div>
                 </div>
+                <header class="row">
+                  <div>
+
+
+
+                  <!-- Header -->
+                  <div class="col-12 bg-white pt-4">
+                    <div class="row">
+                      <div class="col-lg-auto">
+                        <div class="site-logo text-center text-lg-left">
+                          <a href="/home">Cake.zip</a>
+                        </div>
+                      </div>
+                      <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                          <form method="get" th:action="@{'/search'}">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <input type="search" name="keyword" th:value="${keyword}" class="form-control border-dark"
+                                             placeholder="케이크 가게 이름을 검색해보세요"
+                                             required>
+                                      <button type="submit" class="btn btn-outline-dark">
+                                          <i class="fas fa-search"></i></button>
+
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="col-lg-auto text-center text-lg-left header-item-holder" th:if="${session.customer != null}">
+
+                  <a href="/likedshop" class="header-item">
+                    <i class="fas fa-heart me-2"></i
+                    ><span id="header-favorite" th:text="${likeCount}"></span>
+                  </a>
+
+                  <a href="/users/cart" class="header-item">
+                                <i class="fas fa-shopping-bag me-2"></i
+                                ><span id="header-qty" class="me-3"></span>
+                            </a>
+                </div>
+                    </div>
+                    </div>
+
+                    <!-- Nav -->
+                    <div class="row">
+                      <nav
+                        class="navbar navbar-expand-lg navbar-light bg-white col-12"
+                      >
+                        <button
+                          class="navbar-toggler d-lg-none border-0"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#mainNav"
+                        >
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="mainNav">
+                          <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                              <a class="nav-link" href="/shops"
+                                >전체보기<span class="sr-only">(current)</span></a
+                              >
+                            </li>
+
+                            <li class="nav-item active">
+                              <a class="nav-link" href="/map"
+                                >지도보기<span class="sr-only">(current)</span></a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </nav>
+                    </div>
+                    <!-- Nav -->
+                  </div>
+              </header>
+                  <!-- Header -->
 </div>
 </html>
