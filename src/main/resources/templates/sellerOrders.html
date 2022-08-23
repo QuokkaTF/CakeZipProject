@@ -34,28 +34,16 @@
         <div class="col-12">
             <header class="row">
                 <!-- Top Nav -->
+
                 <div class="col-12 bg-purple py-2 d-md-block d-none">
                     <div class="row">
                         <div class="col-auto me-auto">
                             <ul class="top-nav">
                                 <li>
-                                    <a href="#"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
+                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
-                                </li>
-                                <li>
-                                    <a href="/users/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
-                                </li>
-                                <li>
-                                    <a href="/users/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
                                 </li>
                             </ul>
                         </div>
@@ -68,28 +56,8 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
+                                <a href="/sellers/myshop">Cake.zip</a>
                             </div>
-                        </div>
-                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
-                                               required>
-                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
-                            </a>
-                            <a href="cart.html" class="header-item">
-                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
-                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
-                            </a>
                         </div>
                     </div>
 
@@ -100,22 +68,7 @@
                                     data-bs-target="#mainNav">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="mainNav">
-                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                        </div>
 
-                                </ul>
-                            </div>
                         </nav>
                     </div>
                     <!-- Nav -->
@@ -137,6 +90,21 @@
 
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
+
+                    <div class="col-md-12">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/sellers/myshop}">내 가게</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/sellers/orders}">내 가게 주문 조회</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/sellers/myinfo}">내 정보 조회</a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div th:each="dto : ${cake}" class="row py-3">
                         <div class="card col-6 mx-auto py-3">
                             <div class="card-body">

@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>E-Commerce Template</title>
 
-    <link href="/fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-    <link href="/fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
-    <link href="/fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
@@ -36,16 +36,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="register.html"><i class="fas fa-user-edit me-2"></i>회원가입</a>
-                                </li>
-                                <li>
-                                    <a href="login.html"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!-- Top Nav -->
@@ -55,49 +45,19 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="index.html" style="">Cake.zip</a>
+                                <a href="/sellers/myshop">Cake.zip</a>
                             </div>
-                        </div>
-                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요" required>
-                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
-                            </a>
-                            <a href="cart.html" class="header-item">
-                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
-                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
-                            </a>
                         </div>
                     </div>
 
                     <!-- Nav -->
                     <div class="row">
                         <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#mainNav">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="mainNav">
-                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별 보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                        </div>
-                                </ul>
-                            </div>
+
                         </nav>
                     </div>
                     <!-- Nav -->
@@ -123,7 +83,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
 
-                            <form th:action ="@{/sellers/myshop/info/{shopId} (shopId = ${shop.getShopId()})}" method="post">
+                            <form th:action ="@{/sellers/myshop/info}" method="post">
                                 <input type="hidden" name="_method" value="PUT"/>
 
                                 <h3 for="inputDescription" style="margin:30px; ">
@@ -140,7 +100,7 @@
                                         가게 대표 사진 4장
                                     </h5>
                                     <div class="form-group" style="margin:30px">
-                                        <a th:href="@{/sellers/myshop/image/{shopId} (shopId = ${shop.getShopId()})}">
+                                        <a th:href="@{/sellers/myshop/image}">
                                             가게 대표 사진 4장 조회 및 수정
                                         </a>
                                     </div>
@@ -192,37 +152,37 @@
                             </h3>
                             <hr>
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/design/{id} (id = ${shop.getShopId()})}">
+                                <a th:href="@{/sellers/myshop/options/show/design}">
                                     디자인 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/size/{id} (id = ${shop.getShopId()})}">
+                                <a th:href="@{/sellers/myshop/options/show/size}">
                                     사이즈 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/sheet/{id} (id = ${shop.getShopId()})}">
+                                <a th:href="@{/sellers/myshop/options/show/sheet}">
                                     시트 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/cream/{id} (id = ${shop.getShopId()})}">
+                                <a th:href="@{/sellers/myshop/options/show/cream}">
                                     크림 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/creamcolor/{id} (id = ${shop.getShopId()})}">
+                                <a th:href="@{/sellers/myshop/options/show/creamcolor}">
                                     크림색 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/letter/{id} (id = ${shop.getShopId()})}">
+                                <a th:href="@{/sellers/myshop/options/show/letter}">
                                     글자색 조회 및 수정
                                 </a>
                             </div>
@@ -231,7 +191,7 @@
                     </div>
                 </div>
 
-                <form th:action ="@{/sellers/myshop/{id} (id = ${shop.getShopId()})}" method="post">
+                <form th:action ="@{/sellers/myshop}" method="post">
                     <input type="hidden" name="_method" value="PUT"/>
                     <input type="submit" value="가게 삭제">
                 </form>
@@ -244,106 +204,36 @@
         <div class="col-12 align-self-end">
             <!-- Footer -->
             <footer class="row">
-                <div class="col-12 bg-dark text-white pb-3 pt-5">
+                <div class="col-12 bg-purple text-white pb-5 pt-5">
                     <div class="row">
-                        <div class="col-lg-2 col-sm-4 text-center text-sm-left mb-sm-0 mb-3">
+                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="footer-logo">
-                                        <a href="index.html">E-Commerce</a>
+                                        <a href="index.html">Cake.zip</a>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <address>
-                                        221B Baker Street<br>
-                                        London, England
+                                        Quokka TF<br/>
+                                        Seoul, Korea
                                     </address>
                                 </div>
                                 <div class="col-12">
-                                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
-                                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-8 text-center text-sm-left mb-sm-0 mb-3">
-                            <div class="row">
-                                <div class="col-12 text-uppercase">
-                                    <h4>Who are we?</h4>
-                                </div>
-                                <div class="col-12 text-justify">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam imperdiet vel ligula vel sodales. Aenean vel ullamcorper purus, ac pharetra arcu. Nam enim velit, ultricies eu orci nec, aliquam efficitur sem. Quisque in sapien a sem vestibulum volutpat at eu nibh. Suspendisse eget est metus. Maecenas mollis quis nisl ac malesuada. Donec gravida tortor massa, vitae semper leo sagittis a. Donec augue turpis, rutrum vitae augue ut, venenatis auctor nulla. Sed posuere at erat in consequat. Nunc congue justo ut ante sodales, bibendum blandit augue finibus.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-3 col-5 ms-lg-auto ms-sm-0 ms-auto mb-sm-0 mb-3">
-                            <div class="row">
-                                <div class="col-12 text-uppercase">
-                                    <h4>Quick Links</h4>
-                                </div>
-                                <div class="col-12">
                                     <ul class="footer-nav">
                                         <li>
-                                            <a href="#">Home</a>
+                                            kayeong-kim@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">Contact Us</a>
+                                            hwijeong-lee@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">About Us</a>
+                                            hyerim-hwang@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">Privacy Policy</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Terms & Conditions</a>
+                                            gyoungmin-yoo@nhn-commerce.com
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-1 col-sm-2 col-4 me-auto mb-sm-0 mb-3">
-                            <div class="row">
-                                <div class="col-12 text-uppercase text-underline">
-                                    <h4>Help</h4>
-                                </div>
-                                <div class="col-12">
-                                    <ul class="footer-nav">
-                                        <li>
-                                            <a href="#">FAQs</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shipping</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Returns</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Track Order</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Report Fraud</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 text-center text-sm-left">
-                            <div class="row">
-                                <div class="col-12 text-uppercase">
-                                    <h4>Newsletter</h4>
-                                </div>
-                                <div class="col-12">
-                                    <form action="#">
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control" placeholder="Enter your email..." required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <button class="btn btn-outline-light text-uppercase">Subscribe</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>

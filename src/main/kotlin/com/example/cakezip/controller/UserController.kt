@@ -110,9 +110,7 @@ class UserController(
     @PostMapping("/sellers")
     fun sellersRegister(userDto: UserDto): String {
         userService.createSeller(userDto)
-        // TODO 가게 등록 페이지로 리다이렉트하도록 수정해야함
-
-        return "redirect:/home"
+        return "redirect:/users/login"
     }
 
     @PostMapping("/login")
@@ -128,6 +126,7 @@ class UserController(
                     session.setAttribute("customer", userService.findCustomerByUser(user))
                 } else {
                     session.setAttribute("seller", userService.findSellerByUser(user))
+                    return "redirect:/sellers/myshop"
                 }
 
             }
