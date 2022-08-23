@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession
 class MainController(
     private val notificationService: NotificationService,
     private val likeListService: LikeListService,
-    private val shopService: ShopService
     ) {
+    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/home")
     fun getMainView(model: Model, session: HttpSession): String {
@@ -38,5 +38,18 @@ class MainController(
         }
 
         return "index"
+    }
+
+    @GetMapping("/mypage")
+    fun getMyPageView(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+
+        if (user.userType == UserType.CUSTOMER) {
+            model.addAttribute("data", Message("", ""))
+        } else if (user.userType == UserType.SELLER) {
+            model.addAttribute("data", noAccessMessage)
+        }
+
+        return "myPage"
     }
 }

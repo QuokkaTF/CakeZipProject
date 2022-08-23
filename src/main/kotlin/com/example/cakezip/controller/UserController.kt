@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession
 @Controller
 class UserController(
     private val userService : UserService) {
-    val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/login")
     fun getUserLoginView() = "login"
@@ -146,18 +145,5 @@ class UserController(
     fun idCheck(userEmail: String): ResponseEntity<Boolean>{
         println(userEmail)
         return ResponseEntity.ok(userService.existsUser(userEmail))
-    }
-
-    @GetMapping("/mypage")
-    fun getMyPageView(model: Model, session: HttpSession): String {
-        val user: User = session.getAttribute("user") as User
-
-        if (user.userType == UserType.CUSTOMER) {
-            model.addAttribute("data", Message("", ""))
-        } else if (user.userType == UserType.SELLER) {
-            model.addAttribute("data", noAccessMessage)
-        }
-
-        return "myPage"
     }
 }
