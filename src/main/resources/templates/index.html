@@ -21,7 +21,6 @@
       href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/all.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
@@ -29,7 +28,9 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/css/all.min.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
       $(function () {
         $(".delete").click(function () {
@@ -56,63 +57,30 @@
       <div class="row min-vh-100">
         <div class="col-12">
         <div layout:fragment="content">
-
-
-
-
-
         <div class="col-12">
           <!-- Main Content -->
           <main class="row">
             <!-- Slider -->
             <div class="col-12 px-0 py-3">
-              <div
-                id="slider"
-                class="carousel slide w-100"
-                data-bs-ride="carousel"
-              >
+              <div id="slider" class="carousel slide w-100" data-bs-ride="carousel">
                 <ol class="carousel-indicators">
-                  <li
-                    data-bs-target="#slider"
-                    data-bs-slide-to="0"
-                    class="active"
-                  ></li>
+                  <li data-bs-target="#slider" data-bs-slide-to="0" class="active"></li>
                   <li data-bs-target="#slider" data-bs-slide-to="1"></li>
-                  <li data-bs-target="#slider" data-bs-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
-                    <img src="images/cakemain.png" class="slider-img" />
+                    <img src="images/banner1.png" class="slider-img" />
                   </div>
                   <div class="carousel-item">
-                    <img src="images/slider-2.jpg" class="slider-img" />
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/slider-3.jpg" class="slider-img" />
+                    <img src="images/banner2.png" class="slider-img" />
                   </div>
                 </div>
-                <button
-                  class="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#slider"
-                  data-bs-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
                 </button>
-                <button
-                  class="carousel-control-next"
-                  type="button"
-                  data-bs-target="#slider"
-                  data-bs-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
+                <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Next</span>
                 </button>
               </div>
@@ -209,9 +177,12 @@
     </div>
     <!-- Messages -->
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-    </th:block>
+
+
+    </div>
   </body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
 </html>

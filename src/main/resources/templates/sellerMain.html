@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Commerce Template</title>
+    <title>cake.zip - 케이크집을 압축해 한눈에</title>
 
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
@@ -35,19 +35,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
-                                </li>
-                                <li>
-                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
-                                </li>
-                                <li>
-                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!-- Top Nav -->
@@ -57,28 +44,8 @@
                     <div class="row">
                         <div class="col-lg-auto">
                             <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
+                                <a href="/sellers/myshop">Cake.zip</a>
                             </div>
-                        </div>
-                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
-                                               required>
-                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
-                            </a>
-                            <a href="/cart" class="header-item">
-                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
-                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
-                            </a>
                         </div>
                     </div>
 
@@ -89,45 +56,7 @@
                                     data-bs-target="#mainNav">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="mainNav">
-                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">전체보기<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                            <!--                                            <a class="dropdown-item" href="category.html">Television Sets</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">DSLR Cameras</a>-->
-                                            <!--                                            <a class="dropdown-item" href="category.html">Projectors</a>-->
-                                        </div>
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="fashion">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Men's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Women's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Accessories</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Footwear</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                        <!--                                    <li class="nav-item dropdown">-->
-                                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="books" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>-->
-                                        <!--                                        <div class="dropdown-menu" aria-labelledby="books">-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Adventure</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Horror</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Romantic</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Children's</a>-->
-                                        <!--                                            <a class="dropdown-item" href="category.html">Non-Fiction</a>-->
-                                        <!--                                        </div>-->
-                                        <!--                                    </li>-->
-                                </ul>
-                            </div>
+
                         </nav>
                     </div>
                     <!-- Nav -->
@@ -155,47 +84,49 @@
                         </div>
                     </div>
 
-                    <div th:if ="${shop.getStatus()} != 'active'">
-                        <div class="col-12 text-center py-2">
-                            <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                    <div th:if ="${shop} != null">
+                        <div th:if ="${shop.getStatus()} != 'active'">
+                            <div class="col-12 text-center py-2">
+                                <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div th:if ="${shop.getStatus()} == 'active'">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" th:href="@{/sellers/myshop/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sellers/myorders/{id} (id = ${shop.getSeller().getSellerId()})}">내 가게 주문 조회</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sellers/myinfo/{id} (id = ${shop.getSeller().getSellerId()})}">내 정보 조회</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div th:if ="${shop.getStatus()} == 'active'">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="nav">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" th:href="@{/sellers/myshop}">내 가게</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/sellers/orders}">내 가게 주문 조회</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/sellers/myinfo}">내 정보 조회</a>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                <div class="row py-1">
-                                    <div class="col-12">
-                                        <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                            <a class="card-body" th:href="@{/sellers/myshop/info/{id}(id = ${shop.getShopId()})}">
-                                                <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
-                                                <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
-                                                <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
-                                                <div>
-                                                    <th:block th:each="image: ${shopImgs}">
-                                                        <img th:src="${image.getShopImgUrl()}" class="img-fluid"
-                                                             style="height: 300px; width: 300px;">
-                                                    </th:block>
-                                                </div>
-                                            </a>
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                                <a class="card-body" th:href="@{/sellers/myshop/info}">
+                                                    <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                                    <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
+                                                    <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                                    <div>
+                                                        <th:block th:each="image: ${shopImgs}">
+                                                            <img th:src="${image.getShopImgUrl()}" class="img-fluid"
+                                                                 style="height: 300px; width: 300px;">
+                                                        </th:block>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -220,24 +151,23 @@
                                 </div>
                                 <div class="col-12">
                                     <address>
-                                        Quokka TF<br>
+                                        Quokka TF<br/>
                                         Seoul, Korea
                                     </address>
                                 </div>
                                 <div class="col-12">
                                     <ul class="footer-nav">
                                         <li>
-                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
+                                            kayeong-kim@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                hwijeong-lee@nhn-commerce.com</a>
+                                            hwijeong-lee@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
+                                            hyerim-hwang@nhn-commerce.com
                                         </li>
                                         <li>
-                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
+                                            gyoungmin-yoo@nhn-commerce.com
                                         </li>
                                     </ul>
                                 </div>

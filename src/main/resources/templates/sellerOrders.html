@@ -37,6 +37,7 @@
 
     <div class="row min-vh-100">
 
+
         <div class="col-12">
             <!-- Main Content -->
 
@@ -48,6 +49,21 @@
 
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
+
+                    <div class="col-md-12">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/sellers/myshop}">내 가게</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/sellers/orders}">내 가게 주문 조회</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/sellers/myinfo}">내 정보 조회</a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div th:each="dto : ${cake}" class="row py-3">
                         <div class="card col-6 mx-auto py-3">
                             <div class="card-body">

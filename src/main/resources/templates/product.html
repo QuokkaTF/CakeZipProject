@@ -4,6 +4,16 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/default_layout}">
 <head>
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+        </script>
+    </th:block>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -26,8 +36,7 @@
     <script>
 
     $(function (){
-    <!--        alert("TEST");-->
-    <!--        const shopId = 1;-->
+        alert("TEST");
 
         let likeVal = $('#likeCheck').val();
         const likeImg = $('#likeImg');
@@ -72,12 +81,13 @@
                         $('#likeImg').attr("src", "/images/heart-fill.svg");
                         location.reload();
                     }).fail(function (error) {
-                         alert("잘못된 접근입니다.");
+                        alert(JSON.stringify(error));
                     })
                 }
             }
         });
     });
+
 
     </script>
 
@@ -131,6 +141,7 @@
                             </div>
                             <div class="col-12">
                                 <form method="post" th:action="@{'/users/cart'}" style="float:left">
+
 
                                     <div style="padding:5px;">
                                         <label style="color:#AD81D5"><b>디자인번호</b></label>
@@ -212,12 +223,14 @@
                                             <input type="date" name="date">
                                             <input type="time" min="10:00" max="18:00" name="time"></p>
                                     </div>
+
                                     <script>
                                         let aa = $('#minDate').val();
                                         let bb = #dates.format(#minDate, 'yyyy-MM-dd');
                                         document.getElementById("tttt").value = $('#minDate').val()
 
                                     </script>
+
                                     <input type="text" name="shopId" th:value="${shopInfo.shopID}"
                                            style=" display: none;">
 
