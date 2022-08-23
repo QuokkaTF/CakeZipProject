@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service
 @Service
 class ReviewService(
     private val reviewRepository: ReviewRepository,
-    private val customerRepository: CustomerRepository,
     private val shopRepository: ShopRepository,
     private val cakeRepository: CakeRepository,
 ){
@@ -31,9 +30,21 @@ class ReviewService(
     fun getCustomerAllReviews(customer: Customer): List<ReviewDto>? {
         val reviewList: ArrayList<ReviewDto> = ArrayList()
         for (cake in cakeRepository.findByCustomer(customer)) {
-            val review = reviewRepository.findReviewByCake(cake)
-            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, cake))
+            if (reviewRepository.findReviewByCake(cake) != null) {
+                val review = reviewRepository.findReviewByCake(cake)
+                reviewList.add(
+                    ReviewDto(
+                        review?.reviewTitle,
+                        review?.reviewContent,
+                        review?.reviewScore,
+                        review?.cake?.shop?.shopName,
+                        review?.createdAt,
+                        cake
+                    )
+                )
+            }
         }
+
         return reviewList
     }
 

@@ -1,12 +1,22 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
 <head>
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+        </script>
+    </th:block>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Commerce Template</title>
-
+    <title>cake.zip - 케이크집을 압축해 한눈에</title>
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
@@ -18,34 +28,28 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
       $(function () {
-        let error = $('#error').val();
-        if (error === '-1') {
-            alert("잘못된 접근입니다.");
-        }
         let cakeId = $('#cakeId').val();
         let statusType = $('#statusType').val();
         $('#cancelButton').click(function () {
           const con_check = confirm("주문을 취소하시겠습니까?");
           if (con_check) {
-             $.ajax({
-                type: 'POST',
-                url: '/orders/' + cakeId,
-                contentType: 'application/json; charset=utf-8'
-             }).done(function () {
-
-                 alert("test");
-                location.reload();
-             }).fail(function (statusType) {
-                if (statusType === 'CANCEL') {
-                    alert("이미 취소된 주문입니다.");
-                } else if (statusType === 'REJECT') {
-                    alert("이미 거절된 주문입니다.");
-                } else if (statusType === 'CARTTEMP' || statusType === 'CART') {
-                    alert("잘못된 접근입니다.");
-                } else {
-                    alert("이미 진행중인 주문은 취소할 수 없습니다.");
-                }
-             });
+            if (statusType == 'CANCEL') {
+                alert("이미 취소된 주문입니다.");
+            } else if (statusType == 'REJECT') {
+                alert("이미 거절된 주문입니다.");
+            } else if (statusType == 'PAYMENT') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/orders/' + cakeId,
+                    contentType: 'application/json; charset=utf-8'
+                    }).done(function () {
+                        location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    });
+            } else {
+               alert("이미 진행중인 주문은 취소할 수 없습니다.");
+            }
           }
         });
       });
@@ -55,102 +59,8 @@
 <body>
 <div class="container-fluid nanum">
 
-    <div class="row min-vh-100">
-        <div class="col-12">
-            <header class="row">
-                <!-- Top Nav -->
+    <div class="container-fluid nanum" layout:fragment="content">
 
-                <div class="col-12 bg-purple py-2 d-md-block d-none">
-                    <div class="row">
-                        <div class="col-auto me-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
-                                </li>
-                                <li>
-                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
-                                </li>
-                                <li>
-                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Top Nav -->
-
-                <!-- Header -->
-                <div class="col-12 bg-white pt-4">
-                    <div class="row">
-                        <div class="col-lg-auto">
-                            <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
-                                               required>
-                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
-                            </a>
-                            <a href="/cart" class="header-item">
-                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
-                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Nav -->
-                    <div class="row">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#mainNav">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="mainNav">
-                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                        </div>
-
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <!-- Nav -->
-
-                </div>
-                <!-- Header -->
-
-            </header>
-        </div>
 
         <div class="col-12">
             <!-- Main Content -->
@@ -277,48 +187,6 @@
             <!-- Main Content -->
         </div>
 
-        <div class="col-12 align-self-end">
-            <!-- Footer -->
-            <footer class="row">
-                <div class="col-12 bg-purple text-white pb-5 pt-5">
-                    <div class="row">
-                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="footer-logo">
-                                        <a href="index.html">Cake.zip</a>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <address>
-                                        Quokka TF<br>
-                                        Seoul, Korea
-                                    </address>
-                                </div>
-                                <div class="col-12">
-                                    <ul class="footer-nav">
-                                        <li>
-                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                hwijeong-lee@nhn-commerce.com</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- Footer -->
-        </div>
     </div>
 </div>
 
