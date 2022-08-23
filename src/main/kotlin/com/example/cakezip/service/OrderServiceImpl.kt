@@ -69,4 +69,29 @@ class OrderServiceImpl(
         Orders()
         return orderRepository.save(order)
     }
+
+    override fun findByCake(cake: Cake): Orders? = orderRepository.findOrdersByCake(cake)
+
+    override fun cakeStateNoti(CakeId: Long) {
+        val cake = cakeRepository.findByCakeId(CakeId)
+
+        var notiMessage: NotificationMessage? = null
+        when (cake.cakeStatus) {
+            CakeStatusType.REJECT -> {
+                notiMessage = NotificationMessage.ORDER_DENIED
+            }
+            CakeStatusType.PROCEED -> {
+                notiMessage = NotificationMessage.ORDER_ACCEPTED
+            }
+            CakeStatusType.READY -> {
+                notiMessage = NotificationMessage.ORDER_READY
+            }
+        }
+
+        notificationService.makeNotification(
+            cake.customer.customerId, cake.shop.seller!!.sellerId!!, findByCake(cake)!!,
+            notiMessage!!, NotificationType.TOCUSTOMER
+        )
+    }
 }
+

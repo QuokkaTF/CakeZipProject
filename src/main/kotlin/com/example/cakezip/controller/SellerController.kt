@@ -7,6 +7,8 @@ import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
+import com.example.cakezip.domain.notice.NotificationMessage
+import com.example.cakezip.domain.notice.NotificationType
 import com.example.cakezip.domain.shop.Shop
 
 import com.example.cakezip.dto.Message
@@ -30,6 +32,8 @@ class SellerController (
     private val cakeService: CakeService,
     private val userService: UserService,
     private val uploadStoreImgService: UploadStoreImgService,
+    private val notificationService: NotificationService,
+    private val orderService: OrderService,
     ){
 
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
@@ -168,6 +172,7 @@ class SellerController (
     @PutMapping("/sellers/orders/{cakeId}")
     fun updateCakeStatus(model: Model, @PathVariable cakeId: Long, statusCheck: CakeStatusType,
                          session: HttpSession): String {
+
         val user: User = session.getAttribute("user") as User
         if(user.userType == UserType.CUSTOMER) {
             model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
@@ -176,7 +181,9 @@ class SellerController (
             model.addAttribute("data", Message("", ""))
         }
         cakeService.updateCakeStatus(cakeId, statusCheck)
-        println(statusCheck)
+
+        orderService.cakeStateNoti(cakeId)
+
         return "redirect:/sellers/orders/{cakeId}"
     }
 }
