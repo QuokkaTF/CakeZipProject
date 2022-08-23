@@ -55,7 +55,7 @@ class OrderController(
                 model.addAttribute("data", Message("", ""))
             }
         } else {
-            model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/mypage"))
+            model.addAttribute("data", noAccessMessage)
         }
 
         return "orders"
@@ -88,9 +88,15 @@ class OrderController(
     }
 
     @GetMapping("/mypage")
-    fun getMyPageView(): String {
-        // TODO: 개인/기업 회원 구분 필요
+    fun getMyPageView(model: Model, session: HttpSession): String {
+        val user: User = session.getAttribute("user") as User
+
+        if (user.userType == UserType.CUSTOMER) {
+            return "mypage"
+        } else if (user.userType == UserType.SELLER) {
+            // TODO: 개인/기업 회원 구분 필요
+        }
+
         return "mypage"
     }
 }
-
