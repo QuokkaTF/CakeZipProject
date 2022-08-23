@@ -199,4 +199,46 @@ class ShopServiceImpl(
         }
         return shopDetailList
     }
+
+    override fun searchShop2(keyword:String):ArrayList<ShopDetailInfoDto> {
+        var shopList = shopRepository.findByShopNameContaining(keyword)
+        var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
+        for (sl in shopList){
+            shopDetailList.add(getShopDetail2(sl.shopId!!))
+        }
+        return shopDetailList
+    }
+
+    override fun getShopDetail2(shopID: Long): ShopDetailInfoDto {
+        val shopInfo: Shop = shopRepository.findByShopId(shopID)
+        val shop = shopInfo
+        val shopImg : List<ShopImg> = shopImgRepository.findByShop(shop)
+        val shopImgUrl : ArrayList<String> = ArrayList()
+        for (img in shopImg) {
+            shopImgUrl.add(img.shopImgUrl)
+        }
+
+        var cakeOptionList : List<CakeOptionList> = cakeOptionListRepository.findByShopId(shop)
+        val designOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val sizeOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val sheetOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val creamOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val creamColorOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val letterOptionList : ArrayList<CakeOptionList> = ArrayList()
+        val likeCount = likeListService.getShopLikeCount(shop)
+
+        for (option in cakeOptionList) {
+            when(option.optionTitle) {
+                OptionTitleType.DESIGN -> designOptionList.add(option)
+                OptionTitleType.SIZE -> sizeOptionList.add(option)
+                OptionTitleType.SFLAVOR -> sheetOptionList.add(option)
+                OptionTitleType.CFLAVOR -> creamOptionList.add(option)
+                OptionTitleType.CCOLOR -> creamColorOptionList.add(option)
+                OptionTitleType.LCOLOR -> letterOptionList.add(option)
+            }
+        }
+        return ShopDetailInfoDto(shopID, shop.shopName, shop.shopAddress, shop.shopArea, shop.shopShortDescriptor,
+            shop.shopPhoneNum, shop.seller, shop.shopImgDescriptionUrl, shopImgUrl, designOptionList, sizeOptionList,
+            sheetOptionList, creamOptionList, creamColorOptionList, letterOptionList, likeCount)
+    }
 }

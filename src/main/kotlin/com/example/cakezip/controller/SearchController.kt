@@ -17,15 +17,12 @@ class SearchController(
     private val shopService: ShopService,
 ) {
     @GetMapping("/search")
-    fun getCartPaymentList(model: Model, keyword:String, session: HttpSession): String {
-        var customer: Customer? = null
-        if((session.getAttribute("user") as User).userType == UserType.CUSTOMER) {
-            customer = (session.getAttribute("customer") as Customer)
-        }
+    fun getCartPaymentList(model: Model, keyword:String): String {
 
-        var searchList : ArrayList<ShopDetailInfoDto> = shopService.searchShop(keyword,customer)
+        var searchList : ArrayList<ShopDetailInfoDto> = shopService.searchShop2(keyword)
         model.addAttribute("searchList", searchList)
         model.addAttribute("keyword", keyword)
+
         return "search"
     }
 }

@@ -25,4 +25,9 @@ interface ShopService {
     fun findBySeller(seller:Seller) : Shop
 
     fun searchShop(keyword:String, customer: Customer?):ArrayList<ShopDetailInfoDto>
+
+    fun searchShop2(keyword:String):ArrayList<ShopDetailInfoDto>
+
+    fun getShopDetail2(shopID: Long): ShopDetailInfoDto
+
 }
