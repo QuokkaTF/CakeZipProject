@@ -507,6 +507,10 @@ table td img {
  	padding-bottom:7px;
  }
 
+ .review a:hover {
+    color: #fff;
+ }
+
  .review-block{
  	background-color:#FAFAFA;
  	border:1px solid #EFEFEF;
