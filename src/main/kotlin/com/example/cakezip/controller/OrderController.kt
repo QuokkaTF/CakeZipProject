@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession
 class OrderController(
     private val orderService: OrderService,
     private val cakeService: CakeService,
-    private val customerService: CustomerService
 ) {
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
@@ -31,7 +30,6 @@ class OrderController(
                 model.addAttribute("cake", cakeService.getCakeOptionList(cake))
                 model.addAttribute("detail", orderService.getCustomerOrders(cakeId))
                 model.addAttribute("data", Message("", ""))
-
             } else {
                 model.addAttribute("data", noAccessMessage)
             }

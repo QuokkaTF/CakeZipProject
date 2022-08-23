@@ -1,22 +1,22 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
 <head>
     <th:block th:if="${#strings.length(data.message) != 0}">
         <script>
 			top.alert("[[${data.message}]]");
-		</script>
+        </script>
     </th:block>
     <th:block th:if="${#strings.length(data.href) != 0}">
         <script>
 			top.location.href = '[[${data.href}]]';
-		</script>
+        </script>
     </th:block>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Commerce Template</title>
-
+    <title>cake.zip - 케이크집을 압축해 한눈에</title>
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
@@ -35,124 +35,28 @@
 
 </head>
 <body>
-<div class="container-fluid nanum">
+<div class="container-fluid nanum" layout:fragment="content">
 
-    <div class="row min-vh-100">
-        <div class="col-12">
-            <header class="row">
-                <!-- Top Nav -->
+    <div class="col-12">
+        <!-- Main Content -->
 
-                <div class="col-12 bg-purple py-2 d-md-block d-none">
-                    <div class="row">
-                        <div class="col-auto me-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
-                                </li>
-                                <li>
-                                    <a href="/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
-                                </li>
-                                <li>
-                                    <a href="/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Top Nav -->
-
-                <!-- Header -->
-                <div class="col-12 bg-white pt-4">
-                    <div class="row">
-                        <div class="col-lg-auto">
-                            <div class="site-logo text-center text-lg-left">
-                                <a href="/index">Cake.zip</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-dark" placeholder="검색어를 입력하세요"
-                                               required>
-                                        <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                            <a href="#" class="header-item">
-                                <i class="fas fa-heart me-2"></i><span id="header-favorite">0</span>
-                            </a>
-                            <a href="cart.html" class="header-item">
-                                <i class="fas fa-shopping-bag me-2"></i><span id="header-qty" class="me-3">2</span>
-                                <i class="fas fa-money-bill-wave me-2"></i><span id="header-price">$4,000</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Nav -->
-                    <div class="row">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#mainNav">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="mainNav">
-                                <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="/index">전체보기<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="electronics"
-                                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역별
-                                            보기</a>
-                                        <div class="dropdown-menu" aria-labelledby="electronics">
-                                            <a class="dropdown-item" href="category.html">서울</a>
-                                            <a class="dropdown-item" href="category.html">부산</a>
-                                        </div>
-
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <!-- Nav -->
-
-                </div>
-                <!-- Header -->
-
-            </header>
+        <div class="row">
+            <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase text-purple">
+                <h2>내 리뷰 전체보기</h2>
+            </div>
         </div>
 
-        <div class="col-12">
-            <!-- Main Content -->
-
-            <div class="row">
-                <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase text-purple">
-                    <h2>내 리뷰 전체보기</h2>
-                </div>
-            </div>
-
-            <main class="row">
-                <div class="col-12 bg-white py-3">
-                    <div th:each="dto : ${review}" class="row py-3">
-                        <div class="card col-6 mx-auto py-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <a th:onclick="|location.href='@{/customers/orders/detail/{cakeId}
+        <main class="row">
+            <div class="col-12 bg-white py-3">
+                <div th:each="dto : ${review}" class="row py-3">
+                    <div class="card col-6 mx-auto py-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <a th:onclick="|location.href='@{/customers/orders/detail/{cakeId}
                                     (cakeId=${dto.cake.cakeId})}'|">
-                                        <div style="font-size:1.3rem;" class="text-purple review-block-title"><span th:text="${dto.shopName}"></span></div>
-                                        <div class="review-block-rate">
+                                    <div style="font-size:1.3rem;" class="text-purple review-block-title"><span
+                                            th:text="${dto.shopName}"></span></div>
+                                    <div class="review-block-rate">
                                         <span th:if="${dto.reviewScore} == 1">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
@@ -165,7 +69,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                            <span th:if="${dto.reviewScore} == 2">
+                                        <span th:if="${dto.reviewScore} == 2">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -177,7 +81,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                            <span th:if="${dto.reviewScore} == 3">
+                                        <span th:if="${dto.reviewScore} == 3">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -189,7 +93,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                            <span th:if="${dto.reviewScore} == 4">
+                                        <span th:if="${dto.reviewScore} == 4">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -201,7 +105,7 @@
                                             <i class="fas fa-star"
                                                style="color:white; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                            <span th:if="${dto.reviewScore} == 5">
+                                        <span th:if="${dto.reviewScore} == 5">
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                             <i class="fas fa-star"
@@ -213,69 +117,30 @@
                                             <i class="fas fa-star"
                                                style="color:yellow; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;"></i>
                                         </span>
-                                        </div>
-                                        <p><span class="review-block-title">제목 : </span><span class="review-block-description" th:text="${dto.reviewTitle}"></span>
-                                        </p>
-                                        <p><span class="review-block-title">내용 : </span><span class="review-block-description" th:text="${dto.reviewContent}"></span>
-                                        </p>
-                                        <div class="review-block-date"><span
-                                                th:text="${#temporals.format(dto.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </main>
-            <!-- Main Content -->
-        </div>
-
-        <div class="col-12 align-self-end">
-            <!-- Footer -->
-            <footer class="row">
-                <div class="col-12 bg-purple text-white pb-5 pt-5">
-                    <div class="row">
-                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="footer-logo">
-                                        <a href="index.html">Cake.zip</a>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <address>
-                                        Quokka TF<br>
-                                        Seoul, Korea
-                                    </address>
-                                </div>
-                                <div class="col-12">
-                                    <ul class="footer-nav">
-                                        <li>
-                                            <a href="#">kayeong-kim@nhn-commerce.com</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                hwijeong-lee@nhn-commerce.com</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">hyerim-hwang@nhn-commerce.com</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">gyoungmin-yoo@nhn-commerce.com</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <p><span class="review-block-title">제목 : </span><span
+                                            class="review-block-description" th:text="${dto.reviewTitle}"></span>
+                                    </p>
+                                    <p><span class="review-block-title">내용 : </span><span
+                                            class="review-block-description" th:text="${dto.reviewContent}"></span>
+                                    </p>
+                                    <div class="review-block-date"><span
+                                            th:text="${#temporals.format(dto.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </footer>
-            <!-- Footer -->
-        </div>
+            </div>
+
+
+        </main>
+        <!-- Main Content -->
     </div>
+
+
+</div>
 
 </div>
 
