@@ -4,16 +4,6 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/default_layout}">
 <head>
-    <th:block th:if="${#strings.length(data.message) != 0}">
-        <script>
-			top.alert("[[${data.message}]]");
-        </script>
-    </th:block>
-    <th:block th:if="${#strings.length(data.href) != 0}">
-        <script>
-			top.location.href = '[[${data.href}]]';
-        </script>
-    </th:block>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -94,6 +84,18 @@
 </head>
 <body>
 <div class="container-fluid bg-lightpurple" layout:fragment="content">
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+
+        </script>
+    </th:block>
     <div class="row min-vh-100">
         <div class="col-9 mx-auto bg-lightpurple">
             <!-- Main Content -->

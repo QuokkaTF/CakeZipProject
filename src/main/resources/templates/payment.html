@@ -6,18 +6,6 @@
 
 <head>
 
-    <th:block th:if="${#strings.length(data.message) != 0}">
-        <script>
-			top.alert("[[${data.message}]]");
-
-        </script>
-    </th:block>
-    <th:block th:if="${#strings.length(data.href) != 0}">
-        <script>
-			top.location.href = '[[${data.href}]]';
-
-        </script>
-    </th:block>
 
 
     <meta charset="UTF-8">
@@ -110,6 +98,18 @@
 </head>
 <body>
 <div class="container-fluid" layout:fragment="content">
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+
+        </script>
+    </th:block>
 
     <div class="row min-vh-100">
 

@@ -31,7 +31,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>모든 케이크집을 압축해 한눈에, cake.zip</title>
+    <title>cake.zip - 모든 케이크집을 압축해 한눈에</title>
 
     <link href="/fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="/fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
@@ -47,6 +47,18 @@
 
 <body>
 <div class="container-fluid" layout:fragment="content">
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+			top.alert("[[${data.message}]]");
+
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+			top.location.href = '[[${data.href}]]';
+
+        </script>
+    </th:block>
 
     <div class="row min-vh-100">
 
