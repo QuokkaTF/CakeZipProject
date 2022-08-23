@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Commerce Template</title>
+    <title>cake.zip - 케이크집을 압축해 한눈에</title>
 
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
@@ -84,47 +84,49 @@
                         </div>
                     </div>
 
-                    <div th:if ="${shop.getStatus()} != 'active'">
-                        <div class="col-12 text-center py-2">
-                            <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                    <div th:if ="${shop} != null">
+                        <div th:if ="${shop.getStatus()} != 'active'">
+                            <div class="col-12 text-center py-2">
+                                <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div th:if ="${shop.getStatus()} == 'active'">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" th:href="@{/sellers/myshop}">내 가게</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sellers/orders}">내 가게 주문 조회</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/sellers/myinfo}">내 정보 조회</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div th:if ="${shop.getStatus()} == 'active'">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="nav">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" th:href="@{/sellers/myshop}">내 가게</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/sellers/orders}">내 가게 주문 조회</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/sellers/myinfo}">내 정보 조회</a>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                <div class="row py-1">
-                                    <div class="col-12">
-                                        <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
-                                            <a class="card-body" th:href="@{/sellers/myshop/info}">
-                                                <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
-                                                <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
-                                                <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
-                                                <div>
-                                                    <th:block th:each="image: ${shopImgs}">
-                                                        <img th:src="${image.getShopImgUrl()}" class="img-fluid"
-                                                             style="height: 300px; width: 300px;">
-                                                    </th:block>
-                                                </div>
-                                            </a>
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
+                                                <a class="card-body" th:href="@{/sellers/myshop/info}">
+                                                    <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
+                                                    <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
+                                                    <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                                    <div>
+                                                        <th:block th:each="image: ${shopImgs}">
+                                                            <img th:src="${image.getShopImgUrl()}" class="img-fluid"
+                                                                 style="height: 300px; width: 300px;">
+                                                        </th:block>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
