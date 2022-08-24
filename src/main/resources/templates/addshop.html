@@ -439,10 +439,11 @@
         }).open();
     }
 
+    let count = 1;
+
     /**
      * 케이크 디자인
      * */
-    let countDesign = 1;
     let inputCakeDesign = document.getElementById('inputCakeDesign');
     let inputDesignPrice = document.getElementById('inputCakeDesignPrice');
     let addCakeDesign = document.getElementById('addCakeDesign');
@@ -454,7 +455,7 @@
             alert('내용을 입력해 주세요!');
         else
         {
-            list.setAttribute("id","li"+countDesign);
+            list.setAttribute("id","li"+count);
 
             var blank_pattern = /[\s]/g;
             if(blank_pattern.test(inputCakeDesign.value) == true){
@@ -473,7 +474,7 @@
             list.innerHTML += " ";
             list.innerHTML += inputDesignPrice.value;
             list.innerHTML += "원"
-            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove1("+countDesign+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove1("+count+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
@@ -484,7 +485,7 @@
             inputCakeDesign.value= "";
             inputDesignPrice.value= "";
 
-            countDesign++
+            count++
         }
     })
 
@@ -496,7 +497,7 @@
     /**
      * 케이크 호수
      * */
-    let countSize = 1;
+    // let countSize = 1;
     let inputCakeSize = document.getElementById('inputCakeSize');
     let inputCakeSizePrice = document.getElementById('inputCakeSizePrice');
     let addCakeSize = document.getElementById('addCakeSize');
@@ -508,7 +509,7 @@
             alert('내용을 입력해 주세요!');
         else
         {
-            list.setAttribute("id","li"+countSize);
+            list.setAttribute("id","li"+count);
 
             var blank_pattern = /[\s]/g;
             if(blank_pattern.test(inputCakeSize.value) == true){
@@ -540,7 +541,7 @@
             list.innerText += " "
             list.innerHTML += inputCakeSizePrice.value;
             list.innerHTML += "원"
-            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove2("+countSize+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove2("+count+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
@@ -550,7 +551,7 @@
 
             inputCakeSize.value= "";
             inputCakeSizePrice.value="";
-            countSize++
+            count++
         }
     })
 
@@ -574,7 +575,7 @@
             alert('내용을 입력해 주세요!');
         else
         {
-            list.setAttribute("id","li"+countSheet);
+            list.setAttribute("id","li"+count);
 
             var blank_pattern = /[\s]/g;
             if(blank_pattern.test(inputCakeSheet.value) == true){
@@ -593,17 +594,17 @@
             list.innerText += " "
             list.innerHTML += inputCakeSheetPrice.value;
             list.innerHTML += "원"
-            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove3("+countSheet+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove3("+count+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
             cakeSheetList.appendChild(list);
-
+            console.log(cakeSheetList.textContent)
             inputCakeSheet.value= "";
             inputCakeSheetPrice.value = "";
-            countSheet++
+            count++
         }
     })
 
@@ -627,7 +628,7 @@
             alert('내용을 입력해 주세요!');
         else
         {
-            list.setAttribute("id","li"+countCream);
+            list.setAttribute("id","li"+count);
 
             var blank_pattern = /[\s]/g;
             if(blank_pattern.test(inputCakeCream.value) == true){
@@ -646,17 +647,17 @@
             list.innerText += " "
             list.innerHTML += inputCakeCreamPrice.value;
             list.innerHTML += "원"
-            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove4("+countCream+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove4("+count+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
             cakeCreamList.appendChild(list);
-
+            console.log(cakeCreamList.textContent)
             inputCakeCream.value= "";
             inputCakeCreamPrice.value="";
-            countCream++
+            count++
         }
     })
 
@@ -680,7 +681,7 @@
             alert('내용을 입력해 주세요!');
         else
         {
-            list.setAttribute("id","li"+countCreamColor);
+            list.setAttribute("id","li"+count);
 
             var blank_pattern = /[\s]/g;
             if(blank_pattern.test(inputCakeCreamColor.value) == true){
@@ -700,18 +701,18 @@
             list.innerText += " "
             list.innerHTML += inputCakeCreamColorPrice.value;
             list.innerHTML += "원"
-            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove5("+countCreamColor+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove5("+count+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
             list.style.marginLeft = "15px";
 
             cakeCreamColorList.appendChild(list);
-
+            console.log(cakeCreamColorList.textContent)
             inputCakeCreamColor.value= "";
             inputCakeCreamColorPrice.value= ""
 
-            countCreamColor++
+            count++
         }
     })
 
@@ -735,7 +736,7 @@
             alert('내용을 입력해 주세요!');
         else
         {
-            list.setAttribute("id","li"+countLetter);
+            list.setAttribute("id","li"+count);
 
             var blank_pattern = /[\s]/g;
             if(blank_pattern.test(inputCakeLetter.value) == true){
@@ -754,7 +755,7 @@
             list.innerText += " "
             list.innerHTML += inputCakeLetterPrice.value;
             list.innerHTML += "원"
-            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove6("+countLetter+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
+            list.innerHTML += "<button style='float: right; border: none; margin: 0px' class='btn btn-outline-secondary' type='button' onclick='remove6("+count+")'><img src=\"/images/removebtn.png\" width=\"15px\" height=\"15px\" alt=\"\"></button>"
             list.innerHTML += "  ";
 
             list.style.float = "left";
@@ -762,9 +763,10 @@
 
             cakeLetterList.appendChild(list);
 
+            console.log(cakeLetterList.textContent)
             inputCakeLetter.value= "";
             inputCakeLetterPrice.value = ""
-            countLetter++
+            count++
         }
     })
 
