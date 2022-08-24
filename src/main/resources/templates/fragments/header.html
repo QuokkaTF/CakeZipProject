@@ -45,7 +45,7 @@
                           <a href="/home">Cake.zip</a>
                         </div>
                       </div>
-                      <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
+                      <div class="col-lg-5 mx-auto mt-4 mt-lg-0" th:if="${session.seller == null}">
                           <form method="get" th:action="@{'/search'}">
                               <div class="form-group">
                                   <div class="input-group">
@@ -75,7 +75,7 @@
                     </div>
 
                     <!-- Nav -->
-                    <div class="row">
+                    <div class="row" th:if="${session.seller == null}">
                       <nav
                         class="navbar navbar-expand-lg navbar-light bg-white col-12"
                       >
