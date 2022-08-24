@@ -156,13 +156,15 @@
                                         <label style="color:#AD81D5"><b>요청사항</b></label>
                                         <input type="text" name="etc">
                                     </div>
-<!--                                    <div style="padding:5px;">-->
-<!--                                        <label style="color:#AD81D5"><b>픽업날짜</b></label>-->
-
-<!--                                        <p style="padding:5px;">-->
-<!--                                            <input type="date" name="date">-->
-<!--                                            <input type="time" min="10:00" max="18:00" name="time"></p>-->
-<!--                                    </div>-->
+                                    <div style="padding:5px;">
+                                        <label style="color:#AD81D5"><b>픽업날짜</b></label>
+                                        <br>
+                                        <label>오늘로부터 3일 뒤 ~ 한달 전 / 10:00~18:00 </label>
+                                        <br>
+                                        <input type="date" name="date"
+                                               th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                                        <input type="time" min="10:00" max="18:00" name="time">
+                                    </div>
 
 <!--                                    <script>-->
 <!--                                        let aa = $('#minDate').val();-->
