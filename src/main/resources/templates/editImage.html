@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -16,57 +19,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div class="container-fluid nanum">
+<div class="container-fluid nanum" layout:fragment="content">
 
     <div class="row min-vh-100">
-        <div class="col-12">
-            <header class="row">
-                <!-- Top Nav -->
-
-                <div class="col-12 bg-purple py-2 d-md-block d-none">
-                    <div class="row">
-                        <div class="col-auto me-auto">
-                            <ul class="top-nav">
-                                <li>
-                                    <a href="tel:+123-456-7890"><i class="fa fa-phone-square me-2"></i>+123-456-7890</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:cakezip@cake.com"><i class="fa fa-envelope me-2"></i>cakezip@cake.com</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Top Nav -->
-
-                <!-- Header -->
-                <div class="col-12 bg-white pt-4">
-                    <div class="row">
-                        <div class="col-lg-auto">
-                            <div class="site-logo text-center text-lg-left">
-                                <a href="/sellers/myshop">Cake.zip</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Nav -->
-                    <div class="row">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#mainNav">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                        </nav>
-                    </div>
-                    <!-- Nav -->
-
-                </div>
-                <!-- Header -->
-
-            </header>
-        </div>
-
         <a th:href="@{/sellers/myshop/info}">
             사진 수정 그만하기 버튼
         </a>
@@ -99,50 +54,7 @@
             </table>
             <!-- Main Content -->
         </div>
-
-        <div class="col-12 align-self-end">
-            <!-- Footer -->
-            <footer class="row">
-                <div class="col-12 bg-purple text-white pb-5 pt-5">
-                    <div class="row">
-                        <div class="col-12 text-center text-sm-left mb-sm-0 mb-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="footer-logo">
-                                        <a href="index.html">Cake.zip</a>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <address>
-                                        Quokka TF<br/>
-                                        Seoul, Korea
-                                    </address>
-                                </div>
-                                <div class="col-12">
-                                    <ul class="footer-nav">
-                                        <li>
-                                            kayeong-kim@nhn-commerce.com
-                                        </li>
-                                        <li>
-                                            hwijeong-lee@nhn-commerce.com
-                                        </li>
-                                        <li>
-                                            hyerim-hwang@nhn-commerce.com
-                                        </li>
-                                        <li>
-                                            gyoungmin-yoo@nhn-commerce.com
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- Footer -->
-        </div>
     </div>
-
 </div>
 <script>
 
