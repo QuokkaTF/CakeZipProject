@@ -42,7 +42,8 @@
                     <div class="row">
                       <div class="col-lg-auto">
                         <div class="site-logo text-center text-lg-left px-3">
-                          <a href="/home">Cake.zip</a>
+                          <a th:if="${session.seller == null}" href="/home">Cake.zip</a>
+                          <a th:if="${session.seller != null}" href="/sellers/myshop">Cake.zip</a>
                         </div>
                       </div>
                       <div class="col-lg-5 mx-auto mt-4 mt-lg-0" th:if="${session.seller == null}">
