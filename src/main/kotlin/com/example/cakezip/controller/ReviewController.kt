@@ -33,14 +33,14 @@ class ReviewController(
         } else {
             model.addAttribute("data", noAccessMessage)
         }
-        return "myreview";
+        return "myReview"
     }
 
     @GetMapping("/reviews/shop/{shopId}")
     fun getShopReviews(model: Model, @PathVariable("shopId") shopId: Long): String {
         model.addAttribute("review", reviewService.getShopAllReviews(shopId))
         println("해당 가게의 리뷰 전체 목록")
-        return "myreview";
+        return "myreview"
     }
 
     @GetMapping("/reviews/{cakeId}")

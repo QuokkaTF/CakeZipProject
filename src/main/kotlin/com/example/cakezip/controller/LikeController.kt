@@ -48,6 +48,6 @@ class LikeController(
             model.addAttribute("data", noAccessMessage)
         }
 
-        return "likedshop"
+        return "likedShop"
     }
 }
