@@ -76,19 +76,24 @@ class ShopController (
 
     @GetMapping("/shops/{shopId}")
     fun shopDetail(@PathVariable("shopId") shopId:Long, model:Model, session: HttpSession) : String {
-        val user: User = session.getAttribute("user") as User
+        val user: User? = session.getAttribute("user") as User?
+        if(user == null) {
+            return "redirect:/users/login"
+        }else {
+            if(user.userType == UserType.CUSTOMER) {
+                val customer = session.getAttribute("customer") as Customer
+                val shopDetail:ShopDetailInfoDto = shopService.getShopDetail(customer, shopId)
 
-        if(user.userType == UserType.CUSTOMER) {
-            val customer = session.getAttribute("customer") as Customer
-            val shopDetail:ShopDetailInfoDto = shopService.getShopDetail(customer, shopId)
+                model.addAttribute("customer", customer)
+                model.addAttribute("shopInfo", shopDetail)
 
-            model.addAttribute("customer", customer)
-            model.addAttribute("shopInfo", shopDetail)
-
-            model.addAttribute("reviewScore", reviewService.getShopReviewPercent(shopId))
-            model.addAttribute("reviewDetail", reviewService.getShopAllReviews(shopId))
-            model.addAttribute("data", Message("", ""))
+                model.addAttribute("reviewScore", reviewService.getShopReviewPercent(shopId))
+                model.addAttribute("reviewDetail", reviewService.getShopAllReviews(shopId))
+                model.addAttribute("data", Message("", ""))
+            }
         }
+
+
 
         return "product"
     }
