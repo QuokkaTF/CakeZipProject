@@ -24,7 +24,7 @@ class ReviewController(
 
         if (user.userType == UserType.CUSTOMER) {
             val customer = session.getAttribute("customer") as Customer
-            if (reviewService.getCustomerAllReviews(customer).isNullOrEmpty()) {
+            if (reviewService.getCustomerAllReviews(customer)?.isEmpty() == true) {
                 model.addAttribute("data", Message("작성한 리뷰가 아직 존재하지 않습니다.", "/mypage"))
             } else {
                 model.addAttribute("review", reviewService.getCustomerAllReviews(customer))
