@@ -17,6 +17,32 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(function () {
+        $(".delete").click(function () {
+          const noticeId = $("#notice_id").val();
+          alert("noticeId");
+          $.ajax({
+            type: "DELETE",
+            url: "/notification/delete/" + noticeId,
+            contentType: "application/json; charset=utf-8",
+          })
+            .done(function () {
+              location.reload();
+            })
+            .fail(function (error) {
+              alert(JSON.stringify(error));
+            });
+        });
+      });
+
+
+    </script>
 </head>
 <body>
 <div class="container-fluid nanum" layout:fragment="content">
@@ -33,20 +59,22 @@
 
             <main class="row nanum">
                 <div class="col-12 bg-white py-3">
-                    <div th:if ="${shop} == null">
+                    <div th:if="${shop} == null">
                         <div class="col-12 text-center py-2">
-                            <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                            <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i
+                                    class="fa fa-credit-card"></i>가게 추가</a>
                         </div>
                     </div>
 
-                    <div th:if ="${shop} != null">
-                        <div th:if ="${shop.getStatus()} != 'active'">
+                    <div th:if="${shop} != null">
+                        <div th:if="${shop.getStatus()} != 'active'">
                             <div class="col-12 text-center py-2">
-                                <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i class="fa fa-credit-card"></i>가게 추가</a>
+                                <a href="/shops/new" class="btn btn-purple btn-lg btn-block"><i
+                                        class="fa fa-credit-card"></i>가게 추가</a>
                             </div>
                         </div>
 
-                        <div th:if ="${shop.getStatus()} == 'active'">
+                        <div th:if="${shop.getStatus()} == 'active'">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -67,9 +95,13 @@
                                         <div class="col-12">
                                             <div class="card col-12 bg-white mx-auto py-3 text-center h-100 product-item">
                                                 <a class="card-body" th:href="@{/sellers/myshop/info}">
-                                                    <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
-                                                    <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
-                                                    <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
+                                                    <div class="card-title text-purple"><span class="product-name"
+                                                                                              th:text="${shop.getShopName()}">케이크 가게1</span>
+                                                    </div>
+                                                    <div><span class="product-description"
+                                                               th:text="${shop.getShopShortDescriptor()}"></span></div>
+                                                    <div><span class="product-area"
+                                                               th:text="${shop.getShopArea()}"></span></div>
                                                     <div>
                                                         <th:block th:each="image: ${shopImgs}">
                                                             <img th:src="${image.getShopImgUrl()}" class="img-fluid"
@@ -87,13 +119,44 @@
                     </div>
                 </div>
             </main>
+            <!-- Messages -->
+            <div class="toast-container position-fixed bottom-0 start-0 p-3">
+                <div
+                        th:each="dto : ${notification}"
+                        class="toast align-items-center text-purple bg-success border-0 bg-lightpurple"
+                        data-bs-autohide="false"
+                >
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span>주문번호 : <span th:text="${dto.order.orderId}"></span></span>
+                            <br/>
+                            <th:block th:switch="${dto.noticeType}">
+                                <span th:case="TOSELLER">
+                <span th:text="${dto.order.cake.shop.shopName}"></span>의
+              </span>
+                                <span th:case="*"></span>
+                            </th:block>
+                            <th:block th:switch="${dto.noticeMessage}">
+                                <span th:case="ORDER_NEW">새로운 주문이 발생했습니다.</span>
+                                <span th:case="ORDER_CANCEL">주문이 취소되었습니다.</span>
+                            </th:block>
+                        </div>
+                        <button
+                                th:value="${dto.noticeId}"
+                                type="button"
+                                id="notice_id"
+                                class="delete btn-close me-2 m-auto"
+                                data-bs-dismiss="toast"
+                                aria-label="Close"
+                        ></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Messages -->
             <!-- Main Content -->
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>
