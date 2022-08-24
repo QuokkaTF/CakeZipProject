@@ -46,6 +46,7 @@ class SellerController (
             var shop : Shop? = shopService.getMyShop(seller)
             model.addAttribute("shop", shop)
             if (shop != null) {
+                model.addAttribute("notification", notificationService.getSNotifications(seller))
                 model.addAttribute("shopImgs",shopImgService.getShopImgs(shop))
             }
             model.addAttribute("data", Message("",""))
