@@ -54,7 +54,9 @@ class ReviewService(
         for (cake in cakeRepository.findByShop(shop)) {
             val order = orderRepository.findOrdersByCake(cake)
             val review = reviewRepository.findReviewByCake(cake)
-            reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, order, cake))
+            if (review != null) {
+                reviewList.add(ReviewDto(review?.reviewTitle, review?.reviewContent, review?.reviewScore, review?.cake?.shop?.shopName, review?.createdAt, order, cake))
+            }
         }
         return reviewList
     }
