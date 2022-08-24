@@ -57,6 +57,18 @@
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fc4b2dbba0859111556e37839ea5f8c8&libraries=services"></script>
 
             <script>
+            function displayMarker(locPosition, message) {
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: locPosition
+                });
+
+
+                // 지도 중심좌표를 접속위치로 변경합니다
+                map.setCenter(locPosition);
+            }
 
             var res;
             console.log("start");
@@ -95,7 +107,7 @@
                 // GeoLocation을 이용해서 접속 위치를 얻어옵니다
                 navigator.geolocation.getCurrentPosition(function(position) {
                     console.log("test");
-
+                    console.log(position);
 
                     var lat = position.coords.latitude, // 위도
                         lon = position.coords.longitude; // 경도
@@ -104,7 +116,7 @@
                         message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
 
                     // 마커와 인포윈도우를 표시합니다
-                    displayMarker(locPosition, '');
+                    displayMarker(locPosition, message);
                     console.log("test");
 
 
@@ -116,21 +128,11 @@
                     message = 'GPS를 사용할 수 없습니다.'
 
                 displayMarker(locPosition, message);
+                console.log("gps ㅅㅏ용불가");
             }
 
             // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-            function displayMarker(locPosition, message) {
 
-                // 마커를 생성합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: locPosition
-                });
-
-
-                // 지도 중심좌표를 접속위치로 변경합니다
-                map.setCenter(locPosition);
-            }
 
             // 주소-좌표 변환 객체를 생성합니다
             var geocoder = new kakao.maps.services.Geocoder();
