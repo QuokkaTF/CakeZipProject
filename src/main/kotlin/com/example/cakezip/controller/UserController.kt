@@ -35,7 +35,6 @@ class UserController(
 
     @GetMapping("/edit")
     fun getUserEditView(session: HttpSession,model: Model): String {
-        println( (session.getAttribute("user") as User).userName)
         val user: User = session.getAttribute("user") as User
         if(user.userType == UserType.SELLER) {
             val seller: Seller = userService.findSellerByUser(user)
