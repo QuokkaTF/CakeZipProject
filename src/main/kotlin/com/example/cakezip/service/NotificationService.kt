@@ -32,7 +32,7 @@ class NotificationService(
                 seller = seller,
                 order = order,
                 notificationMessage = notificationMessage,
-                notificationType = notificationType,
+                notificationType = NotificationType.TOSELLER,
             )
             notificationRepository.save(newNotification)
         } else {
@@ -51,14 +51,16 @@ class NotificationService(
         val noticeList: ArrayList<NotificationDto> = ArrayList()
 
         for (notice in notificationRepository.findByCustomer(customer)) {
-            noticeList.add(
-                NotificationDto(
-                    notice.noticeId,
-                    notice.order,
-                    notice.notificationMessage.toString(),
-                    notice.notificationType.toString()
+            if (notice.notificationType == NotificationType.TOCUSTOMER) {
+                noticeList.add(
+                    NotificationDto(
+                        notice.noticeId,
+                        notice.order,
+                        notice.notificationMessage.toString(),
+                        notice.notificationType.toString()
+                    )
                 )
-            )
+            }
         }
         return noticeList
     }
@@ -67,14 +69,17 @@ class NotificationService(
         val noticeList: ArrayList<NotificationDto> = ArrayList()
 
         for (notice in notificationRepository.findBySeller(seller)) {
-            noticeList.add(
-                NotificationDto(
-                    notice.noticeId,
-                    notice.order,
-                    notice.notificationMessage.toString(),
-                    notice.notificationType.toString()
+            if (notice.notificationType == NotificationType.TOSELLER) {
+
+                noticeList.add(
+                    NotificationDto(
+                        notice.noticeId,
+                        notice.order,
+                        notice.notificationMessage.toString(),
+                        notice.notificationType.toString()
+                    )
                 )
-            )
+            }
         }
         return noticeList
     }
