@@ -74,6 +74,10 @@
                 <input type="text" th:value="${cakeOption.getOptionPrice()}" name="optionPrice">
                 <input type="submit" value="수정">
             </form>
+
+            <a th:href="@{/sellers/myshop/options/show/{type} (type=${cakeOption.getOptionTitle().toString()})}">
+                뒤로 가기
+            </a>
             <!-- Main Content -->
         </div>
 
