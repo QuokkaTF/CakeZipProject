@@ -13,6 +13,8 @@ import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import javax.servlet.http.HttpSession
 
 @Controller
@@ -143,9 +145,21 @@ class CartController(
         model: Model
     ): String {
         val user: User = session.getAttribute("user") as User
+        model.addAttribute("data", Message("", ""))
+
         if (user.userType == UserType.CUSTOMER) {
             val customer: Customer = session.getAttribute("customer") as Customer
-            model.addAttribute("data", Message("", ""))
+
+
+//            if(!cakeService.pickupDateCheck(date)){
+//                println("안돼요!!!")
+//                model.addAttribute("pickupDateCheck", "false")
+//            }
+//            else{
+//                println("괜찮아요~")
+//                model.addAttribute("pickupDateCheck", "true")
+//            }
+
             cakeService.addCartCake(
                 date + " " + time, letterText, etc,
                 0, CakeStatusType.CARTTEMP, shopService.getByShopId(shopId), customer
