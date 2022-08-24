@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service
 class ReviewService(
     private val reviewRepository: ReviewRepository,
     private val shopRepository: ShopRepository,
+    private val orderRepository: OrderRepository,
     private val cakeRepository: CakeRepository,
     private val orderRepository: OrderRepository
 ){
@@ -44,7 +45,6 @@ class ReviewService(
                 )
             }
         }
-
         return reviewList
     }
 

@@ -66,6 +66,10 @@
             </header>
         </div>
 
+        <a th:href="@{/sellers/myshop/info}">
+            뒤로 가기
+        </a>
+
         <form method="get" th:action="@{/sellers/myshop/options/new/{type} (type=${type})}">
             <h4 style="color: mediumpurple" th:text="|${type.toString()} 옵션 목록 조회 및 수정 페이지입니다.|"></h4>
             <input style="border-color: white; background-color: white; color: pink" type="submit" value="옵션 추가">
