@@ -14,7 +14,6 @@ class ReviewService(
     private val shopRepository: ShopRepository,
     private val orderRepository: OrderRepository,
     private val cakeRepository: CakeRepository,
-    private val orderRepository: OrderRepository
 ){
     fun addReview(reviewTitle: String, reviewContent: String, reviewScore: Int, cake: Cake): Review {
         val review = Review(

@@ -36,6 +36,22 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="col-auto">
+                            <ul class="top-nav">
+                                <li th:if="${session.user != null}"  >
+                                    <a href="/mypage"><i class="fas fa-user-alt me-2"></i>마이페이지</a>
+                                </li>
+                                <li th:if="${session.user != null}"  >
+                                    <a href="/users/logout"><i class="fas fa-user-alt me-2"></i>로그아웃</a>
+                                </li>
+                                <li th:if="${session.user == null}">
+                                    <a href="/users/register"><i class="fas fa-user-edit me-2"></i>회원가입</a>
+                                </li>
+                                <li th:if="${session.user == null}" >
+                                    <a href="/users/login"><i class="fas fa-sign-in-alt me-2"></i>로그인</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- Top Nav -->
