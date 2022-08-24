@@ -18,21 +18,70 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+
+        $(function (){
+
+            let likeVal = $('#likeCheck').val();
+            const likeImg = $('#likeImg');
+
+            if (likeVal === 'true') {
+                $('#likeImg').attr("src", "/images/heart-fill.svg");
+            } else if(likeVal === 'false') {
+                $('#likeImg').attr("src", "/images/heart.svg");
+            }
+
+            // 하트 클릭시 이벤트
+            $('.heart').click(function() {
+                const likeVal = $('#likeCheck').val();
+                let shopId = $('#shopId').val();
+
+                console.log("shopID : "+shopId);
+
+                if (likeVal === 'true') {
+                    const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
+                    if (con_check) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/like/' + shopId,
+                            contentType: 'application/json; charset=utf-8'
+                        }).done(function () {
+                            $('#likeImg').attr("src", "/images/heart.svg");
+                            location.reload();
+                        }).fail(function (error) {
+                            alert(JSON.stringify(error));
+                        })
+                    }
+                } else if(likeVal === 'false'){
+                    const con_check = confirm("가게 좋아요를 하시겠습니까?");
+                    if (con_check) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/like/' + shopId,
+                            contentType: 'application/json; charset=utf-8'
+                        }).done(function () {
+                            $('#likeImg').attr("src", "/images/heart-fill.svg");
+                            location.reload();
+                        }).fail(function (error) {
+                            alert(JSON.stringify(error));
+                        })
+                    }
+                }
+            });
+        });
+
+
+    </script>
+
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
+
 </head>
 <body>
 <div class="container-fluid bg-lightpurple" layout:fragment="content">
-    <th:block th:if="${#strings.length(data.message) != 0}">
-        <script>
-			top.alert("[[${data.message}]]");
-
-        </script>
-    </th:block>
-    <th:block th:if="${#strings.length(data.href) != 0}">
-        <script>
-			top.location.href = '[[${data.href}]]';
-
-        </script>
-    </th:block>
     <div class="row min-vh-100">
         <div class="col-9 mx-auto bg-lightpurple">
             <!-- Main Content -->
@@ -42,19 +91,15 @@
                         <!-- Product Images -->
                         <div class="col-lg-5 col-md-12 mb-3">
                             <div class="col-12 mb-3">
-<!--                                <div class="img-large border"-->
-<!--                                     th:style="'background-image:url('+${shopInfo.getShopImgList().get(0)} +');'">-->
-<!--                                </div>-->
                             </div>
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-sm-2 col-3" th:if="${shopInfo.getShopImgList().size() > 1}">
-                                        <th:block th:each="img : ${shopInfo.getShopImgList()}">
-                                                <div class="img-small border"
-                                                     th:style="'background-image:url('+ ${img.toString()} +');'"
-                                                     data-src="/images/image-2.jpg"></div>
-                                        </th:block>
-                                    </div>
+                                    <th:block th:each="img : ${shopInfo.getShopImgList()}">
+                                        <div class="img-small border"
+                                             th:style="'background-image:url('+ ${img.toString()} +'); width : 200px; height:200px'"
+                                             data-src="/images/image-2.jpg"></div>
+                                        <br>
+                                    </th:block>
                                 </div>
                             </div>
                         </div>
@@ -346,70 +391,11 @@
             </main>
             <!-- Main Content -->
         </div>
+
     </div>
 
 </div>
 
-<script>
-
-    $(function (){
-        alert("TEST");
-
-        let likeVal = $('#likeCheck').val();
-        const likeImg = $('#likeImg');
-
-        if (likeVal === 'true') {
-            // 데이터 존재하면 채운 하트
-            $('#likeImg').attr("src", "/images/heart-fill.svg");
-        } else if(likeVal === 'false') {
-            // 데이터 없으면 빈 하트
-            $('#likeImg').attr("src", "/images/heart.svg");
-        }
-
-        // 하트 클릭시 이벤트
-        $('.heart').click(function() {
-            const likeVal = $('#likeCheck').val();
-            let shopId = $('#shopId').val();
-
-            console.log("shopID : "+shopId);
-
-            if (likeVal === 'true') {
-                const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
-                if (con_check) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/like/' + shopId,
-                        contentType: 'application/json; charset=utf-8'
-                    }).done(function () {
-                        $('#likeImg').attr("src", "/images/heart.svg");
-                        location.reload();
-                    }).fail(function (error) {
-                        alert(JSON.stringify(error));
-                    })
-                }
-            } else if(likeVal === 'false'){
-                const con_check = confirm("가게 좋아요를 하시겠습니까?");
-                if (con_check) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/like/' + shopId,
-                        contentType: 'application/json; charset=utf-8'
-                    }).done(function () {
-                        $('#likeImg').attr("src", "/images/heart-fill.svg");
-                        location.reload();
-                    }).fail(function (error) {
-                        alert(JSON.stringify(error));
-                    })
-                }
-            }
-        });
-    });
-
-
-</script>
-
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/script.js"></script>
 </body>
+
 </html>

@@ -91,6 +91,8 @@ class ShopController (
                 model.addAttribute("reviewScore", reviewService.getShopReviewPercent(shopId))
                 model.addAttribute("reviewDetail", reviewService.getShopAllReviews(shopId))
                 model.addAttribute("data", Message("", ""))
+            }else {
+                model.addAttribute("data", noAccessMessage)
             }
         }
 
