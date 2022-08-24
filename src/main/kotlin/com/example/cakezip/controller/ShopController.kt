@@ -76,6 +76,7 @@ class ShopController (
 
     @GetMapping("/shops/{shopId}")
     fun shopDetail(@PathVariable("shopId") shopId:Long, model:Model, session: HttpSession) : String {
+
         val user: User? = session.getAttribute("user") as User?
         if(user == null) {
             return "redirect:/users/login"
@@ -92,8 +93,6 @@ class ShopController (
                 model.addAttribute("data", Message("", ""))
             }
         }
-
-
 
         return "product"
     }
