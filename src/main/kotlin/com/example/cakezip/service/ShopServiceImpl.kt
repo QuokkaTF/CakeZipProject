@@ -40,6 +40,8 @@ class ShopServiceImpl(
         }
 
         var optionDesignList : List<String> = newShopReqDto.designList.trim().split("  ")
+        val designOption = CakeOptionList(newShop, OptionTitleType.DESIGN, "선택없음",0)
+        cakeOptionListRepository.save(designOption)
         for(design in optionDesignList) {
             if(design.length==0) {
                 break
@@ -51,7 +53,10 @@ class ShopServiceImpl(
             cakeOptionListRepository.save(cakeOptionList)
         }
 
+
         var optionSizeList : List<String> = newShopReqDto.sizeList.trim().split("  ")
+        val sizeOption = CakeOptionList(newShop, OptionTitleType.SIZE, "선택없음",0)
+        cakeOptionListRepository.save(sizeOption)
         for(size in optionSizeList) {
             if(size.length==0) {
                 break
@@ -63,7 +68,10 @@ class ShopServiceImpl(
             cakeOptionListRepository.save(cakeOptionList)
         }
 
+
         var optionSheetList : List<String> = newShopReqDto.sheetList.trim().split("  ")
+        val sheetOption = CakeOptionList(newShop, OptionTitleType.SFLAVOR, "선택없음",0)
+        cakeOptionListRepository.save(sheetOption)
         for(sheet in optionSheetList) {
             if(sheet.length==0) {
                 break
@@ -75,7 +83,10 @@ class ShopServiceImpl(
             cakeOptionListRepository.save(cakeOptionList)
         }
 
+
         var optionCreamList : List<String> = newShopReqDto.creamList.trim().split("  ")
+        val creamOption = CakeOptionList(newShop, OptionTitleType.CFLAVOR, "선택없음",0)
+        cakeOptionListRepository.save(creamOption)
         for(cream in optionCreamList) {
             if(cream.length==0) {
                 break
@@ -87,7 +98,10 @@ class ShopServiceImpl(
             cakeOptionListRepository.save(cakeOptionList)
         }
 
+
         var optionCreamColorList : List<String> = newShopReqDto.creamColorList.trim().split("  ")
+        val creamColorOption = CakeOptionList(newShop, OptionTitleType.CCOLOR, "선택없음", 0)
+        cakeOptionListRepository.save(creamColorOption)
         for(creamColor in optionCreamColorList) {
             if(creamColor.length==0) {
                 break
@@ -99,7 +113,10 @@ class ShopServiceImpl(
             cakeOptionListRepository.save(cakeOptionList)
         }
 
+
         var optionLetterList : List<String> = newShopReqDto.letterList.trim().split("  ")
+        val letterOption = CakeOptionList(newShop, OptionTitleType.LCOLOR, "선택업음", 0)
+        cakeOptionListRepository.save(letterOption)
         for(letter in optionLetterList) {
             if(letter.length==0) {
                 break

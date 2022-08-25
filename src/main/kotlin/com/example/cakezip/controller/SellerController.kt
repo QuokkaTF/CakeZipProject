@@ -71,12 +71,12 @@ class SellerController (
     }
 
     @PutMapping("/sellers/myshop/info")
-    fun modifyShop(shop: Shop, model:Model,session: HttpSession) :String{
+    fun modifyShop(modifyShopInfo: Shop, model:Model,session: HttpSession) :String{
         val user: User = session.getAttribute("user") as User
         if(user.userType == UserType.SELLER) {
             val seller:Seller = session.getAttribute("seller") as Seller
             var shop : Shop? = shopService.getMyShop(seller)
-            model.addAttribute("shop", shopService.updateShopInfo(shop!!.shopId!! , shop))
+            model.addAttribute("shop", shopService.updateShopInfo(shop!!.shopId!! , modifyShopInfo))
             model.addAttribute("data", Message("",""))
         } else {
             model.addAttribute("data", noAccessMessage)
