@@ -18,7 +18,7 @@ class OptionDetailServiceImpl(
 
     override fun getOptionDetailByShopAndTypeAndStatus(shopId: Long, type: OptionTitleType, status:String)  : List<CakeOptionList>{
         var shop:Shop = shopRepository.findByShopId(shopId)
-        var detailList : List<CakeOptionList> = cakeOptionListRepository.findByShopIdAndOptionTitleAndStatus(shop, type, status)
+        var detailList : List<CakeOptionList> = cakeOptionListRepository.findByShopIdAndOptionTitleAndStatusAndOptionDetailNot(shop, type, status,"선택없음")
         return detailList
     }
 

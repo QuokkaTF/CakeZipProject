@@ -67,7 +67,7 @@
                                                     <div class="card-title text-purple"><span class="product-name" th:text="${shop.getShopName()}">케이크 가게1</span></div>
                                                     <div><span class="product-description" th:text="${shop.getShopShortDescriptor()}"></span></div>
                                                     <div><span class="product-area" th:text="${shop.getShopArea()}"></span></div>
-                                                    <div>
+                                                    <div style="object-fit: cover">
                                                         <th:block th:each="image: ${shopImgs}">
                                                             <img th:src="${image.getShopImgUrl()}" class="img-fluid"
                                                                  style="height: 300px; width: 300px;">
