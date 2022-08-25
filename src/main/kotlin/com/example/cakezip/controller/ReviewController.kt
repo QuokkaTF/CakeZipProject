@@ -24,7 +24,7 @@ class ReviewController(
 
         if (user.userType == UserType.CUSTOMER) {
             val customer = session.getAttribute("customer") as Customer
-            if (reviewService.getCustomerAllReviews(customer).isNullOrEmpty()) {
+            if (reviewService.getCustomerAllReviews(customer)?.isEmpty() == true) {
                 model.addAttribute("data", Message("작성한 리뷰가 아직 존재하지 않습니다.", "/mypage"))
             } else {
                 model.addAttribute("review", reviewService.getCustomerAllReviews(customer))
@@ -33,14 +33,14 @@ class ReviewController(
         } else {
             model.addAttribute("data", noAccessMessage)
         }
-        return "myreview";
+        return "myReview"
     }
 
     @GetMapping("/reviews/shop/{shopId}")
     fun getShopReviews(model: Model, @PathVariable("shopId") shopId: Long): String {
         model.addAttribute("review", reviewService.getShopAllReviews(shopId))
         println("해당 가게의 리뷰 전체 목록")
-        return "myreview";
+        return "myreview"
     }
 
     @GetMapping("/reviews/{cakeId}")

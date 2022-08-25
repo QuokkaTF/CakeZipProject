@@ -35,7 +35,6 @@
       $(function () {
         $(".delete").click(function () {
           const noticeId = $("#notice_id").val();
-          alert("noticeId");
           $.ajax({
             type: "DELETE",
             url: "/notification/delete/" + noticeId,
@@ -100,14 +99,9 @@
               <span th:case="TOCUSTOMER">
                 <span th:text="${dto.order.customer.user.userName}"></span>님의
               </span>
-                            <span th:case="TOSELLER">
-                <span th:text="${dto.order.cake.shop.shopName}"></span>가게의
-              </span>
                             <span th:case="*"></span>
                         </th:block>
                         <th:block th:switch="${dto.noticeMessage}">
-                            <span th:case="ORDER_NEW">새로운 주문이 발생했습니다.</span>
-                            <span th:case="ORDER_CANCEL">주문이 취소되었습니다.</span>
                             <span th:case="ORDER_DENIED">주문이 거절되었습니다.</span>
                             <span th:case="ORDER_ACCEPTED">주문이 승인되었습니다.</span>
                             <span th:case="ORDER_READY">주문이 준비완료되었습니다.</span>

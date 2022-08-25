@@ -24,7 +24,7 @@ class NotificationController(
             val customer = session.getAttribute("customer") as Customer
             model.addAttribute("notification", notificationService.getCNotifications(customer))
             model.addAttribute("data", Message("", ""))
-        } else if (user.userType == UserType.CUSTOMER) {
+        } else if (user.userType == UserType.SELLER) {
             val seller = session.getAttribute("seller") as Seller
             model.addAttribute("notification", notificationService.getSNotifications(seller))
             model.addAttribute("data", Message("", ""))

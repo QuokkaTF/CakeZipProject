@@ -38,7 +38,7 @@ class LikeController(
         val user: User = session.getAttribute("user") as User
         if (user.userType == UserType.CUSTOMER) {
             val customer = session.getAttribute("customer") as Customer
-            if (likeListService.getLikedShopList(customer).isNullOrEmpty()) {
+            if (likeListService.getLikedShopList(customer).isEmpty()) {
                 model.addAttribute("data", Message("좋아요한 가게가 아직 존재하지 않습니다.", "/"))
             } else {
                 model.addAttribute("shops", likeListService.getLikedShopList(customer))
@@ -48,6 +48,6 @@ class LikeController(
             model.addAttribute("data", noAccessMessage)
         }
 
-        return "likedshop"
+        return "likedShop"
     }
 }
