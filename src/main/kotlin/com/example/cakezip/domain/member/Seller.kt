@@ -22,7 +22,7 @@ class Seller(
     val sellerId: Long?=null
 
     fun toSellerDto(): SellerDto {
-        return SellerDto(user.userEmail,user.password,user.phoneNum,user.userName)
+        return SellerDto(user.userEmail,"********",user.phoneNum,user.userName)
     }
 
     fun setSellerByUser(user: User) {

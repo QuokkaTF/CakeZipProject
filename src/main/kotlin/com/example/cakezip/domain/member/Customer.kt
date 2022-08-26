@@ -18,7 +18,7 @@ class Customer(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val customerId: Long=0
 
-    fun toCustomerEditDto() = CustomerEditDto(user.userEmail,user.password,user.phoneNum,user.userName,gender,areas)
+    fun toCustomerEditDto() = CustomerEditDto(user.userEmail,"********",user.phoneNum,user.userName,gender,areas)
 
     fun setByCustomerEditDto(customerEditDto: CustomerEditDto) {
         gender = customerEditDto.gender
