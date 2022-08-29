@@ -31,7 +31,7 @@ class User (
 
     fun setByCustomerEditDto(customerEditDto: CustomerEditDto) {
         userEmail = customerEditDto.userEmail
-        password = customerEditDto.pas가sword
+        password = customerEditDto.password
         phoneNum = customerEditDto.phoneNum
         userName = customerEditDto.userName
     }
