@@ -1,6 +1,7 @@
 package com.example.cakezip.domain.member
 
 import com.example.cakezip.domain.BaseEntity
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -13,7 +14,7 @@ class Customer(
     var gender: Gender,
 
     var areas : String,
-) : BaseEntity(){
+) : BaseEntity(), Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val customerId: Long=0

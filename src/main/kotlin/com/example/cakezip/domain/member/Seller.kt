@@ -4,6 +4,7 @@ import com.example.cakezip.domain.BaseEntity
 import com.example.cakezip.domain.shop.Shop
 import lombok.*
 import org.jetbrains.annotations.NotNull
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -16,7 +17,7 @@ class Seller(
 //    @OneToOne
 //    @JoinColumn(name="shop_id")
 //    val shop: Shop,
-) : BaseEntity() {
+) : BaseEntity(), Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val sellerId: Long?=null

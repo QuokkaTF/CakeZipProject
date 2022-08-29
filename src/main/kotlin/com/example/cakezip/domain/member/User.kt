@@ -3,6 +3,7 @@ package com.example.cakezip.domain.member
 import com.example.cakezip.domain.BaseEntity
 import lombok.*
 import org.jetbrains.annotations.NotNull
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -23,14 +24,14 @@ class User (
     @NotNull
     @Enumerated(value = EnumType.STRING)
     var userType: UserType
-    ) : BaseEntity() {
+    ) : BaseEntity(), Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userId: Long?=null
 
     fun setByCustomerEditDto(customerEditDto: CustomerEditDto) {
         userEmail = customerEditDto.userEmail
-        password = customerEditDto.password
+        password = customerEditDto.pas가sword
         phoneNum = customerEditDto.phoneNum
         userName = customerEditDto.userName
     }

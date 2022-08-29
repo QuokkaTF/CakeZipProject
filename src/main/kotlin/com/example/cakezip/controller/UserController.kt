@@ -45,6 +45,7 @@ class UserController(
             val customer: Customer = userService.findCustomerByUser(user)
             model.addAttribute("customerEditDto",customer.toCustomerEditDto())
             println(customer.toCustomerEditDto().areas=="부산")
+
             return "customer-edit"
         }
     }
@@ -56,13 +57,21 @@ class UserController(
         return "redirect:/home"
     }
 
+    @ResponseBody
+    @PostMapping("/test")
+    fun test(session: HttpSession): String {
+        session.setAttribute("test","test")
+
+        return "success"
+    }
+
+
     @PostMapping("/seller/edit")
     fun editSeller(session: HttpSession, sellerDto: SellerDto): String {
         userService.editSeller(session.getAttribute("user") as User,sellerDto)
 
         return "redirect:/home"
     }
-
 
     @DeleteMapping("/deactivate") // 탈퇴
     fun deactivateUser(session: HttpSession): String {
