@@ -22,5 +22,5 @@ interface CakeRepository : JpaRepository<Cake, Long> {
 
     fun findByCakeId(id:Long):Cake
 
-    fun countByCustomer(customer:Customer):Int
+    fun countByCustomerAndCakeStatus(customer:Customer, cakeStatus:CakeStatusType):Int
 }

@@ -11,15 +11,18 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>모든 케이크집을 압축해 한눈에, cake.zip</title>
+    <title>cake.zip - 모든 케이크집을 압축해 한눈에</title>
 
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/css/all.min.css" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/all.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
 
 
     <!-- jQuery -->
@@ -160,14 +163,22 @@
 
                             </table>
 
+                            <form method="get" th:action="@{'cart/' + ${dto.get('cake').cakeId} }" style="float:left">
+                                <input class="btn btn-outline-success me-3" type="submit" value="주문하기">
+                            </form>
+
+                            <form method="get" th:action="@{'cart/edit/' + ${dto.get('cake').cakeId} }" style="float:left">
+                                <input class="btn btn-outline-warning me-3" type="submit" value="수정하기">
+                            </form>
+
                             <form method="post" th:action="@{'cart/' + ${dto.get('cake').cakeId} }" style="float:left">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">
                             </form>
 
-                            <form method="get" th:action="@{'cart/' + ${dto.get('cake').cakeId} }" style="float:left">
-                                <input class="btn btn-outline-success" type="submit" value="주문하기">
-                            </form>
+
+
+
                             <br>
 
                         </div>
