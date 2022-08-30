@@ -30,7 +30,8 @@ class MainController(
             if(user.userType == UserType.CUSTOMER) {
                 val customer = session.getAttribute("customer") as Customer
                 model.addAttribute("notification", notificationService.getCNotifications(customer))
-                model.addAttribute("likeCount", likeListService.getCustomerLikeCount(customer))
+                //model.addAttribute("likeCount", likeListService.getCustomerLikeCount(customer))
+                session.setAttribute("likeCount",likeListService.getCustomerLikeCount(customer))
             } else {
                 val seller = session.getAttribute("seller") as Seller
                 model.addAttribute("notification", notificationService.getSNotifications(seller))
