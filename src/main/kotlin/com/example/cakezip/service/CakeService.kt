@@ -10,8 +10,10 @@ import com.example.cakezip.repository.CakeRepository
 import com.example.cakezip.repository.CakeTaskRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.HashMap
 
 
 @Service
@@ -106,6 +108,35 @@ class CakeService(
         }
         return cake_arrayList
     }
-    fun countByCustomer(customer:Customer):Int = cakeRepository.countByCustomer(customer)
+
+    fun countCart(customer:Customer):Int =
+        cakeRepository.countByCustomerAndCakeStatus(customer, CakeStatusType.CART)
+
+    fun updateCartCake(
+        cakeId: Long, pickupDate: String, letterText: String, etc: String,
+    ) {
+        val cake = cakeRepository.findByCakeId(cakeId)
+
+        cake.pickupDate = pickupDate
+        cake.letterText = letterText
+        cake.etc = etc
+
+        cakeRepository.save(cake)
+    }
+
+    fun pickupDateCheck(date: String): Boolean {
+        var result: Boolean = false
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val selectedDate = LocalDateTime.parse(date, formatter)
+        val minDate = LocalDateTime.now()
+
+        if (selectedDate > minDate) {
+            result = true
+        }
+
+        return result
+    }
+
 
 }

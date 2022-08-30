@@ -12,7 +12,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>모든 케이크집을 압축해 한눈에, cake.zip</title>
+    <title>cake.zip - 모든 케이크집을 압축해 한눈에</title>
 
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
@@ -62,6 +62,52 @@
                 buyer_email : uemail.innerHTML,
                 buyer_name : uname.innerHTML,
                 buyer_tel : uphonenum.innerHTML
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    alert("결제가 완료되었습니다.")
+<!--                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);-->
+                    sendData(postpath, {imp_uid: rsp.imp_uid, cake_id: cid.innerHTML, price:price.innerHTML});
+                } else {
+                    alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
+                }
+            });
+        }
+
+        //페이코
+        //문서가 준비되면 제일 먼저 실행
+        $(document).ready(function(){
+            $("#iamportPayment2").click(function(){
+                payment2(); //버튼 클릭하면 호출
+            });
+            })
+
+
+        //버튼 클릭하면 실행
+        function payment2(data) {
+            var price = document.getElementById("price")
+            var name = document.getElementById("name")
+
+            var uname = document.getElementById("uname")
+            var uphonenum = document.getElementById("uphonenum")
+            var uemail = document.getElementById("uemail")
+            var cid = document.getElementById("cid")
+
+            var postpath = cid.innerHTML
+
+            IMP.init('imp66507436');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+            IMP.request_pay({// param
+
+                pg : 'payco',
+                pay_method : 'card', //생략 가능
+                merchant_uid: 'merchant_'+new Date().getTime(), // 상점에서 관리하는 주문 번호
+                name : name.innerHTML, //결제창에 노출될 상품명
+                amount : price.innerHTML, //금액
+                buyer_email : uemail.innerHTML,
+                buyer_name : uname.innerHTML,
+                buyer_tel : uphonenum.innerHTML,
+                buyer_addr : '주소없음',
+                buyer_postcode : '123-456'
+
             }, function (rsp) { // callback
                 if (rsp.success) {
                     alert("결제가 완료되었습니다.")
@@ -209,7 +255,11 @@
                             </table>
 
                             <br>
-                            <input id="iamportPayment" class="btn btn-outline-success" type="submit" value="결제하기"
+                            <input id="iamportPayment" class="btn btn-outline-success" type="submit" value="카카오페이로 결제하기"
+                                   style="width:100%">
+                            <br>
+                            <br>
+                            <input id="iamportPayment2" class="btn btn-outline-success" type="submit" value="페이코로 결제하기"
                                    style="width:100%">
 
                         </div>
