@@ -1,0 +1,196 @@
+<!doctype html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default_layout}">
+
+<head>
+
+<!--    <th:block th:if="${#strings.length(data.message) != 0}">-->
+<!--        <script>-->
+<!--			top.alert("[[${data.message}]]");-->
+
+<!--        </script>-->
+<!--    </th:block>-->
+<!--    <th:block th:if="${#strings.length(data.href) != 0}">-->
+<!--        <script>-->
+<!--			top.location.href = '[[${data.href}]]';-->
+
+<!--        </script>-->
+<!--    </th:block>-->
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cake.zip - 모든 케이크집을 압축해 한눈에</title>
+
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" layout:fragment="content">
+
+    <div class="row min-vh-100">
+
+        <div class="col-12">
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-12 pt-2 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
+                    <h2>장바구니 내용 수정</h2>
+                </div>
+            </div>
+
+            <main class="row">
+                <div class="col-12 bg-white py-3 mb-3">
+                    <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
+                        <br>
+                        <div style="color:#ffc107">
+                            <h4>수정한 후 완료 버튼을 눌러주세요!</h4>
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <form method="post" th:action="@{'/users/cart/edit/' + ${cake.get('cake').cakeId} }">
+                                <input type="hidden" name="_method" value="PUT"/>
+
+
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>디자인번호</b></label>
+
+                                    <select size="1" name="designCheck"
+                                            th:value="${cake.get('DESIGN')}" required autofocus>
+                                        <th:block th:each="design : ${shopInfo.designOptionList}">
+                                            <option th:text="${design.getOptionDetail()} + '_'+ ${design.getOptionPrice()}+'원'"
+                                                    th:value="${design.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>케이크호수</b></label>
+
+                                    <select size="1" name="sizeCheck"
+                                            th:value="${cake.get('SIZE')}" required autofocus>
+                                        <th:block th:each="size : ${shopInfo.sizeOptionList}">
+                                            <option th:text="${size.getOptionDetail()} + '_'+ ${size.getOptionPrice()}+'원'"
+                                                    th:value="${size.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>시트맛</b></label>
+
+                                    <select size="1" name="sheetCheck"
+                                            th:value="${cake.get('SFLAVOR')}" required autofocus>
+                                        <th:block th:each="sheet : ${shopInfo.sheetOptionList}">
+                                            <option th:text="${sheet.getOptionDetail()} + '_'+ ${sheet.getOptionPrice()}+'원'"
+                                                    th:value="${sheet.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>크림맛</b></label>
+
+                                    <select size="1" name="creamCheck"
+                                            th:value="${cake.get('CFLAVOR')}" required autofocus>
+                                        <th:block th:each="cream : ${shopInfo.creamOptionList}">
+                                            <option th:text="${cream.getOptionDetail()} + '_'+ ${cream.getOptionPrice()}+'원'"
+                                                    th:value="${cream.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>케이크배경색</b></label>
+
+                                    <select size="1" name="creamcolorCheck"
+                                            th:value="${cake.get('CCOLOR')}" required autofocus>
+                                        <th:block th:each="creamcolor : ${shopInfo.creamColorOptionList}">
+                                            <option th:text="${creamcolor.getOptionDetail()} + '_'+ ${creamcolor.getOptionPrice()}+'원'"
+                                                    th:value="${creamcolor.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5" th:text="${cake.get('LCOLOR')}"><b>레터링색</b></label>
+                                    <select size="1" name="letterCheck"
+                                            th:value="${cake.get('LCOLOR')}" required autofocus>
+                                        <th:block th:each="letter : ${shopInfo.letterOptionList}">
+                                            <option th:text="${letter.getOptionDetail()} + '_'+ ${letter.getOptionPrice()}+'원'"
+                                                    th:value="${letter.getCakeOptionListId()}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>레터링문구</b></label>
+                                    <input type="text" name="letterText" maxlength="20" th:value="${cake.get('cake').letterText}">
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>요청사항</b></label>
+                                    <input type="text" name="etc" maxlength="50" th:value="${cake.get('cake').etc}">
+                                </div>
+                                <div style="padding:5px;">
+                                    <label style="color:#AD81D5"><b>픽업날짜</b></label>
+                                    <br>
+                                    <label>케이크는 10:00~18:00 중으로 예약 가능합니다. </label>
+                                    <br>
+                                    <input type="date" name="date" required
+                                           th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                                    <input type="time" min="10:00" max="18:00" name="time" required>
+                                </div>
+
+                                <!--                                    <script>-->
+                                <!--                                        let aa = $('#minDate').val();-->
+                                <!--                                        let bb = #dates.format(#minDate, 'yyyy-MM-dd');-->
+                                <!--                                        document.getElementById("tttt").value = $('#minDate').val()-->
+
+                                <!--                                    </script>-->
+
+                                <input type="text" name="shopId" th:value="${shopInfo.shopID}"
+                                       style=" display: none;">
+                                <br>
+
+                                <button class="btn btn-outline-warning" type="submit" style="width:100%">수정완료
+                                </button>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+            <!-- Main Content -->
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
