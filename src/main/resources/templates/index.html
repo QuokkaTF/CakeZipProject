@@ -99,7 +99,6 @@
               <span th:case="TOCUSTOMER">
                 <span th:text="${dto.order.customer.user.userName}"></span>님의
               </span>
-                            <span th:case="*"></span>
                         </th:block>
                         <th:block th:switch="${dto.noticeMessage}">
                             <span th:case="ORDER_DENIED">주문이 거절되었습니다.</span>

@@ -26,7 +26,7 @@ class NotificationService(
         val customer = customerRepository.findByCustomerId(customerId)
         val seller = sellerRepository.findBySellerId(sellerId)
 
-        if (notificationMessage.equals(NotificationType.TOSELLER)) {
+        if (notificationType == NotificationType.TOSELLER) {
             val newNotification = Notification(
                 customer = customer,
                 seller = seller,
@@ -35,7 +35,7 @@ class NotificationService(
                 notificationType = NotificationType.TOSELLER,
             )
             notificationRepository.save(newNotification)
-        } else {
+        } else if (notificationType == NotificationType.TOCUSTOMER) {
             val newNotification = Notification(
                 customer = customer,
                 seller = seller,
