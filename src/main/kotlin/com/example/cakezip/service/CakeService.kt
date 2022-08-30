@@ -109,7 +109,8 @@ class CakeService(
         return cake_arrayList
     }
 
-    fun countByCustomer(customer:Customer):Int = cakeRepository.countByCustomer(customer)
+    fun countCart(customer:Customer):Int =
+        cakeRepository.countByCustomerAndCakeStatus(customer, CakeStatusType.CART)
 
     fun updateCartCake(
         cakeId: Long, pickupDate: String, letterText: String, etc: String,
