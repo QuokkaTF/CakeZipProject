@@ -7,11 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.core.session.SessionRegistry
-import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.web.SecurityFilterChain
-
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +42,7 @@ class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
 //            .antMatchers("/like/**").access("permitAll")
 ////            .antMatchers("/home").access("permitAll")
 ////            .antMatchers("/users/login").access("permitAll")
-////            .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
+          .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
 ////            .antMatchers("/sellers/myshop").hasRole("SELLER")
 ////            .antMatchers("/map").hasRole("CUSTOMER")
 //            //.anyRequest().authenticated()
