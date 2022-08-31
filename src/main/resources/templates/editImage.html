@@ -20,41 +20,62 @@
 </head>
 <body>
 <div class="container-fluid nanum" layout:fragment="content">
-
-    <div class="row min-vh-100">
-        <a th:href="@{/sellers/myshop/info}">
-            사진 수정 그만하기 버튼
-        </a>
-
-        <br>
-        <br>
-        <br>
-        <div>
-            <input type="file" class="form-control-file" id="inputDetailImg" onchange="uploadStoreDetailImg(this)" accept=".png, .jpg, .jpeg"/>
+    <div class="col-12">
+        <!-- Main Content -->
+        <div class="row">
+            <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase nanum text-purple">
+                <h2>가게 대표 사진 수정 이미지 업로드</h2>
+            </div>
         </div>
 
-        <input type="text" id="shopId" style="display: none" th:value="${shop.getShopId()}">
-        <div class="col-12">
-            <table>
-                <tr>
-                    <th>사진</th>
-                    <th>삭제</th>
-                </tr>
-                <tbody id = "pictureListId">
-                    <tr th:each="image : ${shopImg}">
-                        <td><img th:src="${image.getShopImgUrl()}"></td>
-                        <td>
-                            <form method="post" th:action="@{/sellers/myshop/image/{imageId} (imageId=${image.getShopImgId()})}">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="submit" value="사진 삭제">
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- Main Content -->
-        </div>
+        <main class="row bg-white py-3">
+            <div class="col-12 mb-3">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-10 mx-auto py-3"
+                         style="border: 1px solid #EDE7F6; border-radius: 0.2rem; display: block;">
+
+                        <input type="text" id="shopId" style="display: none" th:value="${shop.getShopId()}">
+                        <div class="col-12 mx-auto">
+                            <div class="row mx-auto mb-3">
+                            <table style="width: 70%; text-align: center; border: 1px solid #EDE7F6; border-radius: 0.2rem; ">
+                                <tr>
+                                    <th>사진</th>
+                                    <th>삭제</th>
+                                </tr>
+                                <tbody id="pictureListId">
+                                <tr th:each="image : ${shopImg}">
+                                    <td><img th:src="${image.getShopImgUrl()}"></td>
+                                    <td>
+                                        <form method="post"
+                                              th:action="@{/sellers/myshop/image/{imageId} (imageId=${image.getShopImgId()})}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="submit" value="사진 삭제">
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="row mx-auto mb-3">
+                            <div style="display: inline-block; margin: 10px 0; border: 1px;">
+                                <input type="file" class="form-control-file" id="inputDetailImg"
+                                       onchange="uploadStoreDetailImg(this)"
+                                       accept=".png, .jpg, .jpeg"/>
+                            </div>
+                            </div>
+                        </div>
+                        <div style="display: inline-block; margin: 10px 0; border: 1px; float: right;">
+                            <a th:href="@{/sellers/myshop/info}" class="btn btn-outline-secondary btn-md">
+                                뒤로가기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Main Content -->
     </div>
+</div>
 </div>
 <script>
 
@@ -99,6 +120,9 @@
             }
         })
     }
+
+
+
 </script>
 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
