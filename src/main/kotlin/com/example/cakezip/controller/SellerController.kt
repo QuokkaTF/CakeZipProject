@@ -12,6 +12,7 @@ import com.example.cakezip.domain.notice.NotificationType
 import com.example.cakezip.domain.shop.Shop
 
 import com.example.cakezip.dto.Message
+import com.example.cakezip.dto.OrderDto
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model
@@ -135,17 +136,31 @@ class SellerController (
     }
 
     @GetMapping("/sellers/orders")
-    fun getOrderList(model: Model, session: HttpSession): String {
+    fun getOrderList(model: Model, session: HttpSession, @RequestParam(value = "nowPage", defaultValue = "0") nowPage: Int): String {
         val user: User = session.getAttribute("user") as User
         if(user.userType == UserType.CUSTOMER) {
             model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
         } else {
             val seller: Seller = session.getAttribute("seller") as Seller
             try {
-                model.addAttribute(
-                    "cake",
-                    cakeService.getSellerCakeList(shopService.findBySeller(seller), CakeStatusType.CART)
-                )
+                val row = 3
+                val list: ArrayList<Cake> = ArrayList()
+                val temp = cakeService.getSellerCakeList(shopService.findBySeller(seller), CakeStatusType.CART)
+                var totalPage = temp.size.div(row)
+
+                if((temp.size % row) > 0) {
+                    totalPage += 1
+                }
+
+                for (i in nowPage * row until (nowPage * row) + row) {
+                    if(i >= temp.size) {
+                        break
+                    }
+                    list.add(temp[i])
+                }
+                model.addAttribute("nowPage", nowPage)
+                model.addAttribute("totalPage", totalPage)
+                model.addAttribute("cake", list)
                 model.addAttribute("data", Message("", ""))
             } catch (e: NoSuchElementException){
                 model.addAttribute("data", Message("가게 등록이 되지 않았습니다.", "/"))

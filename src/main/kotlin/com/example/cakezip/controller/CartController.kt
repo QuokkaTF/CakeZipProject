@@ -8,6 +8,7 @@ import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.domain.notice.NotificationMessage
 import com.example.cakezip.domain.notice.NotificationType
 import com.example.cakezip.dto.Message
+import com.example.cakezip.dto.OrderDto
 import com.example.cakezip.dto.UserPaymentDto
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
@@ -28,13 +29,31 @@ class CartController(
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/users/cart")
-    fun getCartList(model: Model, session: HttpSession): String {
+    fun getCartList(model: Model, session: HttpSession, @RequestParam(value = "nowPage", defaultValue = "0") nowPage: Int): String {
         val user: User = session.getAttribute("user") as User
         if (user.userType == UserType.CUSTOMER) {
             val customer: Customer = session.getAttribute("customer") as Customer
-            var cake =
-                cakeService.getCakeOptionListAll(cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART))
-            model.addAttribute("cake", cake)
+            val row = 3
+            val list: ArrayList<HashMap<String,Any>> = ArrayList()
+            val temp = cakeService.getCakeOptionListAll(cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART))
+            var totalPage = temp.size.div(row)
+
+            if((temp.size % row) > 0) {
+                totalPage += 1
+            }
+
+            for (i in nowPage * row until (nowPage * row) + row) {
+                if(i >= temp.size) {
+                    break
+                }
+                list.add(temp[i])
+            }
+
+//            var cake =
+//                cakeService.getCakeOptionListAll(cakeService.findByCustomerAndCakeStatus(customer, CakeStatusType.CART))
+            model.addAttribute("nowPage", nowPage)
+            model.addAttribute("totalPage", totalPage)
+            model.addAttribute("cake", list)
             model.addAttribute("data", Message("", ""))
         } else {
             model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))

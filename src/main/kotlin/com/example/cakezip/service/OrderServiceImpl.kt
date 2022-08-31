@@ -19,7 +19,7 @@ class OrderServiceImpl(
     override fun getCustomerAllOrders(customer: Customer): List<OrderDto>? {
         val cakeList: ArrayList<OrderDto> = ArrayList()
 
-        for (cake in cakeRepository.findByCustomerAndCakeStatusNot(customer, CakeStatusType.CART)) {
+        for (cake in cakeRepository.findByCustomerAndCakeStatusNotOrderByCreatedAtDesc(customer, CakeStatusType.CART)) {
             val order = orderRepository.findOrdersByCake(cake)
             cakeList.add(OrderDto(order?.orderId, cake.customer.user.userName, cake.shop.shopName, cake))
         }
