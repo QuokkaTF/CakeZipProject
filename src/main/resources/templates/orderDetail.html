@@ -170,15 +170,18 @@
                                         </div>
                                     </form>
                                 </div>
-
+                                <div style="display: inline-block;">
                                 <a th:onclick="|location.href='@{/reviews/{cakeId} (cakeId=${dto.cake.cakeId})}'|"
-                                   class="btn btn-outline-warning btn-md card-link" style="font-size:1.3rem;">리뷰작성</a>
+                                   class="btn btn-outline-warning btn-md card-link" style="display: inline-block; font-size:1.3rem;">리뷰작성</a>
                                 <input type="hidden" th:id="cakeId" th:value="${dto.cake.cakeId}">
                                 <input type="hidden" th:id="statusType" th:value="${dto.cake.cakeStatus}">
                                 <input type="hidden" th:id="error" th:value="${error}">
                                 <h3 th:text="${error}"></h3>
+                                </div>
+                                <div style="display: inline-block;">
                                 <a id="cancelButton" class="btn btn-outline-secondary btn-md card-link"
-                                   style="font-size:1.3rem;">주문 취소</a>
+                                   style="display: inline-block; font-size:1.3rem;">주문 취소</a>
+                                </div>
                             </div>
                         </div>
                     </div>
