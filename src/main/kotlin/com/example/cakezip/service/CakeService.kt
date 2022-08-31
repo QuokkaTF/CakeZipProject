@@ -31,7 +31,7 @@ class CakeService(
         cakeRepository.findByCustomerAndCakeStatusNotOrderByCreatedAtDesc(customer, cakeStatus)
 
     fun getSellerCakeList(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
-        cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)
+        cakeRepository.findByShopAndCakeStatusNotOrderByCreatedAtDesc(shop, cakeStatus)
 
     @Transactional
     fun deleteAllByCakeId(id: Long) = cakeRepository.deleteAllByCakeId(id)

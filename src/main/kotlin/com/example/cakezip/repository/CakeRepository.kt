@@ -12,7 +12,7 @@ interface CakeRepository : JpaRepository<Cake, Long> {
     fun findByShop(shop: Shop) : List<Cake>
     fun findByCustomerAndCakeStatusOrderByCreatedAtDesc(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>
     fun findByCustomerAndCakeStatusNotOrderByCreatedAtDesc(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>
-    fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus:CakeStatusType) : List<Cake>
+    fun findByShopAndCakeStatusNotOrderByCreatedAtDesc(shop: Shop, cakeStatus:CakeStatusType) : List<Cake>
 
     fun deleteAllByCakeId(id:Long)
 
