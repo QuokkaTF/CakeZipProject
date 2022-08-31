@@ -55,14 +55,12 @@ class User (
     override fun isEnabled() = true
     fun setByCustomerEditDto(customerEditDto: CustomerEditDto) {
         userEmail = customerEditDto.userEmail
-        pass = customerEditDto.password
         phoneNum = customerEditDto.phoneNum
         userName = customerEditDto.userName
     }
 
     fun setBySellerEditDto(sellerEditDto: SellerDto) {
         userEmail = sellerEditDto.userEmail
-        pass = sellerEditDto.password
         userName = sellerEditDto.userName
         phoneNum = sellerEditDto.userPhoneNum
         userType = UserType.SELLER

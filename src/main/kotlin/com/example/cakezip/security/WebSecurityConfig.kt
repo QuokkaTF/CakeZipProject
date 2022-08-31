@@ -17,35 +17,28 @@ class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
         http.csrf().disable()
         http.authorizeRequests()
 
-            .antMatchers("/**").permitAll()
+
+
+
+                // anyone
+            .antMatchers("/users/**","/search").permitAll()
+                // customer
+            .antMatchers("/map","/users/customer/**","/reviews/**","/likedshop/**","/users/cart/**","/like/**").hasRole("CUSTOMER")
+
+                // seller
+            .antMatchers("/sellers/**","/seller/**").hasRole("SELLER")
+
+                // authenticated
+            .antMatchers("/users/edit","/users/logout").authenticated()
+
+                // anyone
+            .antMatchers("/home","/").permitAll()
 //
 //
-//                // anyone
-//            .antMatchers("/users/**","/search").permitAll()
-//                // customer
-//            .antMatchers("/map","/users/customer/**","/reviews/**","/likedshop/**","/users/cart/**").hasRole("CUSTOMER")
-//
-//                // seller
-//            .antMatchers("/sellers/**",).hasRole("SELLER")
-//            .antMatchers("/seller/**",).hasRole("SELLER")
-//
-//                // authenticated
-//            .antMatchers("/users/edit","/users/logout").authenticated()
-//
-//                // anyone
-//            .antMatchers("/sellers","/customers").permitAll()
-//
-//
-//                // anonymous
-//            .antMatchers("/users/login",).access("permitAll")
-//            .antMatchers("/**").access("permitAll")
-//            .antMatchers("/like/**").access("permitAll")
-////            .antMatchers("/home").access("permitAll")
-////            .antMatchers("/users/login").access("permitAll")
-          .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
-////            .antMatchers("/sellers/myshop").hasRole("SELLER")
-////            .antMatchers("/map").hasRole("CUSTOMER")
-//            //.anyRequest().authenticated()
+            .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
+
+            .antMatchers("/users/passowrd").permitAll()
+            .anyRequest().authenticated()
 
 
             .and()
