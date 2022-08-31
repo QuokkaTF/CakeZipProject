@@ -44,7 +44,6 @@ class UserController(
         } else {
             val customer: Customer = userService.findCustomerByUser(user)
             model.addAttribute("customerEditDto",customer.toCustomerEditDto())
-            println(customer.toCustomerEditDto().areas=="부산")
 
             return "customer-edit"
         }
@@ -56,15 +55,6 @@ class UserController(
 
         return "redirect:/home"
     }
-
-    @ResponseBody
-    @PostMapping("/test")
-    fun test(session: HttpSession): String {
-        session.setAttribute("test","test")
-
-        return "success"
-    }
-
 
     @PostMapping("/seller/edit")
     fun editSeller(session: HttpSession, sellerDto: SellerDto): String {
@@ -143,7 +133,6 @@ class UserController(
             model.addAttribute("error","비밀번호가 틀렸거나 존재하지않는 이메일입니다.")
             return "login"
         }
-        println((session.getAttribute("user") as User).userName)
 
         return "redirect:/home"
     }
@@ -151,7 +140,6 @@ class UserController(
     @GetMapping("/idCheck")
     @ResponseBody
     fun idCheck(userEmail: String): ResponseEntity<Boolean>{
-        println(userEmail)
         return ResponseEntity.ok(userService.existsUser(userEmail))
     }
 }
