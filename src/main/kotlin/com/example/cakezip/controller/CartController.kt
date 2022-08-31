@@ -51,6 +51,7 @@ class CartController(
                 model.addAttribute("data", Message("", ""))
                 cakeTaskService.deleteAllByCake_cakeId(cakeId)
                 cakeService.deleteAllByCakeId(cakeId)
+                session.setAttribute("cartCount",cakeService.countCart(customer))
             } else {
                 model.addAttribute("data", noAccessMessage)
             }
@@ -122,6 +123,7 @@ class CartController(
                     orderService.findByCake(orderCake)!!,
                     NotificationMessage.ORDER_NEW, NotificationType.TOSELLER
                 )
+                session.setAttribute("cartCount",cakeService.countCart(customer))
 
             } else {
                 model.addAttribute("data", noAccessMessage)
@@ -166,9 +168,11 @@ class CartController(
             }
             cakeService.sumPrice(cake)
             cakeService.updateCakeStatus(cake.cakeId!!, CakeStatusType.CART)
+            session.setAttribute("cartCount",cakeService.countCart(customer))
         } else {
             model.addAttribute("data", noAccessMessage)
         }
+
         return "redirect:/users/cart"
     }
 
