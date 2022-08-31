@@ -51,6 +51,7 @@ class CartController(
                 model.addAttribute("data", Message("", ""))
                 cakeTaskService.deleteAllByCake_cakeId(cakeId)
                 cakeService.deleteAllByCakeId(cakeId)
+                session.setAttribute("cartCount",cakeService.countCart(customer))
             } else {
                 model.addAttribute("data", noAccessMessage)
             }
@@ -70,6 +71,7 @@ class CartController(
             }
             cakeService.deleteAllByCustomerAndCakeStatus(customer, CakeStatusType.CART)
             model.addAttribute("data", Message("", ""))
+            session.setAttribute("cartCount",cakeService.countCart(customer))
         } else {
             model.addAttribute("data", noAccessMessage)
         }
@@ -122,6 +124,7 @@ class CartController(
                     orderService.findByCake(orderCake)!!,
                     NotificationMessage.ORDER_NEW, NotificationType.TOSELLER
                 )
+                session.setAttribute("cartCount",cakeService.countCart(customer))
 
             } else {
                 model.addAttribute("data", noAccessMessage)
@@ -166,9 +169,11 @@ class CartController(
             }
             cakeService.sumPrice(cake)
             cakeService.updateCakeStatus(cake.cakeId!!, CakeStatusType.CART)
+            session.setAttribute("cartCount",cakeService.countCart(customer))
         } else {
             model.addAttribute("data", noAccessMessage)
         }
+
         return "redirect:/users/cart"
     }
 
@@ -218,6 +223,7 @@ class CartController(
             } else {
                 model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
             }
+
         } else {
             model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
         }

@@ -26,7 +26,11 @@ class LikeController(
         if (user.userType == UserType.CUSTOMER) {
             val customer = session.getAttribute("customer") as Customer
             model.addAttribute("data", Message("", ""))
-            return likeListService.addLike(customer, shop)
+            val res = likeListService.addLike(customer, shop)
+            session.setAttribute("likeCount",likeListService.getCustomerLikeCount(customer))
+            println(res)
+            println("--------")
+            return res
         } else {
             model.addAttribute("data", noAccessMessage)
         }
