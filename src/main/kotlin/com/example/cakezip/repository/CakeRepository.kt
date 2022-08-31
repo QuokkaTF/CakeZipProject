@@ -10,7 +10,7 @@ interface CakeRepository : JpaRepository<Cake, Long> {
 
     fun findByCustomer(customer: Customer) : List<Cake>
     fun findByShop(shop: Shop) : List<Cake>
-    fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>
+    fun findByCustomerAndCakeStatusOrderByCreatedAtDesc(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>
     fun findByCustomerAndCakeStatusNotOrderByCreatedAtDesc(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>
     fun findByShopAndCakeStatusNot(shop: Shop, cakeStatus:CakeStatusType) : List<Cake>
 

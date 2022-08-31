@@ -174,15 +174,31 @@
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input class="btn btn-outline-secondary me-3" type="submit" value="삭제하기">
                             </form>
-
-
-
-
                             <br>
-
+                        </div>
+                        <div class="col-12 bg-white py-3">
+                            <div class="row" style="position: relative; display: flex;">
+                                <div class="col-6 mx-auto" style="position: relative; display: flex;">
+                                    <ul th:if="${totalPage > 1}" class="pagination text-purple" style="text-align: center; margin-left: auto; margin-right: auto;">
+                                        <li style="margin: 0 5px;">
+                                            <a href="/users/cart?nowpage=0">처음</a>
+                                        </li>
+                                        <li th:each="i: ${#numbers.sequence(0,totalPage-1)}" style="margin: 0 3px;">
+                                            <a th:href="'/users/cart?nowPage=' + ${i}"
+                                               th:classappend="${i == nowPage} ? active : ''"
+                                               th:text="${i+1}  "> </a>
+                                        </li>
+                                        <li style="margin: 0 5px;">
+                                            <a th:href="'/users/cart?nowPage=' + ${totalPage-1}">마지막</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
+
 
             </main>
             <!-- Main Content -->
