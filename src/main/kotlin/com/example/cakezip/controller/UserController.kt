@@ -56,15 +56,6 @@ class UserController(
         return "redirect:/home"
     }
 
-    @ResponseBody
-    @PostMapping("/test")
-    fun test(session: HttpSession): String {
-        session.setAttribute("test","test")
-
-        return "success"
-    }
-
-
     @PostMapping("/seller/edit")
     fun editSeller(session: HttpSession, sellerDto: SellerDto): String {
         userService.editSeller(session.getAttribute("user") as User,sellerDto)

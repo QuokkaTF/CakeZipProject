@@ -20,14 +20,38 @@ class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity){
         http.csrf().disable()
         http.authorizeRequests()
-            .antMatchers("/").access("permitAll")
-            .antMatchers("/**").access("permitAll")
-//            .antMatchers("/home").access("permitAll")
-//            .antMatchers("/users/login").access("permitAll")
-//            .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
-//            .antMatchers("/sellers/myshop").hasRole("SELLER")
-//            .antMatchers("/map").hasRole("CUSTOMER")
-//            .anyRequest().authenticated()
+
+            .antMatchers("/**").permitAll()
+//
+//
+//                // anyone
+//            .antMatchers("/users/**","/search").permitAll()
+//                // customer
+//            .antMatchers("/map","/users/customer/**","/reviews/**","/likedshop/**","/users/cart/**").hasRole("CUSTOMER")
+//
+//                // seller
+//            .antMatchers("/sellers/**",).hasRole("SELLER")
+//            .antMatchers("/seller/**",).hasRole("SELLER")
+//
+//                // authenticated
+//            .antMatchers("/users/edit","/users/logout").authenticated()
+//
+//                // anyone
+//            .antMatchers("/sellers","/customers").permitAll()
+//
+//
+//                // anonymous
+//            .antMatchers("/users/login",).access("permitAll")
+//            .antMatchers("/**").access("permitAll")
+//            .antMatchers("/like/**").access("permitAll")
+////            .antMatchers("/home").access("permitAll")
+////            .antMatchers("/users/login").access("permitAll")
+////            .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
+////            .antMatchers("/sellers/myshop").hasRole("SELLER")
+////            .antMatchers("/map").hasRole("CUSTOMER")
+//            //.anyRequest().authenticated()
+
+
             .and()
             .formLogin()
             .loginPage("/users/login")
@@ -39,10 +63,6 @@ class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
             .logout()
             .logoutUrl("/users/logout")
             .logoutSuccessUrl("/home")
-            .and()
-            .csrf()
-            .and()
-
 
 
     }
