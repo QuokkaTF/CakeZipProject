@@ -90,7 +90,6 @@ class UserController(
 
     @PostMapping("/password")
     fun resetPassword(@RequestParam userName:String, @RequestParam userEmail: String, @RequestParam userPassword: String, model: Model): String {
-        print("reset")
         val user: User ?= userService.validateUserEmailAndName(userName, userEmail)
         if(user != null) {
             print(userPassword)
