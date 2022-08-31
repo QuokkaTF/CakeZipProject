@@ -71,6 +71,7 @@ class CartController(
             }
             cakeService.deleteAllByCustomerAndCakeStatus(customer, CakeStatusType.CART)
             model.addAttribute("data", Message("", ""))
+            session.setAttribute("cartCount",cakeService.countCart(customer))
         } else {
             model.addAttribute("data", noAccessMessage)
         }
@@ -222,6 +223,7 @@ class CartController(
             } else {
                 model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
             }
+
         } else {
             model.addAttribute("data", Message("접근할 수 없는 페이지입니다.", "/"))
         }

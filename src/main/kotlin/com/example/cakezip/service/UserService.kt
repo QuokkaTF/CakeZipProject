@@ -32,7 +32,9 @@ class UserService(
     }
 
     fun setUserPassword(user: User, userPassword: String) {
+        println(userPassword)
         user.pass = passwordEncoder.encode(userPassword)
+        println(user.pass)
         userRepository.save(user)
     }
 
