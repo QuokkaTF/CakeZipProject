@@ -4,12 +4,14 @@ import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.dto.Message
+import com.example.cakezip.dto.OrderDto
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import javax.servlet.http.HttpSession
 
 @Controller
@@ -40,15 +42,32 @@ class OrderController(
     }
 
     @GetMapping("/customers/orders")
-    fun getOrdersByCustomer(model: Model, session: HttpSession): String {
+    fun getOrdersByCustomer(model: Model, session: HttpSession, @RequestParam(value = "nowPage", defaultValue = "0") nowPage: Int): String {
         val user: User = session.getAttribute("user") as User
 
         if (user.userType == UserType.CUSTOMER) {
             val customer = session.getAttribute("customer") as Customer
-            if (orderService.getCustomerAllOrders(customer)!!.isNullOrEmpty()) {
+            if (orderService.getCustomerAllOrders(customer)!!.isEmpty()) {
                 model.addAttribute("data", Message("주문 내역이 존재하지 않습니다.", "/mypage"))
             } else {
-                model.addAttribute("detail", orderService.getCustomerAllOrders(customer))
+                val row = 3
+                val list: ArrayList<OrderDto> = ArrayList()
+                val temp = orderService.getCustomerAllOrders(customer)
+                var totalPage = temp?.size?.div(row)
+
+                if((temp?.size!! % row) > 0) {
+                    totalPage = totalPage!! + 1
+                }
+
+                for (i in nowPage * row..(nowPage * row) + row - 1) {
+                    if(i >= temp.size) {
+                        break
+                    }
+                    list.add(temp[i])
+                }
+                model.addAttribute("nowPage", nowPage)
+                model.addAttribute("totalPage", totalPage)
+                model.addAttribute("detail", list)
                 model.addAttribute("data", Message("", ""))
             }
         } else {
@@ -57,6 +76,7 @@ class OrderController(
 
         return "orders"
     }
+
 
     @PostMapping("orders/{cakeId}")
     fun deleteOrder(model: Model, session: HttpSession, @PathVariable("cakeId") cakeId: Long): String {
