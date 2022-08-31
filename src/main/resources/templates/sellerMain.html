@@ -131,7 +131,6 @@
                                 <span th:case="TOSELLER">
                 <span th:text="${dto.order.cake.shop.shopName}"></span>의
               </span>
-                                <span th:case="*"></span>
                             </th:block>
                             <th:block th:switch="${dto.noticeMessage}">
                                 <span th:case="ORDER_NEW">새로운 주문이 발생했습니다.</span>

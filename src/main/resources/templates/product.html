@@ -21,9 +21,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
-
         $(function (){
-
             let likeVal = $('#likeCheck').val();
             const likeImg = $('#likeImg');
 
@@ -37,8 +35,6 @@
             $('.heart').click(function() {
                 const likeVal = $('#likeCheck').val();
                 let shopId = $('#shopId').val();
-
-                console.log("shopID : "+shopId);
 
                 if (likeVal === 'true') {
                     const con_check = confirm("가게 좋아요를 취소하시겠습니까?")
