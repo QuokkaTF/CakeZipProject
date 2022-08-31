@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import javax.servlet.http.HttpSession
 
 
 @Service
@@ -51,6 +52,7 @@ class CakeService(
             cakeRepository.save(cake)
         }
     }
+
 
     fun addCartCake(
         pickupDate: String, letterText: String, etc: String, totalPrice: Int, cakeStatus: CakeStatusType,

@@ -1,45 +1,72 @@
 package com.example.cakezip.security
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig(
-    private val userDetailsService : UserDetailsServiceImpl,
-    private val jwtFilter : JwtFilter
-) : WebSecurityConfigurerAdapter() {
-    override fun configure(http: HttpSecurity) {
+class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
 
+    override fun configure(http: HttpSecurity){
         http.csrf().disable()
-
         http.authorizeRequests()
-            //.antMatchers("/users/**").permitAll()
-            .antMatchers("/**").permitAll()
 
 
 
+
+                // anyone
+            .antMatchers("/users/**","/search").permitAll()
+                // customer
+            .antMatchers("/map","/users/customer/**","/reviews/**","/likedshop/**","/users/cart/**","/like/**").hasRole("CUSTOMER")
+
+                // seller
+            .antMatchers("/sellers/**","/seller/**").hasRole("SELLER")
+
+                // authenticated
+            .antMatchers("/users/edit","/users/logout").authenticated()
+
+                // anyone
+            .antMatchers("/home","/").permitAll()
+//
+//
+            .antMatchers("/css/**","/js/**","/images/**","/webfonts/**").access("permitAll")
+
+            .antMatchers("/users/passowrd").permitAll()
             .anyRequest().authenticated()
+
+
             .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .formLogin()
+            .loginPage("/users/login")
+            .defaultSuccessUrl("/home",true)
+            .usernameParameter("userEmail")
+            .passwordParameter("password")
+            .loginProcessingUrl("/users/login")
             .and()
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .logout()
+            .logoutUrl("/users/logout")
+            .logoutSuccessUrl("/home")
+
+
     }
 
-    @Bean
-    fun passwordEncoder() = BCryptPasswordEncoder()
+    @Autowired
+    private lateinit var userDetailsServiceImpl: UserDetailsServiceImpl
 
     @Bean
-    override fun authenticationManagerBean(): AuthenticationManager {
-        return super.authenticationManagerBean()
+    fun encoder() = BCryptPasswordEncoder()
+
+    @Throws(Exception::class)
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth
+            .userDetailsService(userDetailsServiceImpl)
+            .passwordEncoder(encoder())
     }
+
 }

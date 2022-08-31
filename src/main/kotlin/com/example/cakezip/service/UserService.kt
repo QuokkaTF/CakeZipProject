@@ -17,7 +17,6 @@ class UserService(
     private val customerRepository: CustomerRepository,
     private val sellerRepository: SellerRepository,
     private val passwordEncoder : PasswordEncoder,
-    private val authenticationManager : AuthenticationManager,
     private val jwtUtils : JwtUtils
 ) {
     fun findCustomerByUser(user: User) = customerRepository.findCustomerByUser(user)
@@ -33,7 +32,7 @@ class UserService(
     }
 
     fun setUserPassword(user: User, userPassword: String) {
-        user.password = passwordEncoder.encode(userPassword)
+        user.pass = passwordEncoder.encode(userPassword)
         userRepository.save(user)
     }
 
@@ -57,7 +56,7 @@ class UserService(
     fun validateUserEmailAndName(userName: String, userEmail: String): User? {
         val user: User? = userRepository.findUserByUserEmail(userEmail)
         if (user != null) {
-            if(user.userName == userName)
+            if(user.userName.contentEquals(userName))
                 return user
         }
         return null
@@ -86,7 +85,7 @@ class UserService(
     fun userLogin(userEmail: String, password: String): String {
         val user: User? = findUser(userEmail)
         if (user != null) {
-            if(!passwordEncoder.matches(password,user.password)) {
+            if(!passwordEncoder.matches(password,user.pass)) {
                 return "0"
             }
             else {

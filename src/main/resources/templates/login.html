@@ -43,8 +43,10 @@
             <main class="row bg-white py-3">
               <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3" style="border: 1px solid #EDE7F6; border-radius: 0.2rem;" >
                 <div class="row">
+
                   <div class="col-12 py-1">
-                    <form method="POST" action="/users/login">
+                    <form method="POST" th:action="@{/users/login}">
+
                       <div class="mb-3">
                         <label for="email" class="form-label">이메일</label>
                         <input
