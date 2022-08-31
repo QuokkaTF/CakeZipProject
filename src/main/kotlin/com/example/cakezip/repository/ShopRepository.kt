@@ -15,5 +15,5 @@ interface ShopRepository : JpaRepository<Shop, Long> {
 
     fun findByShopNameContaining(keyword:String) : List<Shop>
 
-    fun findAllByStatus(status:String) : List<Shop>
+    fun findAllByStatusOrderByCreatedAtDesc(status:String) : List<Shop>
 }

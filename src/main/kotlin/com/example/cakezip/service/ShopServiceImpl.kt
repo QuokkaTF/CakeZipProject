@@ -143,7 +143,7 @@ class ShopServiceImpl(
 
     override fun getAllShopSimpleList(): List<ShopSimpleInfoDto> {
         var shopSimpleInfoList : ArrayList<ShopSimpleInfoDto> = ArrayList()
-        val shopList : List<Shop> = shopRepository.findAllByStatus("active")
+        val shopList : List<Shop> = shopRepository.findAllByStatusOrderByCreatedAtDesc("active")
 
         for (shop in shopList) {
             val shopImgList : ArrayList<String> = ArrayList()
