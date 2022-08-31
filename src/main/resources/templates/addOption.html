@@ -20,21 +20,33 @@
 </head>
 <body>
 <div class="container-fluid nanum" layout:fragment="content">
-    <div class="row min-vh-100">
-        <div class="col-12">
-            <form method="post" th:action="@{/sellers/myshop/options/new}" th:object="${form}">
-                <input type="text" style="display: none" th:value="${shopId}" name="shopId">
-                <input type="text" th:value="${type.toString()}" name="optionType" readonly>
-                <input type="text" th:field="*{optionDetail}" name="optionDetail">
-                <input type="text" th:field="*{optionPrice}" name="optionPrice">
-                <input type="submit" value="추가">
-            </form>
-
-            <a th:href="@{/sellers/myshop/options/show/{type} (type=${type})}">
-                뒤로 가기
-            </a>
-            <!-- Main Content -->
+    <div class="col-12">
+        <!-- Main Content -->
+        <div class="row">
+            <div class="page-title col-12 py-3 bg-lightpurple text-center text-uppercase nanum text-purple">
+                <h2>케이크 옵션 추가 페이지</h2>
+            </div>
         </div>
+        <main class="row bg-white py-3">
+            <div class="col-12 mb-3">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-10 mx-auto py-3"
+                         style="border: 1px solid #EDE7F6; border-radius: 0.2rem; display: block;">
+                        <form method="post" th:action="@{/sellers/myshop/options/new}" th:object="${form}">
+                            <input type="text" style="display: none" th:value="${shopId}" name="shopId">
+                            <input type="text" th:value="${type.toString()}" name="optionType" readonly>
+                            <input type="text" th:field="*{optionDetail}" name="optionDetail">
+                            <input type="text" th:field="*{optionPrice}" name="optionPrice">
+                            <input type="submit" value="추가">
+                        </form>
+                        <div style="display: inline-block; margin: 10px 0; border: 1px; float: right;">
+                        <a th:href="@{/sellers/myshop/options/show/{type} (type=${type})}" class="btn btn-outline-secondary btn-md">뒤로 가기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+            <!-- Main Content -->
     </div>
 </div>
 
