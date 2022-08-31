@@ -59,7 +59,7 @@ class OrderController(
                     totalPage = totalPage!! + 1
                 }
 
-                for (i in nowPage * row..(nowPage * row) + row - 1) {
+                for (i in nowPage * row until (nowPage * row) + row) {
                     if(i >= temp.size) {
                         break
                     }

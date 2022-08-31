@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface CakeRepository : JpaRepository<Cake, Long> {
 
-    fun findByCustomer(customer: Customer) : List<Cake>
+    fun findByCustomerOrderByCreatedAtDesc(customer: Customer) : List<Cake>
     fun findByShop(shop: Shop) : List<Cake>
     fun findByCustomerAndCakeStatusOrderByCreatedAtDesc(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>
     fun findByCustomerAndCakeStatusNotOrderByCreatedAtDesc(customer: Customer, cakeStatus:CakeStatusType) : List<Cake>

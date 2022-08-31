@@ -68,7 +68,7 @@
                         <div class="col-6 mx-auto" style="position: relative; display: flex;">
                             <ul th:if="${totalPage > 1}" class="pagination text-purple" style="text-align: center; margin-left: auto; margin-right: auto;">
                                 <li style="margin: 0 5px;">
-                                    <a href="/shops?nowpage=0">처음</a>
+                                    <a href="/shops?nowPage=0">처음</a>
                                 </li>
                                 <li th:each="i: ${#numbers.sequence(0,totalPage-1)}" style="margin: 0 3px;">
                                     <a th:href="'/shops?nowPage=' + ${i}"

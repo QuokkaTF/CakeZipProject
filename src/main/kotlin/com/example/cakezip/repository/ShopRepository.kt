@@ -13,7 +13,7 @@ interface ShopRepository : JpaRepository<Shop, Long> {
 
     fun findByShopId (shopId : Long) : Shop
 
-    fun findByShopNameContaining(keyword:String) : List<Shop>
+    fun findByShopNameContainingOrderByCreatedAtDesc(keyword:String) : List<Shop>
 
     fun findAllByStatusOrderByCreatedAtDesc(status:String) : List<Shop>
 }

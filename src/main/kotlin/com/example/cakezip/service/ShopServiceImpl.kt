@@ -210,7 +210,7 @@ class ShopServiceImpl(
     }
 
     override fun searchShop(keyword:String, customer: Customer?):ArrayList<ShopDetailInfoDto> {
-        var shopList = shopRepository.findByShopNameContaining(keyword)
+        var shopList = shopRepository.findByShopNameContainingOrderByCreatedAtDesc(keyword)
         var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
         for (sl in shopList){
             shopDetailList.add(getShopDetail(customer, sl.shopId!!))
@@ -219,7 +219,7 @@ class ShopServiceImpl(
     }
 
     override fun searchShop2(keyword:String):ArrayList<ShopDetailInfoDto> {
-        var shopList = shopRepository.findByShopNameContaining(keyword)
+        var shopList = shopRepository.findByShopNameContainingOrderByCreatedAtDesc(keyword)
         var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
         for (sl in shopList){
             shopDetailList.add(getShopDetail2(sl.shopId!!))
