@@ -119,15 +119,15 @@
 
             <div class="row">
                 <div class="col-12 pt-3 bg-lightpurple text-center text-uppercase" style="color:#AD81D5">
-                    <h2>케이크 가게 수정</h2>
+                    <h2>케이크 가게 정보 수정</h2>
                     <p>가게 정보 및 옵션 정보를 수정할 수 있어요!</p>
                 </div>
             </div>
 
-            <main class="row">
-                <div class="col-12 bg-white py-3 mb-3">
+            <main class="row bg-white py-3">
+                <div class="col-12 mb-3">
                     <div class="row">
-                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
+                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto py-3" style="border: 1px solid #EDE7F6; border-radius: 0.2rem; display: block;">
 
                             <form th:action ="@{/sellers/myshop/info}" method="post">
                                 <input type="hidden" name="_method" value="PUT"/>
@@ -145,12 +145,13 @@
                                     <h5 for="inputImg">
                                         가게 대표 사진 4장
                                     </h5>
-                                    <div class="form-group" style="margin:30px">
-                                        <a th:href="@{/sellers/myshop/image}">
+                                    <div class="form-group">
+                                        <a th:href="@{/sellers/myshop/image}" class="btn btn-purple btn-md">
                                             가게 대표 사진 4장 조회 및 수정
                                         </a>
                                     </div>
                                 </div>
+
                                 <div class="form-group" style="margin:30px">
                                     <h5 for="inputNumber">
                                         사업자등록번호
@@ -187,48 +188,58 @@
                                     <img th:src="${shop.getShopImgDescriptionUrl()}" style="width: 400px; height: 400px" id = 'storeDetailImg' name = "shopImgDescriptionUrl">
                                     <input type="text" style="display: none" th:value = "${shop.getShopImgDescriptionUrl()}" id = 'storeDetailImgInput' name = "shopImgDescriptionUrl">
                                 </div>
-
-                                <div align="center">
-                                    <button class="btn bg-purple me-3" style="color:white;margin:30px;width:95%;height:40px" type="submit">수정 완료</button>
+                                <div style="margin:30px">
+                                    <div style="display: inline-block;">
+                                        <button class="btn btn-md" type="submit" style="background-color: #AD81D5; color: white;">수정 완료</button>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <form th:action ="@{/sellers/myshop}" method="post">
+                                            <input type="hidden" name="_method" value="PUT"/>
+                                            <input type="submit" value="가게 삭제" class="btn btn-outline-secondary btn-md">
+                                        </form>
+                                    </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                    <div class="row py-3">
+                        <div class="col-lg-6 col-md-8 col-sm-10 mx-auto py-3" style="border: 1px solid #EDE7F6; border-radius: 0.2rem; display: block !important;">
 
-                            <h3 for="inputDescription" style="margin:30px; margin-top:80px; ">
-                                케이크 옵션 조회 수정하러 가는 버튼
+                            <h3 for="inputDescription" style="margin:30px;">
+                                케이크 옵션 조회 및 수정
                             </h3>
-                            <hr>
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/show/design}">
+                                <a th:href="@{/sellers/myshop/options/show/design}" class="btn btn-purple btn-md">
                                     디자인 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/show/size}">
+                                <a th:href="@{/sellers/myshop/options/show/size}" class="btn btn-purple btn-md">
                                     사이즈 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/show/sheet}">
+                                <a th:href="@{/sellers/myshop/options/show/sheet}" class="btn btn-purple btn-md">
                                     시트 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/show/cream}">
+                                <a th:href="@{/sellers/myshop/options/show/cream}" class="btn btn-purple btn-md">
                                     크림 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/show/creamcolor}">
+                                <a th:href="@{/sellers/myshop/options/show/creamcolor}" class="btn btn-purple btn-md">
                                     크림색 조회 및 수정
                                 </a>
                             </div>
 
                             <div class="form-group" style="margin:30px">
-                                <a th:href="@{/sellers/myshop/options/show/letter}">
+                                <a th:href="@{/sellers/myshop/options/show/letter}" class="btn btn-purple btn-md">
                                     글자색 조회 및 수정
                                 </a>
                             </div>
@@ -237,10 +248,7 @@
                     </div>
                 </div>
 
-                <form th:action ="@{/sellers/myshop}" method="post">
-                    <input type="hidden" name="_method" value="PUT"/>
-                    <input type="submit" value="가게 삭제">
-                </form>
+
 
 
             </main>
