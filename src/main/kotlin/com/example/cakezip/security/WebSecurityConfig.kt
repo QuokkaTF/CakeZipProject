@@ -26,7 +26,8 @@ class WebSecurityConfig() : WebSecurityConfigurerAdapter() {
             .antMatchers("/map","/users/customer/**","/reviews/**","/likedshop/**","/users/cart/**","/like/**").hasRole("CUSTOMER")
 
                 // seller
-            .antMatchers("/sellers/**","/seller/**").hasRole("SELLER")
+            .antMatchers("/sellers/**","/seller/**","/image/**").hasRole("SELLER")
+
 
                 // authenticated
             .antMatchers("/users/edit","/users/logout").authenticated()
