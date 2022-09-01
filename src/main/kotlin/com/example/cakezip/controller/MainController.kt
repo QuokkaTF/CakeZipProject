@@ -27,6 +27,9 @@ class MainController(
     @GetMapping("/home")
     fun getMainView(model: Model, session: HttpSession, @AuthenticationPrincipal user: User?): String {
         if(user != null) {
+            if(user.status != "active") {
+                userService.activeUser(user)
+            }
             val tmp = session.getAttribute("user") as User?
             if(session.getAttribute("user") as User? == null) {
                 session.setAttribute("user",user)

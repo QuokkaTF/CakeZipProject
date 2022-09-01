@@ -63,11 +63,11 @@ class UserController(
         return "redirect:/home"
     }
 
-    @DeleteMapping("/deactivate") // 탈퇴
+    @GetMapping("/deactivate") // 탈퇴
     fun deactivateUser(session: HttpSession): String {
         userService.secessionUser(session.getAttribute("user") as User)
-        session.invalidate()
-        return "redirect:/home"
+
+        return "redirect:/users/logout"
     }
 
     @PostMapping("/email")
@@ -118,9 +118,11 @@ class UserController(
         val res: String = userService.userLogin(userEmail,password)
 
         if(res != "0"&& res != "-1") {
-            val user: User? = userService.findUser(userEmail)
+            var user: User? = userService.findUser(userEmail)
             if (user != null) {
-                //session.setAttribute("userId",user.userId)
+                if(user.status != "active") {
+                    user = userService.activeUser(user)
+                }
                 session.setAttribute("user",user)
                 if(user.userType == UserType.CUSTOMER) {
                     session.setAttribute("customer", userService.findCustomerByUser(user))
@@ -140,7 +142,14 @@ class UserController(
 
     @GetMapping("/idCheck")
     @ResponseBody
-    fun idCheck(userEmail: String): ResponseEntity<Boolean>{
+    fun idCheck(userEmail: String): ResponseEntity<Boolean> {
         return ResponseEntity.ok(userService.existsUser(userEmail))
     }
+
+    @GetMapping("/phoneCheck")
+    @ResponseBody
+    fun phoneCheck(phoneNum: String): ResponseEntity<Boolean> {
+        return ResponseEntity.ok(userService.existPhone(phoneNum))
+    }
+
 }
