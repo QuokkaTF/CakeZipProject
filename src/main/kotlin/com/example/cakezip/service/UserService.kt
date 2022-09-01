@@ -31,6 +31,10 @@ class UserService(
         return userRepository.findUserByUserEmail(userEmail)
     }
 
+    fun existPhone(userPhone: String): Boolean {
+        return userRepository.existsUserByPhoneNum(userPhone)
+    }
+
     fun setUserPassword(user: User, userPassword: String) {
         user.pass = passwordEncoder.encode(userPassword)
         userRepository.save(user)
@@ -49,7 +53,7 @@ class UserService(
     }
 
     fun secessionUser(user: User) {
-        user.status = "secession"
+        user.status = "disabled"
         userRepository.save(user)
     }
 
