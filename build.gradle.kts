@@ -44,6 +44,7 @@ dependencies {
     implementation ("org.webjars:jquery:3.6.0")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+    implementation("org.json:json:20220320")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
