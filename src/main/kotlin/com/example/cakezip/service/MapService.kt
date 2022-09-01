@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class MapService(private val shopRepository: ShopRepository) {
 
     fun findAllShop(): MutableList<ShopAddressDto> {
-        val shops: List<Shop> = shopRepository.findAllByStatus("active")
+        val shops: List<Shop> = shopRepository.findAllByStatusOrderByCreatedAtDesc("active")
         var shopDtoList: MutableList<ShopAddressDto> = mutableListOf<ShopAddressDto>()
         println(shops.size)
         for(shop in shops) {

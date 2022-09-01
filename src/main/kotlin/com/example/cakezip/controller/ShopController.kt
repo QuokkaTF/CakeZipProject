@@ -1,6 +1,7 @@
 package com.example.cakezip.controller
 
 
+import com.example.cakezip.domain.cake.CakeStatusType
 import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.Seller
 import com.example.cakezip.domain.member.User
@@ -10,6 +11,7 @@ import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.dto.Message
 import com.example.cakezip.dto.NewShopReqDto
 import com.example.cakezip.dto.ShopDetailInfoDto
+import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
@@ -69,8 +71,25 @@ class ShopController (
     }
 
     @GetMapping("/shops")
-    fun shopList(model: Model) : String {
-        model.addAttribute("shops",shopService.getAllShopSimpleList())
+    fun shopList(model: Model, @RequestParam(value = "nowPage", defaultValue = "0") nowPage: Int) : String {
+        val row = 4
+        val list: ArrayList<ShopSimpleInfoDto> = ArrayList()
+        val temp = shopService.getAllShopSimpleList()
+        var totalPage = temp.size.div(row)
+
+        if((temp.size % row) > 0) {
+            totalPage += 1
+        }
+
+        for (i in nowPage * row until (nowPage * row) + row) {
+            if(i >= temp.size) {
+                break
+            }
+            list.add(temp[i])
+        }
+        model.addAttribute("nowPage", nowPage)
+        model.addAttribute("totalPage", totalPage)
+        model.addAttribute("shops", list)
         return "allshop"
     }
 

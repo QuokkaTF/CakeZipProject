@@ -143,7 +143,7 @@ class ShopServiceImpl(
 
     override fun getAllShopSimpleList(): List<ShopSimpleInfoDto> {
         var shopSimpleInfoList : ArrayList<ShopSimpleInfoDto> = ArrayList()
-        val shopList : List<Shop> = shopRepository.findAllByStatus("active")
+        val shopList : List<Shop> = shopRepository.findAllByStatusOrderByCreatedAtDesc("active")
 
         for (shop in shopList) {
             val shopImgList : ArrayList<String> = ArrayList()
@@ -210,7 +210,7 @@ class ShopServiceImpl(
     }
 
     override fun searchShop(keyword:String, customer: Customer?):ArrayList<ShopDetailInfoDto> {
-        var shopList = shopRepository.findByShopNameContaining(keyword)
+        var shopList = shopRepository.findByShopNameContainingOrderByCreatedAtDesc(keyword)
         var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
         for (sl in shopList){
             shopDetailList.add(getShopDetail(customer, sl.shopId!!))
@@ -219,7 +219,7 @@ class ShopServiceImpl(
     }
 
     override fun searchShop2(keyword:String):ArrayList<ShopDetailInfoDto> {
-        var shopList = shopRepository.findByShopNameContaining(keyword)
+        var shopList = shopRepository.findByShopNameContainingOrderByCreatedAtDesc(keyword)
         var shopDetailList: ArrayList<ShopDetailInfoDto> = ArrayList<ShopDetailInfoDto>()
         for (sl in shopList){
             shopDetailList.add(getShopDetail2(sl.shopId!!))

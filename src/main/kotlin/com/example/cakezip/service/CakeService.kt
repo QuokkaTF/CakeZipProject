@@ -10,11 +10,9 @@ import com.example.cakezip.repository.CakeRepository
 import com.example.cakezip.repository.CakeTaskRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import javax.servlet.http.HttpSession
 
 
 @Service
@@ -27,13 +25,13 @@ class CakeService(
     fun findByCakeId(id: Long): Cake = cakeRepository.findByCakeId(id)
 
     fun findByCustomerAndCakeStatus(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
-        cakeRepository.findByCustomerAndCakeStatus(customer, cakeStatus)
+        cakeRepository.findByCustomerAndCakeStatusOrderByCreatedAtDesc(customer, cakeStatus)
 
     fun findByCustomerAndCakeStatusNot(customer: Customer, cakeStatus: CakeStatusType): List<Cake> =
-        cakeRepository.findByCustomerAndCakeStatusNot(customer, cakeStatus)
+        cakeRepository.findByCustomerAndCakeStatusNotOrderByCreatedAtDesc(customer, cakeStatus)
 
     fun getSellerCakeList(shop: Shop, cakeStatus: CakeStatusType): List<Cake> =
-        cakeRepository.findByShopAndCakeStatusNot(shop, cakeStatus)
+        cakeRepository.findByShopAndCakeStatusNotOrderByCreatedAtDesc(shop, cakeStatus)
 
     @Transactional
     fun deleteAllByCakeId(id: Long) = cakeRepository.deleteAllByCakeId(id)

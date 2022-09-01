@@ -5,6 +5,8 @@ import com.example.cakezip.domain.member.Customer
 import com.example.cakezip.domain.member.User
 import com.example.cakezip.domain.member.UserType
 import com.example.cakezip.dto.Message
+import com.example.cakezip.dto.ReviewDto
+import com.example.cakezip.dto.ShopSimpleInfoDto
 import com.example.cakezip.service.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -19,7 +21,7 @@ class ReviewController(
     val noAccessMessage: Message = Message("접근할 수 없는 페이지입니다.", "/")
 
     @GetMapping("/reviews")
-    fun getMyReviews(model: Model, session: HttpSession): String {
+    fun getMyReviews(model: Model, session: HttpSession, @RequestParam(value = "nowPage", defaultValue = "0") nowPage: Int): String {
         val user: User = session.getAttribute("user") as User
 
         if (user.userType == UserType.CUSTOMER) {
@@ -27,7 +29,25 @@ class ReviewController(
             if (reviewService.getCustomerAllReviews(customer)?.isEmpty() == true) {
                 model.addAttribute("data", Message("작성한 리뷰가 아직 존재하지 않습니다.", "/mypage"))
             } else {
-                model.addAttribute("review", reviewService.getCustomerAllReviews(customer))
+                val row = 3
+                val list: ArrayList<ReviewDto> = ArrayList()
+                val temp = reviewService.getCustomerAllReviews(customer)
+                var totalPage = temp?.size?.div(row)
+
+                if((temp?.size!! % row) > 0) {
+                    totalPage = totalPage!! + 1
+                }
+
+                for (i in nowPage * row until (nowPage * row) + row) {
+                    if(i >= temp.size) {
+                        break
+                    }
+                    list.add(temp[i])
+                }
+
+                model.addAttribute("nowPage", nowPage)
+                model.addAttribute("totalPage", totalPage)
+                model.addAttribute("review", list)
                 model.addAttribute("data", Message("", ""))
             }
         } else {
@@ -39,7 +59,6 @@ class ReviewController(
     @GetMapping("/reviews/shop/{shopId}")
     fun getShopReviews(model: Model, @PathVariable("shopId") shopId: Long): String {
         model.addAttribute("review", reviewService.getShopAllReviews(shopId))
-        println("해당 가게의 리뷰 전체 목록")
         return "myreview"
     }
 

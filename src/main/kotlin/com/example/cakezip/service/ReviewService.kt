@@ -27,7 +27,7 @@ class ReviewService(
 
     fun getCustomerAllReviews(customer: Customer): List<ReviewDto>? {
         val reviewList: ArrayList<ReviewDto> = ArrayList()
-        for (cake in cakeRepository.findByCustomer(customer)) {
+        for (cake in cakeRepository.findByCustomerOrderByCreatedAtDesc(customer)) {
             if (reviewRepository.findReviewByCake(cake) != null) {
                 val order = orderRepository.findOrdersByCake(cake)
                 val review = reviewRepository.findReviewByCake(cake)
