@@ -86,6 +86,8 @@ class OrderServiceImpl(
             CakeStatusType.READY -> {
                 notiMessage = NotificationMessage.ORDER_READY
             }
+            else->
+                return
         }
 
         notificationService.makeNotification(
