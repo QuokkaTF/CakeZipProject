@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 class UserService(
@@ -31,6 +32,10 @@ class UserService(
         return userRepository.findUserByUserEmail(userEmail)
     }
 
+    fun existPhone(userPhone: String): Boolean {
+        return userRepository.existsUserByPhoneNum(userPhone)
+    }
+
     fun setUserPassword(user: User, userPassword: String) {
         user.pass = passwordEncoder.encode(userPassword)
         userRepository.save(user)
@@ -49,9 +54,29 @@ class UserService(
     }
 
     fun secessionUser(user: User) {
-        user.status = "secession"
+        user.status = "disabled"
+        user.updatedAt = LocalDateTime.now()
         userRepository.save(user)
     }
+
+    fun activeUser(user: User): User {
+        user.status = "active"
+        user.updatedAt = LocalDateTime.now()
+        println(user.status+user.userEmail)
+        return userRepository.save(user)
+    }
+
+    fun deleteUser() {
+        val users = userRepository.findUsersByStatusEquals("disabled")
+        for(u in users) {
+            u.updatedAt.plusYears(1)
+            if(u.updatedAt.isBefore(LocalDateTime.now()))
+                userRepository.delete(u)
+        }
+    }
+
+
+
 
     fun validateUserEmailAndName(userName: String, userEmail: String): User? {
         val user: User? = userRepository.findUserByUserEmail(userEmail)

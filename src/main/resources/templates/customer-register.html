@@ -39,6 +39,22 @@
         return res;
     }
 
+    function phoneCheck() {
+        var res;
+        $.ajax({
+            type: 'GET',
+            url: '/users/phoneCheck',
+            async:false,
+            data: {"phoneNum":document.getElementById("userPhoneNum").value},
+            dataType: 'json',
+            success: function(result) {
+                res=result;
+            }
+
+        });
+        return res;
+    }
+
     function formCheck() {
         var userName = document.getElementById("userName");
         var userEmail = document.getElementById("userEmail");
@@ -91,6 +107,12 @@
 
         if(userPhoneNum.value == "") {
             alert("전화번호를 입력하세요");
+            userPhoneNum.focus();
+            return false;
+        }
+
+        if(phoneCheck()) {
+            alert("이미 존재하는 핸드폰 번호입니다. 다른 핸드폰 번호 입력해주세요");
             userPhoneNum.focus();
             return false;
         }

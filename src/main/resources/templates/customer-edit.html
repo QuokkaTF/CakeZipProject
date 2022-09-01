@@ -39,6 +39,22 @@
         return res;
     }
 
+    function phoneCheck() {
+        var res;
+        $.ajax({
+            type: 'GET',
+            url: '/users/phoneCheck',
+            async:false,
+            data: {"phoneNum":document.getElementById("userPhoneNum").value},
+            dataType: 'json',
+            success: function(result) {
+                res=result;
+            }
+
+        });
+        return res;
+    }
+
     function formCheck() {
         var userEmail = document.getElementById("userEmail");
         var userName = document.getElementById("userName");
@@ -70,6 +86,12 @@
 
         if(!reg.test(userPhoneNum.value)) {
             alert("올바른 전화번호 형식을 입력해주세요 (010-1234-5678)");
+            userPhoneNum.focus();
+            return false;
+        }
+
+        if(phoneCheck()) {
+            alert("이미 존재하는 핸드폰 번호입니다. 다른 핸드폰 번호 입력해주세요");
             userPhoneNum.focus();
             return false;
         }
