@@ -5,7 +5,7 @@ import com.example.cakezip.domain.shop.ShopImg
 import com.example.cakezip.repository.ShopImgRepository
 import com.example.cakezip.repository.ShopRepository
 import org.apache.tomcat.util.http.fileupload.IOUtils
-import org.springframework.boot.configurationprocessor.json.JSONObject
+import org.json.JSONObject
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
